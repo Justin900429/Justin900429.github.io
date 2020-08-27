@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    <link rel="shortcut icon" type='image/x-icon' href="/favicon.ico">
+
+
+    <!-- meta -->
+
+
+<title>Opencv1 | Hexo</title>
+
+
+    <meta name="keywords" content="OpenCV">
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="OpenCV with Python – 1Back to book mode Backgronud knowledgeOpenCV is an open-source BSD-licensed library that includes several hundreds of computer vision algorithms.  Application situation of OpenCV">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Opencv1">
+<meta property="og:url" content="http://yoursite.com/2020/08/27/opencv1/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="OpenCV with Python – 1Back to book mode Backgronud knowledgeOpenCV is an open-source BSD-licensed library that includes several hundreds of computer vision algorithms.  Application situation of OpenCV">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/2GErp8Z.jpg">
+<meta property="og:image" content="https://i.imgur.com/zmjjUKV.jpg">
+<meta property="og:image" content="https://i.imgur.com/DMm5t46.jpg">
+<meta property="og:image" content="https://i.imgur.com/Mmy5ckA.jpg">
+<meta property="og:image" content="https://i.imgur.com/ojZ2fcp.jpg">
+<meta property="og:image" content="https://i.imgur.com/X1dUEJ4.jpg">
+<meta property="og:image" content="https://i.imgur.com/iXVz05N.jpg">
+<meta property="article:published_time" content="2020-08-27T10:23:46.000Z">
+<meta property="article:modified_time" content="2020-08-27T11:29:52.194Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="OpenCV">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://i.imgur.com/2GErp8Z.jpg">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-theme-cards@1.0/dist/css/style/dark.min.css">
+
+    
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-cards@1.0/dist/js/darkmode.min.js"></script>
+
+
+
+    
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/atom-one-light.min.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')===-1)this.media='all'">
+        
+            <link rel="stylesheet" id="hl-dark-theme" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/railscasts.min.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')!==-1)this.media='all'">
+        
+    
+
+    
+
+    
+
+     
+
+    <!-- custom head -->
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+    <body>
+        <div id="app">
+            <header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">
+                Justin's blog
+            </span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/about/" class="navbar-menu button">
+                        Home
+                    </a>
+                
+                    <a href="/" class="navbar-menu button">
+                        Articles
+                    </a>
+                
+                    <a href="/tags/" class="navbar-menu button">
+                        Tags
+                    </a>
+                
+                    <a href="/archives/" class="navbar-menu button">
+                        Archives
+                    </a>
+                
+            </div>
+        
+        
+        
+
+        
+        
+    <a href="javaScript:void(0);" id="btn-toggle-dark">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+    </a>
+
+
+         
+    <a href="javaScript:void(0);" id="b2t" aria-label="Back to Top" title="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='32' height='32' fill="currentColor" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M13.889,11.611c-0.17,0.17-0.443,0.17-0.612,0l-3.189-3.187l-3.363,3.36c-0.171,0.171-0.441,0.171-0.612,0c-0.172-0.169-0.172-0.443,0-0.611l3.667-3.669c0.17-0.17,0.445-0.172,0.614,0l3.496,3.493C14.058,11.167,14.061,11.443,13.889,11.611 M18.25,10c0,4.558-3.693,8.25-8.25,8.25c-4.557,0-8.25-3.692-8.25-8.25c0-4.557,3.693-8.25,8.25-8.25C14.557,1.75,18.25,5.443,18.25,10 M17.383,10c0-4.07-3.312-7.382-7.383-7.382S2.618,5.93,2.618,10S5.93,17.381,10,17.381S17.383,14.07,17.383,10"></path>
+        </svg>
+    </a>
+
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path>
+                </svg>
+            </a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                <a class="dropback-icon button" id="btn-dropback">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
+                        <path fill="currentColor" d="M11.469,10l7.08-7.08c0.406-0.406,0.406-1.064,0-1.469c-0.406-0.406-1.063-0.406-1.469,0L10,8.53l-7.081-7.08c-0.406-0.406-1.064-0.406-1.469,0c-0.406,0.406-0.406,1.063,0,1.469L8.531,10L1.45,17.081c-0.406,0.406-0.406,1.064,0,1.469c0.203,0.203,0.469,0.304,0.735,0.304c0.266,0,0.531-0.101,0.735-0.304L10,11.469l7.08,7.081c0.203,0.203,0.469,0.304,0.735,0.304c0.267,0,0.532-0.101,0.735-0.304c0.406-0.406,0.406-1.064,0-1.469L11.469,10z"></path>
+                    </svg>
+                </a>
+                
+                    <a href="/about/" class="dropdown-menu button">
+                        Home
+                    </a>
+                
+                    <a href="/" class="dropdown-menu button">
+                        Articles
+                    </a>
+                
+                    <a href="/tags/" class="dropdown-menu button">
+                        Tags
+                    </a>
+                
+                    <a href="/archives/" class="dropdown-menu button">
+                        Archives
+                    </a>
+                
+            </div>
+            <script>
+                document.getElementById('btn-dropdown').addEventListener('click', () => {
+                    const dd = document.getElementById('dropdown-menus');
+                    requestAnimationFrame(() => {
+                        dd.style.display = 'flex';
+                        requestAnimationFrame(() => {
+                            dd.style.transform = 'translateY(0)';
+                            dd.style.opacity = '1';
+                        });
+                    });
+                });
+                document.getElementById('btn-dropback').addEventListener('click', () => {
+                    const dd = document.getElementById('dropdown-menus');
+                    dd.style.transform = 'translateY(2.25rem)';                    
+                    dd.style.opacity = '0';
+                    setTimeout(() => {dd.style.display = 'none';}, 350);
+                });
+            </script>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+<div class="post-title">
+    <h1 class="post-title__text">
+        Opencv1
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2020/08/" class="post-meta__date button">
+    2020-08-27
+</a>
+        
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <div class="post__with-side">
+        <aside class="post-side">
+            <div class="post-side__toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Backgronud-knowledge"><span class="toc-number">1.</span> <span class="toc-text">Backgronud knowledge</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Application-situation-of-OpenCV"><span class="toc-number">2.</span> <span class="toc-text">Application situation of OpenCV</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Limitation-of-using-OpenCV"><span class="toc-number">3.</span> <span class="toc-text">Limitation of using OpenCV</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Basic-operation"><span class="toc-number">4.</span> <span class="toc-text">Basic operation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-inner-vision-of-pictures"><span class="toc-number">5.</span> <span class="toc-text">The inner vision of pictures</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-number">6.</span> <span class="toc-text">Summary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">7.</span> <span class="toc-text">Reference</span></a></li></ol>
+            </div>
+        </aside>
+        <article class="post content-card">
+            <div class="post__header"></div>
+            <div class="post__content">
+                <h1 id="OpenCV-with-Python-–-1"><a href="#OpenCV-with-Python-–-1" class="headerlink" title="OpenCV with Python – 1"></a>OpenCV with Python – 1</h1><p><a target="_blank" rel="noopener" href="https://hackmd.io/@Justin123/opencv">Back to book mode</a></p>
+<h2 id="Backgronud-knowledge"><a href="#Backgronud-knowledge" class="headerlink" title="Backgronud knowledge"></a>Backgronud knowledge</h2><p>OpenCV is an <strong>open-source</strong> BSD-licensed library that includes several hundreds of <strong>computer vision algorithms</strong>. </p>
+<h2 id="Application-situation-of-OpenCV"><a href="#Application-situation-of-OpenCV" class="headerlink" title="Application situation of OpenCV"></a>Application situation of OpenCV</h2><p>OpenCV has a modular structure, which means that the package includes several shared or static libraries.</p>
+<ul>
+<li>Core functionality</li>
+<li>Image Processing</li>
+<li>Viedo Analysis</li>
+<li>Camera Calibration and 3D Reconstruction</li>
+<li>2D Feautures Framewrok</li>
+<li>Object Detection</li>
+<li>High-level GUI</li>
+<li>Viedo I/O</li>
+</ul>
+<blockquote>
+<p>From my personal perspective, it is supported by both Python and C++ which makes it so popular in contrast to Pillow.</p>
+</blockquote>
+<h2 id="Limitation-of-using-OpenCV"><a href="#Limitation-of-using-OpenCV" class="headerlink" title="Limitation of using OpenCV"></a>Limitation of using OpenCV</h2><p>Truly to say, there are bare limitation with aspect to OpenCV. However, I still list some disadvantages here.</p>
+<ul>
+<li>OpenCV does not provide the same ease of use when compared to MATLAB</li>
+<li>OpenCV has a flann library of its own. This causes conflict issues when you try to use OpenCV library with the PCL library</li>
+</ul>
+<h2 id="Basic-operation"><a href="#Basic-operation" class="headerlink" title="Basic operation"></a>Basic operation</h2><ol>
+<li><strong>Read and show image</strong><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/env python3</span>
+<span class="hljs-comment"># -*- coding: utf-8 -*-</span>
+
+<span class="hljs-keyword">import</span> cv2 <span class="hljs-comment"># import the neccessary module</span>
+
+src = <span class="hljs-string">&quot;./scene.jpg&quot;</span> <span class="hljs-comment"># Path for the image</span>
+image = cv2.imread(src) <span class="hljs-comment"># Read the image</span>
+
+<span class="hljs-comment"># Convert the image to gray scale</span>
+image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) 
+
+<span class="hljs-comment"># Show the image on GUI window</span>
+cv2.imshow(<span class="hljs-string">&quot;Gray scale&quot;</span>, image)
+
+<span class="hljs-comment"># Wait for the key press for every second</span>
+<span class="hljs-comment"># After that, use close every windows</span>
+<span class="hljs-comment"># For mac user, should add last lines(I still no idea for why)</span>
+cv2.waitKey(<span class="hljs-number">0</span>)
+cv2.destroyAllWindows()
+cv2.waitKey(<span class="hljs-number">1</span>)
+</code></pre>
+
+</li>
+</ol>
+<p><img src="https://i.imgur.com/2GErp8Z.jpg"></p>
+<center>Output gray scale photo</center> <br/>
+
+<hr>
+<ol start="2">
+<li><strong>Viedo</strong><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/env python3</span>
+<span class="hljs-comment"># -*- coding: utf-8 -*-</span>
+
+<span class="hljs-keyword">import</span> cv2
+
+<span class="hljs-comment"># Read the source</span>
+cap = cv2.VideoCapture(<span class="hljs-string">&quot;test.mp4&quot;</span>)
+
+<span class="hljs-string">&#x27;&#x27;&#x27;</span>
+<span class="hljs-string">Video is the sequence of images.</span>
+<span class="hljs-string">We need while loop to show the video</span>
+<span class="hljs-string">&#x27;&#x27;&#x27;</span>
+<span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+    <span class="hljs-comment"># success is to check whether the video is successfully captured</span>
+    success, img = cap.read()
+    cv2.imshow(<span class="hljs-string">&quot;Video&quot;</span>, img)
+    
+    <span class="hljs-comment"># Press q to quit</span>
+    <span class="hljs-keyword">if</span> cv2.waitKey(<span class="hljs-number">1</span>) &amp; <span class="hljs-number">0xFF</span> == ord(<span class="hljs-string">&#x27;q&#x27;</span>):
+        <span class="hljs-keyword">break</span>;
+        
+cv2.destroyAllWindows()
+cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
+</li>
+</ol>
+<ul>
+<li><strong>Default webcame</strong><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/env python3</span>
+<span class="hljs-comment"># -*- coding: utf-8 -*-</span>
+
+<span class="hljs-keyword">import</span> cv2
+
+<span class="hljs-comment"># Use the default webcame</span>
+cap = cv2.VideoCapture(<span class="hljs-number">0</span>)
+
+<span class="hljs-string">&#x27;&#x27;&#x27;</span>
+<span class="hljs-string">3 -&gt; width: set to 640</span>
+<span class="hljs-string">4 -&gt; height: set to 640</span>
+<span class="hljs-string">10 -&gt; brightness: set to 100</span>
+<span class="hljs-string">&#x27;&#x27;&#x27;</span>
+cap.set(<span class="hljs-number">3</span>, <span class="hljs-number">640</span>)
+cap.set(<span class="hljs-number">4</span>, <span class="hljs-number">480</span>)
+cap.set(<span class="hljs-number">10</span>, <span class="hljs-number">100</span>)
+
+<span class="hljs-string">&#x27;&#x27;&#x27;</span>
+<span class="hljs-string">Video is the sequence of images.</span>
+<span class="hljs-string">We need while loop to show the video</span>
+<span class="hljs-string">&#x27;&#x27;&#x27;</span>
+<span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+    success, img = cap.read()
+    
+    <span class="hljs-comment"># To ensure the camera can successfully read the image</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">not</span> success):
+        <span class="hljs-keyword">continue</span>
+        
+    cv2.imshow(<span class="hljs-string">&quot;Video&quot;</span>, img)
+    
+    <span class="hljs-keyword">if</span> cv2.waitKey(<span class="hljs-number">1</span>) &amp; <span class="hljs-number">0xFF</span> == ord(<span class="hljs-string">&#x27;q&#x27;</span>):
+        <span class="hljs-keyword">break</span>;
+
+<span class="hljs-comment"># Close the webcame</span>
+cap.release()
+cv2.destroyAllWindows()
+cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
+
+</li>
+</ul>
+<h2 id="The-inner-vision-of-pictures"><a href="#The-inner-vision-of-pictures" class="headerlink" title="The inner vision of pictures"></a>The inner vision of pictures</h2><p>Pictures are made of lots of pixel. Each pixels is a number in <strong>[0, 255]</strong>. On the other hand, color pictures have another dimenstion for storing additional information. Especially, the number for stroing the color information equals 3 which relates to <font color="red">red</font>, <font color="green">green</font> and <font color="blue">blue</font>.<br>$$<br>A=<br>\begin{pmatrix}<br>  123 &amp; 201 &amp; \cdots &amp; 33 \\<br>  198 &amp; 130 &amp; \cdots &amp; 57 \\<br>  \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\<br>  0 &amp; 67 &amp; \cdots &amp; 98<br>\end{pmatrix}<br>$$</p>
+<hr>
+<ol>
+<li><strong>Color pictures</strong><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/env python3</span>
+<span class="hljs-comment"># -*- coding: utf-8 -*-</span>
+
+<span class="hljs-comment"># Import the needed package</span>
+<span class="hljs-keyword">import</span> cv2
+    
+<span class="hljs-comment"># Read the image</span>
+image = cv2.imread(<span class="hljs-string">&#x27;scene.jpg&#x27;</span>)
+
+<span class="hljs-comment"># Print out the number of image</span>
+print(image.shape)
+
+<span class="hljs-comment"># Uncomment next line to observe the matrix of the image</span>
+<span class="hljs-comment"># print(image)</span>
+</code></pre>
+<pre><code class="hljs python"><span class="hljs-comment"># Output</span>
+(<span class="hljs-number">1280</span>, <span class="hljs-number">1920</span>, <span class="hljs-number">3</span>)</code></pre>
+<mark>Notice that the dimension of the images is 3, and the number of the last dimension is 3.</mark></li>
+</ol>
+<hr>
+<ol start="2">
+<li><strong>Gray Scale pictures</strong><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/env python3</span>
+<span class="hljs-comment"># -*- coding: utf-8 -*-</span>
+
+<span class="hljs-comment"># Import the needed package</span>
+<span class="hljs-keyword">import</span> cv2
+    
+<span class="hljs-comment"># Read the image</span>
+<span class="hljs-comment"># </span>
+image = cv2.imread(<span class="hljs-string">&#x27;scene.jpg&#x27;</span>)
+image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) 
+
+<span class="hljs-comment"># Print out the number of image</span>
+print(image.shape)
+
+<span class="hljs-comment"># Uncomment next line to observe the matrix of the image</span>
+<span class="hljs-comment"># print(image)</span>
+</code></pre>
+<pre><code class="hljs python"><span class="hljs-comment">#Output</span>
+(<span class="hljs-number">1280</span>, <span class="hljs-number">1920</span>)</code></pre>
+==In contrast to the color image, the dimension of the image is 2.==</li>
+</ol>
+<hr>
+<ol start="3">
+<li><strong>Convert the color image to Gray Scale image</strong></li>
+</ol>
+<ul>
+<li>Using <code>cv2.cvtColor(image, cv2.BGRtoGRAY)</code> (Recommend)</li>
+<li>Manually (Just for knowing the concept)<pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/env python3</span>
+<span class="hljs-comment"># -*- coding: utf-8 -*-</span>
+
+<span class="hljs-keyword">import</span> cv2
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+    
+
+<span class="hljs-comment"># Using axis=-1 to add all array by the last dimension</span>
+<span class="hljs-comment"># Devided by 3 to get the average</span>
+<span class="hljs-comment"># Change type to int in [0, 255] or float in [0, 1]</span>
+image = cv2.imread(<span class="hljs-string">&#x27;scene.jpg&#x27;</span>)
+image = (np.sum(image, axis=<span class="hljs-number">-1</span>) / <span class="hljs-number">3</span>).astype(<span class="hljs-string">&quot;uint8&quot;</span>)
+
+cv2.imshow(<span class="hljs-string">&quot;Gray scale&quot;</span>, image)
+
+cv2.waitKey(<span class="hljs-number">0</span>)
+cv2.destroyAllWindows()
+cv2.waitKey(<span class="hljs-number">1</span>)
+
+exit(<span class="hljs-number">0</span>)
+</code></pre>
+
+</li>
+</ul>
+<hr>
+<ol start="4">
+<li><strong>Extract each color matrix from RGB image</strong><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/env python3</span>
+<span class="hljs-comment"># -*- coding: utf-8 -*-</span>
+
+<span class="hljs-keyword">import</span> cv2
+
+<span class="hljs-comment"># Split the color image to blue, green, red</span>
+image = cv2.imread(<span class="hljs-string">&#x27;scene.jpg&#x27;</span>)
+b, g, r = cv2.split(image)
+
+<span class="hljs-comment"># Print the matrix out</span>
+print(<span class="hljs-string">f&#x27;Red: <span class="hljs-subst">&#123;r&#125;</span>\nGreen: <span class="hljs-subst">&#123;g&#125;</span>\nBlue: <span class="hljs-subst">&#123;b&#125;</span>&#x27;</span>)
+
+<span class="hljs-comment"># Save all images</span>
+cv2.imwrite(<span class="hljs-string">&quot;red_gray.jpg&quot;</span>, r)
+cv2.imwrite(<span class="hljs-string">&quot;green_gray.jpg&quot;</span>, g)
+cv2.imwrite(<span class="hljs-string">&quot;blue_gray.jpg&quot;</span>, b)
+</code></pre>
+<pre><code class="hljs python"><span class="hljs-comment"># Output</span>
+
+Red: [[<span class="hljs-number">170</span> <span class="hljs-number">173</span> <span class="hljs-number">173</span> ... <span class="hljs-number">215</span> <span class="hljs-number">216</span> <span class="hljs-number">216</span>]
+ [<span class="hljs-number">174</span> <span class="hljs-number">175</span> <span class="hljs-number">177</span> ... <span class="hljs-number">213</span> <span class="hljs-number">213</span> <span class="hljs-number">213</span>]
+ [<span class="hljs-number">175</span> <span class="hljs-number">178</span> <span class="hljs-number">181</span> ... <span class="hljs-number">210</span> <span class="hljs-number">209</span> <span class="hljs-number">208</span>]
+ ...
+ [ <span class="hljs-number">76</span>  <span class="hljs-number">73</span>  <span class="hljs-number">74</span> ...  <span class="hljs-number">24</span>  <span class="hljs-number">25</span>  <span class="hljs-number">25</span>]
+ [ <span class="hljs-number">76</span>  <span class="hljs-number">73</span>  <span class="hljs-number">73</span> ...  <span class="hljs-number">25</span>  <span class="hljs-number">24</span>  <span class="hljs-number">24</span>]
+ [ <span class="hljs-number">72</span>  <span class="hljs-number">69</span>  <span class="hljs-number">68</span> ...  <span class="hljs-number">27</span>  <span class="hljs-number">26</span>  <span class="hljs-number">24</span>]]
+Green: [[<span class="hljs-number">125</span> <span class="hljs-number">128</span> <span class="hljs-number">129</span> ... <span class="hljs-number">192</span> <span class="hljs-number">193</span> <span class="hljs-number">193</span>]
+ [<span class="hljs-number">128</span> <span class="hljs-number">131</span> <span class="hljs-number">133</span> ... <span class="hljs-number">190</span> <span class="hljs-number">190</span> <span class="hljs-number">190</span>]
+ [<span class="hljs-number">131</span> <span class="hljs-number">134</span> <span class="hljs-number">136</span> ... <span class="hljs-number">187</span> <span class="hljs-number">186</span> <span class="hljs-number">185</span>]
+ ...
+ [ <span class="hljs-number">65</span>  <span class="hljs-number">63</span>  <span class="hljs-number">64</span> ...  <span class="hljs-number">20</span>  <span class="hljs-number">21</span>  <span class="hljs-number">21</span>]
+ [ <span class="hljs-number">66</span>  <span class="hljs-number">63</span>  <span class="hljs-number">62</span> ...  <span class="hljs-number">21</span>  <span class="hljs-number">20</span>  <span class="hljs-number">20</span>]
+ [ <span class="hljs-number">62</span>  <span class="hljs-number">59</span>  <span class="hljs-number">59</span> ...  <span class="hljs-number">23</span>  <span class="hljs-number">22</span>  <span class="hljs-number">20</span>]]
+Blue: [[ <span class="hljs-number">58</span>  <span class="hljs-number">61</span>  <span class="hljs-number">65</span> ... <span class="hljs-number">154</span> <span class="hljs-number">155</span> <span class="hljs-number">155</span>]
+ [ <span class="hljs-number">64</span>  <span class="hljs-number">67</span>  <span class="hljs-number">70</span> ... <span class="hljs-number">152</span> <span class="hljs-number">152</span> <span class="hljs-number">152</span>]
+ [ <span class="hljs-number">68</span>  <span class="hljs-number">71</span>  <span class="hljs-number">75</span> ... <span class="hljs-number">149</span> <span class="hljs-number">148</span> <span class="hljs-number">147</span>]
+ ...
+ [  <span class="hljs-number">3</span>   <span class="hljs-number">3</span>   <span class="hljs-number">4</span> ...   <span class="hljs-number">0</span>   <span class="hljs-number">0</span>   <span class="hljs-number">0</span>]
+ [  <span class="hljs-number">6</span>   <span class="hljs-number">3</span>   <span class="hljs-number">4</span> ...   <span class="hljs-number">0</span>   <span class="hljs-number">0</span>   <span class="hljs-number">0</span>]
+ [  <span class="hljs-number">2</span>   <span class="hljs-number">0</span>   <span class="hljs-number">2</span> ...   <span class="hljs-number">0</span>   <span class="hljs-number">0</span>   <span class="hljs-number">0</span>]]</code></pre>
+
+</li>
+</ol>
+<center><img src='https://i.imgur.com/zmjjUKV.jpg' height='300'></center>
+<center>Output blue gray scale photo</center> <br/>
+
+<center><img src='https://i.imgur.com/DMm5t46.jpg' height='300'></center>
+<center>Output green gray scale photo</center> <br/>
+
+<center><img src='https://i.imgur.com/Mmy5ckA.jpg' height='300'></center>
+<center>Output red gray scale photo</center> <br/>
+
+<p>So far, you may wonder why the output images is in Gray Scale. The reason is that the type of the ouput images are decided by its dimension. If the dimension is 3, it corresponds to the color images. On the other hand, if the dimension is 2, it will show the Gray Scale images. Otherwise, the error messages will pop out.</p>
+<hr>
+<ol start="5">
+<li><strong>Expand to the rgb photo</strong><br>Now, we’re going to broadcast our images to 3 dimension and show the RGB images.</br><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/env python3</span>
+<span class="hljs-comment"># -*- coding: utf-8 -*-</span>
+
+<span class="hljs-keyword">import</span> cv2
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+<span class="hljs-comment"># Extract color</span>
+image = cv2.imread(<span class="hljs-string">&#x27;scene.jpg&#x27;</span>)
+b, g, r = cv2.split(image)
+
+<span class="hljs-comment"># Build a dummy 3 dimensional matrix</span>
+blue_image = np.zeros(image.shape, image.dtype)
+green_image = np.zeros(image.shape, image.dtype)
+red_image = np.zeros(image.shape, image.dtype)
+
+<span class="hljs-string">&#x27;&#x27;&#x27;</span>
+<span class="hljs-string">Mix the images to corresponding place</span>
+<span class="hljs-string">Blue -&gt; [0, 0], others remain 0</span>
+<span class="hljs-string">Green -&gt; [1, 1], others remain 1</span>
+<span class="hljs-string">Red -&gt; [2, 2], others remain 2</span>
+<span class="hljs-string">&#x27;&#x27;&#x27;</span>
+cv2.mixChannels([b, g, r], [blue_image], [<span class="hljs-number">0</span>,<span class="hljs-number">0</span>])
+cv2.mixChannels([b, g, r], [green_image], [<span class="hljs-number">1</span>,<span class="hljs-number">1</span>])
+cv2.mixChannels([b, g, r], [red_image], [<span class="hljs-number">2</span>,<span class="hljs-number">2</span>])
+
+<span class="hljs-comment"># Write out the images</span>
+cv2.imwrite(<span class="hljs-string">&quot;blue.jpg&quot;</span>, blue_image)
+cv2.imwrite(<span class="hljs-string">&quot;green.jpg&quot;</span>, green_image)
+cv2.imwrite(<span class="hljs-string">&quot;red.jpg&quot;</span>, red_image)</code></pre>
+
+</li>
+</ol>
+<center><img src='https://i.imgur.com/ojZ2fcp.jpg' height='300'></center>
+<center>Output blue photo</center> <br/>
+
+<center><img src='https://i.imgur.com/X1dUEJ4.jpg' height='300'></center>
+<center>Output green photo</center> <br/>
+
+<center><img src='https://i.imgur.com/iXVz05N.jpg' height='300'></center>
+<center>Output red photo</center> <br/>
+
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>In this article, we discuss how to use OpenCV to do the computer vision and also know the concept of images. In fact, there are lots of library to acheive the same results. However, after learning OpenCV, we can also implement the same way in C++.</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://docs.scipy.org/doc/numpy-1.13.0/user/basics.types.html">Data dtype</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/analytics-vidhya/getting-started-with-image-processing-using-python-c027fbdd4608">Getting Started with Image Processing using Python</a></li>
+<li><a target="_blank" rel="noopener" href="https://towardsdatascience.com/exploring-image-processing-techniques-opencv-4860006a243">Exploring Image Processing Techniques — OpenCV</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/datadriveninvestor/image-processing-using-python-open-cv-part-1-b5e83b5c2398">Image processing with Python &amp; Open-CV part-1</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/datadriveninvestor/image-processing-using-python-open-cv-part-2-72f2b75918e7">Image processing with Python &amp; Open-CV part-2</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/@ishan.cdixit/image-processing-using-python-open-cv-part-3-e3047ce58081">Image processing with Python &amp; Open-CV part-3</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/@vidushraj5/image-processing-using-python-basic-9e43cd9d7a01">Image Processing using Python basic - I</a></li>
+</ol>
+
+            </div>
+             
+            <div class="post-footer__meta">
+    <p>
+        updated at 2020-08-27
+    </p>
+</div> 
+            <div class="post-meta__cats">
+    
+    
+        <a href="/tags/OpenCV/" class="post-tags__link button"># OpenCV</a>
+    
+</div> 
+        </article>
+        
+    </div>
+
+
+</main>
+
+            <footer class="footer">
+    
+
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright&nbsp;©&nbsp;2020&nbsp;<a href="/">Hexo</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+         
+
+ 
+
+ 
+
+ 
+
+  
+
+
+
+ 
+
+
+    
+
+
+ 
+
+ 
+    <script defer src="/js/b2t.js"></script>
+
+
+
+    <script>
+        if (typeof MathJax === 'undefined') {
+            window.MathJax = {
+                loader: {
+                    source: {
+                        '[tex]/amsCd': '[tex]/amscd',
+                        '[tex]/AMScd': '[tex]/amscd'
+                    }
+                },
+                tex: {
+                    inlineMath: {'[+]': [['$', '$']]},
+                    tags: 'ams'
+                },
+                options: {
+                    renderActions: {
+                        findScript: [10, doc => {
+                            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                                const display = !!node.type.match(/; *mode=display/);
+                                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                                const text = document.createTextNode('');
+                                node.parentNode.replaceChild(text, node);
+                                math.start = {node: text, delim: '', n: 0};
+                                math.end = {node: text, delim: '', n: 0};
+                                doc.math.push(math);
+                            });
+                        }, '', false],
+                        insertedScript: [200, () => {
+                            document.querySelectorAll('mjx-container').forEach(node => {
+                                let target = node.parentNode;
+                                if (target.nodeName.toLowerCase() === 'li') {
+                                    target.parentNode.classList.add('has-jax');
+                                }
+                            });
+                        }, '', false]
+                    }
+                }
+            };
+            (function () {
+                var script = document.createElement('script');
+                script.src = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js";
+                script.defer = true;
+                document.head.appendChild(script);
+            })();
+        } else {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+        }
+    </script>
+
+
+
+
+
+    </body>
+</html>
