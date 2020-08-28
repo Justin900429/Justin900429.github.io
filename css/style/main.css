@@ -999,7 +999,7 @@ a.search-result__link:hover {
   overflow: auto;
   height: calc(100vh - 60px - 20px);
   list-style-type: none;
-  padding-left: 0.6em;
+  padding-left: 3.5em;
 }
 .post-side .post-side__toc .toc .toc-child {
   padding-left: 0.35em;
