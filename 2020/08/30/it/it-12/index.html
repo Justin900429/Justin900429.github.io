@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    <link rel="shortcut icon" type='image/x-icon' href="/favicon.ico">
+
+
+    <!-- meta -->
+
+
+<title>[Series - 12] Regression - 1 | Justin</title><meta name="robots" content="noindex">
+
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="[Series - 12] Regression - 1前言接下來兩天我都會分享有關 Linear Regression 的知識，今天為基本的介紹，明天為數學方面的分享。 Regression假設我們現在有一些不連續的資料點，當我們把資料點透過圖的方式呈現出來後，可以看到很多不連續的點散落在圖形上。我們同時也知道函數也是可以透過圖形呈現出來。那我們就會猜測，我們是否能找到一個函數，可以就某種程度上">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Series - 12] Regression - 1">
+<meta property="og:url" content="http://yoursite.com/2020/08/30/it/it-12/index.html">
+<meta property="og:site_name" content="Justin">
+<meta property="og:description" content="[Series - 12] Regression - 1前言接下來兩天我都會分享有關 Linear Regression 的知識，今天為基本的介紹，明天為數學方面的分享。 Regression假設我們現在有一些不連續的資料點，當我們把資料點透過圖的方式呈現出來後，可以看到很多不連續的點散落在圖形上。我們同時也知道函數也是可以透過圖形呈現出來。那我們就會猜測，我們是否能找到一個函數，可以就某種程度上">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20200829/20129593e788c1Xq0r.jpg">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20200830/20129593edF8iqa0Ei.jpg">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20200830/20129593wNNVpFD7tn.jpg">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20200830/20129593jkOeW5Z4U2.jpg">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20200830/201295937FlndIhhRC.jpg">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20200830/20129593mmDcvt4Vs0.jpg">
+<meta property="article:published_time" content="2020-08-30T09:48:19.000Z">
+<meta property="article:modified_time" content="2020-08-31T14:29:39.339Z">
+<meta property="article:author" content="Justin Ruan">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ithelp.ithome.com.tw/upload/images/20200829/20129593e788c1Xq0r.jpg">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-theme-cards@1.0/dist/css/style/dark.min.css">
+
+    
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-cards@1.0/dist/js/darkmode.min.js"></script>
+
+
+
+    
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/atom-one-light.min.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')===-1)this.media='all'">
+        
+            <link rel="stylesheet" id="hl-dark-theme" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/railscasts.min.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')!==-1)this.media='all'">
+        
+    
+
+    
+
+    
+
+     
+
+    <!-- custom head -->
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+    <body>
+        <div id="app">
+            <header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">
+                Justin's blog
+            </span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/about/" class="navbar-menu button">
+                        Home
+                    </a>
+                
+                    <a href="/" class="navbar-menu button">
+                        Articles
+                    </a>
+                
+                    <a href="/tags/" class="navbar-menu button">
+                        Tags
+                    </a>
+                
+                    <a href="/archives/" class="navbar-menu button">
+                        Archives
+                    </a>
+                
+            </div>
+        
+        
+        
+
+        
+        
+    <a href="javaScript:void(0);" id="btn-toggle-dark">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+    </a>
+
+
+         
+    <a href="javaScript:void(0);" id="b2t" aria-label="Back to Top" title="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='32' height='32' fill="currentColor" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M13.889,11.611c-0.17,0.17-0.443,0.17-0.612,0l-3.189-3.187l-3.363,3.36c-0.171,0.171-0.441,0.171-0.612,0c-0.172-0.169-0.172-0.443,0-0.611l3.667-3.669c0.17-0.17,0.445-0.172,0.614,0l3.496,3.493C14.058,11.167,14.061,11.443,13.889,11.611 M18.25,10c0,4.558-3.693,8.25-8.25,8.25c-4.557,0-8.25-3.692-8.25-8.25c0-4.557,3.693-8.25,8.25-8.25C14.557,1.75,18.25,5.443,18.25,10 M17.383,10c0-4.07-3.312-7.382-7.383-7.382S2.618,5.93,2.618,10S5.93,17.381,10,17.381S17.383,14.07,17.383,10"></path>
+        </svg>
+    </a>
+
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path>
+                </svg>
+            </a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                <a class="dropback-icon button" id="btn-dropback">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
+                        <path fill="currentColor" d="M11.469,10l7.08-7.08c0.406-0.406,0.406-1.064,0-1.469c-0.406-0.406-1.063-0.406-1.469,0L10,8.53l-7.081-7.08c-0.406-0.406-1.064-0.406-1.469,0c-0.406,0.406-0.406,1.063,0,1.469L8.531,10L1.45,17.081c-0.406,0.406-0.406,1.064,0,1.469c0.203,0.203,0.469,0.304,0.735,0.304c0.266,0,0.531-0.101,0.735-0.304L10,11.469l7.08,7.081c0.203,0.203,0.469,0.304,0.735,0.304c0.267,0,0.532-0.101,0.735-0.304c0.406-0.406,0.406-1.064,0-1.469L11.469,10z"></path>
+                    </svg>
+                </a>
+                
+                    <a href="/about/" class="dropdown-menu button">
+                        Home
+                    </a>
+                
+                    <a href="/" class="dropdown-menu button">
+                        Articles
+                    </a>
+                
+                    <a href="/tags/" class="dropdown-menu button">
+                        Tags
+                    </a>
+                
+                    <a href="/archives/" class="dropdown-menu button">
+                        Archives
+                    </a>
+                
+            </div>
+            <script>
+                document.getElementById('btn-dropdown').addEventListener('click', () => {
+                    const dd = document.getElementById('dropdown-menus');
+                    requestAnimationFrame(() => {
+                        dd.style.display = 'flex';
+                        requestAnimationFrame(() => {
+                            dd.style.transform = 'translateY(0)';
+                            dd.style.opacity = '1';
+                        });
+                    });
+                });
+                document.getElementById('btn-dropback').addEventListener('click', () => {
+                    const dd = document.getElementById('dropdown-menus');
+                    dd.style.transform = 'translateY(2.25rem)';                    
+                    dd.style.opacity = '0';
+                    setTimeout(() => {dd.style.display = 'none';}, 350);
+                });
+            </script>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+<div class="post-title">
+    <h1 class="post-title__text">
+        [Series - 12] Regression - 1
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2020/08/" class="post-meta__date button">
+    2020-08-30
+</a>
+        
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <div class="post__with-side">
+        <aside class="post-side">
+            <div class="post-side__toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Regression"><span class="toc-number">2.</span> <span class="toc-text">Regression</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linear-Regression"><span class="toc-number">3.</span> <span class="toc-text">Linear Regression</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Linear-function"><span class="toc-number">3.1.</span> <span class="toc-text">Linear function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Loss-function"><span class="toc-number">3.2.</span> <span class="toc-text">Loss function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scikit-learn"><span class="toc-number">3.3.</span> <span class="toc-text">Scikit-learn</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Multnomial-regression"><span class="toc-number">4.</span> <span class="toc-text">Multnomial regression</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Polynomial-Regression"><span class="toc-number">5.</span> <span class="toc-text">Polynomial Regression</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-number">6.</span> <span class="toc-text">小結</span></a></li></ol>
+            </div>
+        </aside>
+        <article class="post content-card">
+            <div class="post__header"></div>
+            <div class="post__content">
+                <h1 id="Series-12-Regression-1"><a href="#Series-12-Regression-1" class="headerlink" title="[Series - 12] Regression - 1"></a>[Series - 12] Regression - 1</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>接下來兩天我都會分享有關 <strong>Linear Regression</strong> 的知識，今天為基本的介紹，明天為數學方面的分享。</p>
+<h2 id="Regression"><a href="#Regression" class="headerlink" title="Regression"></a>Regression</h2><p>假設我們現在有一些<strong>不連續的資料點</strong>，當我們把資料點透過<strong>圖</strong>的方式呈現出來後，可以看到很多不連續的點散落在圖形上。我們同時也知道<strong>函數</strong>也是可以透過<strong>圖形</strong>呈現出來。那我們就會猜測，我們是否能找到一個函數，可以就某種程度上預測未來或未知資料的值，這種方式就叫 <strong>Regression</strong>。</p>
+<blockquote>
+<p>之後會講的 Logistic Regression 雖然是用於分類，但是他其實跟 Regression 也有很大的關係！</p>
+</blockquote>
+<h2 id="Linear-Regression"><a href="#Linear-Regression" class="headerlink" title="Linear Regression"></a>Linear Regression</h2><h3 id="Linear-function"><a href="#Linear-function" class="headerlink" title="Linear function"></a>Linear function</h3><p><strong>Linear</strong>是指利用直線來預測資料，首先我們先來產生一些資料點：</p>
+<pre><code class="hljs python"><span class="hljs-comment"># Linear space between 0 to 10</span>
+x = np.linspace(<span class="hljs-number">6</span>, <span class="hljs-number">10</span>, <span class="hljs-number">20</span>)
+<span class="hljs-comment"># Generate data from 2 * x + 10 with some gaussian noise</span>
+y = <span class="hljs-number">2</span> * x + <span class="hljs-number">10</span> + np.random.normal(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, x.size())
+
+<span class="hljs-comment"># generate scatter plot</span>
+plt.scatter(x, y)</code></pre>
+
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20200829/20129593e788c1Xq0r.jpg" alt="https://ithelp.ithome.com.tw/upload/images/20200829/20129593e788c1Xq0r.jpg"></p>
+<blockquote>
+<p>這裡我們的 noise 用 Gaussian 是有原因的，不過我們就留到明天說吧！</p>
+</blockquote>
+<p>假設我們不知道我們這些點是怎麼產生的，我們現在試著用一條<strong>線性函數</strong>來預測這些點，使得說這些點是由這條線所產生的<strong>機率</strong>最大。</p>
+<h3 id="Loss-function"><a href="#Loss-function" class="headerlink" title="Loss function"></a>Loss function</h3><p>座標上的直線有無限多條，我們必須要有一個衡量的方式，來說明我們的直線是最好的、最能代表的，這就是 <strong>Loss function</strong> 的函數意義。<strong>Loss</strong> 就是損失的意思，指的就是我們預測跟原本資料差多少。一般我們在 Regression 有<strong>L1 Loss</strong> 跟 <strong>L2 Loss</strong>，數學形式分別為：</p>
+<p>$$<br>\text{L2 Loss} :\ L(m, b) = \frac{1}{n}\sum_{k=1}^{n}(\hat{y} - y_{k})^{2}<br>$$<br>$$<br>\text{L1 Loss} :\ L(m, b) = \frac{1}{n}\sum_{k=1}^n\mid\mid\hat{y} - y_{k}\mid\mid<br>$$</p>
+<p>挑選這兩個函數是因為這兩的函數都具有<strong>谷點</strong>，因此可以找到最小值！<br><img src="https://ithelp.ithome.com.tw/upload/images/20200830/20129593edF8iqa0Ei.jpg" alt="https://ithelp.ithome.com.tw/upload/images/20200830/20129593edF8iqa0Ei.jpg"></p>
+<p>接著我們的目標就是<strong>找到一條直線使得Loss function最小</strong>！因此我們可以利用偏微分的方式或是利用 <strong>Normal Equation</strong> 來求的最佳解，這些部分就留到明天說把！</p>
+<h3 id="Scikit-learn"><a href="#Scikit-learn" class="headerlink" title="Scikit-learn"></a>Scikit-learn</h3><p>現在我們直接用 <strong>Scikit-learn</strong> 來幫我們處理這些問題吧！</p>
+<pre><code class="hljs python"><span class="hljs-comment"># import scikit learn package</span>
+<span class="hljs-keyword">from</span> sklearn.linear_model <span class="hljs-keyword">import</span> LinearRegression
+
+<span class="hljs-comment"># generate data</span>
+x = np.linspace(<span class="hljs-number">6</span>, <span class="hljs-number">10</span>, <span class="hljs-number">20</span>)
+y = <span class="hljs-number">2</span> * x + <span class="hljs-number">10</span> + np.random.normal(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, x.size)
+
+<span class="hljs-comment"># Create an linear regression omptimizer </span>
+<span class="hljs-comment"># Data of x should be in 2d, so we should add new axis to x</span>
+reg = LinearRegression().fit(x[:, np.newaxis], y)
+
+print(<span class="hljs-string">f&quot;The regression line is y = <span class="hljs-subst">&#123;reg.coef_[<span class="hljs-number">0</span>]&#125;</span>x + <span class="hljs-subst">&#123;reg.intercept_&#125;</span>&quot;</span>)
+
+plt.figure(figsize=(<span class="hljs-number">10</span>, <span class="hljs-number">8</span>))
+
+<span class="hljs-comment"># Plot the scatter plot for origin data</span>
+plt.scatter(x, y, c=<span class="hljs-string">&quot;red&quot;</span>, label=<span class="hljs-string">&quot;origin data&quot;</span>)
+<span class="hljs-comment"># Plot the prediction line</span>
+plt.plot(x, reg.coef_[<span class="hljs-number">0</span>] * x + reg.intercept_, label=<span class="hljs-string">&quot;prediction line&quot;</span>)
+
+<span class="hljs-comment"># For showing the labels</span>
+plt.legend(prop=&#123;<span class="hljs-string">&#x27;size&#x27;</span>: <span class="hljs-number">15</span>&#125;)</code></pre>
+
+<p>基本上 <strong>Scikit-learn</strong> 要去調適一個模型時的步驟都是如下:</p>
+<pre><code class="hljs python">model = &lt;Algo you use&gt;()
+model.fit(&lt;data-of-x&gt;, &lt;label&gt;)
+
+<span class="hljs-comment"># For instance</span>
+model = LinearRegression()
+model.fit(x[:, np.newaxis], y)</code></pre>
+
+<p>另外，要注意的是我們的<strong>x必須是2d</strong>，我們等等會來說為什麼！<br><img src="https://ithelp.ithome.com.tw/upload/images/20200830/20129593wNNVpFD7tn.jpg" alt="https://ithelp.ithome.com.tw/upload/images/20200830/20129593wNNVpFD7tn.jpg"></p>
+<h2 id="Multnomial-regression"><a href="#Multnomial-regression" class="headerlink" title="Multnomial regression"></a>Multnomial regression</h2><p>現在的問題變成說，我們的資料種類不只兩種，而是有兩種以上。其實我們剛剛上面的操作只在<strong>2維</strong>，當到<strong>3維</strong>時，我們就可以用平面來處理！</p>
+<p>這邊我是用 Sciki-learn 裡的 boston dataset，並且只取兩個特徵。同樣利用 <strong>Linear Regression</strong> 來做預測。</p>
+<pre><code class="hljs python"><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> datasets
+<span class="hljs-keyword">from</span> sklearn.linear_model <span class="hljs-keyword">import</span> LinearRegression
+<span class="hljs-keyword">from</span> sklearn.preprocessing <span class="hljs-keyword">import</span> StandardScaler
+<span class="hljs-keyword">from</span> mpl_toolkits <span class="hljs-keyword">import</span> mplot3d
+
+<span class="hljs-comment"># Get boston dataset and leave only 2 features</span>
+data = datasets.load_boston()
+x = pd.DataFrame(data.data, columns=data.feature_names)
+x = x.loc[:, [<span class="hljs-string">&quot;DIS&quot;</span>, <span class="hljs-string">&quot;NOX&quot;</span>,]]
+
+<span class="hljs-comment"># Normalize the data</span>
+x = StandardScaler().fit_transform(x)[:<span class="hljs-number">100</span>]
+
+<span class="hljs-comment"># Fit the data to Linear Regression model</span>
+model = LinearRegression().fit(x, data.target[:<span class="hljs-number">100</span>])
+
+<span class="hljs-comment"># 3d plot</span>
+fig = plt.figure()
+ax = plt.axes(projection=<span class="hljs-string">&#x27;3d&#x27;</span>)
+ax.scatter3D(x[:, <span class="hljs-number">0</span>], x[:, <span class="hljs-number">1</span>], data.target[:<span class="hljs-number">100</span>])
+xx, yy = np.meshgrid(np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">2.5</span>, <span class="hljs-number">10</span>), np.linspace(<span class="hljs-number">-0.2</span>, <span class="hljs-number">-1.5</span>, <span class="hljs-number">10</span>))
+ax.plot_surface(xx, yy,
+                xx * model.coef_[<span class="hljs-number">0</span>] + yy * model.coef_[<span class="hljs-number">1</span>] + model.intercept_, 
+                color=<span class="hljs-string">&quot;red&quot;</span>,
+                alpha=<span class="hljs-number">0.5</span>)</code></pre>
+
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20200830/20129593jkOeW5Z4U2.jpg" alt="https://ithelp.ithome.com.tw/upload/images/20200830/20129593jkOeW5Z4U2.jpg"></p>
+<p>這邊只選用2個特徵是為了要畫圖讓大家看說高維的Linear Regression，如果把所有資料點丟進去也是可以做預測的！事實上，現在的數學形式會變這樣：</p>
+<p>$$<br>y^{(i)} = \theta_{1}x_{1}^{(i)} + \theta_{2}x_{2}^{(i)} + … + \theta_{n}x_{n}^{(i)}<br>$$<br>$$<br>Note: x_{m}^{(i)} \ \text{代表第 i 筆的第 m 個特徵}<br>$$</p>
+<p>而其 Loss function 則同樣不變，為利用 <strong>L2 Loss</strong>。</p>
+<h2 id="Polynomial-Regression"><a href="#Polynomial-Regression" class="headerlink" title="Polynomial Regression"></a>Polynomial Regression</h2><p>這次我們的函數不再侷限於 <strong>Linear</strong> ，而是可以拓展到 <strong>Polynomial</strong>。這代表我們的預測可以隨著愈高愈準確（但可能會 Overfit)。 同樣來生成資料點吧！</p>
+<pre><code class="hljs python">X = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">5</span>, <span class="hljs-number">20</span>)
+y = (X ** <span class="hljs-number">3</span>) - <span class="hljs-number">5</span> * (X ** <span class="hljs-number">2</span>)  - <span class="hljs-number">3</span> * X - <span class="hljs-number">5</span>
+
+plt.scatter(X, y + <span class="hljs-number">2</span> * np.random.randn(X.size), c=<span class="hljs-string">&quot;red&quot;</span>)</code></pre>
+
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20200830/201295937FlndIhhRC.jpg" alt="https://ithelp.ithome.com.tw/upload/images/20200830/201295937FlndIhhRC.jpg"></p>
+<p>我們知道多項式的數學形式是長這樣:</p>
+<p>$$<br>y = a_{n}x^{n} + a_{n - 1}x^{n - 1} + … + a_{1}x + a_{0}<br>$$</p>
+<p>這時，我們就可以試驗不同次方來擬合這些資料點，並分析哪一個會比較好。另外，<strong>Polynomial Regression</strong> 跟 <strong>Multinomial Regression</strong> 其實本質上來說是一樣的，只要做個對應：</p>
+<p>$$<br>x^{n} \rightarrow x_{n},<br> \ x^{n - 1} \rightarrow x_{n - 1}, \<br>…<br>$$</p>
+<p>就變成 Multinomial 了！因此順序是</p>
+<pre><code class="hljs plain">poly -&gt; multi -&gt;(using linear regression to predict)</code></pre>
+
+<p>而 <strong>Sklearn</strong> 已經有寫好的函數可以幫我們算出多項式的各種組合！看下方的 <code>PolynomialFeatures</code>，建議大家可以把下方的 <code>print(x)</code>解開，看看經過這個變換後會出現什麼！</p>
+<pre><code class="hljs python"><span class="hljs-keyword">from</span> sklearn.preprocessing <span class="hljs-keyword">import</span> PolynomialFeatures
+<span class="hljs-keyword">from</span> sklearn.linear_model <span class="hljs-keyword">import</span> LinearRegression
+
+<span class="hljs-comment"># Generate data points</span>
+X = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">3</span>, <span class="hljs-number">20</span>)
+y = (X ** <span class="hljs-number">3</span>) - <span class="hljs-number">3</span> * (X ** <span class="hljs-number">2</span>) + <span class="hljs-number">3</span> * X - <span class="hljs-number">5</span> + np.random.randn(X.size)
+
+<span class="hljs-comment"># Set different degree</span>
+degrees = [<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">15</span>]
+
+plt.figure(figsize=(<span class="hljs-number">20</span>, <span class="hljs-number">10</span>))
+
+count = <span class="hljs-number">1</span>
+<span class="hljs-keyword">for</span> degree <span class="hljs-keyword">in</span> degrees:
+    <span class="hljs-comment"># Transfrom x to [1, x, x^2, x^3, ...]</span>
+    x = PolynomialFeatures(degree).fit_transform(X[:, np.newaxis])
+    
+    <span class="hljs-comment"># Using linear gression to predict the model</span>
+    model = LinearRegression().fit(x, y)
+    
+    plt.subplot(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, count)
+    plt.title(<span class="hljs-string">&quot;Degree&#123;&#125;&quot;</span>.format(degree))
+    <span class="hljs-comment"># Origin points</span>
+    plt.scatter(X, y)
+    <span class="hljs-comment"># Predict points</span>
+    plt.plot(X, model.predict(x))
+    
+    <span class="hljs-comment"># Next plot</span>
+    count += <span class="hljs-number">1</span></code></pre>
+
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20200830/20129593mmDcvt4Vs0.jpg" alt="https://ithelp.ithome.com.tw/upload/images/20200830/20129593mmDcvt4Vs0.jpg"></p>
+<p>上面三張圖最左邊的擬和程度最好，但是這有可能是 <strong>model 過度預測了</strong>！我們後面會說明什麼是 <strong>Overfitting</strong>，但是可以想像說，今天我們有新得資料點要來預測，最左邊的預測能力可能會下降，因為他沒有所謂的<strong>普遍性</strong>，只能適應訓練的資料！</p>
+<h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><p>今天跟大家討論完關於 Regression 的一些應用，明天則會說明數學的證明以及想法。另外，Multinomial Regression 也可以跟 Polynomial Regressino 一起應用，方式則跟 Polynomial 那邊一樣！如果有任何疑問或是想跟大家討論的地方，歡迎下方留言。如果有任何錯誤，也請跟我們說，那下篇見！</p>
+<br/>
+<br/>
+<a href="/2020/08/29/it/it-11" float=left>Last</a> <a href="/2020/08/31/it/it-13" style="float: right;">Next</a>
+<!-- flag of hidden posts -->
+            </div>
+             
+            <div class="post-footer__meta">
+    <p>
+        updated at 2020-08-31
+    </p>
+</div> 
+            <div class="post-meta__cats">
+    
+    
+</div> 
+        </article>
+        
+            <div class="post__comments content-card" id="comment">
+                
+    <h4>Comments</h4>
+    
+    <div id="disqus_thread">Unable to load Disqus, please make sure your network can access.</div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+            </div>
+        
+    </div>
+
+
+</main>
+
+            <footer class="footer">
+    
+
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright&nbsp;©&nbsp;2020&nbsp;<a href="/">Justin</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+         
+
+ 
+
+ 
+
+ 
+
+  
+
+
+
+ 
+
+
+    
+
+
+ 
+
+ 
+    <script defer src="/js/b2t.js"></script>
+
+
+
+    <script>
+        if (typeof MathJax === 'undefined') {
+            window.MathJax = {
+                loader: {
+                    source: {
+                        '[tex]/amsCd': '[tex]/amscd',
+                        '[tex]/AMScd': '[tex]/amscd'
+                    }
+                },
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                },
+                options: {
+                    renderActions: {
+                        findScript: [10, doc => {
+                            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                                const display = !!node.type.match(/; *mode=display/);
+                                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                                const text = document.createTextNode('');
+                                node.parentNode.replaceChild(text, node);
+                                math.start = {node: text, delim: '', n: 0};
+                                math.end = {node: text, delim: '', n: 0};
+                                doc.math.push(math);
+                            });
+                        }, '', false],
+                        insertedScript: [200, () => {
+                            document.querySelectorAll('mjx-container').forEach(node => {
+                                let target = node.parentNode;
+                                if (target.nodeName.toLowerCase() === 'li') {
+                                    target.parentNode.classList.add('has-jax');
+                                }
+                            });
+                        }, '', false]
+                    }
+                }
+            };
+            (function () {
+                var script = document.createElement('script');
+                script.src = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js";
+                script.defer = true;
+                document.head.appendChild(script);
+            })();
+        } else {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+        }
+    </script>
+
+
+
+    
+    <script>
+        function loadComment() {
+            window.disqus_config = function () {
+                this.page.url = 'http://yoursite.com/2020/08/30/it/it-12/';
+                this.page.identifier = '2020/08/30/it/it-12/';
+            };
+            (function(){
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + 'https-justin900429-github-io' + '.disqus.com/embed.js';
+                (document.head || document.body).appendChild(dsq);
+            })();
+        }
+    
+        var runningOnBrowser = typeof window !== "undefined";
+        var isBot = runningOnBrowser && !("onscroll" in window) || typeof navigator !== "undefined" && /(gle|ing|ro|msn)bot|crawl|spider|yand|duckgo/i.test(navigator.userAgent);
+        var supportsIntersectionObserver = runningOnBrowser && "IntersectionObserver" in window;
+    
+        setTimeout(function () {
+            if (!isBot && supportsIntersectionObserver) {
+                var comment_observer = new IntersectionObserver(function(entries) {
+                    if (entries[0].isIntersecting) {
+                        loadComment();
+                        comment_observer.disconnect();
+                    }
+                }, { threshold: [0] });
+                comment_observer.observe(document.getElementById('comment'));
+            } else {
+                loadComment();
+            }
+        }, 1);
+    </script>
+
+
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+
+
+    </body>
+</html>
