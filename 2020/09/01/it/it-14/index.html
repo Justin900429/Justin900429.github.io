@@ -71,6 +71,8 @@
     
 
     
+    <link rel="stylesheet" href="/css/style/note.css" media="none" onload="this.media='all'">
+
 
      
 
@@ -231,7 +233,7 @@
 <p>現在我們另<strong>Loss function</strong> 等於 $0$ 解極值：</p>
 <p>$$<br>\begin{align}<br>\\<br>\nabla J_\theta &amp;= \frac{1}{m}(X^TX\theta - X^T\vec{y}) = 0 \\\\<br>X^TX\theta &amp;= X^Ty \\\\<br>\theta &amp;= (X^TX)^{-1}X^T y<br>\end{align}<br>$$</p>
 <h3 id="使用-Projection-matrix"><a href="#使用-Projection-matrix" class="headerlink" title="使用 Projection matrix"></a>使用 Projection matrix</h3><p>我們可以想像每一個 $x^{(i)}$ 存在於一個平面$W$（高維的平面），而 $X$ 是所有資料的組成矩陣，因此 $X\theta \in W  \ ，\forall \theta \in R^n$。而我們所得到的 label 並沒有存在於 $W$（不然我們就可以直接找到平面通過所有點了！）我們的目標就是找到 $\theta$ 使得 $\mid\mid \vec{y} - X\theta \mid\mid$最小，下圖應該會更清楚：</p>
-<p><img src="https://i.imgur.com/H5jTh5Q.jpg"></p>
+<p><img src="https://i.imgur.com/H5jTh5Q.jpg" class="lazyload" data-srcset="https://i.imgur.com/H5jTh5Q.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
 <p>想要找到最距離，就是要找到 $\vec{y}$ 投影到 $W$ 的向量 $\vec{y}_ p$，因為 $\vec{y}_ p\in W$ ，所以 $\vec{y}_ p$ 可以表示成 $X\theta$，又 $\vec{y} - \vec{y_ p} \in Null(W)$，因此我們可以寫出以下算示：</p>
 <p>$$<br>\begin{align}<br>  \\\\<br>  X^T(\vec{y} - X\theta) &amp;= 0 \\\\<br>  X^T X \theta &amp;= X^T\vec{y} \\\\<br>  \theta &amp;= (X^TX)^{-1}X^T y<br>\end{align}<br>$$</p>
 <h3 id="Normal-equation-程式碼"><a href="#Normal-equation-程式碼" class="headerlink" title="Normal equation 程式碼"></a>Normal equation 程式碼</h3><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">normal_eqn</span>(<span class="hljs-params">X, y</span>):</span>
@@ -250,13 +252,13 @@
     theta = np.dot(np.dot(np.linalg.inv(np.dot(X.T, X)), X.T), y)
     <span class="hljs-keyword">return</span> theta</code></pre>
 
-<p><img src="https://i.imgur.com/8qVtqEG.jpg"></p>
+<p><img src="https://i.imgur.com/8qVtqEG.jpg" class="lazyload" data-srcset="https://i.imgur.com/8qVtqEG.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
 <h2 id="Maxmimun-likelihood"><a href="#Maxmimun-likelihood" class="headerlink" title="Maxmimun likelihood"></a>Maxmimun likelihood</h2><h3 id="什麼是-Maximum-likelihood"><a href="#什麼是-Maximum-likelihood" class="headerlink" title="什麼是 Maximum likelihood?"></a>什麼是 Maximum likelihood?</h3><p><strong>Likelihood</strong> 想要敘述的就是給定所以 $x$ 他對應 $y$ 的機率乘積是多少，數學形式是（$\theta$ 為參數）：</p>
 <p>$$<br>Likelihood: \ L(\theta) = \prod_{i=1}^{m}p(y^{(i)} \mid x^{(i)}; \theta)<br>$$</p>
 <p>而<strong>Maximum Likelihood</strong> 想要表達就是找到 $\theta$，使得所有<strong>Likelihood</strong> 的乘積最大：</p>
 <p>$$<br>Maximum \ Likelihood: \ \underset{\theta}{\operatorname{argmax}}L(\theta)<br>$$</p>
 <h3 id="Regression-的機率含義"><a href="#Regression-的機率含義" class="headerlink" title="Regression 的機率含義"></a>Regression 的機率含義</h3><p>其實我們在用 <strong>Regression</strong> 的時候，都是認為<strong>各資料點都是高斯分佈</strong>。</p>
-<center><img src="https://fabiandablander.com/assets/img/2019-01-11-Curve-Fitting-Gaussian.Rmd/unnamed-chunk-9-1.png"/></center> <br><br>
+<center><img src="https://fabiandablander.com/assets/img/2019-01-11-Curve-Fitting-Gaussian.Rmd/unnamed-chunk-9-1.png" class="lazyload" data-srcset="https://fabiandablander.com/assets/img/2019-01-11-Curve-Fitting-Gaussian.Rmd/unnamed-chunk-9-1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="/></center> <br><br>
 
 <p>因此每點資料點都是:</p>
 <p>$$<br>y^{(i)} = \theta^Tx^{(i)} + \epsilon^{(i)}<br>$$</p>
@@ -329,7 +331,15 @@
 </footer>
 
         </div>
-         
+        
+    <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+    <script>
+        window.lazyLoadOptions = {
+            elements_selector: ".lazyload",
+            threshold: 0
+        };
+    </script>
+ 
 
  
 

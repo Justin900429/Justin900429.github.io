@@ -72,6 +72,8 @@
     
 
     
+    <link rel="stylesheet" href="/css/style/note.css" media="none" onload="this.media='all'">
+
 
      
 
@@ -227,7 +229,7 @@
 <p>其中 $X$是我們的資料，$\theta$則是我們要訓練的參數。</p>
 <h2 id="Gradient-descent"><a href="#Gradient-descent" class="headerlink" title="Gradient descent"></a>Gradient descent</h2><p><strong>Gradient descent</strong> 是一個非常重要的數學工具，基本上主導了很多機器學習的演算法。我們之前提到說要找到最好的解就是要<strong>最小化 Loss function</strong>。既然是 function，就會有其對應的圖形，我們先來看二維的。</p>
 <h3 id="2D"><a href="#2D" class="headerlink" title="2D"></a>2D</h3><p>假設我們的直線是 $f(x)=\theta x$、<strong>Loss function</strong> 是 $L(\theta)=\frac{1}{2}\sum_{i= 1}^{m}(x^{(i)}\theta  - y^{(i)})^2$（$m$ 代表有 $m$ 筆資料, ($x^{(i)}$, $y^{(i)}$) 則是第 i 筆資料），圖形爲為二次方(下圖為示意圖):</p>
-<p><img src="https://i.imgur.com/Fz10no8.jpg"></p>
+<p><img src="https://i.imgur.com/Fz10no8.jpg" class="lazyload" data-srcset="https://i.imgur.com/Fz10no8.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
 <p>我們的目標是想要找到 $\theta$ 使得 $L(\theta)$ 最小，但是我們必須記住，$\theta$ 隨時都在改變，我們不會一次就找到最小的點，只能透過現在 $\theta$ 的值來優化我們的<strong>Loss function</strong>。想要找最小的值我們就是透過<strong>微分</strong>來找。微分後所得到的值是變化 $x$ 所得到的 $y$ 值，方向則是會想要往值大的地方跑，大家可以嘗試看看。</p>
 <blockquote>
 <p>左半邊的微分都為正值，因此 $\theta + d\theta$ 得到的值會使 $L$ 變大; 右半邊的微分為負，但是 $\theta + d\theta$ 得到的值也會使 $L$ 變大（右半 $d\theta$ 為負）</p>
@@ -236,8 +238,8 @@
 <p>$$<br>    \theta^{n+1} = \theta^{n} - \alpha * \frac{dL(\theta)}{d \alpha}<br>$$</p>
 <p>希望這張圖能讓大家知道 $\alpha$ 的影響。另外，如果 $\alpha$ 設太大則會造成無法收斂，如果下圖設成 2，則會在 1, -1 來回震盪。但若太小，收斂速度非常慢。</p>
 <p>基本上不太可能跑一次就收斂，因此我們也需要跑很多次 <strong>Gradient descent</strong> 來找到最佳解。</p>
-<p><img src="https://i.imgur.com/uwoj1I1.jpg"></p>
-<p>這是三維的：<br><img src="https://cdn-images-1.medium.com/max/1200/1*9sd4Ve9DH-k4EcNba5fGTA.jpeg"><br>目標都是希望可以走到低點 B</p>
+<p><img src="https://i.imgur.com/uwoj1I1.jpg" class="lazyload" data-srcset="https://i.imgur.com/uwoj1I1.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
+<p>這是三維的：<br><img src="https://cdn-images-1.medium.com/max/1200/1*9sd4Ve9DH-k4EcNba5fGTA.jpeg" class="lazyload" data-srcset="https://cdn-images-1.medium.com/max/1200/1*9sd4Ve9DH-k4EcNba5fGTA.jpeg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="><br>目標都是希望可以走到低點 B</p>
 <h3 id="General"><a href="#General" class="headerlink" title="General"></a>General</h3><p>現在我們拓展我們的維度到 n 維，對於每一個 $\theta_j$，其更新方式也是一樣，只不過其他的$\theta_{k}$就要視為常數:</p>
 <p>$$<br>\theta_j^{n+1} = \theta_j^{n} - \alpha * \frac{\partial L(\theta)}{\partial \theta_j}<br>$$</p>
 <p>這邊我們可以直接用:</p>
@@ -302,7 +304,7 @@
 <pre><code class="hljs python"><span class="hljs-comment"># Add a column of ones to x</span>
 X = np.c_[np.ones(y.shape[<span class="hljs-number">0</span>]), x]</code></pre>
 <p>這行的用意是為了加入<strong>截距</strong>：<br>$$<br>f(x) = mx_1 + b \ \rightarrow<br>f(x) = \theta_1x_1 + \theta_2x_2 \ \ \ \ where \ \theta_2 = b, x_2 = 1<br>$$</p>
-<p><img src="https://i.imgur.com/wdXaaEh.jpg"></p>
+<p><img src="https://i.imgur.com/wdXaaEh.jpg" class="lazyload" data-srcset="https://i.imgur.com/wdXaaEh.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
 <p>讀者也可以將資料提升到高維，直接丟入我們的函數也沒問題！</p>
 <h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><p>今天講的東西可能有些複雜，如果有任何問題或是我有寫錯的話歡迎大家在下面跟我一起討論！另外，我在 <strong>Gradient descent</strong> 講的東西有些少，例如討論<strong>learning rate</strong> 太大或太小造成的問題等等…明天還是數學的一天，請大家<del>期待</del>～</p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
@@ -367,7 +369,15 @@ X = np.c_[np.ones(y.shape[<span class="hljs-number">0</span>]), x]</code></pre>
 </footer>
 
         </div>
-         
+        
+    <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+    <script>
+        window.lazyLoadOptions = {
+            elements_selector: ".lazyload",
+            threshold: 0
+        };
+    </script>
+ 
 
  
 

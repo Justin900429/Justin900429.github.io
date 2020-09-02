@@ -70,6 +70,8 @@
     
 
     
+    <link rel="stylesheet" href="/css/style/note.css" media="none" onload="this.media='all'">
+
 
      
 
@@ -218,13 +220,13 @@
             <div class="post__header"></div>
             <div class="post__content">
                 <h1 id="Series-11-機器怎麼學習？"><a href="#Series-11-機器怎麼學習？" class="headerlink" title="[Series 11] 機器怎麼學習？"></a>[Series 11] 機器怎麼學習？</h1><h2 id="什麼是機器學習？"><a href="#什麼是機器學習？" class="headerlink" title="什麼是機器學習？"></a>什麼是機器學習？</h2><p>機器學習其實沒有想像中的那麼玄，他只是利用一個<strong>簡單或複雜的數學模型</strong>來模擬實際的情況。簡單來說，當我們看到下面這張左圖時，我們就會想我們該用什麼樣的方式來預測未來趨勢呢？如果說，我們決定用直線來模擬，那這條直線該有什麼限制呢？如果有了限制，我們需要怎麼讓機器學習？</p>
-<p><img src="https://ithelp.ithome.com.tw/upload/images/20200820/20129593nvw4ljRuLB.jpg" alt="https://ithelp.ithome.com.tw/upload/images/20200820/20129593nvw4ljRuLB.jpg"></p>
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20200820/20129593nvw4ljRuLB.jpg" class="lazyload" data-srcset="https://ithelp.ithome.com.tw/upload/images/20200820/20129593nvw4ljRuLB.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="https://ithelp.ithome.com.tw/upload/images/20200820/20129593nvw4ljRuLB.jpg"></p>
 <h2 id="機器究竟在學什麼？"><a href="#機器究竟在學什麼？" class="headerlink" title="機器究竟在學什麼？"></a>機器究竟在學什麼？</h2><p>之前我們有提到資料科學家大部分花很多心思在<strong>Feature engineering</strong>，最主要的是因為機器學習的推力就是資料的品質與多寡。我們回到上面的例子，我們在說要套用什麼模型的時候，完全沒有提到是由機器決定的，因為模型是由工程師經過分析來決定的。而機器學習的便是<strong>這個模型的參數</strong>！例如<strong>Linear Regression是由w和b來決定的</strong>:</p>
 <p>$$<br>y = f(x) = mx + b<br>$$</p>
 <p>學習完之後，我們便需要一個<strong>指摽</strong>來告訴我們這個模型該往什麼方向改進，這便是<strong>Loss function</strong>的任務。既然是function，那就會有輸入跟輸出，輸入便是我現在訓練出來的模型，輸出就是我跟現實的誤差。舉例來說，Linear Regression可以利用<strong>平方誤差</strong>或是<strong>絕對誤差</strong>當作<strong>Loss function</strong>，之後會有更詳細的介紹。</p>
 <p>$$<br>Mean \ Square \ error \ :<br> \frac{1}{n}\sum_{k=1}^{n}(\hat{y} - y_{k})^{2}<br>$$</p>
 <p>$$<br>註：\hat{y}是預測的y, \ y_{k}是實際的label值<br>$$</p>
-<p>這邊附上我製作的ML的關係圖:<br><img src="https://ithelp.ithome.com.tw/upload/images/20200820/20129593JGHyxrx5wR.png" alt="https://ithelp.ithome.com.tw/upload/images/20200820/20129593JGHyxrx5wR.png"></p>
+<p>這邊附上我製作的ML的關係圖:<br><img src="https://ithelp.ithome.com.tw/upload/images/20200820/20129593JGHyxrx5wR.png" class="lazyload" data-srcset="https://ithelp.ithome.com.tw/upload/images/20200820/20129593JGHyxrx5wR.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" alt="https://ithelp.ithome.com.tw/upload/images/20200820/20129593JGHyxrx5wR.png"></p>
 <blockquote>
 <p>註: Hypothesis是指我們決定的模型，Real World是指真實世界</p>
 </blockquote>
@@ -292,7 +294,15 @@
 </footer>
 
         </div>
-         
+        
+    <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+    <script>
+        window.lazyLoadOptions = {
+            elements_selector: ".lazyload",
+            threshold: 0
+        };
+    </script>
+ 
 
  
 

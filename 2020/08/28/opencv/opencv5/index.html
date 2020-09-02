@@ -72,6 +72,8 @@
     
 
     
+    <link rel="stylesheet" href="/css/style/note.css" media="none" onload="this.media='all'">
+
 
      
 
@@ -302,7 +304,7 @@ cv2.destroyAllWindows()
 cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
 
 <p>You will see: </br></p>
-<p><img src="https://i.imgur.com/SbPHgvl.png"></p>
+<p><img src="https://i.imgur.com/SbPHgvl.png" class="lazyload" data-srcset="https://i.imgur.com/SbPHgvl.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
 <h3 id="Mask"><a href="#Mask" class="headerlink" title="Mask"></a>Mask</h3><p>To get the specifi range of hsv value, we can use mask to filter the value. If the value is outside the range, it will be set to 0 and 1 otherwise. To put it simply, mask help us to transform the image to binary format.</p>
 <pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
 <span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
@@ -364,7 +366,7 @@ cv2.imshow(<span class="hljs-string">&quot;Mask image&quot;</span>, result)
 cv2.waitKey(<span class="hljs-number">0</span>)
 cv2.destroyAllWindows()
 cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
-<p><img src="https://i.imgur.com/erbAJgX.jpg"></p>
+<p><img src="https://i.imgur.com/erbAJgX.jpg" class="lazyload" data-srcset="https://i.imgur.com/erbAJgX.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
 <hr>
 <h3 id="Pack-it-all-together"><a href="#Pack-it-all-together" class="headerlink" title="Pack it all together!"></a>Pack it all together!</h3><p>To filter the right color we want, we just have to use <code>while</code> to pack everything together. Hense, we can change the values and observe the results simultaneously.</p>
 <pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
@@ -433,7 +435,7 @@ cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
 </li>
 </ul>
 <p>The param <code>minNeighbor</code> is implict in the documentation. I stronly recommend to see <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/22249579/opencv-detectmultiscale-minneighbors-parameter">this</a> explanation from <strong>stack overflow</strong>.</p>
-<p>The param <code>scalerFactor</code> help you to detect different shape of faces. Because the model have fixed size during training, therefore, we should resize the image to match the detection size to. If the value is <strong>1.05</strong>, it will decrease <strong>0.05%</strong> every iteration.<br><img src="https://i.imgur.com/1bFqp8w.jpg"></p>
+<p>The param <code>scalerFactor</code> help you to detect different shape of faces. Because the model have fixed size during training, therefore, we should resize the image to match the detection size to. If the value is <strong>1.05</strong>, it will decrease <strong>0.05%</strong> every iteration.<br><img src="https://i.imgur.com/1bFqp8w.jpg" class="lazyload" data-srcset="https://i.imgur.com/1bFqp8w.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
 <p><strong>Demonstration</strong></p>
 <pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
 <span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
@@ -459,7 +461,7 @@ cv2.imshow(<span class="hljs-string">&quot;Result&quot;</span>, img)
 cv2.waitKey(<span class="hljs-number">0</span>)
 cv2.destroyAllWindows()
 cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
-<center><img src="https://i.imgur.com/9wDsJiX.jpg" width=450/></center>
+<center><img src="https://i.imgur.com/9wDsJiX.jpg" class="lazyload" data-srcset="https://i.imgur.com/9wDsJiX.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" width=450/></center>
 
 <h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>We have finished introducting the basic knowledge of image preprocessing and the use of <strong>OpenCV</strong>. From convolution, resizing, color detection and so on. I hope you guys can really learn a lot from the articles and use it in your next project! Thanks for reading and see you in next series!</p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
@@ -523,7 +525,15 @@ cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
 </footer>
 
         </div>
-         
+        
+    <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+    <script>
+        window.lazyLoadOptions = {
+            elements_selector: ".lazyload",
+            threshold: 0
+        };
+    </script>
+ 
 
  
 

@@ -69,6 +69,8 @@
     
 
     
+    <link rel="stylesheet" href="/css/style/note.css" media="none" onload="this.media='all'">
+
 
      
 
@@ -213,7 +215,7 @@
             <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 
-<center><img src="./personal.png" width=250/></center> <br>
+<center><img src="./personal.png" class="lazyload" data-srcset="./personal.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" width=250/></center> <br>
 
 <center><h2>Justin Ruan</h2></center>
 <center><p>Major ECE in National Chiao Tung University</p></center>
@@ -279,7 +281,15 @@
 </footer>
 
         </div>
-         
+        
+    <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+    <script>
+        window.lazyLoadOptions = {
+            elements_selector: ".lazyload",
+            threshold: 0
+        };
+    </script>
+ 
 
  
 

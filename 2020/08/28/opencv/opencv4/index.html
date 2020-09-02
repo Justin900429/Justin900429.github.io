@@ -69,6 +69,8 @@
     
 
     
+    <link rel="stylesheet" href="/css/style/note.css" media="none" onload="this.media='all'">
+
 
      
 
@@ -277,7 +279,7 @@ cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
 
 </li>
 </ul>
-<p><img src="https://i.imgur.com/d3c79Tp.jpg"></p>
+<p><img src="https://i.imgur.com/d3c79Tp.jpg" class="lazyload" data-srcset="https://i.imgur.com/d3c79Tp.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
 <p>We removed hexagon but also affect other shapes in the image.</p>
 <h2 id="Contour-shape-detection"><a href="#Contour-shape-detection" class="headerlink" title="Contour / shape detection"></a>Contour / shape detection</h2><h3 id="What-is-contours"><a href="#What-is-contours" class="headerlink" title="What is contours?"></a>What is contours?</h3><p>Contours is simply a <strong>curve joining all of the continuous points</strong> along the specific boundary. Let’s say when we see a circle, how do we recognize it as a circle not the rectangle? That’s a stupid question, but we should first know <strong>HOW</strong> humans do, then we can apply it to the computer. Below image show how we do.</p>
 <center><img src=https://i.imgur.com/ky5zhsF.jpg width=450 /></center>
@@ -631,7 +633,15 @@ cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
 </footer>
 
         </div>
-         
+        
+    <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+    <script>
+        window.lazyLoadOptions = {
+            elements_selector: ".lazyload",
+            threshold: 0
+        };
+    </script>
+ 
 
  
 

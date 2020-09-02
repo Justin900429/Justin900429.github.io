@@ -69,6 +69,8 @@
     
 
     
+    <link rel="stylesheet" href="/css/style/note.css" media="none" onload="this.media='all'">
+
 
      
 
@@ -383,7 +385,7 @@ cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
 <center><img src=https://i.imgur.com/nH4WtdI.jpg width=200/></center>
 </br>
 
-<p>Let’s see how we achieve the result. In order to change the perspective, we should first know all four vertexs of the target. After that, we have to determine the new size of the image. Then we can do the transform.<br><img src="https://i.imgur.com/68aExgZ.jpg"></p>
+<p>Let’s see how we achieve the result. In order to change the perspective, we should first know all four vertexs of the target. After that, we have to determine the new size of the image. Then we can do the transform.<br><img src="https://i.imgur.com/68aExgZ.jpg" class="lazyload" data-srcset="https://i.imgur.com/68aExgZ.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
 <p>You can use different application such as Photoshop or just the image viewer in your computer to find out the vertex. The order of <code>pst1</code>(in below code session) doesn’t matter. However, you should be aware the order of <code>pst2</code> should have the right transformation w.r.t. <code>pst1</code>.</p>
 <pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
 <span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
@@ -600,7 +602,15 @@ cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
 </footer>
 
         </div>
-         
+        
+    <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+    <script>
+        window.lazyLoadOptions = {
+            elements_selector: ".lazyload",
+            threshold: 0
+        };
+    </script>
+ 
 
  
 
