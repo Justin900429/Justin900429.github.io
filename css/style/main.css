@@ -640,7 +640,7 @@ overflows table td {
   padding-right: 4px;
 }
 .post__with-side {
-  max-width: calc(var(--content-width) + 220px * 2);
+  max-width: calc(var(--content-width) + 300px * 2);
   margin: 0 auto;
 }
 .post-entry {
@@ -994,7 +994,7 @@ a.search-result__link:hover {
 }
 .post-side .post-side__toc .toc {
   display: none;
-  width: 220px;
+  width: 300px;
   font-size: 14px;
   overflow: auto;
   height: calc(100vh - 60px - 20px);
