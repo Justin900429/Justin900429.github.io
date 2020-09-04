@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    <link rel="shortcut icon" type='image/x-icon' href="/favicon.ico">
+
+
+    <!-- meta -->
+
+
+<title>[Series - 3] Matplotlib | Justin</title><meta name="robots" content="noindex">
+
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="[Series - 3] MatplotlibAcknowledge This article was written by Joyce.    See moreBack to series page   前言這篇跟下篇都會介紹繪圖工具。這篇會介紹 Matplotlib。  實作連結 colab - Matplotlib   Matplotlib Matplotlib是NumPy可視覺化的操作介面">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Series - 3] Matplotlib">
+<meta property="og:url" content="http://yoursite.com/2020/09/04/it/it-3/index.html">
+<meta property="og:site_name" content="Justin">
+<meta property="og:description" content="[Series - 3] MatplotlibAcknowledge This article was written by Joyce.    See moreBack to series page   前言這篇跟下篇都會介紹繪圖工具。這篇會介紹 Matplotlib。  實作連結 colab - Matplotlib   Matplotlib Matplotlib是NumPy可視覺化的操作介面">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/dizdFTF.png">
+<meta property="og:image" content="https://i.imgur.com/gX9B0ME.png">
+<meta property="og:image" content="https://i.imgur.com/Km6HslF.png">
+<meta property="og:image" content="https://i.imgur.com/gEi0vyQ.png">
+<meta property="og:image" content="https://i.imgur.com/ePasS9R.png">
+<meta property="og:image" content="https://i.imgur.com/i4jg0FG.png">
+<meta property="og:image" content="https://i.imgur.com/2eX1IEI.png">
+<meta property="og:image" content="https://i.imgur.com/pKbFt9u.png">
+<meta property="og:image" content="https://i.imgur.com/rRDHjry.png">
+<meta property="og:image" content="https://i.imgur.com/8ythsSN.png">
+<meta property="og:image" content="https://i.imgur.com/n7TZVAW.png">
+<meta property="og:image" content="https://i.imgur.com/vyjeE6H.png">
+<meta property="og:image" content="https://i.imgur.com/ERYsRtg.png">
+<meta property="og:image" content="https://i.imgur.com/BUFwSdK.png">
+<meta property="og:image" content="https://i.imgur.com/DQx283F.png">
+<meta property="og:image" content="https://i.imgur.com/AId0jTj.png">
+<meta property="article:published_time" content="2020-09-04T14:25:27.000Z">
+<meta property="article:modified_time" content="2020-09-04T14:28:51.047Z">
+<meta property="article:author" content="Justin Ruan">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://i.imgur.com/dizdFTF.png">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-theme-cards@1.0/dist/css/style/dark.min.css">
+
+    
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-cards@1.0/dist/js/darkmode.min.js"></script>
+
+
+
+    
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/atom-one-light.min.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')===-1)this.media='all'">
+        
+            <link rel="stylesheet" id="hl-dark-theme" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/railscasts.min.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')!==-1)this.media='all'">
+        
+    
+
+    
+
+    
+    <link rel="stylesheet" href="/css/style/note.css" media="none" onload="this.media='all'">
+
+
+     
+
+    <!-- custom head -->
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+    <body>
+        <div id="app">
+            <header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">
+                Justin's blog
+            </span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/about/" class="navbar-menu button">
+                        Home
+                    </a>
+                
+                    <a href="/" class="navbar-menu button">
+                        Articles
+                    </a>
+                
+                    <a href="/tags/" class="navbar-menu button">
+                        Tags
+                    </a>
+                
+                    <a href="/archives/" class="navbar-menu button">
+                        Archives
+                    </a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+    <a href="javaScript:void(0);" id="btn-toggle-dark">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+    </a>
+
+
+         
+    <a href="javaScript:void(0);" id="b2t" aria-label="Back to Top" title="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='32' height='32' fill="currentColor" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M13.889,11.611c-0.17,0.17-0.443,0.17-0.612,0l-3.189-3.187l-3.363,3.36c-0.171,0.171-0.441,0.171-0.612,0c-0.172-0.169-0.172-0.443,0-0.611l3.667-3.669c0.17-0.17,0.445-0.172,0.614,0l3.496,3.493C14.058,11.167,14.061,11.443,13.889,11.611 M18.25,10c0,4.558-3.693,8.25-8.25,8.25c-4.557,0-8.25-3.692-8.25-8.25c0-4.557,3.693-8.25,8.25-8.25C14.557,1.75,18.25,5.443,18.25,10 M17.383,10c0-4.07-3.312-7.382-7.383-7.382S2.618,5.93,2.618,10S5.93,17.381,10,17.381S17.383,14.07,17.383,10"></path>
+        </svg>
+    </a>
+
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path>
+                </svg>
+            </a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                <a class="dropback-icon button" id="btn-dropback">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
+                        <path fill="currentColor" d="M11.469,10l7.08-7.08c0.406-0.406,0.406-1.064,0-1.469c-0.406-0.406-1.063-0.406-1.469,0L10,8.53l-7.081-7.08c-0.406-0.406-1.064-0.406-1.469,0c-0.406,0.406-0.406,1.063,0,1.469L8.531,10L1.45,17.081c-0.406,0.406-0.406,1.064,0,1.469c0.203,0.203,0.469,0.304,0.735,0.304c0.266,0,0.531-0.101,0.735-0.304L10,11.469l7.08,7.081c0.203,0.203,0.469,0.304,0.735,0.304c0.267,0,0.532-0.101,0.735-0.304c0.406-0.406,0.406-1.064,0-1.469L11.469,10z"></path>
+                    </svg>
+                </a>
+                
+                    <a href="/about/" class="dropdown-menu button">
+                        Home
+                    </a>
+                
+                    <a href="/" class="dropdown-menu button">
+                        Articles
+                    </a>
+                
+                    <a href="/tags/" class="dropdown-menu button">
+                        Tags
+                    </a>
+                
+                    <a href="/archives/" class="dropdown-menu button">
+                        Archives
+                    </a>
+                
+            </div>
+            <script>
+                document.getElementById('btn-dropdown').addEventListener('click', () => {
+                    const dd = document.getElementById('dropdown-menus');
+                    requestAnimationFrame(() => {
+                        dd.style.display = 'flex';
+                        requestAnimationFrame(() => {
+                            dd.style.transform = 'translateY(0)';
+                            dd.style.opacity = '1';
+                        });
+                    });
+                });
+                document.getElementById('btn-dropback').addEventListener('click', () => {
+                    const dd = document.getElementById('dropdown-menus');
+                    dd.style.transform = 'translateY(2.25rem)';                    
+                    dd.style.opacity = '0';
+                    setTimeout(() => {dd.style.display = 'none';}, 350);
+                });
+            </script>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+<div class="post-title">
+    <h1 class="post-title__text">
+        [Series - 3] Matplotlib
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2020/09/" class="post-meta__date button">
+    2020-09-04
+</a>
+        
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <div class="post__with-side">
+        <aside class="post-side">
+            <div class="post-side__toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C%E9%80%A3%E7%B5%90"><span class="toc-number">2.</span> <span class="toc-text">實作連結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Matplotlib"><span class="toc-number">3.</span> <span class="toc-text">Matplotlib</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%92%B0%E5%A2%83%E6%BA%96%E5%82%99"><span class="toc-number">3.1.</span> <span class="toc-text">環境準備</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E8%A9%A6%E8%BA%AB%E6%89%8B"><span class="toc-number">3.2.</span> <span class="toc-text">小試身手</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C"><span class="toc-number">3.2.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B7%9A%E7%9A%84%E6%A8%A3%E5%BC%8F"><span class="toc-number">3.3.</span> <span class="toc-text">線的樣式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-1"><span class="toc-number">3.3.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B7%9A%E6%A2%9D%E7%B2%97%E7%B4%B0"><span class="toc-number">3.4.</span> <span class="toc-text">線條粗細</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-2"><span class="toc-number">3.4.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%8F%E8%89%B2%E6%94%B9%E8%AE%8A"><span class="toc-number">3.5.</span> <span class="toc-text">顏色改變</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-3"><span class="toc-number">3.5.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E4%B8%8A%E5%9C%96%E4%BE%8B"><span class="toc-number">3.6.</span> <span class="toc-text">加上圖例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-4"><span class="toc-number">3.6.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%A7%E6%A8%99%E5%9C%96"><span class="toc-number">3.7.</span> <span class="toc-text">座標圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-5"><span class="toc-number">3.7.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%A3%E4%BD%88%E5%9C%96"><span class="toc-number">3.8.</span> <span class="toc-text">散佈圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-6"><span class="toc-number">3.8.1.</span> <span class="toc-text">實作</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B4%E6%96%B9%E5%9C%96"><span class="toc-number">4.1.</span> <span class="toc-text">直方圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-7"><span class="toc-number">4.1.1.</span> <span class="toc-text">實作</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-1"><span class="toc-number">5.</span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%95%B7%E6%A2%9D%E5%9C%96"><span class="toc-number">5.1.</span> <span class="toc-text">長條圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-8"><span class="toc-number">5.1.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%98%E7%B7%9A%E5%9C%96"><span class="toc-number">5.2.</span> <span class="toc-text">折線圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-9"><span class="toc-number">5.2.1.</span> <span class="toc-text">實作</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-2"><span class="toc-number">6.</span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%93%E9%A4%85%E5%9C%96"><span class="toc-number">6.1.</span> <span class="toc-text">圓餅圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-10"><span class="toc-number">6.1.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%90%E5%9C%96"><span class="toc-number">6.2.</span> <span class="toc-text">子圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-11"><span class="toc-number">6.2.1.</span> <span class="toc-text">實作</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">7.</span> <span class="toc-text">結語</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">8.</span> <span class="toc-text">參考資料</span></a></li></ol>
+            </div>
+        </aside>
+        <article class="post content-card">
+            <div class="post__header"></div>
+            <div class="post__content">
+                <h1 id="Series-3-Matplotlib"><a href="#Series-3-Matplotlib" class="headerlink" title="[Series - 3] Matplotlib"></a>[Series - 3] Matplotlib</h1><blockquote class="blockquote-note blockquote-note__info"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></div>Acknowledge</div><div class="blockquote-note__content"><blockquote>
+<p>This article was written by Joyce.</p>
+</blockquote>
+</div></blockquote>
+
+<blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/2020/08/29/it/it-series/">Back to series page</a></p>
+</div></blockquote>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>這篇跟下篇都會介紹繪圖工具。這篇會介紹 <strong>Matplotlib</strong>。</p>
+<hr>
+<h2 id="實作連結"><a href="#實作連結" class="headerlink" title="實作連結"></a>實作連結</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://colab.research.google.com/drive/1QVpY1hHgf4uWU5pelDFCxoCuGPDTjEZ5">colab - Matplotlib</a></li>
+</ul>
+<hr>
+<h2 id="Matplotlib"><a href="#Matplotlib" class="headerlink" title="Matplotlib"></a>Matplotlib</h2><ul>
+<li>Matplotlib是NumPy可視覺化的操作介面，也是Python最常見的繪圖軟件</li>
+<li>它是一種圖像處理工具，與Matlab相似，最大的不同點是它可以結合Python的其他函數，及Matplotlib是免費的</li>
+<li>Matplotlib的預設參數是可以進行更改的，像是<strong>顏色</strong>、<strong>大小</strong>、<strong>字體</strong>等</li>
+</ul>
+<hr>
+<h3 id="環境準備"><a href="#環境準備" class="headerlink" title="環境準備"></a>環境準備</h3><p>如果想用自己的電腦來跑的話需要安裝 Package</p>
+<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> For anoconda (recommend)</span>
+<span class="hljs-meta">$</span><span class="bash"> conda install matplotlib</span>
+
+<span class="hljs-meta">#</span><span class="bash"> For pip</span>
+<span class="hljs-meta">$</span><span class="bash"> pip install matplotlib</span></code></pre>
+<hr>
+<h3 id="小試身手"><a href="#小試身手" class="headerlink" title="小試身手"></a>小試身手</h3><p>在正式開始介紹之前，先來個小小的練習，前面說到Matplotlib是NumPy的圖形介面，因此我們引入NumPy，做個簡單的介紹。</p>
+<h4 id="實作"><a href="#實作" class="headerlink" title="實作"></a>實作</h4><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np <span class="hljs-comment"># 引入NumPy</span>
+<span class="hljs-keyword">from</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt <span class="hljs-comment"># 引入matplotlib的函數</span>
+
+x = np.arange(<span class="hljs-number">20</span>) <span class="hljs-comment"># x軸的值</span>
+y = <span class="hljs-number">3</span> * x + <span class="hljs-number">1</span>  <span class="hljs-comment"># y軸的值</span>
+
+plt.title(<span class="hljs-string">&quot;practice&quot;</span>) <span class="hljs-comment"># 圖的標題</span>
+plt.xlabel(<span class="hljs-string">&quot;x axis&quot;</span>) <span class="hljs-comment"># x軸的名稱</span>
+plt.ylabel(<span class="hljs-string">&quot;y axis&quot;</span>) <span class="hljs-comment"># y軸的名稱</span>
+plt.plot(x,y) <span class="hljs-comment"># 繪製x,y軸的圖</span>
+plt.show() <span class="hljs-comment"># 顯現圖形</span></code></pre>
+<p><img src="https://i.imgur.com/dizdFTF.png" class="lazyload" data-srcset="https://i.imgur.com/dizdFTF.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
+<p>(座標)圖形的基本組成會有</p>
+<ul>
+<li>title : 標題，即這個圖形名稱</li>
+<li>xlabel : x軸的名稱，有時可以加註單位</li>
+<li>ylabel : y軸的名稱，有時可以加註單位</li>
+<li>plot : 繪製，建立好各自的座標後，利用plot進行繪製，</li>
+<li>show : 顯示，利用plot繪製好的圖形是不會顯現出來的，需要用show才可以將圖形呈現出來<blockquote>
+<p>特別注意，Matplotlib的標題及名稱是不支援中文的，如果打中文的話，會顯示不出來。可以另外下載套件支援中文的輸入。</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h3 id="線的樣式"><a href="#線的樣式" class="headerlink" title="線的樣式"></a>線的樣式</h3><p>進行座標圖形的繪製時，預設線的樣式是實線，可用以下的參數進行修改，參數的關鍵字是linestyle，也可以用簡寫ls，</p>
+<ul>
+<li>$-$ 實線</li>
+<li>$–$ 虛線</li>
+<li>$:$ 點線<h4 id="實作-1"><a href="#實作-1" class="headerlink" title="實作"></a>實作</h4><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np <span class="hljs-comment"># 引入NumPy</span>
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt <span class="hljs-comment"># 引入matplotlib的函數</span>
+
+x = np.arange(<span class="hljs-number">20</span>) <span class="hljs-comment"># x軸的值</span>
+y = <span class="hljs-number">3</span> * x + <span class="hljs-number">1</span>  <span class="hljs-comment"># y軸的值</span>
+
+plt.title(<span class="hljs-string">&quot;change linestyle&quot;</span>) <span class="hljs-comment"># 圖的標題</span>
+plt.xlabel(<span class="hljs-string">&quot;x axis&quot;</span>) <span class="hljs-comment"># x軸的名稱</span>
+plt.ylabel(<span class="hljs-string">&quot;y axis&quot;</span>) <span class="hljs-comment"># y軸的名稱</span>
+plt.plot(x,y,ls = <span class="hljs-string">&quot;--&quot;</span>) <span class="hljs-comment"># 繪製x,y軸的圖</span>
+plt.show() <span class="hljs-comment"># 顯現圖形</span></code></pre>
+<img src="https://i.imgur.com/gX9B0ME.png" class="lazyload" data-srcset="https://i.imgur.com/gX9B0ME.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></li>
+</ul>
+<hr>
+<h3 id="線條粗細"><a href="#線條粗細" class="headerlink" title="線條粗細"></a>線條粗細</h3><p>可以利用參數linewidth，將線條的粗細進行改變，預設值是1，數值越大越粗，愈小則越細</p>
+<h4 id="實作-2"><a href="#實作-2" class="headerlink" title="實作"></a>實作</h4><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np <span class="hljs-comment"># 引入NumPy</span>
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt <span class="hljs-comment"># 引入matplotlib的函數</span>
+
+x = np.arange(<span class="hljs-number">20</span>) <span class="hljs-comment"># x軸的值</span>
+y = <span class="hljs-number">3</span> * x + <span class="hljs-number">1</span>  <span class="hljs-comment"># y軸的值</span>
+
+plt.title(<span class="hljs-string">&quot;change linewidth&quot;</span>) <span class="hljs-comment"># 圖的標題</span>
+plt.xlabel(<span class="hljs-string">&quot;x axis&quot;</span>) <span class="hljs-comment"># x軸的名稱</span>
+plt.ylabel(<span class="hljs-string">&quot;y axis&quot;</span>) <span class="hljs-comment"># y軸的名稱</span>
+plt.plot(x,y,linewidth = <span class="hljs-number">5</span>) <span class="hljs-comment"># 繪製x,y軸的圖</span>
+plt.show() <span class="hljs-comment"># 顯現圖形</span></code></pre>
+<p><img src="https://i.imgur.com/Km6HslF.png" class="lazyload" data-srcset="https://i.imgur.com/Km6HslF.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
+<hr>
+<h3 id="顏色改變"><a href="#顏色改變" class="headerlink" title="顏色改變"></a>顏色改變</h3><p>在繪製圖形時，預設的線條顏色是藍色，想要改變顏色的話，只需要把參數加上去即可。常見的方法有兩種</p>
+<ol>
+<li>color = “某顏色”，例如 : color = “藍色”</li>
+<li>color = 十六進制表示法，例如 : color = “#FFFF00”<h4 id="實作-3"><a href="#實作-3" class="headerlink" title="實作"></a>實作</h4><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np <span class="hljs-comment"># 引入NumPy</span>
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt <span class="hljs-comment"># 引入matplotlib的函數</span>
+
+x = np.arange(<span class="hljs-number">20</span>) <span class="hljs-comment"># x軸的值</span>
+y = <span class="hljs-number">3</span> * x + <span class="hljs-number">1</span>  <span class="hljs-comment"># y軸的值</span>
+
+plt.title(<span class="hljs-string">&quot;change color&quot;</span>) <span class="hljs-comment"># 圖的標題</span>
+plt.xlabel(<span class="hljs-string">&quot;x axis&quot;</span>) <span class="hljs-comment"># x軸的名稱</span>
+plt.ylabel(<span class="hljs-string">&quot;y axis&quot;</span>) <span class="hljs-comment"># y軸的名稱</span>
+plt.plot(x,y, color = <span class="hljs-string">&quot;red&quot;</span>) <span class="hljs-comment"># 繪製x,y軸的圖</span>
+plt.show() <span class="hljs-comment"># 顯現圖形</span></code></pre>
+<img src="https://i.imgur.com/gEi0vyQ.png" class="lazyload" data-srcset="https://i.imgur.com/gEi0vyQ.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></li>
+</ol>
+<h3 id="加上圖例"><a href="#加上圖例" class="headerlink" title="加上圖例"></a>加上圖例</h3><p>當圖形中有兩條以上的線條時，加上圖例可以讓圖形更加完整。圖例的參數是legend，常用的語法</p>
+<ol>
+<li>loc : 位置，即圖例是放置在哪</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="center">字串打法</th>
+<th align="center">數字打法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">‘best’</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">‘upper right’</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">‘upper left’</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">‘lower left’</td>
+<td align="center">3</td>
+</tr>
+<tr>
+<td align="center">‘lower right’</td>
+<td align="center">4</td>
+</tr>
+<tr>
+<td align="center">‘right’</td>
+<td align="center">5</td>
+</tr>
+<tr>
+<td align="center">‘center left’</td>
+<td align="center">6</td>
+</tr>
+<tr>
+<td align="center">‘center right’</td>
+<td align="center">7</td>
+</tr>
+<tr>
+<td align="center">‘lower center’</td>
+<td align="center">8</td>
+</tr>
+<tr>
+<td align="center">‘upper center’</td>
+<td align="center">9</td>
+</tr>
+<tr>
+<td align="center">‘center’</td>
+<td align="center">10</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>best 會依據圖形選擇一個最好的位置(1~10其中一個)，預設為best<br><img src='https://i.imgur.com/ePasS9R.png'
+height='300'></p>
+</blockquote>
+<ol start="2">
+<li>fontsize : 字體大小，可以數值表示，單位是<strong>points</strong>，或設定好大小的參數<ul>
+<li>數值</li>
+<li>xx-small</li>
+<li>x-small</li>
+<li>small</li>
+<li>medium</li>
+<li>large</li>
+<li>x-large</li>
+<li>xx-large<h4 id="實作-4"><a href="#實作-4" class="headerlink" title="實作"></a>實作</h4><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np <span class="hljs-comment"># 引入NumPy</span>
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt <span class="hljs-comment"># 引入matplotlib的函數</span>
+
+x = np.arange(<span class="hljs-number">20</span>) <span class="hljs-comment"># x軸的值</span>
+y1 = <span class="hljs-number">3</span> * x + <span class="hljs-number">1</span>  <span class="hljs-comment"># y軸的值</span>
+y2 = <span class="hljs-number">-3</span> * x + <span class="hljs-number">20</span>  <span class="hljs-comment"># y軸的值</span>
+
+plt.title(<span class="hljs-string">&quot;add legend&quot;</span>) <span class="hljs-comment"># 圖的標題</span>
+plt.xlabel(<span class="hljs-string">&quot;x axis&quot;</span>) <span class="hljs-comment"># x軸的名稱</span>
+plt.ylabel(<span class="hljs-string">&quot;y axis&quot;</span>) <span class="hljs-comment"># y軸的名稱</span>
+plt.plot(x,y1, color = <span class="hljs-string">&quot;red&quot;</span>, label = <span class="hljs-string">&quot;y1&quot;</span>) <span class="hljs-comment"># 繪製x,y1的圖</span>
+plt.plot(x,y2, ls = <span class="hljs-string">&quot;--&quot;</span>, label = <span class="hljs-string">&quot;y2&quot;</span>) <span class="hljs-comment"># 繪製x,y2的圖</span>
+plt.legend(loc = <span class="hljs-number">0</span>, prop=&#123;<span class="hljs-string">&#x27;size&#x27;</span>: <span class="hljs-string">&quot;x-large&quot;</span>&#125;)
+plt.show() <span class="hljs-comment"># 顯現圖形</span></code></pre>
+<img src="https://i.imgur.com/i4jg0FG.png" class="lazyload" data-srcset="https://i.imgur.com/i4jg0FG.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="座標圖"><a href="#座標圖" class="headerlink" title="座標圖"></a>座標圖</h3><p>上面的例子全部都是座標圖的舉例，下面換一個sin的函數作呈現。</p>
+<h4 id="實作-5"><a href="#實作-5" class="headerlink" title="實作"></a>實作</h4><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np <span class="hljs-comment"># 引入NumPy</span>
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt <span class="hljs-comment"># 引入matplotlib的函數</span>
+
+x = np.arange(<span class="hljs-number">-180</span>, <span class="hljs-number">180</span>)
+y = np.sin(x * np.pi / <span class="hljs-number">180.0</span>)
+
+plt.title(<span class="hljs-string">&quot;change color&quot;</span>) <span class="hljs-comment"># 圖的標題</span>
+plt.xlabel(<span class="hljs-string">&quot;x axis&quot;</span>) <span class="hljs-comment"># x軸的名稱</span>
+plt.ylabel(<span class="hljs-string">&quot;y axis&quot;</span>) <span class="hljs-comment"># y軸的名稱</span>
+plt.plot(x, y) <span class="hljs-comment"># 繪製x,y軸的圖</span>
+plt.show() <span class="hljs-comment"># 顯現圖形</span></code></pre>
+<p><img src="https://i.imgur.com/2eX1IEI.png" class="lazyload" data-srcset="https://i.imgur.com/2eX1IEI.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
+<hr>
+<h3 id="散佈圖"><a href="#散佈圖" class="headerlink" title="散佈圖"></a>散佈圖</h3><p>散佈圖即點圖，在平面上分布，常應用於相關的分析上，繪製散佈圖需用<strong>scatter</strong>這個函數。</p>
+<h4 id="實作-6"><a href="#實作-6" class="headerlink" title="實作"></a>實作</h4><pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt <span class="hljs-comment"># 引入matplotlib的函數</span>
+
+x = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">8</span>,<span class="hljs-number">9</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>] <span class="hljs-comment"># x軸的值</span>
+y = [<span class="hljs-number">3</span>,<span class="hljs-number">1</span>,<span class="hljs-number">8</span>,<span class="hljs-number">5</span>,<span class="hljs-number">4</span>,<span class="hljs-number">3</span>,<span class="hljs-number">2</span>,<span class="hljs-number">6</span>]  <span class="hljs-comment"># y軸的值</span>
+
+plt.title(<span class="hljs-string">&quot;scatter diagram&quot;</span>) <span class="hljs-comment"># 圖的標題</span>
+plt.xlabel(<span class="hljs-string">&quot;x axis&quot;</span>) <span class="hljs-comment"># x軸的名稱</span>
+plt.ylabel(<span class="hljs-string">&quot;y axis&quot;</span>) <span class="hljs-comment"># y軸的名稱</span>
+plt.scatter(x, y) <span class="hljs-comment"># 繪製散佈圖</span>
+plt.show() <span class="hljs-comment"># 顯現圖形                       </span></code></pre>
+<h2 id=""><a href="#" class="headerlink" title=""></a><img src="https://i.imgur.com/pKbFt9u.png" class="lazyload" data-srcset="https://i.imgur.com/pKbFt9u.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></h2><h3 id="直方圖"><a href="#直方圖" class="headerlink" title="直方圖"></a>直方圖</h3><p>直方圖是用來呈現一維的資料，要繪製時，需使用<strong>hist</strong>這個函數。經常直方圖會用來表示累積的資料，此時需將參數cumulative設定為True，預設為False。</p>
+<h4 id="實作-7"><a href="#實作-7" class="headerlink" title="實作"></a>實作</h4><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np <span class="hljs-comment"># 引入NumPy</span>
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt <span class="hljs-comment"># 引入matplotlib的函數</span>
+
+data = np.random.normal(size = <span class="hljs-number">50</span>) <span class="hljs-comment"># 產生50個常態分配的亂數</span>
+plt.title(<span class="hljs-string">&quot;histogram&quot;</span>) <span class="hljs-comment"># 圖的標題</span>
+plt.xlabel(<span class="hljs-string">&quot;x axis&quot;</span>) <span class="hljs-comment"># x軸的名稱</span>
+plt.ylabel(<span class="hljs-string">&quot;y axis&quot;</span>) <span class="hljs-comment"># y軸的名稱</span>
+plt.hist(data)<span class="hljs-comment"># 繪製直方圖</span>
+plt.show() <span class="hljs-comment"># 顯現圖形        </span></code></pre>
+<p><img src="https://i.imgur.com/rRDHjry.png" class="lazyload" data-srcset="https://i.imgur.com/rRDHjry.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
+<pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np <span class="hljs-comment"># 引入NumPy</span>
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt <span class="hljs-comment"># 引入matplotlib的函數</span>
+
+data = np.random.normal(size = <span class="hljs-number">50</span>) <span class="hljs-comment"># 產生50個常態分配的亂數</span>
+plt.title(<span class="hljs-string">&quot;histogram2&quot;</span>) <span class="hljs-comment"># 圖的標題</span>
+plt.xlabel(<span class="hljs-string">&quot;x axis&quot;</span>) <span class="hljs-comment"># x軸的名稱</span>
+plt.ylabel(<span class="hljs-string">&quot;y axis&quot;</span>) <span class="hljs-comment"># y軸的名稱</span>
+plt.hist(data,cumulative=<span class="hljs-literal">True</span>)<span class="hljs-comment"># 繪製直方圖</span>
+plt.show() <span class="hljs-comment"># 顯現圖形 </span></code></pre>
+<h2 id="-1"><a href="#-1" class="headerlink" title=""></a><img src="https://i.imgur.com/8ythsSN.png" class="lazyload" data-srcset="https://i.imgur.com/8ythsSN.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></h2><h3 id="長條圖"><a href="#長條圖" class="headerlink" title="長條圖"></a>長條圖</h3><p>長條圖是用來呈現二維的資料，繪製時，需使用<strong>bar</strong>這個函數。<strong>bar</strong>是直的顯示，若想要橫向顯示，需使用<strong>barh</strong>。</p>
+<h4 id="實作-8"><a href="#實作-8" class="headerlink" title="實作"></a>實作</h4><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np <span class="hljs-comment"># 引入NumPy</span>
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt <span class="hljs-comment"># 引入matplotlib的函數</span>
+
+x = np.arange(<span class="hljs-number">1</span>,<span class="hljs-number">11</span>) <span class="hljs-comment"># x軸的值</span>
+y = [<span class="hljs-number">3</span>,<span class="hljs-number">1</span>,<span class="hljs-number">8</span>,<span class="hljs-number">5</span>,<span class="hljs-number">4</span>,<span class="hljs-number">2</span>,<span class="hljs-number">4</span>,<span class="hljs-number">6</span>,<span class="hljs-number">3</span>,<span class="hljs-number">7</span>]  <span class="hljs-comment"># y軸的值</span>
+
+plt.title(<span class="hljs-string">&quot;bar chart&quot;</span>) <span class="hljs-comment"># 圖的標題</span>
+plt.xlabel(<span class="hljs-string">&quot;x axis&quot;</span>) <span class="hljs-comment"># x軸的名稱</span>
+plt.ylabel(<span class="hljs-string">&quot;y axis&quot;</span>) <span class="hljs-comment"># y軸的名稱</span>
+plt.bar(x, y) <span class="hljs-comment"># 繪製長條圖</span>
+plt.show() <span class="hljs-comment"># 顯現圖形 </span></code></pre>
+<p><img src="https://i.imgur.com/n7TZVAW.png" class="lazyload" data-srcset="https://i.imgur.com/n7TZVAW.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
+<pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np <span class="hljs-comment"># 引入NumPy</span>
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt <span class="hljs-comment"># 引入matplotlib的函數</span>
+
+x = np.arange(<span class="hljs-number">1</span>,<span class="hljs-number">11</span>) <span class="hljs-comment"># y軸的值</span>
+y = [<span class="hljs-number">3</span>,<span class="hljs-number">1</span>,<span class="hljs-number">8</span>,<span class="hljs-number">5</span>,<span class="hljs-number">4</span>,<span class="hljs-number">2</span>,<span class="hljs-number">4</span>,<span class="hljs-number">6</span>,<span class="hljs-number">3</span>,<span class="hljs-number">7</span>]  <span class="hljs-comment"># x軸的值</span>
+
+plt.title(<span class="hljs-string">&quot;bar chart2&quot;</span>) <span class="hljs-comment"># 圖的標題</span>
+plt.xlabel(<span class="hljs-string">&quot;x axis&quot;</span>) <span class="hljs-comment"># x軸的名稱</span>
+plt.ylabel(<span class="hljs-string">&quot;y axis&quot;</span>) <span class="hljs-comment"># y軸的名稱</span>
+plt.barh(x, y) <span class="hljs-comment"># 繪製長條圖</span>
+plt.show() <span class="hljs-comment"># 顯現圖形 </span></code></pre>
+<p><img src="https://i.imgur.com/vyjeE6H.png" class="lazyload" data-srcset="https://i.imgur.com/vyjeE6H.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
+<hr>
+<h3 id="折線圖"><a href="#折線圖" class="headerlink" title="折線圖"></a>折線圖</h3><p>折線圖在Matplotlib裡跟座標圖的寫法一樣，利用<strong>plot</strong>的函數繪製。</p>
+<h4 id="實作-9"><a href="#實作-9" class="headerlink" title="實作"></a>實作</h4><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np <span class="hljs-comment"># 引入NumPy</span>
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt <span class="hljs-comment"># 引入matplotlib的函數</span>
+
+x = np.arange(<span class="hljs-number">1</span>, <span class="hljs-number">9</span>) <span class="hljs-comment"># x軸的值</span>
+y = [<span class="hljs-number">3</span>,<span class="hljs-number">1</span>,<span class="hljs-number">8</span>,<span class="hljs-number">5</span>,<span class="hljs-number">4</span>,<span class="hljs-number">3</span>,<span class="hljs-number">2</span>,<span class="hljs-number">6</span>]  <span class="hljs-comment"># y軸的值</span>
+
+plt.title(<span class="hljs-string">&quot;line chart&quot;</span>) <span class="hljs-comment"># 圖的標題</span>
+plt.xlabel(<span class="hljs-string">&quot;x axis&quot;</span>) <span class="hljs-comment"># x軸的名稱</span>
+plt.ylabel(<span class="hljs-string">&quot;y axis&quot;</span>) <span class="hljs-comment"># y軸的名稱</span>
+plt.plot(x, y) <span class="hljs-comment"># 繪製折線圖</span>
+plt.show() <span class="hljs-comment"># 顯現圖形        </span></code></pre>
+<h2 id="-2"><a href="#-2" class="headerlink" title=""></a><img src="https://i.imgur.com/ERYsRtg.png" class="lazyload" data-srcset="https://i.imgur.com/ERYsRtg.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></h2><h3 id="圓餅圖"><a href="#圓餅圖" class="headerlink" title="圓餅圖"></a>圓餅圖</h3><p>有時，資料比較適合用圓餅圖呈現，可以用pie這個函數繪製出圓餅圖。</p>
+<h4 id="實作-10"><a href="#實作-10" class="headerlink" title="實作"></a>實作</h4><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np <span class="hljs-comment"># 引入NumPy</span>
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt <span class="hljs-comment"># 引入matplotlib的函數</span>
+
+category = [<span class="hljs-string">&quot;clothing&quot;</span>, <span class="hljs-string">&quot;book&quot;</span>, <span class="hljs-string">&quot;meal&quot;</span>, <span class="hljs-string">&quot;snacks&quot;</span>] <span class="hljs-comment"># 總類名稱</span>
+expand = [<span class="hljs-number">2000</span>, <span class="hljs-number">1500</span>, <span class="hljs-number">3000</span>, <span class="hljs-number">800</span>]  <span class="hljs-comment"># 圓餅圖的值</span>
+color = [<span class="hljs-string">&quot;rea&quot;</span>, <span class="hljs-string">&quot;yellow&quot;</span>, <span class="hljs-string">&quot;blue&quot;</span>, <span class="hljs-string">&quot;green&quot;</span>] <span class="hljs-comment"># 設定顏色</span>
+
+plt.title(<span class="hljs-string">&quot;pie chart&quot;</span>) <span class="hljs-comment"># 圖的標題</span>
+plt.xlabel(<span class="hljs-string">&quot;x axis&quot;</span>) <span class="hljs-comment"># x軸的名稱</span>
+plt.ylabel(<span class="hljs-string">&quot;y axis&quot;</span>) <span class="hljs-comment"># y軸的名稱</span>
+plt.pie(expand, label = category, color = color) <span class="hljs-comment"># 繪製圓餅圖</span>
+plt.show() <span class="hljs-comment"># 顯現圖形 </span></code></pre>
+<p><img src="https://i.imgur.com/BUFwSdK.png" class="lazyload" data-srcset="https://i.imgur.com/BUFwSdK.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
+<hr>
+<h3 id="子圖"><a href="#子圖" class="headerlink" title="子圖"></a>子圖</h3><p>有時候，會將圖表放在一起比較，這時候使用子圖(subplot)就會很方便，它可以將圖形進行切割，並在各個位置擺上子圖。繪製子圖需要三個重要的參數</p>
+<ol>
+<li>nrows : 切割的列數</li>
+<li>ncols : 切割的行數</li>
+<li>index : 放在哪個格子裡</li>
+</ol>
+<p>例如:<br><img src='https://i.imgur.com/DQx283F.png'
+height='300'></p>
+<h4 id="實作-11"><a href="#實作-11" class="headerlink" title="實作"></a>實作</h4><pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt <span class="hljs-comment"># 引入matplotlib的函數</span>
+
+fig = plt.figure()    <span class="hljs-comment">#創建圖表</span>
+sub1 = fig.add_subplot(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>) <span class="hljs-comment"># 添加子圖表1</span>
+sub2 = fig.add_subplot(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>) <span class="hljs-comment"># 添加子圖表2</span>
+sub3 = fig.add_subplot(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>) <span class="hljs-comment"># 添加子圖表3</span>
+sub4 = fig.add_subplot(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>) <span class="hljs-comment"># 添加子圖表4</span>
+
+sub1.plot(np.arange(<span class="hljs-number">5</span>), [<span class="hljs-number">8</span>,<span class="hljs-number">5</span>,<span class="hljs-number">3</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>]) <span class="hljs-comment"># 繪製子圖1</span>
+sub2.plot(np.arange(<span class="hljs-number">5</span>), [<span class="hljs-number">2</span>,<span class="hljs-number">4</span>,<span class="hljs-number">2</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>]) <span class="hljs-comment"># 繪製子圖2</span>
+sub3.plot(np.arange(<span class="hljs-number">5</span>), [<span class="hljs-number">4</span>,<span class="hljs-number">3</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">1</span>]) <span class="hljs-comment"># 繪製子圖3</span>
+sub4.plot(np.arange(<span class="hljs-number">5</span>), [<span class="hljs-number">8</span>,<span class="hljs-number">2</span>,<span class="hljs-number">4</span>,<span class="hljs-number">3</span>,<span class="hljs-number">5</span>]) <span class="hljs-comment"># 繪製子圖4</span>
+
+plt.show() <span class="hljs-comment"># 顯現圖形</span></code></pre>
+<p><img src="https://i.imgur.com/AId0jTj.png" class="lazyload" data-srcset="https://i.imgur.com/AId0jTj.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
+<hr>
+<h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><hr>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Matplotlib">Matplotlib - 維基百科</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/numpy/numpy-matplotlib.html">NumPy Matplotlib</a></li>
+</ul>
+<br/>
+<br/>
+<a href="/2020/09/03/it/it-2" float=left>Last</a> <a href="#" style="float: right;">Next</a><!-- flag of hidden posts -->
+            </div>
+             
+            <div class="post-footer__meta">
+    <p>
+        updated at 2020-09-04
+    </p>
+</div> 
+            <div class="post-meta__cats">
+    
+    
+</div> 
+        </article>
+        
+            <div class="post__comments content-card" id="comment">
+                
+    <h4>Comments</h4>
+    
+    <div id="disqus_thread">Unable to load Disqus, please make sure your network can access.</div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+            </div>
+        
+    </div>
+
+
+</main>
+
+            <footer class="footer">
+    
+
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright&nbsp;©&nbsp;2020&nbsp;<a href="/">Justin</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+        
+    <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+    <script>
+        window.lazyLoadOptions = {
+            elements_selector: ".lazyload",
+            threshold: 0
+        };
+    </script>
+ 
+
+ 
+
+ 
+
+ 
+
+  
+
+
+
+ 
+
+
+    
+
+
+ 
+
+ 
+    <script defer src="/js/b2t.js"></script>
+
+
+
+
+
+    
+    <script>
+        function loadComment() {
+            window.disqus_config = function () {
+                this.page.url = 'http://yoursite.com/2020/09/04/it/it-3/';
+                this.page.identifier = '2020/09/04/it/it-3/';
+            };
+            (function(){
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + 'https-justin900429-github-io' + '.disqus.com/embed.js';
+                (document.head || document.body).appendChild(dsq);
+            })();
+        }
+    
+        var runningOnBrowser = typeof window !== "undefined";
+        var isBot = runningOnBrowser && !("onscroll" in window) || typeof navigator !== "undefined" && /(gle|ing|ro|msn)bot|crawl|spider|yand|duckgo/i.test(navigator.userAgent);
+        var supportsIntersectionObserver = runningOnBrowser && "IntersectionObserver" in window;
+    
+        setTimeout(function () {
+            if (!isBot && supportsIntersectionObserver) {
+                var comment_observer = new IntersectionObserver(function(entries) {
+                    if (entries[0].isIntersecting) {
+                        loadComment();
+                        comment_observer.disconnect();
+                    }
+                }, { threshold: [0] });
+                comment_observer.observe(document.getElementById('comment'));
+            } else {
+                loadComment();
+            }
+        }, 1);
+    </script>
+
+
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+
+
+    </body>
+</html>
