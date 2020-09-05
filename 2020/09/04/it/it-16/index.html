@@ -29,15 +29,15 @@
 
     <!-- OpenGraph -->
  
-    <meta name="description" content="See moreBack to series page   前言我們上篇講完如何應用 Logistic Regression。今天我們就看看他背後的數學吧！ Sigmoid我們先來看看 sigmoid 微分後會變什麼吧！ $$\begin{align}g(x) &amp;&#x3D; \frac{1}{1 + e^{-x}} \\g^\prime(x) &amp;&#x3D; \frac{e^{-x}}{(1 + e">
+    <meta name="description" content="See moreBack to series page   前言我們上篇講完如何應用 Logistic Regression。今天我們就看看他背後的數學吧！ Sigmoid我們先來看看 sigmoid 微分後會變什麼吧！ $$\begin{align}g(x) &amp;&#x3D; \frac{1}{1 + e^{-x}} \\\\g^\prime(x) &amp;&#x3D; \frac{e^{-x}}{(1 +">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Series - 16] Classification - Logistic Regression - 2">
 <meta property="og:url" content="http://yoursite.com/2020/09/04/it/it-16/index.html">
 <meta property="og:site_name" content="Justin">
-<meta property="og:description" content="See moreBack to series page   前言我們上篇講完如何應用 Logistic Regression。今天我們就看看他背後的數學吧！ Sigmoid我們先來看看 sigmoid 微分後會變什麼吧！ $$\begin{align}g(x) &amp;&#x3D; \frac{1}{1 + e^{-x}} \\g^\prime(x) &amp;&#x3D; \frac{e^{-x}}{(1 + e">
+<meta property="og:description" content="See moreBack to series page   前言我們上篇講完如何應用 Logistic Regression。今天我們就看看他背後的數學吧！ Sigmoid我們先來看看 sigmoid 微分後會變什麼吧！ $$\begin{align}g(x) &amp;&#x3D; \frac{1}{1 + e^{-x}} \\\\g^\prime(x) &amp;&#x3D; \frac{e^{-x}}{(1 +">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-09-04T14:18:35.000Z">
-<meta property="article:modified_time" content="2020-09-04T14:22:28.369Z">
+<meta property="article:modified_time" content="2020-09-05T06:50:11.563Z">
 <meta property="article:author" content="Justin Ruan">
 <meta name="twitter:card" content="summary_large_image">
 
@@ -221,7 +221,7 @@
 
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>我們上篇講完如何應用 <strong>Logistic Regression</strong>。今天我們就看看他背後的數學吧！</p>
 <h2 id="Sigmoid"><a href="#Sigmoid" class="headerlink" title="Sigmoid"></a>Sigmoid</h2><p>我們先來看看 <strong>sigmoid</strong> 微分後會變什麼吧！</p>
-<p>$$<br>\begin{align}<br>g(x) &amp;= \frac{1}{1 + e^{-x}} \\<br>g^\prime(x) &amp;= \frac{e^{-x}}{(1 + e^{-x})^2} \\<br>&amp;= \frac{1}{1 + e^{-x}} \times \frac{e^{-x}}{(1 + e^{-x})} \\<br>&amp;= g(x)(1 - g(x))<br>\end{align}<br>$$</p>
+<p>$$<br>\begin{align}<br>g(x) &amp;= \frac{1}{1 + e^{-x}} \\\\<br>g^\prime(x) &amp;= \frac{e^{-x}}{(1 + e^{-x})^2} \\\\<br>&amp;= \frac{1}{1 + e^{-x}} \times \frac{e^{-x}}{(1 + e^{-x})} \\\\<br>&amp;= g(x)(1 - g(x))<br>\end{align}<br>$$</p>
 <p>因此我們可以直接使用 $g^\prime(x) = g(x)(1 - g(x))$</p>
 <h2 id="Probability-distribution"><a href="#Probability-distribution" class="headerlink" title="Probability distribution"></a>Probability distribution</h2><p>在使用 <strong>MLE</strong> 之前，我們必須先知道 <strong>Likelihood: $P(y\mid x)$</strong> 是什麼。我們知道，當 $y=1$ 我們希望使用的是 $g(x)$，當 $y = 0$ 我們希望用的是 $1 - g(x)$。因此我們的機率函數應該是:</p>
 <p>$$<br>\begin{cases}<br>    p(y \mid x;\theta) = h_\theta(x), &amp; \text{if}\ y = 1 \\\\<br>    p(y \mid x;\theta) = 1 - h_\theta(x), &amp; \text{if}\ y = 0<br>\end{cases}<br>$$</p>
@@ -229,8 +229,8 @@
 <p>$$<br>p(y \mid x;\theta) = h_\theta(x)^y(1 - h_\theta(x)) ^{1 - y}<br>$$</p>
 <h2 id="MLE"><a href="#MLE" class="headerlink" title="MLE"></a>MLE</h2><p>因此我們的 <strong>Likelihood</strong> 應該是:</p>
 <p>$$<br>\begin{align}<br>L(\theta) &amp;= p(\vec{y} \mid X)\\\\<br>&amp;= \prod_{i=1}^{n}p(y^{(i)} \mid x^{(i)};\theta) \\\\<br>&amp;= \prod_{i=1}^{n}(h_\theta(x^{(i)}))^{y^{(i)}}(1 - h_\theta(x^{(i)}))^{1 - y^{(i)}}<br>\end{align}<br>$$</p>
-<p>取 $log$，變成 <strong>Log likelihood</strong>:</p>
-<p>$$<br>\begin{align}<br>l(\theta) &amp;= log\prod_{i=1}^{n}p(y \mid x^{(i)};\theta) \\\\<br>&amp;= \sum_{i=1}^{n}log(p(y \mid x^{(i)};\theta)) \\\\<br>&amp;= \sum_{i=1}^{n}log(h_\theta(x^{(i)})^{y^{(i)}}(1 - h_\theta(x^{(i)})^{1 - y^{(i)}}) \\\\<br>&amp;= \sum_{i=1}^{n}y^{(i)}log(h_\theta(x^{(i)})) + (1 - y^{(i)})log(1 - h_\theta(x^{(i)}))<br>\end{align}<br>$$</p>
+<p>取 $log$，變成 <strong>Log-ikelihood</strong>:</p>
+<p>$$<br>\begin{align}<br>l(\theta) &amp;= \log\prod_{i=1}^{n}p(y \mid x^{(i)};\theta) \\\\<br>&amp;= \sum_{i=1}^{n} \log(p(y \mid x^{(i)};\theta)) \\\\<br>&amp;= \sum_{i=1}^{n} \log(h_\theta(x^{(i)})^{y^{(i)}}(1 - h_\theta(x^{(i)})^{1 - y^{(i)}}) \\\\<br>&amp;= \sum_{i=1}^{n}y^{(i)} \log(h_\theta(x^{(i)})) + (1 - y^{(i)}) \log(1 - h_\theta(x^{(i)}))<br>\end{align}<br>$$</p>
 <p>偏微分：</p>
 <p>$$<br>\begin{align}<br>\frac{\partial}{\partial \theta_j}l(\theta) &amp;= \frac{1}{n}\sum_{i=1}^{n}(y^{(i)}\frac{1}{g(\theta^Tx^{(i)})} - (1 - y^{(i)})\frac{1}{1 - g(\theta^Tx^{(i)})})\frac{\partial}{\partial \theta_j}g(\theta^Tx^{(i)}) \\\\<br>&amp;= \frac{1}{n}\sum_{i=1}^{n}(y^{(i)}\frac{1}{g(\theta^Tx^{(i)})} - (1 - y^{(i)})\frac{1}{1 - g(\theta^Tx^{(i)})})g(\theta^Tx^{(i)})(1 - g(\theta^Tx^{(i)})) \frac{\partial}{\partial \theta_j}\theta^T x^{(i)} \\\\<br>&amp;= \frac{1}{n}\sum_{i=1}^{n}(y(1 - g(\theta^Tx^{(i)})) - (1 - y^{(i)})g(\theta^Tx^{(i)}))x_j \\\\<br>&amp;= \frac{1}{n}\sum_{i=1}^{n}(y - h_\theta(x^{(i)}))x_j<br>\end{align}<br>$$</p>
 <p>因此我們對 $\theta_{j}$ 的更新方式就是：</p>
@@ -330,7 +330,7 @@
              
             <div class="post-footer__meta">
     <p>
-        updated at 2020-09-04
+        updated at 2020-09-05
     </p>
 </div> 
             <div class="post-meta__cats">
