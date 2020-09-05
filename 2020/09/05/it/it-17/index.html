@@ -36,12 +36,12 @@
 <meta property="og:site_name" content="Justin">
 <meta property="og:description" content="[Series - 17] Classification - Naive BayesSee moreBack to series page   前言今天的部分會比較輕鬆，雖然也可以講一些數學，但我認為這部分用理解的更能理解其背後的意義，因此這篇章只會花一篇的時間！ Bayes’s Theorem在講今天的主題之前，我們先來介紹在機率裡面非常有名的定理 - Bayes’s Theorem。他數學定理">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://i.imgur.com/XR1vLoC.jpg">
+<meta property="og:image" content="https://i.imgur.com/gnZg7p0.jpg">
 <meta property="article:published_time" content="2020-09-05T09:36:50.000Z">
-<meta property="article:modified_time" content="2020-09-05T09:49:34.296Z">
+<meta property="article:modified_time" content="2020-09-05T15:36:05.763Z">
 <meta property="article:author" content="Justin Ruan">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://i.imgur.com/XR1vLoC.jpg">
+<meta name="twitter:image" content="https://i.imgur.com/gnZg7p0.jpg">
 
 
     
@@ -223,7 +223,7 @@
 
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天的部分會比較輕鬆，雖然也可以講一些數學，但我認為這部分用理解的更能理解其背後的意義，因此這篇章只會花一篇的時間！</p>
 <h2 id="Bayes’s-Theorem"><a href="#Bayes’s-Theorem" class="headerlink" title="Bayes’s Theorem"></a>Bayes’s Theorem</h2><p>在講今天的主題之前，我們先來介紹在機率裡面非常有名的定理 - <strong>Bayes’s Theorem</strong>。他數學定理是長這樣的：</p>
-<p>$$<br>\begin{align}<br>    p(y_i \mid x) &amp;= \frac{p(y_i, x)}{p(x)} \\\\<br>    &amp;= \frac{p(x \mid y)p(y)}{\sum_{i = j}^{n} p(y_j)p(x \mid y_j)}<br>\end{align}<br>$$</p>
+<p>$$<br>\begin{align}<br>    p(y_i \mid x) &amp;= \frac{p(y_i, x)}{p(x)} \\\\<br>    &amp;= \frac{p(x \mid y)p(y)}{\sum_{i=1}^{n} p(y_j)p(x \mid y_j)}<br>\end{align}<br>$$</p>
 <p>因為我們的目標不是專注在數學，所以我邊就不深入探討 <strong>Naive’s Bayes</strong> 的圖像解釋。但是這條定理給予我們很大的幫助，因為當我們想算出<strong>給定 $x$ 求出 $y$ 是類別 $i$ 的機率</strong>，可以利用我們目前所有的 <strong>data</strong> 來做出比較。這邊我們來深入研究一下：</p>
 <ul>
 <li>$p(y_j)$ 即為我們有的資料裡面，類別是 $j$ 的機率</li>
@@ -273,31 +273,37 @@
 <p>$$<br>p(x_j | y_i) = 0<br>$$</p>
 <p>這其實是有問題的，我們不能因為我們沒看過這種標籤就預測說這不可能發生，只能說這標籤發生的機率比較低，應此我們會在 $p(x_j|y_i)$ 加上 $n$ ，分子加上 1，而 $n$ 表示的是類別的總數。因此此時 $p(x_j | y_i)$ 會變成：</p>
 <p>$$<br>\begin{align}<br>p(x_j = l | y_i) = \frac{\sum_{k=1}^m 1 \{ {x_j^{(k)}} = l \wedge y^{(k)} = i \} + 1}{\sum_{k=1}^m1 \{ y^{(k)} = i \} + n}<br>\end{align}<br>$$</p>
-<h2 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h2><p>終於進到程式碼啦，這邊我們就不實作了，直接使用 <strong>sklearn</strong> 裡的套件。這邊我們使用的資料是預測新聞的種類，每筆資料都是用向量表示，而整體是一個 <strong>sparse matrix</strong>。</p>
-<pre><code class="hljs python">data = fetch_20newsgroups_vectorized()
-print(data.target_names) <span class="hljs-comment"># Print all the class names</span>
+<h2 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h2><p>終於進到程式碼啦，這邊我們就不實作了，直接使用 <strong>sklearn</strong> 裡的套件。這邊我們使用的資料是製作資料集的函式。</p>
+<pre><code class="hljs python"><span class="hljs-comment"># Make classification</span>
+X, y = make_multilabel_classification(n_samples=<span class="hljs-number">500</span>, n_features=<span class="hljs-number">30</span>, n_classes=<span class="hljs-number">2</span>)
 
-<span class="hljs-comment"># Download the training and test set</span>
-train = fetch_20newsgroups_vectorized(subset=<span class="hljs-string">&#x27;train&#x27;</span>)
-test = fetch_20newsgroups_vectorized(subset=<span class="hljs-string">&#x27;test&#x27;</span>)
+<span class="hljs-comment"># Original y is the categorical matrix</span>
+<span class="hljs-comment"># Change it to the label matrix</span>
+y_label = np.sum(y, axis=<span class="hljs-number">-1</span>)
 
-X, y = train.data, train.target
+<span class="hljs-comment"># Split it into train and test dataset</span>
+train_data = X[:<span class="hljs-number">400</span>]
+train_target = y_label[:<span class="hljs-number">400</span>]
 
-<span class="hljs-keyword">from</span> sklearn.naive_bayes <span class="hljs-keyword">import</span> MultinomialNB
+test_data = X[<span class="hljs-number">400</span>:<span class="hljs-number">500</span>]
+test_target = y_label[<span class="hljs-number">400</span>:<span class="hljs-number">500</span>]
 
-<span class="hljs-comment"># Using naive bayes to train the model</span>
-model = MultinomialNB().fit(X, y)
+<span class="hljs-comment"># Shape(400, 30)</span>
+<span class="hljs-comment"># 30 is the feature</span>
+<span class="hljs-comment"># 400 is the data</span>
+print(train_data)
 
-<span class="hljs-comment"># Print the score of the model</span>
-print(model.score(test.data, test.target))
+model = MultinomialNB().fit(train_data, train_target)
 
-plt.figure(figsize=(<span class="hljs-number">12</span>, <span class="hljs-number">12</span>))
-mat = confusion_matrix(test.target, model.predict(test.data))
-<span class="hljs-comment"># Draw the heatmap</span>
-sns.heatmap(mat.T, square=<span class="hljs-literal">True</span>, annot=<span class="hljs-literal">True</span>, fmt=<span class="hljs-string">&#x27;d&#x27;</span>, cbar=<span class="hljs-literal">False</span>,
-            xticklabels=train.target_names, yticklabels=train.target_names)</code></pre>
+<span class="hljs-comment"># Test our model</span>
+print(model.score(test_data, test_target))
 
-<p><img src="https://i.imgur.com/XR1vLoC.jpg" class="lazyload" data-srcset="https://i.imgur.com/XR1vLoC.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
+<span class="hljs-comment"># Plot the heatmap</span>
+plt.figure(figsize=(<span class="hljs-number">6</span>, <span class="hljs-number">6</span>))
+mat = confusion_matrix(test_target, model.predict(test_data))
+sns.heatmap(mat.T, square=<span class="hljs-literal">True</span>, annot=<span class="hljs-literal">True</span>, fmt=<span class="hljs-string">&#x27;d&#x27;</span>, cbar=<span class="hljs-literal">False</span>)</code></pre>
+
+<p><img src="https://i.imgur.com/gnZg7p0.jpg" class="lazyload" data-srcset="https://i.imgur.com/gnZg7p0.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
 <h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>今天介紹完關於 <strong>Naive Bayes</strong> 的知識，其實他也可以搭配 <strong>Gaussian</strong> 來做不一樣的變化，不過這裡我就先不提到了。下篇我們會介紹 <strong>SVM</strong>，同樣是用作分類的工具，那我們下篇見！</p>
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
 <li><a target="_blank" rel="noopener" href="http://www.cs.columbia.edu/~mcollins/em.pdf">The Naive Bayes Model, Maximum-Likelihood Estimation, and the EM Algorithm</a></li>
