@@ -38,7 +38,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://i.imgur.com/XR1vLoC.jpg">
 <meta property="article:published_time" content="2020-09-05T09:36:50.000Z">
-<meta property="article:modified_time" content="2020-09-05T09:40:27.703Z">
+<meta property="article:modified_time" content="2020-09-05T09:49:34.296Z">
 <meta property="article:author" content="Justin Ruan">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://i.imgur.com/XR1vLoC.jpg">
@@ -260,11 +260,11 @@
 <td align="center">5</td>
 </tr>
 </tbody></table>
-<h2 id="條件機率的算法"><a href="#條件機率的算法" class="headerlink" title="條件機率的算法"></a>條件機率的算法</h2><p>這邊我們定義一下符號 - $1 { condition }$，這代表如果 $condition$ 成立的話值為 1 否則為 0。舉例來說 $1 { 3=4 } = 0$ 而 $1 { 8=8 } = 1$。</p>
+<h2 id="條件機率的算法"><a href="#條件機率的算法" class="headerlink" title="條件機率的算法"></a>條件機率的算法</h2><p>這邊我們定義一下符號 - $1 \{ condition \}$，這代表如果 $condition$ 成立的話值為 1 否則為 0。舉例來說 $1 \{ 3=4 \} = 0$ 而 $1 \{ 8=8 \} = 1$。</p>
 <p>我們現在來說說 $p(y)$,$p(x \mid y)$ 怎麼算吧！ $p(y_i)$ 其實還蠻直接的就是所有資料分之那個類別，因此是:</p>
-<p>$$<br>p(y_j) = \frac{\sum_{i=1}^m 1 { y^{(i)} = j } }{m}<br>$$</p>
+<p>$$<br>p(y_j) = \frac{\sum_{i=1}^m 1 \{ y^{(i)} = j \} }{m}<br>$$</p>
 <p>而 $p(x_j = l \mid y_i)$ 則是使用條件機率來算：</p>
-<p>$$<br>p(x_j = l \mid y_i) = \frac{\sum_{k=1}^m 1 { {x_j^{(k)}} = l \wedge y^{(k)} = i }}{\sum_{k=1}^m1 { y^{(k)} = i }}<br>$$</p>
+<p>$$<br>p(x_j = l \mid y_i) = \frac{\sum_{k=1}^m 1 \{ {x_j^{(k)}} = l \wedge y^{(k)} = i \}}{\sum_{k=1}^m1 \{ y^{(k)} = i \}}<br>$$</p>
 <p>其實這些東西也可以使用 <strong>MLE</strong> 來證明，不過我認為這些東西可以用理解的來實現，因此這邊我就不另外說明了。不過如果要使用 <strong>MLE</strong> 的話記得要變成:</p>
 <p>$$<br>\begin{align}<br>    L(p(y_i), p(x_j\mid y_i)) &amp;= \prod_{i=1}^{n}p(x^{(i)}, y^{(i)}) \\\\<br>    &amp;= \prod_{i=1}^{n}p(x^{(i)} \mid y^{(i)})p(y^{(i)})<br>\end{align}<br>$$</p>
 <p>因爲 $p(y_j)$ 也變成要決定的目標，因此不能只使用條件機率。</p>
@@ -272,8 +272,8 @@
 <h2 id="Laplace-smoothing"><a href="#Laplace-smoothing" class="headerlink" title="Laplace smoothing"></a>Laplace smoothing</h2><p>這會是程式碼前最後的一小部分啦！上述我們都是利用資料點出現的 <strong>features</strong> 來決定我們的類別，那假設我們今天要預設的 $x_j$ 裡有我們第一次出現的標籤，則會出現：</p>
 <p>$$<br>p(x_j | y_i) = 0<br>$$</p>
 <p>這其實是有問題的，我們不能因為我們沒看過這種標籤就預測說這不可能發生，只能說這標籤發生的機率比較低，應此我們會在 $p(x_j|y_i)$ 加上 $n$ ，分子加上 1，而 $n$ 表示的是類別的總數。因此此時 $p(x_j | y_i)$ 會變成：</p>
-<p>$$<br>\begin{align}<br>p(x_j = l | y_i) = \frac{\sum_{k=1}^m 1 { {x_j^{(k)}} = l \wedge y^{(k)} = i } + 1}{\sum_{k=1}^m1 { y^{(k)} = i } + n}<br>\end{align}<br>$$</p>
-<h2 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h2><p>終於進到程式碼啦，這邊我們就不實作了，直接使用 <strong>sklearn</strong> 裡的套件。這邊我們使用的資料是預測新聞的種類，每筆資料都是一個向量表示有沒有這個單詞，有是 1 沒有是 0，大家可以把資料印出來看看。</p>
+<p>$$<br>\begin{align}<br>p(x_j = l | y_i) = \frac{\sum_{k=1}^m 1 \{ {x_j^{(k)}} = l \wedge y^{(k)} = i \} + 1}{\sum_{k=1}^m1 \{ y^{(k)} = i \} + n}<br>\end{align}<br>$$</p>
+<h2 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h2><p>終於進到程式碼啦，這邊我們就不實作了，直接使用 <strong>sklearn</strong> 裡的套件。這邊我們使用的資料是預測新聞的種類，每筆資料都是用向量表示，而整體是一個 <strong>sparse matrix</strong>。</p>
 <pre><code class="hljs python">data = fetch_20newsgroups_vectorized()
 print(data.target_names) <span class="hljs-comment"># Print all the class names</span>
 
