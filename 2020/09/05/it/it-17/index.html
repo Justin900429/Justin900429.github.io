@@ -38,7 +38,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://i.imgur.com/gnZg7p0.jpg">
 <meta property="article:published_time" content="2020-09-05T09:36:50.000Z">
-<meta property="article:modified_time" content="2020-09-05T15:36:05.763Z">
+<meta property="article:modified_time" content="2020-09-05T15:41:57.704Z">
 <meta property="article:author" content="Justin Ruan">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://i.imgur.com/gnZg7p0.jpg">
@@ -223,11 +223,11 @@
 
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天的部分會比較輕鬆，雖然也可以講一些數學，但我認為這部分用理解的更能理解其背後的意義，因此這篇章只會花一篇的時間！</p>
 <h2 id="Bayes’s-Theorem"><a href="#Bayes’s-Theorem" class="headerlink" title="Bayes’s Theorem"></a>Bayes’s Theorem</h2><p>在講今天的主題之前，我們先來介紹在機率裡面非常有名的定理 - <strong>Bayes’s Theorem</strong>。他數學定理是長這樣的：</p>
-<p>$$<br>\begin{align}<br>    p(y_i \mid x) &amp;= \frac{p(y_i, x)}{p(x)} \\\\<br>    &amp;= \frac{p(x \mid y)p(y)}{\sum_{i=1}^{n} p(y_j)p(x \mid y_j)}<br>\end{align}<br>$$</p>
+<p>$$<br>\begin{align}<br>    p(y_i \mid x) &amp;= \frac{p(y_i, x)}{p(x)} \\\\<br>    &amp;= \frac{p(x \mid y_i)p(y_i)}{\sum_{i=1}^{n} p(y_i)p(x \mid y_i)}<br>\end{align}<br>$$</p>
 <p>因為我們的目標不是專注在數學，所以我邊就不深入探討 <strong>Naive’s Bayes</strong> 的圖像解釋。但是這條定理給予我們很大的幫助，因為當我們想算出<strong>給定 $x$ 求出 $y$ 是類別 $i$ 的機率</strong>，可以利用我們目前所有的 <strong>data</strong> 來做出比較。這邊我們來深入研究一下：</p>
 <ul>
-<li>$p(y_j)$ 即為我們有的資料裡面，類別是 $j$ 的機率</li>
-<li>$p(x \mid y_j)$ 即為在類別 $j$ 中，$x$ 出現的機率</li>
+<li>$p(y_i)$ 即為我們有的資料裡面，類別是 $i$ 的機率</li>
+<li>$p(x \mid y_i)$ 即為在類別 $i$ 中，$x$ 出現的機率</li>
 </ul>
 <p>這些東西都是我們早就可以從資料裡面取得的，因此我們可以很快就建立好我們的 <strong>model</strong>。</p>
 <h2 id="x-是什麼？"><a href="#x-是什麼？" class="headerlink" title="$x$ 是什麼？"></a>$x$ 是什麼？</h2><h3 id="x-的角色"><a href="#x-的角色" class="headerlink" title="$x$ 的角色"></a>$x$ 的角色</h3><p>剛剛我們上面說到，”<strong>類別 $j$ 中，$x$ 出現的機率</strong>“ 這句話，這邊我們沒有很仔細的定義何為 $x$，因此我們就來說明一下 $x$ 到底是什麼。</p>
@@ -238,7 +238,7 @@
 <p>因此我們可以把 $p(x \mid y)$ 寫成：</p>
 <p>$$<br>\begin{align}<br>    p(x\mid y_i)&amp;= p(x_1 \mid y_i)p(x_2 \mid y_i)\cdots p(x_n \mid y_i) \\\\<br>    &amp;= \prod_{i=1}^n p(x_i \mid y_i)<br>\end{align}<br>$$</p>
 <p>現在我們在把$p(y_i \mid x)$ 的式子改寫一下變成(假設有 $m$ 資料)：</p>
-<p>$$<br>\begin{align}<br>    p(y_i \mid x) &amp;= \frac{p(x \mid y)p(y)}{\sum_{i=1}^{m}p(y_j)p(x \mid y_j)} \\\\<br>    &amp;= \frac{p(x \mid y)p(y)}{\sum_{i=j}^{m}p(y_j)\prod_{j=1}^n p(x_j \mid y_i)}<br>\end{align}<br>$$</p>
+<p>$$<br>\begin{align}<br>    p(y_i \mid x) &amp;= \frac{p(x \mid y_i)p(y_i)}{\sum_{i=1}^{m}p(y_j)p(x \mid y_j)} \\\\<br>    &amp;= \frac{p(x \mid y_i)p(y_i)}{\sum_{i=1}^{m}p(y_i)\prod_{j=1}^n p(x_j \mid y_i)}<br>\end{align}<br>$$</p>
 <h3 id="x-i-何去何從"><a href="#x-i-何去何從" class="headerlink" title="$x_i$ 何去何從"></a>$x_i$ 何去何從</h3><p>$x_i$ 如果是連續的值的話該怎麼辦? 這樣 $x_i$ 不就沒有太多功能了嗎？因此我們可以試著把連續的空間轉成離散的空間，那麼我們就可以再次使用啦！而轉換的方式就是使用區間！例如下表:</p>
 <table>
 <thead>
@@ -262,7 +262,7 @@
 </tbody></table>
 <h2 id="條件機率的算法"><a href="#條件機率的算法" class="headerlink" title="條件機率的算法"></a>條件機率的算法</h2><p>這邊我們定義一下符號 - $1 \{ condition \}$，這代表如果 $condition$ 成立的話值為 1 否則為 0。舉例來說 $1 \{ 3=4 \} = 0$ 而 $1 \{ 8=8 \} = 1$。</p>
 <p>我們現在來說說 $p(y)$,$p(x \mid y)$ 怎麼算吧！ $p(y_i)$ 其實還蠻直接的就是所有資料分之那個類別，因此是:</p>
-<p>$$<br>p(y_j) = \frac{\sum_{i=1}^m 1 \{ y^{(i)} = j \} }{m}<br>$$</p>
+<p>$$<br>p(y_i) = \frac{\sum_{j=1}^m 1 \{ y^{(j)} = i \} }{m}<br>$$</p>
 <p>而 $p(x_j = l \mid y_i)$ 則是使用條件機率來算：</p>
 <p>$$<br>p(x_j = l \mid y_i) = \frac{\sum_{k=1}^m 1 \{ {x_j^{(k)}} = l \wedge y^{(k)} = i \}}{\sum_{k=1}^m1 \{ y^{(k)} = i \}}<br>$$</p>
 <p>其實這些東西也可以使用 <strong>MLE</strong> 來證明，不過我認為這些東西可以用理解的來實現，因此這邊我就不另外說明了。不過如果要使用 <strong>MLE</strong> 的話記得要變成:</p>
