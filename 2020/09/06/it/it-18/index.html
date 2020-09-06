@@ -38,10 +38,11 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://miro.medium.com/max/419/1*9xY4CM9C3UA8199vnCSbkw.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/svm_gm.png">
+<meta property="og:image" content="https://i.imgur.com/DeZsyJb.jpg">
 <meta property="og:image" content="https://i.imgur.com/absExVi.png">
 <meta property="og:image" content="https://i.imgur.com/VwXOCIi.png">
 <meta property="article:published_time" content="2020-09-06T07:46:49.000Z">
-<meta property="article:modified_time" content="2020-09-06T07:53:26.256Z">
+<meta property="article:modified_time" content="2020-09-06T14:22:20.207Z">
 <meta property="article:author" content="Justin Ruan">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://miro.medium.com/max/419/1*9xY4CM9C3UA8199vnCSbkw.png">
@@ -255,7 +256,10 @@
 </ol>
 <p>因此合起來就是</p>
 <p>$$<br>\begin{align}<br>max_{\gamma,w,b} \ \ \ \  &amp;\gamma \\<br>s.t.  \ \ \ \ &amp;y^{(i)}(w^Tx^{(i)} + b) \geq \gamma, \ i= 1,…m \\<br>&amp; \lVert w \rVert = 1<br>\end{align}<br>$$</p>
-<p>將這個式子簡化就留到明天吧！</p>
+<p>而找到最大距離的原因就是希望可以容忍更多誤差，想像說每點資料都有自己的誤差，當我們給他夠大的距離的時候，我們就可以更好忍受誤差。將這個式子的簡化就留到明天吧！</p>
+<center><img src="https://i.imgur.com/DeZsyJb.jpg" class="lazyload" data-srcset="https://i.imgur.com/DeZsyJb.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" width=350/></center>
+
+<p><strong>黑色</strong>的點是我們資料點，<strong>紅色</strong>則是其誤差範圍，<strong>黑色線</strong>則是分類線，藍色則是我我們等等要講的 <strong>Support vector line</strong>.</p>
 <h2 id="Hard-and-Soft-margin"><a href="#Hard-and-Soft-margin" class="headerlink" title="Hard and Soft margin"></a>Hard and Soft margin</h2><p>我們先來解釋什麼是 <strong>Support vector</strong> 吧！<br><br></p>
 <p>下面這張圖可以更好的解釋什麼是 <strong>Support Vector</strong></p>
 <center><img src="https://i.imgur.com/absExVi.png" class="lazyload" data-srcset="https://i.imgur.com/absExVi.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" width=400/></center>
@@ -264,9 +268,9 @@
 
 <p>圖中的紅線，是我們的分割直線。而這條直線的數學式是 $f(x) = W^TX + b$ = 0。這條直線另外帶出了兩條虛線，分別是 $h_1(x) = W^TX + b = 1$, $h_1(x) = W^TX + b = -1$。</p>
 <p>支撐向量指的是通過需虛線的這些點，這些點”支撐”著我們這些平面，使得其他的點不要落到這些平面之間</p>
+<p>而 <strong>Support vector line</strong> 就是指通過 <strong>Support vector</strong> 的線。</p>
 <p>而 <strong>Soft margin</strong> 跟 <strong>Hard margin</strong> 的差別在於可不可以容忍點在這些平面之間。下面這張圖可以很好解釋這兩者差別</p>
 <center><img src=https://i.imgur.com/J4Aeezx.png/></center>
-
 
 <h2 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h2><p>講完這些後我們就來看看 <strong>Sklearn</strong> 裡的SVM吧！我們這邊是用 <strong>SVC</strong> 來做出我們的資料，至於 <strong>kernel</strong> 是什麼我們之後再說，這裡就用 <strong>Linear</strong> 來做出我們要的結果。</p>
 <pre><code class="hljs python"><span class="hljs-comment"># Make dataset</span>
