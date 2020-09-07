@@ -29,18 +29,18 @@
 
     <!-- OpenGraph -->
  
-    <meta name="description" content="[Series - 14] Regression - 3See moreBack to series page   前言今天會延續上篇的部分，繼續做一些推倒，並且引進 Maximun likelihood 的概念。 Normal Equation使用 Matrix calculus上篇我們提到利用 Gradient descent 迭代多次求得最佳解（仍可能有些誤差，但是經過多次誤差可以逼近0)，">
+    <meta name="description" content="[Series - 14] Regression - 3See moreBack to series page   前言今天會延續上篇的部分，繼續做一些推倒，並且引進 Maximun likelihood 的概念。 NotebookNotebook Normal Equation使用 Matrix calculus上篇我們提到利用 Gradient descent 迭代多次求得最佳解（仍可能有些誤">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Series - 14] Regression - 3">
 <meta property="og:url" content="http://yoursite.com/2020/09/01/it/it-14/index.html">
 <meta property="og:site_name" content="Justin">
-<meta property="og:description" content="[Series - 14] Regression - 3See moreBack to series page   前言今天會延續上篇的部分，繼續做一些推倒，並且引進 Maximun likelihood 的概念。 Normal Equation使用 Matrix calculus上篇我們提到利用 Gradient descent 迭代多次求得最佳解（仍可能有些誤差，但是經過多次誤差可以逼近0)，">
+<meta property="og:description" content="[Series - 14] Regression - 3See moreBack to series page   前言今天會延續上篇的部分，繼續做一些推倒，並且引進 Maximun likelihood 的概念。 NotebookNotebook Normal Equation使用 Matrix calculus上篇我們提到利用 Gradient descent 迭代多次求得最佳解（仍可能有些誤">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://i.imgur.com/H5jTh5Q.jpg">
 <meta property="og:image" content="https://i.imgur.com/8qVtqEG.jpg">
 <meta property="og:image" content="https://fabiandablander.com/assets/img/2019-01-11-Curve-Fitting-Gaussian.Rmd/unnamed-chunk-9-1.png">
 <meta property="article:published_time" content="2020-09-01T13:52:29.000Z">
-<meta property="article:modified_time" content="2020-09-03T06:27:00.699Z">
+<meta property="article:modified_time" content="2020-09-07T13:05:30.628Z">
 <meta property="article:author" content="Justin Ruan">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://i.imgur.com/H5jTh5Q.jpg">
@@ -214,7 +214,7 @@
     <div class="post__with-side">
         <aside class="post-side">
             <div class="post-side__toc">
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Normal-Equation"><span class="toc-number">2.</span> <span class="toc-text">Normal Equation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Matrix-calculus"><span class="toc-number">2.1.</span> <span class="toc-text">使用 Matrix calculus</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Projection-matrix"><span class="toc-number">2.2.</span> <span class="toc-text">使用 Projection matrix</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Normal-equation-%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">2.3.</span> <span class="toc-text">Normal equation 程式碼</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Maxmimun-likelihood"><span class="toc-number">3.</span> <span class="toc-text">Maxmimun likelihood</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AF-Maximum-likelihood"><span class="toc-number">3.1.</span> <span class="toc-text">什麼是 Maximum likelihood?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Regression-%E7%9A%84%E6%A9%9F%E7%8E%87%E5%90%AB%E7%BE%A9"><span class="toc-number">3.2.</span> <span class="toc-text">Regression 的機率含義</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-number">4.</span> <span class="toc-text">小結</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Notebook"><span class="toc-number">2.</span> <span class="toc-text">Notebook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Normal-Equation"><span class="toc-number">3.</span> <span class="toc-text">Normal Equation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Matrix-calculus"><span class="toc-number">3.1.</span> <span class="toc-text">使用 Matrix calculus</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Projection-matrix"><span class="toc-number">3.2.</span> <span class="toc-text">使用 Projection matrix</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Normal-equation-%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">3.3.</span> <span class="toc-text">Normal equation 程式碼</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Maxmimun-likelihood"><span class="toc-number">4.</span> <span class="toc-text">Maxmimun likelihood</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AF-Maximum-likelihood"><span class="toc-number">4.1.</span> <span class="toc-text">什麼是 Maximum likelihood?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Regression-%E7%9A%84%E6%A9%9F%E7%8E%87%E5%90%AB%E7%BE%A9"><span class="toc-number">4.2.</span> <span class="toc-text">Regression 的機率含義</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-number">5.</span> <span class="toc-text">小結</span></a></li></ol>
             </div>
         </aside>
         <article class="post content-card">
@@ -224,6 +224,7 @@
 </div></blockquote>
 
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天會延續上篇的部分，繼續做一些推倒，並且引進 <strong>Maximun likelihood</strong> 的概念。</p>
+<h2 id="Notebook"><a href="#Notebook" class="headerlink" title="Notebook"></a>Notebook</h2><p><a target="_blank" rel="noopener" href="https://colab.research.google.com/github/Justin900429/IT-used/blob/master/Regression.ipynb">Notebook</a></p>
 <h2 id="Normal-Equation"><a href="#Normal-Equation" class="headerlink" title="Normal Equation"></a>Normal Equation</h2><h3 id="使用-Matrix-calculus"><a href="#使用-Matrix-calculus" class="headerlink" title="使用 Matrix calculus"></a>使用 <strong>Matrix calculus</strong></h3><p>上篇我們提到利用 <strong>Gradient descent</strong> 迭代多次求得最佳解（仍可能有些誤差，但是經過多次誤差可以逼近0)，這篇我們要說明另一個方式一次就找到最佳解 - <strong>Normal Equation</strong>。但是這需要用到矩陣微積分，這邊我就不另外提了，有興趣可以看<a target="_blank" rel="noopener" href="https://explained.ai/matrix-calculus/">這裡</a>!</p>
 <p>假設我們有 $n$ 個 features，$m$ 筆資料，我們X矩陣就可以寫成這樣：</p>
 <p>$$<br>X =<br>\begin{pmatrix}<br>(x^{(1)})^T \\<br>(x^{(2)})^T \\<br>\vdots \\<br>(x^{(m)})^T \\<br>\end{pmatrix}<br>where \ x^{(i)} \in R^n<br>$$</p>
@@ -282,7 +283,7 @@
              
             <div class="post-footer__meta">
     <p>
-        updated at 2020-09-03
+        updated at 2020-09-07
     </p>
 </div> 
             <div class="post-meta__cats">

@@ -29,19 +29,19 @@
 
     <!-- OpenGraph -->
  
-    <meta name="description" content="[Series - 13] Regression - 2See moreBack to series page   前言昨天已經介紹完 Regression 的應用。今天我們就來實際看看其背後的數學邏輯！ 符號說明今天所有推導都會直接利用高維，也就是說會利用 Multinomial Regression. 昨天說到 Multinomial Regression 的數學形式長這樣： $$f(x_{1">
+    <meta name="description" content="[Series - 13] Regression - 2See moreBack to series page   前言昨天已經介紹完 Regression 的應用。今天我們就來實際看看其背後的數學邏輯！ NotebookNotebook 符號說明今天所有推導都會直接利用高維，也就是說會利用 Multinomial Regression. 昨天說到 Multinomial Regression 的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Series - 13] Regression - 2">
 <meta property="og:url" content="http://yoursite.com/2020/08/31/it/it-13/index.html">
 <meta property="og:site_name" content="Justin">
-<meta property="og:description" content="[Series - 13] Regression - 2See moreBack to series page   前言昨天已經介紹完 Regression 的應用。今天我們就來實際看看其背後的數學邏輯！ 符號說明今天所有推導都會直接利用高維，也就是說會利用 Multinomial Regression. 昨天說到 Multinomial Regression 的數學形式長這樣： $$f(x_{1">
+<meta property="og:description" content="[Series - 13] Regression - 2See moreBack to series page   前言昨天已經介紹完 Regression 的應用。今天我們就來實際看看其背後的數學邏輯！ NotebookNotebook 符號說明今天所有推導都會直接利用高維，也就是說會利用 Multinomial Regression. 昨天說到 Multinomial Regression 的">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://i.imgur.com/Fz10no8.jpg">
 <meta property="og:image" content="https://i.imgur.com/uwoj1I1.jpg">
 <meta property="og:image" content="https://cdn-images-1.medium.com/max/1200/1*9sd4Ve9DH-k4EcNba5fGTA.jpeg">
 <meta property="og:image" content="https://i.imgur.com/wdXaaEh.jpg">
 <meta property="article:published_time" content="2020-08-31T13:19:31.000Z">
-<meta property="article:modified_time" content="2020-09-03T06:26:54.123Z">
+<meta property="article:modified_time" content="2020-09-07T13:05:24.804Z">
 <meta property="article:author" content="Justin Ruan">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://i.imgur.com/Fz10no8.jpg">
@@ -215,7 +215,7 @@
     <div class="post__with-side">
         <aside class="post-side">
             <div class="post-side__toc">
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%A6%E8%99%9F%E8%AA%AA%E6%98%8E"><span class="toc-number">2.</span> <span class="toc-text">符號說明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gradient-descent"><span class="toc-number">3.</span> <span class="toc-text">Gradient descent</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2D"><span class="toc-number">3.1.</span> <span class="toc-text">2D</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#General"><span class="toc-number">3.2.</span> <span class="toc-text">General</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gradient-of-regression"><span class="toc-number">4.</span> <span class="toc-text">Gradient of regression</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-Linear-Regression"><span class="toc-number">5.</span> <span class="toc-text">實作 Linear Regression</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-number">6.</span> <span class="toc-text">小結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">7.</span> <span class="toc-text">Reference</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Notebook"><span class="toc-number">2.</span> <span class="toc-text">Notebook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%A6%E8%99%9F%E8%AA%AA%E6%98%8E"><span class="toc-number">3.</span> <span class="toc-text">符號說明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gradient-descent"><span class="toc-number">4.</span> <span class="toc-text">Gradient descent</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2D"><span class="toc-number">4.1.</span> <span class="toc-text">2D</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#General"><span class="toc-number">4.2.</span> <span class="toc-text">General</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gradient-of-regression"><span class="toc-number">5.</span> <span class="toc-text">Gradient of regression</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-Linear-Regression"><span class="toc-number">6.</span> <span class="toc-text">實作 Linear Regression</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-number">7.</span> <span class="toc-text">小結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">8.</span> <span class="toc-text">Reference</span></a></li></ol>
             </div>
         </aside>
         <article class="post content-card">
@@ -225,6 +225,7 @@
 </div></blockquote>
 
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>昨天已經介紹完 Regression 的應用。今天我們就來實際看看其背後的數學邏輯！</p>
+<h2 id="Notebook"><a href="#Notebook" class="headerlink" title="Notebook"></a>Notebook</h2><p><a target="_blank" rel="noopener" href="https://colab.research.google.com/github/Justin900429/IT-used/blob/master/Regression.ipynb">Notebook</a></p>
 <h2 id="符號說明"><a href="#符號說明" class="headerlink" title="符號說明"></a>符號說明</h2><p>今天所有推導都會直接利用高維，也就是說會利用 <strong>Multinomial Regression</strong>. 昨天說到 <strong>Multinomial Regression</strong> 的數學形式長這樣：</p>
 <p>$$<br>f(x_{1}, x_{2}, …, x_{n}) = x_{1}\theta_{1} + x_2\theta_{2} + … + x_n\theta_{n}<br>$$</p>
 <p>每次都要這樣寫有些麻煩，而且不易閱讀，因此我們可以採用矩陣的寫法：</p>
@@ -320,7 +321,7 @@ X = np.c_[np.ones(y.shape[<span class="hljs-number">0</span>]), x]</code></pre>
              
             <div class="post-footer__meta">
     <p>
-        updated at 2020-09-03
+        updated at 2020-09-07
     </p>
 </div> 
             <div class="post-meta__cats">
