@@ -37,7 +37,7 @@
 <meta property="og:description" content="[Series - 7] 特徵工程介紹Acknowledge This article was written by Joyce.    See moreBack to series page   前言今天的內容是要敘述特徵工程的目的以及為什麼需要特徵工程。  實作連結colab - Feature Engineering  特徵工程特徵工程就是篩選特徵的工程，對原始的數據進行一系列的分析討論，從">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-09-08T10:00:34.000Z">
-<meta property="article:modified_time" content="2020-09-08T10:03:21.026Z">
+<meta property="article:modified_time" content="2020-09-08T10:06:31.924Z">
 <meta property="article:author" content="Justin Ruan">
 <meta name="twitter:card" content="summary_large_image">
 
@@ -292,7 +292,11 @@ df[<span class="hljs-string">&quot;z_score_height&quot;</span>] = (df[<span clas
 labelencoder = LabelEncoder()
 
 df[<span class="hljs-string">&quot;gender&quot;</span>] = labelencoder.fit_transform(df[<span class="hljs-string">&quot;gender&quot;</span>]) <span class="hljs-comment"># 將&quot;gender&quot;裡的字串自動轉換成數值</span></code></pre>
-<h3 id="One-hot-encoding"><a href="#One-hot-encoding" class="headerlink" title="One hot encoding"></a>One hot encoding</h3>One hot encoding通常會跟Label encoding一起比較，不同的點在於One hot encoding會增加新的欄位，一種資料就增加一欄，用1表示屬於該欄，0表示不屬於，因此當資料種類很多的時候就會新增很多欄，儲存的空間便很大，那麼也許你會想問那我幹嘛使用他，用Label encoding的方式就好啊，那是因為Label encoding的數值會有0、1、2、3…，如果分析不當，錯認它有排序關係的話，那麼結果就會大錯特錯。<blockquote>
+<h3 id="One-hot-encoding"><a href="#One-hot-encoding" class="headerlink" title="One hot encoding"></a>One hot encoding</h3>One hot encoding通常會跟Label encoding一起比較，不同的點在於One hot encoding會增加新的欄位，一種資料就增加一欄，用1表示屬於該欄，0表示不屬於，因此當資料種類很多的時候就會新增很多欄，儲存的空間便很大，那麼也許你會想問那我幹嘛使用他，用Label encoding的方式就好啊，那是因為Label encoding的數值會有0、1、2、3…，如果分析不當，錯認它有排序關係的話，那麼結果就會大錯特錯。<br>
+
+</li>
+</ol>
+<blockquote>
 <p>注意一點，One hot encoding 是無法直接對字串進行處理的，因此常見的方式是先做Label encoding，再把其結果，換成One hot encoding，在sklearn裡，出來的結過會是array。</p>
 </blockquote>
 <h4 id="實作-3"><a href="#實作-3" class="headerlink" title="實作"></a>實作</h4><h5 id="使用sklearn"><a href="#使用sklearn" class="headerlink" title="使用sklearn"></a>使用sklearn</h5><pre><code class="hljs python">df = pd.DataFrame(&#123;
@@ -312,14 +316,13 @@ onehot_df = pd.DataFrame(onehot_df.toarray(), columns=[<span class="hljs-string"
 
 <span class="hljs-comment"># Concat the onehotencoder DataFrame to the origin DataFrame</span>
 display(pd.concat([df, onehot_df], axis=<span class="hljs-number">1</span>))</code></pre>
-有沒有覺得小麻煩呢？要轉兩次，其實pandas也可以做One hot encoding，使用get_dummies()，如此一來就不用先將字串轉成數值了，而且出來的型態直接是DataFrame了，不用再做轉換。<h4 id="實作-4"><a href="#實作-4" class="headerlink" title="實作"></a>實作</h4><h5 id="使用pandas"><a href="#使用pandas" class="headerlink" title="使用pandas"></a>使用pandas</h5><pre><code class="hljs python">df = pd.DataFrame(&#123;
+<p>有沒有覺得小麻煩呢？要轉兩次，其實pandas也可以做One hot encoding，使用get_dummies()，如此一來就不用先將字串轉成數值了，而且出來的型態直接是DataFrame了，不用再做轉換。</p>
+<h4 id="實作-4"><a href="#實作-4" class="headerlink" title="實作"></a>實作</h4><h5 id="使用pandas"><a href="#使用pandas" class="headerlink" title="使用pandas"></a>使用pandas</h5><pre><code class="hljs python">df = pd.DataFrame(&#123;
     <span class="hljs-string">&quot;name&quot;</span> : [<span class="hljs-string">&quot;Justin&quot;</span>, <span class="hljs-string">&quot;Joyce&quot;</span>, <span class="hljs-string">&quot;Alice&quot;</span>, <span class="hljs-string">&quot;John&quot;</span>],
     <span class="hljs-string">&quot;gender&quot;</span> : [<span class="hljs-string">&quot;boy&quot;</span>, <span class="hljs-string">&quot;girl&quot;</span>, <span class="hljs-string">&quot;girl&quot;</span>, <span class="hljs-string">&quot;boy&quot;</span>],
     <span class="hljs-string">&quot;score&quot;</span> : [<span class="hljs-number">59</span>, <span class="hljs-number">100</span>, <span class="hljs-number">80</span>, <span class="hljs-number">49</span>]
 &#125;) <span class="hljs-comment"># 建立資料</span></code></pre>
 <pre><code class="hljs python">gender_df = pd.get_dummies(df[<span class="hljs-string">&quot;gender&quot;</span>]) <span class="hljs-comment"># 轉換成One hot encoding</span></code></pre>
-</li>
-</ol>
 <hr>
 <h2 id="特徵選取"><a href="#特徵選取" class="headerlink" title="特徵選取"></a>特徵選取</h2><p>特徵選取核心的概念就是從原始的資料中挑選出具有鑑別能力且有效的特徵，使其集合達到最佳化，讓原始的數據變得更加有價值。下面介紹三種常見的分析方式。</p>
 <ol>
