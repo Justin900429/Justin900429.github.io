@@ -37,7 +37,7 @@
 <meta property="og:description" content="[Series - 19] Classification - SVM - 2See moreBack to series page   前言今天我們要來說明一下如何利用最佳化理論來找 SVM 的解並利用一些方法拓展到高維度。 最佳化昨天我們說到我們的最佳化式子是： $$\begin{align}max_{\gamma,w,b} \ \ \ \  &amp;\gamma \\s.t.  \ \ \">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-09-08T07:22:26.000Z">
-<meta property="article:modified_time" content="2020-09-08T07:27:18.459Z">
+<meta property="article:modified_time" content="2020-09-08T08:58:53.407Z">
 <meta property="article:author" content="Justin Ruan">
 <meta name="twitter:card" content="summary_large_image">
 
@@ -210,7 +210,7 @@
     <div class="post__with-side">
         <aside class="post-side">
             <div class="post-side__toc">
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E4%BD%B3%E5%8C%96"><span class="toc-number">2.</span> <span class="toc-text">最佳化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Quadratic-programming-%E4%BA%8C%E6%AC%A1%E8%A6%8F%E5%8A%83"><span class="toc-number">3.</span> <span class="toc-text">Quadratic programming 二次規劃</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A8%E5%BB%A3-SVM"><span class="toc-number">4.</span> <span class="toc-text">推廣 SVM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">5.</span> <span class="toc-text">結語</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">6.</span> <span class="toc-text">參考資料</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E4%BD%B3%E5%8C%96"><span class="toc-number">2.</span> <span class="toc-text">最佳化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Quadratic-programming-%E4%BA%8C%E6%AC%A1%E8%A6%8F%E5%8A%83"><span class="toc-number">3.</span> <span class="toc-text">Quadratic programming 二次規劃</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A8%E5%BB%A3-SVM"><span class="toc-number">4.</span> <span class="toc-text">推廣 SVM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">5.</span> <span class="toc-text">程式碼</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">6.</span> <span class="toc-text">結語</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">7.</span> <span class="toc-text">參考資料</span></a></li></ol>
             </div>
         </aside>
         <article class="post content-card">
@@ -289,6 +289,7 @@
 <p>$$<br>\begin{align}<br>optimal \ \alpha &amp;\rightarrow \ w = \sum_{i=1}^n \alpha_i y^{(i)} x^{(i)} \\<br>optimal \ \alpha &amp;\rightarrow \ \text{if any} \ \alpha_i \gt 0 \Rightarrow \ b = y^{(i)} - w^Tx^{(i)}<br>\end{align}<br>$$</p>
 <p>另外還有一個更有趣的特性，對於所有的 $\alpha_i \gt 0$，$(x^{(i)}, y^{(i)})$ 會落在 <strong>support vector line</strong> 上，而這些 $(x^{(i)}, y^{(i)})$ 正是我們的 <strong>support vector</strong>。也由這個特性，我們可以知道真正決定邊界的不是其他的點，正是我們的 <strong>support vector</strong>！</p>
 <p>其實到這裡我們並沒有真正脫離 $d$，因為式子還是跟 $x$ 有關係，但是目前的最佳化方式可以讓我們用下篇介紹的 <strong>Kernel trick</strong> 來脫離與 $d$ 的關係！</p>
+<h2 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h2><p>程式碼我都放在 <a href="">notebook</a> 了，做法是參考<a target="_blank" rel="noopener" href="https://xavierbourretsicotte.github.io/SVM_implementation.html">這裡</a></p>
 <h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>今天講的東西真的是滿滿的數學，希望大家不要被嚇跑了ＸＤ 雖說如此，明天一樣還是滿滿的數學啦！</p>
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
 <li><a target="_blank" rel="noopener" href="http://cs229.stanford.edu/">CS 229 from Standford</a></li>
