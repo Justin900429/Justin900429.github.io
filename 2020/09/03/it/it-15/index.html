@@ -29,18 +29,18 @@
 
     <!-- OpenGraph -->
  
-    <meta name="description" content="[Series - 15] Classification - Logistic Regression - 1See moreBack to series page   前言前幾篇都在介紹 Regression，接下來幾天換介紹 classification 中的 Logistic Regression 啦！同樣會分成應用跟理論篇，應用會在今天講解，剩下部分會留到下幾篇。 什麼是 Classific">
+    <meta name="description" content="[Series - 15] Classification - Logistic Regression - 1See moreBack to series page   前言前幾篇都在介紹 Regression，接下來幾天換介紹 classification 中的 Logistic Regression 啦！同樣會分成應用跟理論篇，應用會在今天講解，剩下部分會留到下幾篇。 NotebookNoteb">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Series - 15] Classification - Logistic Regression - 1">
 <meta property="og:url" content="http://yoursite.com/2020/09/03/it/it-15/index.html">
 <meta property="og:site_name" content="Justin">
-<meta property="og:description" content="[Series - 15] Classification - Logistic Regression - 1See moreBack to series page   前言前幾篇都在介紹 Regression，接下來幾天換介紹 classification 中的 Logistic Regression 啦！同樣會分成應用跟理論篇，應用會在今天講解，剩下部分會留到下幾篇。 什麼是 Classific">
+<meta property="og:description" content="[Series - 15] Classification - Logistic Regression - 1See moreBack to series page   前言前幾篇都在介紹 Regression，接下來幾天換介紹 classification 中的 Logistic Regression 啦！同樣會分成應用跟理論篇，應用會在今天講解，剩下部分會留到下幾篇。 NotebookNoteb">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://static.javatpoint.com/tutorial/machine-learning/images/classification-algorithm-in-machine-learning.png">
 <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Sigmoid-function-2.svg/1280px-Sigmoid-function-2.svg.png">
 <meta property="og:image" content="https://i.imgur.com/3lXgDOP.jpg">
 <meta property="article:published_time" content="2020-09-03T06:20:08.000Z">
-<meta property="article:modified_time" content="2020-09-04T14:21:37.006Z">
+<meta property="article:modified_time" content="2020-09-08T10:29:36.013Z">
 <meta property="article:author" content="Justin Ruan">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://static.javatpoint.com/tutorial/machine-learning/images/classification-algorithm-in-machine-learning.png">
@@ -214,7 +214,7 @@
     <div class="post__with-side">
         <aside class="post-side">
             <div class="post-side__toc">
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AF-Classification"><span class="toc-number">2.</span> <span class="toc-text">什麼是 Classification?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Logistic-Regression"><span class="toc-number">3.</span> <span class="toc-text">Logistic Regression</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%94%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B"><span class="toc-number">3.1.</span> <span class="toc-text">演算法流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sigmoid-function"><span class="toc-number">3.2.</span> <span class="toc-text">Sigmoid function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%BB%9E%E8%88%87%E5%B9%B3%E9%9D%A2"><span class="toc-number">3.3.</span> <span class="toc-text">點與平面</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Scikit-Learn"><span class="toc-number">4.</span> <span class="toc-text">Scikit Learn</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-number">5.</span> <span class="toc-text">小結</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Notebook"><span class="toc-number">2.</span> <span class="toc-text">Notebook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AF-Classification"><span class="toc-number">3.</span> <span class="toc-text">什麼是 Classification?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Logistic-Regression"><span class="toc-number">4.</span> <span class="toc-text">Logistic Regression</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%94%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B"><span class="toc-number">4.1.</span> <span class="toc-text">演算法流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sigmoid-function"><span class="toc-number">4.2.</span> <span class="toc-text">Sigmoid function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%BB%9E%E8%88%87%E5%B9%B3%E9%9D%A2"><span class="toc-number">4.3.</span> <span class="toc-text">點與平面</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Scikit-Learn"><span class="toc-number">5.</span> <span class="toc-text">Scikit Learn</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-number">6.</span> <span class="toc-text">小結</span></a></li></ol>
             </div>
         </aside>
         <article class="post content-card">
@@ -224,6 +224,7 @@
 </div></blockquote>
 
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前幾篇都在介紹 <strong>Regression</strong>，接下來幾天換介紹 <strong>classification</strong> 中的 <strong>Logistic Regression</strong> 啦！同樣會分成應用跟理論篇，應用會在今天講解，剩下部分會留到下幾篇。</p>
+<h2 id="Notebook"><a href="#Notebook" class="headerlink" title="Notebook"></a>Notebook</h2><p><a target="_blank" rel="noopener" href="https://colab.research.google.com/github/Justin900429/IT-used/blob/master/Logistic%20Regression.ipynb">Notebook</a></p>
 <h2 id="什麼是-Classification"><a href="#什麼是-Classification" class="headerlink" title="什麼是 Classification?"></a>什麼是 Classification?</h2><p><strong>Classification</strong>就是利用已知的資料做分類，一般都是做二元分類，就是指區分有跟沒有。例如：有吃飯跟沒吃飯、是狗或是貓（貓就是不是狗）等等… 另外，我們也習慣把<strong>有設定成1</strong>，<strong>沒有設定成0</strong>。</p>
 <p><img src="https://static.javatpoint.com/tutorial/machine-learning/images/classification-algorithm-in-machine-learning.png" class="lazyload" data-srcset="https://static.javatpoint.com/tutorial/machine-learning/images/classification-algorithm-in-machine-learning.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
 <h2 id="Logistic-Regression"><a href="#Logistic-Regression" class="headerlink" title="Logistic Regression"></a>Logistic Regression</h2><h3 id="演算法流程"><a href="#演算法流程" class="headerlink" title="演算法流程"></a>演算法流程</h3><p><strong>Logistic Regression</strong>。就是一種實現 <strong>Classification</strong> 的演算法。他的想法就是先找到一條直線，使得資料可以分成在<strong>線的兩邊</strong>（如果是高維則是面的兩邊）。之後再利用 <strong>sigmoid function</strong> 來判別各點類別的機率，並加以做分類。流程圖是：</p>
@@ -318,7 +319,7 @@ The correponding probability <span class="hljs-keyword">for</span> label <span c
              
             <div class="post-footer__meta">
     <p>
-        updated at 2020-09-04
+        updated at 2020-09-08
     </p>
 </div> 
             <div class="post-meta__cats">
