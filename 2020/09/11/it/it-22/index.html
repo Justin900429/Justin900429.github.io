@@ -21,7 +21,7 @@
     <!-- meta -->
 
 
-<title>[Series - 21] Decision tree | Justin</title><meta name="robots" content="noindex">
+<title>it-22 | Justin</title><meta name="robots" content="noindex">
 
 
 
@@ -29,22 +29,22 @@
 
     <!-- OpenGraph -->
  
-    <meta name="description" content="[Series - 21] Decision treeSee moreBack to series page   前言今天要介紹的是 Decision tree，這個演算法不但能做到Classification，也能做到Regression！今天的內容會比較輕鬆一點，我們不說太多背後的數學，因為 Decision tree 的理論也比較沒有那麼強制，因此我們今天就來看比較直觀的想法。 Notebo">
+    <meta name="description" content="[Series - 22] Random Forest前言上篇介紹 Decision tree，而這篇要分享的 Random forest 就是建構在 Decision tree 上的演算法。 See moreBack to series page   NotebookNotebook Random Forest當我們看到 Forest 的時候，肯定會想到有很多 Tree，而這正是 Random">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Series - 21] Decision tree">
-<meta property="og:url" content="http://yoursite.com/2020/09/10/it/it-21/index.html">
+<meta property="og:title" content="it-22">
+<meta property="og:url" content="http://yoursite.com/2020/09/11/it/it-22/index.html">
 <meta property="og:site_name" content="Justin">
-<meta property="og:description" content="[Series - 21] Decision treeSee moreBack to series page   前言今天要介紹的是 Decision tree，這個演算法不但能做到Classification，也能做到Regression！今天的內容會比較輕鬆一點，我們不說太多背後的數學，因為 Decision tree 的理論也比較沒有那麼強制，因此我們今天就來看比較直觀的想法。 Notebo">
+<meta property="og:description" content="[Series - 22] Random Forest前言上篇介紹 Decision tree，而這篇要分享的 Random forest 就是建構在 Decision tree 上的演算法。 See moreBack to series page   NotebookNotebook Random Forest當我們看到 Forest 的時候，肯定會想到有很多 Tree，而這正是 Random">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://image.fundebug.com/2019-08-12-tree.png">
-<meta property="og:image" content="https://miro.medium.com/max/3840/1*jojTznh4HOX_8cGw_04ODA.png">
-<meta property="og:image" content="https://i.imgur.com/dxMdQVn.png">
-<meta property="og:image" content="https://i.imgur.com/8tCRtHT.png">
-<meta property="article:published_time" content="2020-09-10T09:09:03.000Z">
-<meta property="article:modified_time" content="2020-09-11T09:38:24.498Z">
+<meta property="og:image" content="https://miro.medium.com/max/1170/1*58f1CZ8M4il0OZYg2oRN4w.png">
+<meta property="og:image" content="https://i.imgur.com/LwTMYrR.jpg">
+<meta property="og:image" content="https://i.imgur.com/HJ6lu5T.jpg">
+<meta property="og:image" content="https://i.imgur.com/jzTkb1B.png">
+<meta property="article:published_time" content="2020-09-11T09:35:47.000Z">
+<meta property="article:modified_time" content="2020-09-11T09:39:47.820Z">
 <meta property="article:author" content="Justin Ruan">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://image.fundebug.com/2019-08-12-tree.png">
+<meta name="twitter:image" content="https://miro.medium.com/max/1170/1*58f1CZ8M4il0OZYg2oRN4w.png">
 
 
     
@@ -192,11 +192,11 @@
     
 <div class="post-title">
     <h1 class="post-title__text">
-        [Series - 21] Decision tree
+        it-22
     </h1>
     <div class="post-title__meta">
         <a href="/archives/2020/09/" class="post-meta__date button">
-    2020-09-10
+    2020-09-11
 </a>
         
  
@@ -215,102 +215,44 @@
     <div class="post__with-side">
         <aside class="post-side">
             <div class="post-side__toc">
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Notebook"><span class="toc-number">2.</span> <span class="toc-text">Notebook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tree"><span class="toc-number">3.</span> <span class="toc-text">Tree</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Decision-tree"><span class="toc-number">4.</span> <span class="toc-text">Decision tree</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A4%E5%88%A5%E4%BE%9D%E6%93%9A"><span class="toc-number">5.</span> <span class="toc-text">判別依據</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">6.</span> <span class="toc-text">程式碼</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">7.</span> <span class="toc-text">參考資料</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Notebook"><span class="toc-number">2.</span> <span class="toc-text">Notebook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Random-Forest"><span class="toc-number">3.</span> <span class="toc-text">Random Forest</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ensemble-Bagging"><span class="toc-number">4.</span> <span class="toc-text">Ensemble - Bagging</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Feature-selection"><span class="toc-number">5.</span> <span class="toc-text">Feature selection</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">6.</span> <span class="toc-text">程式碼</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">7.</span> <span class="toc-text">結語</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">8.</span> <span class="toc-text">參考資料</span></a></li></ol>
             </div>
         </aside>
         <article class="post content-card">
             <div class="post__header"></div>
             <div class="post__content">
-                <h1 id="Series-21-Decision-tree"><a href="#Series-21-Decision-tree" class="headerlink" title="[Series - 21] Decision tree"></a>[Series - 21] Decision tree</h1><blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/2020/08/29/it/it-series/">Back to series page</a></p>
+                <h1 id="Series-22-Random-Forest"><a href="#Series-22-Random-Forest" class="headerlink" title="[Series - 22] Random Forest"></a>[Series - 22] Random Forest</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>上篇介紹 <strong>Decision tree</strong>，而這篇要分享的 <strong>Random forest</strong> 就是建構在 <strong>Decision tree</strong> 上的演算法。</p>
+<blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/2020/08/29/it/it-series/">Back to series page</a></p>
 </div></blockquote>
 
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天要介紹的是 <strong>Decision tree</strong>，這個演算法不但能做到<strong>Classification</strong>，也能做到<strong>Regression</strong>！今天的內容會比較輕鬆一點，我們不說太多背後的數學，因為 <strong>Decision tree</strong> 的理論也比較沒有那麼強制，因此我們今天就來看比較直觀的想法。</p>
-<h2 id="Notebook"><a href="#Notebook" class="headerlink" title="Notebook"></a>Notebook</h2><p><a target="_blank" rel="noopener" href="https://colab.research.google.com/github/Justin900429/IT-used/blob/master/Decision%20Tree.ipynb">Notebook</a></p>
-<h2 id="Tree"><a href="#Tree" class="headerlink" title="Tree"></a>Tree</h2><p>不知道大家還記不記得資料結構裡的 <strong>Tree</strong>，我們這邊重新複習一下。</p>
+<h2 id="Notebook"><a href="#Notebook" class="headerlink" title="Notebook"></a>Notebook</h2><p><a target="_blank" rel="noopener" href="https://colab.research.google.com/github/Justin900429/IT-used/blob/master/Random%20Forest.ipynb">Notebook</a></p>
+<h2 id="Random-Forest"><a href="#Random-Forest" class="headerlink" title="Random Forest"></a>Random Forest</h2><p>當我們看到 <strong>Forest</strong> 的時候，肯定會想到有很多 <strong>Tree</strong>，而這正是 <strong>Random forest</strong> 的核心精神 - 利用很多 <strong>Decision Tree</strong> 來做決策。</p>
+<p><img src="https://miro.medium.com/max/1170/1*58f1CZ8M4il0OZYg2oRN4w.png" class="lazyload" data-srcset="https://miro.medium.com/max/1170/1*58f1CZ8M4il0OZYg2oRN4w.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
+<p>這張圖很清楚的說明，當我們把眾多資料丟進去 <strong>Random Forest</strong> 做預測的時候，事實上就是利用眾多的樹做投票，並決定最終的種類。</p>
+<h2 id="Ensemble-Bagging"><a href="#Ensemble-Bagging" class="headerlink" title="Ensemble - Bagging"></a>Ensemble - Bagging</h2><p>一般利用很多樹集合成一個演算法的方式我們會叫 <strong>Ensemble</strong>，而又因不同的方式有不同的類別，而 <strong>Random Forest</strong> 所使用的方式叫做 <strong>Bagging</strong> 也就是 <strong>Bootstrap aggregation</strong>。<strong>Boostrap</strong> 指的是我們在建立每一顆樹的取樣方式，因為我們的樹是透過資料點來建立的。<strong>Aggregation</strong> 指的是我們將每一顆樹建立成森林做預測。</p>
 <ul>
-<li><strong>Tree</strong> 是由很多 <strong>nodes</strong> 所組成。</li>
-<li>每個節點都只有<strong>一個 parent</strong>，但是可以有<strong>很多 children</strong>。</li>
-<li>沒有 <strong>children</strong> 的 <strong>node</strong> 我們叫做 <strong>leaf</strong>。</li>
-<li>沒有 <strong>parent</strong> 的 <strong>node</strong> 我們叫做 <strong>root</strong>。</li>
-</ul>
-<br>
-
-<p><img src="https://image.fundebug.com/2019-08-12-tree.png" class="lazyload" data-srcset="https://image.fundebug.com/2019-08-12-tree.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
-<p>另外，我們也可以將 <strong>Tree</strong> 表示成一個 <strong>Node</strong> 與一些 <strong>Subtree</strong>，每個 <strong>Subtree</strong> 又可以看成一個 <strong>Node</strong> 與另外一些 <strong>Subtree</strong>。這樣的結構也形成一個遞迴的關係。</p>
-<p>假設我們的 <strong>subtree</strong> 只有兩個，則稱 <strong>Binary tree</strong>。我們用 <strong>Python</strong> 來寫結構的話就是：</p>
-<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Node</span>:</span>
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, data</span>):</span>
-        self.left = <span class="hljs-literal">None</span> <span class="hljs-comment"># Left subtree</span>
-        self.right = <span class="hljs-literal">None</span> <span class="hljs-comment"># Right subtree</span>
-        self.data = data <span class="hljs-comment"># Val for each node</span></code></pre>
-
-<h2 id="Decision-tree"><a href="#Decision-tree" class="headerlink" title="Decision tree"></a>Decision tree</h2><p>有了 <strong>Tree</strong> 的基本認識後，<strong>Decision tree</strong> 其實就是用這樣的方式在做分類的！當我們的 <strong>Model</strong> 建立好，其實就是在建立一顆樹，每個節點都有自己的條件限制，如果滿足則去一邊，沒有滿足，則去其他邊。</p>
-<p><img src="https://miro.medium.com/max/3840/1*jojTznh4HOX_8cGw_04ODA.png" class="lazyload" data-srcset="https://miro.medium.com/max/3840/1*jojTznh4HOX_8cGw_04ODA.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
-<p>以上面這張圖為例，我們可以用每個節點的條件來判斷我們一個人的年齡。其實<strong>Decision tree</strong> 跟人類判斷的方式是非常像的，都是利用某些有利的條件來判斷類別！</p>
-<h2 id="判別依據"><a href="#判別依據" class="headerlink" title="判別依據"></a>判別依據</h2><p>既然如此，我們樹重要的就是每個點該用什麼東西當作我們的判別依據，而這也是整顆樹的核心思想。分類的演算法有很多種，例如： <strong>CART</strong>、<strong>ID3</strong> … 其中 <strong>CART</strong> 能做離散以及連續的數值，因此也可以用在 <strong>Regression</strong> 上。</p>
-<p>這邊先假設兩種分類方法：</p>
-<div><div class="graphviz">digraph {
-    node  [style="rounded", shape=box, fixedsize=true, width=1.3];
-
-<pre><code>// title
-labelloc=&quot;t&quot;;
-label = &quot;First approach\n\n&quot;;
-shape = &quot;box&quot;;
-
-a -&gt; b;
-a -&gt; c;
-
-a [label=&quot;(25, 25)&quot;];
-b [label=&quot;(15, 10)&quot;];
-c [label=&quot;(10, 15)&quot;];</code></pre>
-<p>}</div></div></p>
-<div><div class="graphviz">digraph {
-    node  [style="rounded", shape=box, fixedsize=true, width=1.3];
-
-<pre><code>// title
-labelloc=&quot;t&quot;;
-label = &quot;Second approach\n\n&quot;;
-shape = &quot;box&quot;;
-
-a -&gt; b;
-a -&gt; c;
-
-a [label=&quot;(25, 25)&quot;];
-b [label=&quot;(25, 0)&quot;];
-c [label=&quot;(0, 25)&quot;];</code></pre>
-<p>}</div></div></p>
-<ul>
-<li><p><strong>ID3</strong></p>
-<p>  <strong>ID3</strong> 所使用的指標是 <strong>information entropy</strong>，這邊我就不多講了，可以<a target="_blank" rel="noopener" href="https://machinelearningmastery.com/what-is-information-entropy/">參考這邊</a>，定義為下：<br>  $$<br>  I_E(t) = -\sum_{i=1}^{n}p(i \mid t) \log_2p (i\mid t)<br>  $$<br>  其中 $t$ 代表的是每個的節點，而 $i$ 代表的分類後的 <strong>class</strong>。因此 $p(i \mid t)$ 代表的是在現在這個節點裡面每個 <strong>class</strong> $i$ 的比例是什麼。</p>
-<p>  而判斷分類後的資訊量則是用 $I_{Gain}$ 代表：</p>
-<p>  $$<br>  I_{Gain} = I(D_{p}) - \sum_{i=1}^n p(i \mid D_p) I_E(D_{children})<br>  $$</p>
-<p>  因此我們會去計算各種不同的分類法並取得 <strong>IG</strong> 最大值。</p>
-<p>  第一種方法：<br>$$<br>\begin{align}<br>  &amp;I_E(D_{parent}) = -(0.5 \log_2(0.5) + 0.5 \log_2(0.5)) = 1 \\<br>  &amp;I_E(D_{right}) = -(0.6 \log_2(0.6) + 0.4 \log_2(0.4)) = 0.971 \\<br>  &amp;I_E(D_{left}) = -(0.4 \log_2(0.4) + 0.6 \log_2(0.6)) = 0.971 \\<br>  &amp;I_{Gain} = 1 - (0.971 * 0.5 + 0.971 * 0.5) = 0.029<br>\end{align}<br>$$<br>  第二種方法:<br>$$<br>\begin{align}<br>  &amp;I_E(D_{parent}) = -(0.5 \log_2(0.5) + 0.5 \log_2(0.5)) = 1 \\<br>  &amp;I_E(D_{right}) = -(1 \log_2(1) + 0 \log_2(0)) = 0 \\<br>  &amp;I_E(D_{left}) = -(0 \log_2(0) + 1 \log_2(1)) = 0 \\<br>  &amp;I_{Gain} = 1 - (0 * 0.5 + 0 * 0.5) = 1<br>\end{align}<br>$$<br>  從上面比較第一種跟第二種方法，我們得知第二種方式是更好的（$1 \gt 0.029)$。其實這也很直覺，第二種方式一次就可以很清楚地把不同種類的乾淨，因此當有新資料進去的時候，我們可以很快就知道種類。 但是第一種在分完後，兩邊基本上都還是各類都留差不多一半 ($15, 10$)，跟原本就一半的分類比其實是沒什麼差的！</p>
+<li><p><strong>Boostrap</strong><br>  這裡我們有一個假設，就是我們的訓練資料集合 $S$，跟我們真實產出的資料的集合 $P$ 是一樣的。（當我們資料量非常大的時候才會接近）。接著對 $S$ 做取樣，得到集合 $Z$，這邊的取樣是有放回去的，因此我們可能會重複選取，而取樣的數目可以根源資料一樣多，也可以比較少。做多次取樣，我們可以得到 $Z_1, Z_2, …, Z_m$，並將這些取樣的集合拿去產生 $m$ 個樹。如下圖：</p>
+  <center><img src="https://i.imgur.com/LwTMYrR.jpg" class="lazyload" data-srcset="https://i.imgur.com/LwTMYrR.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" width=450/></center>
+</li>
+<li><p><strong>Aggregation</strong><br>  <strong>Aggregation</strong> 就是將我們學習完後的樹<strong>聚合</strong>在一起，形成更強力的分類模型。假設我們每個取樣 $Z_m$ 可以產生一個 <strong>model</strong> $G_m$，則我們的最終分類器：</p>
+<p>  $$<br>  G(X) = \sum_{m}\frac{G_m(x)}{M}<br>  $$</p>
 </li>
 </ul>
-<ul>
-<li><p><strong>CART</strong><br>  <strong>CART</strong> 所使用的指標是 <strong>Gini index</strong>。定義如下，</p>
-<p>  $$<br>  I_G = 1 - \sum_{i=1}^n p(i \mid t)^2<br>  $$</p>
-<p>  而<strong>獲得資訊量</strong> $I_{Gain}$ 的算法也是一樣的。利用上面的例子：</p>
-<p>  第一種分割方法：<br>$$<br>\begin{align}<br>  &amp;I_E(D_{parent}) = 1 - (0.5^2 + 0.5^2) = 0.5 \\<br>  &amp;I_E(D_{right}) = 1 - (0.6^2 + 0.4^2) = 0.48 \\<br>  &amp;I_E(D_{left}) =  1 - (0.4^2 + 0.6^2) = 0.48 \\<br>  &amp;I_{Gain} = 1 - (0.5 * 0.48 + 0.5 * 0.48) = 0.52<br>\end{align}<br>$$<br>  第二種分割方法：<br>$$<br>\begin{align}<br>  &amp;I_E(D_{parent}) = 1 - (0.5^2 + 0.5^2) = 0.5 \\<br>  &amp;I_E(D_{right}) = 1 - (1^2 + 0^2) = 0 \\<br>  &amp;I_E(D_{left}) =  1 - (0^2 + 1^2) = 0 \\<br>  &amp;I_{Gain} = 1 - (0.5 * 0+ 0.5 * 0) = 1<br>\end{align}<br>$$</p>
-<p>  比較兩種方式，第二種方式仍然更好！</p>
-</li>
-</ul>
-<h2 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h2><p>我一樣不將程式碼弄在這裡了，全部都在 <strong>Notebook</strong> 裡！</p>
-<br>
-
-<p><img src="https://i.imgur.com/dxMdQVn.png" class="lazyload" data-srcset="https://i.imgur.com/dxMdQVn.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
-<br>
-
-<p><img src="https://i.imgur.com/8tCRtHT.png" class="lazyload" data-srcset="https://i.imgur.com/8tCRtHT.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
-<p>可以觀察到第二張的 <strong>boundry</strong> 其實是對每段間隔當一個值，因此會有類似階梯的形狀出現。</p>
+<p>其實大家稍微觀察一下，可能會發現，有些資料點在某些 <strong>sample</strong> 可能沒有被選取到。如果我們換個想法，將同樣沒選取到這筆資料的樹集合在一起，並將這筆資料當作驗證資料，我們就可以達到自我驗證的功效！而那些沒被選到的資料點就稱為 **out-of-bag samples（oob)**，等等我們會介紹怎麼觀察這個分數。</p>
+<h2 id="Feature-selection"><a href="#Feature-selection" class="headerlink" title="Feature selection"></a>Feature selection</h2><p>我們來說明一下 <strong>Random forest</strong> 在取樣的時候會做的一些改變。首先，我們來想像一個問題，如果今天有某個 <strong>feature</strong> 的分類能力特別強，利用這個 <strong>feature</strong> 可以將我們百分之 <strong>85</strong> 的資料做到很好的分類。因此我們每顆樹都會傾向用這個 <strong>feature</strong> 做當作分類的條件。</p>
+<p>但是這樣的模型是沒有普遍性的，因為最後聚合的時候還是用這個 <strong>feature</strong> 做為我們的指標。這樣跟我們用 <strong>Decision tree</strong> 的結果是一樣的，無法更好描述其他 <strong>feature</strong> 的重要性而丟失掉我們百分之 <strong>15%</strong> 的準確率。</p>
+<p>為了解決這樣的問題， <strong>Random forest</strong> 會限制樹在做分類的時候只會取部分的 <strong>features</strong> 而更能顧及到其他的分類指標。因此當我們將樹聚合起來時能更好的展現普偏性！</p>
+<p><img src="https://i.imgur.com/HJ6lu5T.jpg" class="lazyload" data-srcset="https://i.imgur.com/HJ6lu5T.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
+<h2 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h2><p>我一樣把所有東西放在 <strong>Notebook</strong> 裡。這邊是我們用不同數量的樹的結果：</p>
+<p>大家可以注意到，當我們的樹愈多得時候，模型對被那些雜訊的影響就愈小（藍色區域裡的棕色區域，後面的幾張沒有太多差別）：</p>
+<p><img src="https://i.imgur.com/jzTkb1B.png" class="lazyload" data-srcset="https://i.imgur.com/jzTkb1B.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
+<h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>今天也介紹完我們的 <strong>Bagging</strong> 了，下篇自然要來說明另一個有名的方法 <strong>Boosting</strong> 了！</p>
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
-<li><a target="_blank" rel="noopener" href="https://medium.com/jameslearningnote/%E8%B3%87%E6%96%99%E5%88%86%E6%9E%90-%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92-%E7%AC%AC3-5%E8%AC%9B-%E6%B1%BA%E7%AD%96%E6%A8%B9-decision-tree-%E4%BB%A5%E5%8F%8A%E9%9A%A8%E6%A9%9F%E6%A3%AE%E6%9E%97-random-forest-%E4%BB%8B%E7%B4%B9-7079b0ddfbda">[資料分析&amp;機器學習] 第3.5講 : 決策樹(Decision Tree)以及隨機森林(Random Forest)介紹</a></li>
-<li><a target="_blank" rel="noopener" href="https://towardsdatascience.com/visualizing-decision-trees-with-python-scikit-learn-graphviz-matplotlib-1c50b4aa68dc">Visualizing Decision Trees with Python (Scikit-learn, Graphviz, Matplotlib)</a></li>
+<li><a target="_blank" rel="noopener" href="http://cs229.stanford.edu/">CS 229 from Standford</a></li>
 </ol>
 <br/>
 <br/>
-<a href="/2020/09/09/it/it-20" float=left>Last</a> <a href="/2020/09/11/it/it-21" style="float: right;">Next</a><!-- flag of hidden posts -->
+<a href="/2020/09/10/it/it-21" float=left>Last</a> <a href="#" style="float: right;">Next</a><!-- flag of hidden posts -->
             </div>
              
             <div class="post-footer__meta">
@@ -476,8 +418,8 @@ c [label=&quot;(0, 25)&quot;];</code></pre>
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'http://yoursite.com/2020/09/10/it/it-21/';
-                this.page.identifier = '2020/09/10/it/it-21/';
+                this.page.url = 'http://yoursite.com/2020/09/11/it/it-22/';
+                this.page.identifier = '2020/09/11/it/it-22/';
             };
             (function(){
                 var dsq = document.createElement('script');
