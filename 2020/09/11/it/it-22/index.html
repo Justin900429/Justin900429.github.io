@@ -41,7 +41,7 @@
 <meta property="og:image" content="https://i.imgur.com/HJ6lu5T.jpg">
 <meta property="og:image" content="https://i.imgur.com/jzTkb1B.png">
 <meta property="article:published_time" content="2020-09-11T09:35:47.000Z">
-<meta property="article:modified_time" content="2020-09-11T09:39:47.820Z">
+<meta property="article:modified_time" content="2020-09-11T12:36:38.683Z">
 <meta property="article:author" content="Justin Ruan">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://miro.medium.com/max/1170/1*58f1CZ8M4il0OZYg2oRN4w.png">
@@ -215,7 +215,7 @@
     <div class="post__with-side">
         <aside class="post-side">
             <div class="post-side__toc">
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Notebook"><span class="toc-number">2.</span> <span class="toc-text">Notebook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Random-Forest"><span class="toc-number">3.</span> <span class="toc-text">Random Forest</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ensemble-Bagging"><span class="toc-number">4.</span> <span class="toc-text">Ensemble - Bagging</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Feature-selection"><span class="toc-number">5.</span> <span class="toc-text">Feature selection</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">6.</span> <span class="toc-text">程式碼</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">7.</span> <span class="toc-text">結語</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">8.</span> <span class="toc-text">參考資料</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Notebook"><span class="toc-number">2.</span> <span class="toc-text">Notebook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Random-Forest"><span class="toc-number">3.</span> <span class="toc-text">Random Forest</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ensemble-Bagging"><span class="toc-number">4.</span> <span class="toc-text">Ensemble - Bagging</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Feature-selection"><span class="toc-number">5.</span> <span class="toc-text">Feature selection</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ensembling-%E8%83%8C%E5%BE%8C%E7%9A%84%E5%8E%9F%E7%90%86"><span class="toc-number">6.</span> <span class="toc-text">Ensembling 背後的原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">7.</span> <span class="toc-text">程式碼</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">8.</span> <span class="toc-text">結語</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">9.</span> <span class="toc-text">參考資料</span></a></li></ol>
             </div>
         </aside>
         <article class="post content-card">
@@ -243,6 +243,11 @@
 <p>但是這樣的模型是沒有普遍性的，因為最後聚合的時候還是用這個 <strong>feature</strong> 做為我們的指標。這樣跟我們用 <strong>Decision tree</strong> 的結果是一樣的，無法更好描述其他 <strong>feature</strong> 的重要性而丟失掉我們百分之 <strong>15%</strong> 的準確率。</p>
 <p>為了解決這樣的問題， <strong>Random forest</strong> 會限制樹在做分類的時候只會取部分的 <strong>features</strong> 而更能顧及到其他的分類指標。因此當我們將樹聚合起來時能更好的展現普偏性！</p>
 <p><img src="https://i.imgur.com/HJ6lu5T.jpg" class="lazyload" data-srcset="https://i.imgur.com/HJ6lu5T.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
+<h2 id="Ensembling-背後的原理"><a href="#Ensembling-背後的原理" class="headerlink" title="Ensembling 背後的原理"></a>Ensembling 背後的原理</h2><p>我們這邊稍微來證明一下為什麼利用這個方式可以提高我們模型的普遍性。假設我們所有樹的 <strong>Variance</strong> 是 $Var(G)$，並假設我們各個模型並非完全獨立，因此我們可以得到：</p>
+<p>$$<br>\begin{align}<br>Var(G) &amp;= Var(\frac{1}{n} \sum_i G_i) \\<br>&amp;= \frac{1}{n^2}\sum_{i, j} Cov(G_i, G_j) \\<br>&amp;= \frac{1}{n^2}\sum_iVar(G_i) + \frac{1}{n^2}\sum_{i \neq j}Cov(G_i, G_j) \\<br>&amp;= \frac{n\sigma^2}{n^2} +  \frac{n(n - 1)\rho\sigma^2}{n^2} \\<br>&amp;= \rho \sigma^2 + \frac{1 - \rho}{n}\sigma^2<br>\end{align}<br>$$</p>
+<p>其中 $\rho$ 是我們相關係數，與 $Cov(x, y)$ 的關係是：</p>
+<p>$$<br>\rho_{x, y} = \frac{Cov(x, y)}{\rho_x \rho_y}<br>$$</p>
+<p>因此當我們利用 <strong>Bootstrap</strong> 取得 <strong>samples</strong> 時，就是在降低各樹之間的相關性，使讀我們整體樹之間的 <strong>variance</strong> 能降低，因此對沒看過的資料更具有普遍性。</p>
 <h2 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h2><p>我一樣把所有東西放在 <strong>Notebook</strong> 裡。這邊是我們用不同數量的樹的結果：</p>
 <p>大家可以注意到，當我們的樹愈多得時候，模型對被那些雜訊的影響就愈小（藍色區域裡的棕色區域，後面的幾張沒有太多差別）：</p>
 <p><img src="https://i.imgur.com/jzTkb1B.png" class="lazyload" data-srcset="https://i.imgur.com/jzTkb1B.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
