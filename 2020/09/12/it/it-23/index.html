@@ -21,7 +21,7 @@
     <!-- meta -->
 
 
-<title>[Series - 19] Classification - SVM - 2 | Justin</title><meta name="robots" content="noindex">
+<title>[Series - 23] Boosting - 1 - Adaboost | Justin</title><meta name="robots" content="noindex">
 
 
 
@@ -29,17 +29,21 @@
 
     <!-- OpenGraph -->
  
-    <meta name="description" content="[Series - 19] Classification - SVM - 2See moreBack to the series page   前言今天我們要來說明一下如何利用最佳化理論來找 SVM 的解並利用一些方法拓展到高維度。 NotebookNotebook 最佳化昨天我們說到我們的最佳化式子是： $$\begin{align}max_{\gamma,w,b} \ \ \ \  &amp;">
+    <meta name="description" content="[Series - 23] Boosting - 1 - AdaboostSee moreBack to the series page   前言今天要介紹另一個 ensembling 的方法，那就是 boosting。 NotebookNotebook Boosting我們先來想像一個例子，當我們今天想要辨識不同類別的物體的時候，我們會先專注在他的大方向，在看他跟我們分類錯誤的物體有什麼不一樣，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Series - 19] Classification - SVM - 2">
-<meta property="og:url" content="http://yoursite.com/2020/09/08/it/it-19/index.html">
+<meta property="og:title" content="[Series - 23] Boosting - 1 - Adaboost">
+<meta property="og:url" content="http://yoursite.com/2020/09/12/it/it-23/index.html">
 <meta property="og:site_name" content="Justin">
-<meta property="og:description" content="[Series - 19] Classification - SVM - 2See moreBack to the series page   前言今天我們要來說明一下如何利用最佳化理論來找 SVM 的解並利用一些方法拓展到高維度。 NotebookNotebook 最佳化昨天我們說到我們的最佳化式子是： $$\begin{align}max_{\gamma,w,b} \ \ \ \  &amp;">
+<meta property="og:description" content="[Series - 23] Boosting - 1 - AdaboostSee moreBack to the series page   前言今天要介紹另一個 ensembling 的方法，那就是 boosting。 NotebookNotebook Boosting我們先來想像一個例子，當我們今天想要辨識不同類別的物體的時候，我們會先專注在他的大方向，在看他跟我們分類錯誤的物體有什麼不一樣，">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-09-08T07:22:26.000Z">
-<meta property="article:modified_time" content="2020-09-12T06:09:10.725Z">
+<meta property="og:image" content="https://i.imgur.com/RZoFhvz.jpg">
+<meta property="og:image" content="https://media.geeksforgeeks.org/wp-content/uploads/20190324085500/adaboost.jpg">
+<meta property="og:image" content="https://i.imgur.com/pMS5Yrp.png">
+<meta property="article:published_time" content="2020-09-12T06:05:37.000Z">
+<meta property="article:modified_time" content="2020-09-12T06:12:04.758Z">
 <meta property="article:author" content="Justin Ruan">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://i.imgur.com/RZoFhvz.jpg">
 
 
     
@@ -187,11 +191,11 @@
     
 <div class="post-title">
     <h1 class="post-title__text">
-        [Series - 19] Classification - SVM - 2
+        [Series - 23] Boosting - 1 - Adaboost
     </h1>
     <div class="post-title__meta">
         <a href="/archives/2020/09/" class="post-meta__date button">
-    2020-09-08
+    2020-09-12
 </a>
         
  
@@ -210,95 +214,54 @@
     <div class="post__with-side">
         <aside class="post-side">
             <div class="post-side__toc">
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Notebook"><span class="toc-number">2.</span> <span class="toc-text">Notebook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E4%BD%B3%E5%8C%96"><span class="toc-number">3.</span> <span class="toc-text">最佳化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Quadratic-programming-%E4%BA%8C%E6%AC%A1%E8%A6%8F%E5%8A%83"><span class="toc-number">4.</span> <span class="toc-text">Quadratic programming 二次規劃</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A8%E5%BB%A3-SVM"><span class="toc-number">5.</span> <span class="toc-text">推廣 SVM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">6.</span> <span class="toc-text">程式碼</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">7.</span> <span class="toc-text">結語</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">8.</span> <span class="toc-text">參考資料</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Notebook"><span class="toc-number">2.</span> <span class="toc-text">Notebook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Boosting"><span class="toc-number">3.</span> <span class="toc-text">Boosting</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Adaboost"><span class="toc-number">4.</span> <span class="toc-text">Adaboost</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%80%8B%E5%88%A5%E6%A8%A1%E5%9E%8B"><span class="toc-number">4.1.</span> <span class="toc-text">個別模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Aggregation"><span class="toc-number">4.2.</span> <span class="toc-text">Aggregation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Algorithm"><span class="toc-number">4.3.</span> <span class="toc-text">Algorithm</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">5.</span> <span class="toc-text">程式碼</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">6.</span> <span class="toc-text">結語</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">7.</span> <span class="toc-text">參考資料</span></a></li></ol>
             </div>
         </aside>
         <article class="post content-card">
             <div class="post__header"></div>
             <div class="post__content">
-                <h1 id="Series-19-Classification-SVM-2"><a href="#Series-19-Classification-SVM-2" class="headerlink" title="[Series - 19] Classification - SVM - 2"></a>[Series - 19] Classification - SVM - 2</h1><blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/2020/08/29/it/it-series/">Back to the series page</a></p>
+                <h1 id="Series-23-Boosting-1-Adaboost"><a href="#Series-23-Boosting-1-Adaboost" class="headerlink" title="[Series - 23] Boosting - 1 - Adaboost"></a>[Series - 23] Boosting - 1 - Adaboost</h1><blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/2020/08/29/it/it-series/">Back to the series page</a></p>
 </div></blockquote>
 
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天我們要來說明一下如何利用最佳化理論來找 <strong>SVM</strong> 的解並利用一些方法拓展到高維度。</p>
-<h2 id="Notebook"><a href="#Notebook" class="headerlink" title="Notebook"></a>Notebook</h2><p><a target="_blank" rel="noopener" href="https://colab.research.google.com/github/Justin900429/IT-used/blob/master/SVM.ipynb">Notebook</a></p>
-<h2 id="最佳化"><a href="#最佳化" class="headerlink" title="最佳化"></a>最佳化</h2><p>昨天我們說到我們的最佳化式子是：</p>
-<p>$$<br>\begin{align}<br>max_{\gamma,w,b} \ \ \ \  &amp;\gamma \\<br>s.t.  \ \ \ \ &amp;y^{(i)}(w^Tx^{(i)} + b) \geq \gamma, \ i= 1,…m \\<br>&amp; \lVert w \rVert = 1<br>\end{align}<br>$$</p>
-<p>這邊我們留有 $\lVert w \rVert = 1$ 造成我們很難解這個式子。因此我們將原本的距離 $\gamma$ 乘上$\lVert w \rVert$，使得 $\lVert w \rVert$ 不在重要。記得我們的 $\gamma$ 變成 $\hat\gamma = \lVert w \rVert \gamma$。將原本的 $\gamma$帶回去就變成 $\frac{\hat\gamma}{\lVert w \rVert}$ 。而原本的 $\lVert w \rVert$ 是1，則是因為 $w = \frac{\hat w}{\lVert \hat w \rVert}$。整理一下變成 (將 $\hat w$ 變成 $w$ 維持統一性):</p>
-<p>$$<br>\begin{align}<br>max_{\gamma,w,b} \ \ \ \  &amp;\frac{\hat\gamma}{\lVert w \rVert} \\<br>s.t.  \ \ \ \ &amp;y^{(i)}(w^Tx^{(i)} + b) \geq \hat\gamma, \ i= 1,…m \\<br>\end{align}<br>$$</p>
-<p>然而我們 $\hat \gamma$ 實在太麻煩了，我們希望能把 $\hat \gamma$ 換成簡單的算式，因此我們講不等式兩邊都除上某個數，將 $\hat \gamma$ 變成 1，因此現在變成</p>
-<p>$$<br>\begin{align}<br>max_{\gamma,w,b} \ \ \ \  &amp;\frac{1}{\lVert w \rVert} \\<br>s.t.  \ \ \ \ &amp;y^{(i)}(w^Tx^{(i)} + b) \geq 1, \ i= 1,…m \\<br>\end{align}<br>$$</p>
-<p>在將 $max$ 變成 $min$ 在把 $\lVert w \rVert$ 變成平方，最前面加個 $\frac{1}{2}$，就變成：</p>
-<p>$$<br>\begin{align}<br>min_{\gamma,w,b} \ \ \ \  &amp;\frac{1}{2}w^Tw \\<br>s.t.  \ \ \ \ &amp;y^{(i)}(w^Tx^{(i)} + b) \geq 1, \ i= 1,…m \\<br>\end{align}<br>$$</p>
-<h2 id="Quadratic-programming-二次規劃"><a href="#Quadratic-programming-二次規劃" class="headerlink" title="Quadratic programming 二次規劃"></a>Quadratic programming 二次規劃</h2><p>我們現在已經將我們的最佳化式子整理成可以用二次規劃解決的問題。我們來看一下二次規劃的問題是什麼：</p>
-<p>$$<br>\begin{align}<br>optimal \ u &amp;\leftarrow QP(Q, p, A, c) \\<br>\underset{u}{\operatorname{min}} &amp; \ \ \frac{1}{2}u^TQu + p^Tu \\<br>s.t. \ \ \ &amp; a^T_m u \geq c_m  \ for \ m = 1, 2, …, n<br>\end{align}<br>$$</p>
-<p>跟我們的式子相比我們只需要做些對應：<br>    $$<br>    \text{Objective function}:<br>    u = \begin{pmatrix}<br>        b \\<br>        w \\<br>        \end{pmatrix};<br>    \ Q = \begin{pmatrix}<br>        0 \ \ \ 0_d^T \\<br>        0_d \ \ I \\<br>        \end{pmatrix} \\<br>    $$<br>    $$<br>    \text{Constraint}:<br>    a_m^T = y_n[1, \ x_n^T];<br>    \ c_m = 1;<br>    \ m = n<br>    $$</p>
-<p>現在我們只要用 <strong>Python</strong> 裡面的 <strong>Qudratic programming solver</strong> 就可以解決問題了！</p>
-<h2 id="推廣-SVM"><a href="#推廣-SVM" class="headerlink" title="推廣 SVM"></a>推廣 <strong>SVM</strong></h2><p>雖然說他現在解決我們方便的問題，但是當我們想把原本的 $x$ 推廣到更高維 $\phi(x)$ 來做分析，卻會因為複雜度的問題而使得算變為複雜。我們來看看我們二次規劃中的算式目前是跟 $d$ 有關係，假如說我們很瘋狂的把 $d$ 推廣到 $\infty$，那我們的式子是不是就失效了。因此現在的狀況是：</p>
-<table>
-<thead>
-<tr>
-<th align="center">Original SVM</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">$d + 1$ variables ($w$ and $b$)</td>
-</tr>
-<tr>
-<td align="center">$n$ constraints</td>
-</tr>
-</tbody></table>
-<p>我們希望我們譨找到方法將原本的 <strong>QP</strong> 變成：</p>
-<table>
-<thead>
-<tr>
-<th align="center">Improvement SVM</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">$n$ variables</td>
-</tr>
-<tr>
-<td align="center">$n + 1$ constraints</td>
-</tr>
-</tbody></table>
-<p>其實我們有個很好的方式可以將我們的式子的不等式先拿掉，那就是利用 <strong>Lagrange multiplier</strong>。因此我們現在可以把原本的式子：</p>
-<p>$$<br>\begin{align}<br>min_{\gamma,w,b} \ \ \ \  &amp;\frac{1}{2}w^Tw \\<br>s.t.  \ \ \ \ &amp;y^{(i)}(w^Tx^{(i)} + b) \geq 1, \ i= 1,…m \\<br>\end{align}<br>$$</p>
-<p>寫成：</p>
-<p>$$<br>\underset{w, b}{\operatorname{min}}  \underset{\alpha_i \geq0}{\operatorname{max}} \ L(w, b, \alpha)<br>$$</p>
-<p>其中 $L$ 是</p>
-<p>$$<br>L(w, b, \alpha) = \frac{1}{2}w^Tw + \sum_{i=1}^{n}\alpha_i(1 - y^{(i)}(w^Tx^{(i)} + b))<br>$$</p>
-<p>我們來說明一下箇中原因：</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天要介紹另一個 <strong>ensembling</strong> 的方法，那就是 <strong>boosting</strong>。</p>
+<h2 id="Notebook"><a href="#Notebook" class="headerlink" title="Notebook"></a>Notebook</h2><p><a target="_blank" rel="noopener" href="https://colab.research.google.com/github/Justin900429/IT-used/blob/master/Boosting.ipynb">Notebook</a></p>
+<h2 id="Boosting"><a href="#Boosting" class="headerlink" title="Boosting"></a>Boosting</h2><p>我們先來想像一個例子，當我們今天想要辨識不同類別的物體的時候，我們會先專注在他的大方向，在看他跟我們分類錯誤的物體有什麼不一樣，再進一步尋找新的特徵。同時，我們會把分類錯誤的放大檢視，進而修正錯誤。</p>
+<p><img src="https://i.imgur.com/RZoFhvz.jpg" class="lazyload" data-srcset="https://i.imgur.com/RZoFhvz.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
+<p>利用上面這張圖，我們想找出正方形的特徵，當我們第一次說出<strong>四個邊的時候</strong>，我們就會就會發現，坐上方的不規則四邊形會被分類錯誤，因此我們希望下一次能修正這個錯誤。但是在修正的過程中，我們可能也會發現新的錯誤，因此我們必須不斷去修修改改我們的條件。另外上圖我沒有將分類正確的物體縮小，事實上分類正確的物體應該要<strong>變小一些</strong>。</p>
+<p><img src="https://media.geeksforgeeks.org/wp-content/uploads/20190324085500/adaboost.jpg" class="lazyload" data-srcset="https://media.geeksforgeeks.org/wp-content/uploads/20190324085500/adaboost.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
+<p>我們來觀察一下上面這張圖，他會先對原始照片分類，接著去找出錯誤的地方並放大（權重放大），接著再去找其他的特徵，希望將錯誤縮小。另外要注意的是，圖形的分類方式是序列的，跟我們昨天看到的 <strong>平行</strong> 是有所不同的。最後的 <strong>Aggregation</strong> 也是將這些<strong>序列</strong>找出來的分類聚合出來！</p>
+<h2 id="Adaboost"><a href="#Adaboost" class="headerlink" title="Adaboost"></a>Adaboost</h2><h3 id="個別模型"><a href="#個別模型" class="headerlink" title="個別模型"></a>個別模型</h3><p>有了 <strong>boosting</strong> 的概念後，我們來看一看 <strong>Adaboost</strong> 的演算法。我們先對每個個別的小 <strong>model</strong> 研究。假設我們有 $N$ 個點。首先我們先將我們每個點的權重設為 $\frac{1}{N}$，我們計算分類錯誤的方式是利用加權平均：</p>
+<p>$$<br>error = \epsilon_t = \frac{\sum_{n=1}^N u_n^{(t)}1 { y_n \neq g_t(x_n) } }{\sum_{n=1}^N u_n^{(t)}}<br>$$</p>
+<p>而這也正是我上面說的<strong>改變權重</strong>，當我們 $u_t$ 愈大，他導致的錯誤也愈多，因此我們的 <strong>model</strong> 就會試著將這筆資料做更好的分類。另外我們的 $\epsilon_t$ 的範圍是 $0 \leq \epsilon_t \leq \frac{1}{2}$，因為當大於 $\frac{1}{2}$ 的時候代表我們只要將我們預測的東西做調換，就又可以得到小於 $\frac{1}{2}$ 的預測率了。</p>
+<p>另外，我們也要有改變權重的方式，因此我們定義一個 <strong>scaling factor</strong> 用作改變權重的乘數。</p>
+<p>$$<br>\text{Scaling factor} = f_t = \sqrt{\frac{1- \epsilon_t}{\epsilon_t}}<br>$$</p>
 <ul>
-<li><p>假設我們的限制式條件不成立，以就是說 $1 - y^{(i)}(w^Tx^{(i)} + b) \gt 0$，那當我們去最大化我們的 $L$ 時我們會得到 $\infty$。解釋如下</p>
-<p>  $$<br>  max \ (L(w, b, \alpha) = [positive] + \sum_{i=1}^{n}\alpha_i(positive)) = \infty<br>  $$</p>
+<li><p>當我們<strong>model</strong>將某筆資料 $n$ 分類正確，則其權重 $u_n^{t}$ 就會變成:<br>  $$<br>  u_n^{t+1} = \frac{u_n^t}{f_t}<br>  $$</p>
 </li>
-<li><p>當我們條件成立時，我們的 $1 - y^{(i)}(w^Tx^{(i)} + b) \lt 0$，因此當我們最小化這個條件時我們就會得到 $\frac{1}{2}w^Tw$，解釋如下：</p>
-<p>  $$<br>  \begin{align}<br>  max \ &amp; (L(w, b, \alpha) = \frac{1}{2}w^Tw + \sum_{i=1}^{n}\alpha_i(negative)) \\<br>  &amp;= \frac{1}{2}w^Tw \ , \ where \ \alpha_i = 0<br>  \end{align}<br>  $$</p>
-</li>
-<li><p>而我們取 $min \ L(w, b, \alpha)$ 得時候，就可以刪除掉 $\infty$ 的狀態了，因為 $\infty \gt any thing$。</p>
+<li><p>當我們 <strong>model</strong> 將某筆資料 $n$ 分類錯誤，則其權重 $u_n^{t}$ 就會變成:<br>  $$<br>  u_n^{t+1} = u_n^t * f_t<br>  $$</p>
 </li>
 </ul>
-<p>然而我們現在還是因為有 $\alpha_i$ 導致我們很難解出這個最佳化問題，因此我們希望可以將不等式的 $min$, $max$ 對調。一般來說：</p>
-<p>$$<br>\underset{w, b}{\operatorname{min}} \underset{\alpha_i \geq0}{\operatorname{max}} L(w, b, \alpha) \geq \underset{\alpha_i \geq0}{\operatorname{max}} \underset{w, b}{\operatorname{min}} L(w, b, a)<br>$$</p>
-<p>在滿足某些條件成立的時候，我們可以使得等號成立，這邊我就不細說了。詳細推導可以看參考資料。最佳解是：</p>
-<p>$$<br>\begin{align}<br>\underset{\alpha}{min} \ \  \frac{1}{2}\sum_{i=1}^{n} &amp; \sum_{j=1}^{n}\alpha_i \alpha_j y^{(i)}y^{(j)} x^{(i)T}x^{(j)} + \sum_{i = 1}^n\alpha_i \\<br>s.t. \ \ &amp; \sum_{i=1}^n \alpha_iy^{(i)} = 0 \\<br>&amp; \alpha_i \geq 0 \ \text{for i = 1, …, n}<br>\end{align}<br>$$</p>
-<p>跟我們原本的 <strong>QP</strong> 相比：</p>
-<p>$$<br>\begin{align}<br>optimal \ u &amp;\leftarrow QP(Q, p, A, c) \\<br>\underset{u}{\operatorname{min}} &amp; \ \ \frac{1}{2}u^TQu + p^Tu \\<br>s.t. \ \ \ &amp; a^T_m u \geq c_m \ for \  m = 1, 2, …, n<br>\end{align}<br>$$</p>
-<p>我們的係數應該這樣設（因為 $Q, p, A, c$ 都是矩陣，因此我們只看各個位置應該是什麼）</p>
-<p>$$<br>\begin{align}<br>q_{n, m} &amp;= y^{(i)}y^{(j)}x^{(i)T}x^{(j)} \\<br>p &amp;= 1_N \ \text{(row vector)} \\<br>a &amp;\geq y \ , a \leq y \ ; a_m^T \ \text{should be unit vector} \\<br>c &amp;\geq 0 \ , c \leq 0 \ ; c_m = 0<br>\end{align}<br>$$</p>
-<p>但不要忘記我們是希望找到最好的 $w \ , b$，因此我們必須回頭看看我們的 $w \ , b$ 是什麼：</p>
-<p>$$<br>\begin{align}<br>optimal \ \alpha &amp;\rightarrow \ w = \sum_{i=1}^n \alpha_i y^{(i)} x^{(i)} \\<br>optimal \ \alpha &amp;\rightarrow \ \text{if any} \ \alpha_i \gt 0 \Rightarrow \ b = y^{(i)} - w^Tx^{(i)}<br>\end{align}<br>$$</p>
-<p>另外還有一個更有趣的特性，對於所有的 $\alpha_i \gt 0$，$(x^{(i)}, y^{(i)})$ 會落在 <strong>support vector line</strong> 上，而這些 $(x^{(i)}, y^{(i)})$ 正是我們的 <strong>support vector</strong>。也由這個特性，我們可以知道真正決定邊界的不是其他的點，正是我們的 <strong>support vector</strong>！</p>
-<p>講到這裡，我們一直沒有提到這跟我們的 <strong>Improvment SVM</strong> 有什麼關係，還有 <strong>d</strong> 指的維度到底是什麼。因為我們還需要明天會介紹的 <strong>feature mapping</strong> 才能更好解釋這邊的問題。</p>
-<h2 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h2><p>程式碼我都放在 <a href="">notebook</a> 了，做法是參考<a target="_blank" rel="noopener" href="https://xavierbourretsicotte.github.io/SVM_implementation.html">這裡</a></p>
-<h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>今天講的東西真的是滿滿的數學，希望大家不要被嚇跑了ＸＤ 雖說如此，明天一樣還是滿滿的數學啦！</p>
+<p>這邊我們用 $t$ 與 $t+1$ 表示，是為了更清楚表的我們每個小模型都是透過序列（一個接一個）訓練的。</p>
+<h3 id="Aggregation"><a href="#Aggregation" class="headerlink" title="Aggregation"></a>Aggregation</h3><p>當我們每個個別的小 <strong>model</strong> $g(t)$ 做好後，我們還必須將他們一起聚合在一起做預測。但這邊我們不能將每個模型的預測的結果直接做平均。因為我們每個模型都有各自的好壞或專長的分類的東西，因此我們直接做平均就不符合我們設計權重的概念，因此我們也必須利用權重來做分析，也就是所有模型的線性組合。</p>
+<p>我們先來思考一個問題，當我們的 $error \ e_t$ 等於 $\frac{1}{2}$，我們可以推斷我們的模型是在亂猜測，因為我們自己亂猜測也可以達到接近 $\frac{1}{2}$ 的機率，沒有任何用處。因此線性組合的權重 $\alpha_t$ 就可以設成 $0$，相反當我們得到 $0$，代表這個模型非常強大，因此我們可以將他的權重 $\alpha_t$ 設成 $\infty$。</p>
+<p>這時候我們就可以借我們的 $f_t$，當我們 $\epsilon_t = 0$ 的時候，我們 $f_t$ 可以得到 $\infty$，當我們 $epsilon_t = \frac{1}{2}$ 可以得到 $1$，此時我們的 $\alpha_t$ 就可以用 $\ln(f_t)$ 來決定。因此我們最終的決定權是：</p>
+<p>$$<br>G(x) = sign(\sum_{t=1}^T \alpha_t g_t(x))<br>$$</p>
+<p>其中 $sign(x)$ 的表示是：</p>
+<p>$$<br>sign(x)=<br>\begin{cases}<br>1  \ , \text{if} \ x \gt 0 \\<br>-1 \ , \text{if} \ x \lt 0 \\<br>0, \ otherwise<br>\end{cases}<br>$$</p>
+<p>而 $\sum_{t=1}^T \alpha_t g_t(x)$ 基本上不會有 0 的出現。</p>
+<h3 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h3><p>這邊我們就列出整個 <strong>Adaboost</strong> 的演算法流程：</p>
+<p>$$<br>\begin{align}<br>&amp; u^{(1)} = \begin{pmatrix}\frac{1}{N}, \frac{1}{N}, …, \frac{1}{N}\end{pmatrix} \\<br>&amp; \text{for t = 1, 2, …, T :} \\<br>&amp; \space \space \space \space get \ g_t \ by \ D_t\\<br>&amp; \space \space \space \space update  \ u^{t}  \ to  \ u^{t+1}  \ by  \ f_t \\<br>&amp; \space \space \space \space compute \ \alpha_t = \ln(f_t) \\<br>&amp; return \ G(x) = sign(\sum_{t=1}^T \alpha_t g_t(x))<br>\end{align}<br>$$</p>
+<h2 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h2><p>我一樣放在 <strong>Notebook</strong> 裡，這裡我們就看結果吧！<br><br></p>
+<p><img src="https://i.imgur.com/pMS5Yrp.png" class="lazyload" data-srcset="https://i.imgur.com/pMS5Yrp.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
+<p>可以觀察到經過愈多次，我們的模型得適應能力愈強，對於一些雜訊的處理能力也愈好！</p>
+<h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>今天介紹我們的 <strong>Adaboost</strong>，明天要來介紹 <strong>Gradient boost</strong>！</p>
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
 <li><a target="_blank" rel="noopener" href="http://cs229.stanford.edu/">CS 229 from Standford</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PLXVfgk9fNX2IQOYPmqjqWsNUFl2kpk1U2">機器學習技法 林軒田教授</a></li>
 </ol>
 <br/>
 <br/>
-<a href="/2020/09/06/it/it-18" float=left>Last</a> <a href="/2020/09/09/it/it-20" style="float: right;">Next</a><!-- flag of hidden posts -->
+<a href="/2020/09/11/it/it-22" float=left>Last</a> <a href="#" style="float: right;">Next</a><!-- flag of hidden posts -->
             </div>
              
             <div class="post-footer__meta">
@@ -464,8 +427,8 @@
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'http://yoursite.com/2020/09/08/it/it-19/';
-                this.page.identifier = '2020/09/08/it/it-19/';
+                this.page.url = 'http://yoursite.com/2020/09/12/it/it-23/';
+                this.page.identifier = '2020/09/12/it/it-23/';
             };
             (function(){
                 var dsq = document.createElement('script');
