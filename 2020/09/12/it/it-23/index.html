@@ -40,7 +40,7 @@
 <meta property="og:image" content="https://media.geeksforgeeks.org/wp-content/uploads/20190324085500/adaboost.jpg">
 <meta property="og:image" content="https://i.imgur.com/pMS5Yrp.png">
 <meta property="article:published_time" content="2020-09-12T06:05:37.000Z">
-<meta property="article:modified_time" content="2020-09-12T06:30:53.905Z">
+<meta property="article:modified_time" content="2020-09-12T06:33:08.566Z">
 <meta property="article:author" content="Justin Ruan">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://i.imgur.com/RZoFhvz.jpg">
@@ -233,7 +233,7 @@
 <h2 id="Adaboost"><a href="#Adaboost" class="headerlink" title="Adaboost"></a>Adaboost</h2><h3 id="個別模型"><a href="#個別模型" class="headerlink" title="個別模型"></a>個別模型</h3><p>有了 <strong>boosting</strong> 的概念後，我們來看一看 <strong>Adaboost</strong> 的演算法。我們先對每個個別的小 <strong>model</strong> 研究。假設我們有 $N$ 個點。首先我們先將我們每個點的權重設為 $\frac{1}{N}$，我們計算分類錯誤的方式是利用加權平均：</p>
 <p>$$<br>error = \epsilon_t = \frac{\sum_{n=1}^N u_n^{(t)}1 { y_n \neq g_t(x_n) } }{\sum_{n=1}^N u_n^{(t)}}<br>$$</p>
 <p>而這也正是我上面說的<strong>改變權重</strong>，當我們 $u_t$ 愈大，他導致的錯誤也愈多，因此我們的 <strong>model</strong> 就會試著將這筆資料做更好的分類。另外我們的 $\epsilon_t$ 的範圍是 $0 \leq \epsilon_t \leq \frac{1}{2}$，因為當大於 $\frac{1}{2}$ 的時候代表我們只要將我們預測的東西做調換，就又可以得到小於 $\frac{1}{2}$ 的預測率了。</p>
-<p>另外，我們也要有改變權重的方式，因此我們定義一個 <strong>scaling factor</strong> 用作改變權重的乘數。</p>
+<p>另外，我們也要有改變權重的方式，因此我們定義一個 <strong>scaling factor</strong> 用作改變權重的乘數，對 <strong>scaling factor</strong> 的推導可以看<a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PLXVfgk9fNX2IQOYPmqjqWsNUFl2kpk1U2">參考資料[2]</a>。</p>
 <p>$$<br>\text{Scaling factor} = f_t = \sqrt{\frac{1- \epsilon_t}{\epsilon_t}}<br>$$</p>
 <ul>
 <li><p>當我們<strong>model</strong>將某筆資料 $n$ 分類正確，則其權重 $u_n^{t}$ 就會變成:<br>  $$<br>  u_n^{t+1} = \frac{u_n^t}{f_t}<br>  $$</p>
