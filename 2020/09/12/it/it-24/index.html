@@ -21,7 +21,7 @@
     <!-- meta -->
 
 
-<title>[Series - 23] Boosting - 1 - Adaboost | Justin</title><meta name="robots" content="noindex">
+<title>[Series - 24] Boosting - 2 - Gradient Boosting | Justin</title><meta name="robots" content="noindex">
 
 
 
@@ -29,21 +29,20 @@
 
     <!-- OpenGraph -->
  
-    <meta name="description" content="[Series - 23] Boosting - 1 - AdaboostSee moreBack to the series page   前言今天要介紹另一個 ensembling 的方法，那就是 boosting。 NotebookNotebook Boosting我們先來想像一個例子，當我們今天想要辨識不同類別的物體的時候，我們會先專注在他的大方向，在看他跟我們分類錯誤的物體有什麼不一樣，">
+    <meta name="description" content="[Series - 24] Boosting - 2 - Gradient BoostingSee moreBack to the series page   前言昨天講完 Adaboost，今天要來介紹另一個演算法， Gradient boost。 NotebookNotebook 直觀想法上篇我們在說 Adaboost 的時候，是說我們利用我們的 error 來找到我們每個 model 的權重">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Series - 23] Boosting - 1 - Adaboost">
-<meta property="og:url" content="http://yoursite.com/2020/09/12/it/it-23/index.html">
+<meta property="og:title" content="[Series - 24] Boosting - 2 - Gradient Boosting">
+<meta property="og:url" content="http://yoursite.com/2020/09/12/it/it-24/index.html">
 <meta property="og:site_name" content="Justin">
-<meta property="og:description" content="[Series - 23] Boosting - 1 - AdaboostSee moreBack to the series page   前言今天要介紹另一個 ensembling 的方法，那就是 boosting。 NotebookNotebook Boosting我們先來想像一個例子，當我們今天想要辨識不同類別的物體的時候，我們會先專注在他的大方向，在看他跟我們分類錯誤的物體有什麼不一樣，">
+<meta property="og:description" content="[Series - 24] Boosting - 2 - Gradient BoostingSee moreBack to the series page   前言昨天講完 Adaboost，今天要來介紹另一個演算法， Gradient boost。 NotebookNotebook 直觀想法上篇我們在說 Adaboost 的時候，是說我們利用我們的 error 來找到我們每個 model 的權重">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://i.imgur.com/RZoFhvz.jpg">
-<meta property="og:image" content="https://media.geeksforgeeks.org/wp-content/uploads/20190324085500/adaboost.jpg">
-<meta property="og:image" content="https://i.imgur.com/pMS5Yrp.png">
-<meta property="article:published_time" content="2020-09-12T06:05:37.000Z">
-<meta property="article:modified_time" content="2020-09-12T12:55:26.718Z">
+<meta property="og:image" content="https://i.imgur.com/gzWGa91.png">
+<meta property="og:image" content="https://i.imgur.com/XyULbDh.png">
+<meta property="article:published_time" content="2020-09-12T12:53:50.000Z">
+<meta property="article:modified_time" content="2020-09-12T12:55:38.026Z">
 <meta property="article:author" content="Justin Ruan">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://i.imgur.com/RZoFhvz.jpg">
+<meta name="twitter:image" content="https://i.imgur.com/gzWGa91.png">
 
 
     
@@ -191,7 +190,7 @@
     
 <div class="post-title">
     <h1 class="post-title__text">
-        [Series - 23] Boosting - 1 - Adaboost
+        [Series - 24] Boosting - 2 - Gradient Boosting
     </h1>
     <div class="post-title__meta">
         <a href="/archives/2020/09/" class="post-meta__date button">
@@ -214,55 +213,36 @@
     <div class="post__with-side">
         <aside class="post-side">
             <div class="post-side__toc">
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Notebook"><span class="toc-number">2.</span> <span class="toc-text">Notebook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Boosting"><span class="toc-number">3.</span> <span class="toc-text">Boosting</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Adaboost"><span class="toc-number">4.</span> <span class="toc-text">Adaboost</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%80%8B%E5%88%A5%E6%A8%A1%E5%9E%8B"><span class="toc-number">4.1.</span> <span class="toc-text">個別模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Weak-classifier"><span class="toc-number">4.2.</span> <span class="toc-text">Weak classifier</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Aggregation"><span class="toc-number">4.3.</span> <span class="toc-text">Aggregation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Algorithm"><span class="toc-number">4.4.</span> <span class="toc-text">Algorithm</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">5.</span> <span class="toc-text">程式碼</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">6.</span> <span class="toc-text">結語</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">7.</span> <span class="toc-text">參考資料</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Notebook"><span class="toc-number">2.</span> <span class="toc-text">Notebook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B4%E8%A7%80%E6%83%B3%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">直觀想法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gradient-boost"><span class="toc-number">4.</span> <span class="toc-text">Gradient boost</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%94%E7%AE%97%E6%B3%95"><span class="toc-number">4.1.</span> <span class="toc-text">演算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%A8%93%E7%B7%B4%E7%9B%AE%E6%A8%99"><span class="toc-number">4.2.</span> <span class="toc-text">模型的訓練目標</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%A8%93%E7%B7%B4%E6%96%B9%E5%BC%8F"><span class="toc-number">4.3.</span> <span class="toc-text">模型的訓練方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">5.</span> <span class="toc-text">程式碼</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">6.</span> <span class="toc-text">參考資料</span></a></li></ol>
             </div>
         </aside>
         <article class="post content-card">
             <div class="post__header"></div>
             <div class="post__content">
-                <h1 id="Series-23-Boosting-1-Adaboost"><a href="#Series-23-Boosting-1-Adaboost" class="headerlink" title="[Series - 23] Boosting - 1 - Adaboost"></a>[Series - 23] Boosting - 1 - Adaboost</h1><blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/2020/08/29/it/it-series/">Back to the series page</a></p>
+                <h1 id="Series-24-Boosting-2-Gradient-Boosting"><a href="#Series-24-Boosting-2-Gradient-Boosting" class="headerlink" title="[Series - 24] Boosting - 2 - Gradient Boosting"></a>[Series - 24] Boosting - 2 - Gradient Boosting</h1><blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/2020/08/29/it/it-series/">Back to the series page</a></p>
 </div></blockquote>
 
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天要介紹另一個 <strong>ensembling</strong> 的方法，那就是 <strong>boosting</strong>。</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>昨天講完 <strong>Adaboost</strong>，今天要來介紹另一個演算法， <strong>Gradient boost</strong>。</p>
 <h2 id="Notebook"><a href="#Notebook" class="headerlink" title="Notebook"></a>Notebook</h2><p><a target="_blank" rel="noopener" href="https://colab.research.google.com/github/Justin900429/IT-used/blob/master/Boosting.ipynb">Notebook</a></p>
-<h2 id="Boosting"><a href="#Boosting" class="headerlink" title="Boosting"></a>Boosting</h2><p>我們先來想像一個例子，當我們今天想要辨識不同類別的物體的時候，我們會先專注在他的大方向，在看他跟我們分類錯誤的物體有什麼不一樣，再進一步尋找新的特徵。同時，我們會把分類錯誤的放大檢視，進而修正錯誤。</p>
-<p><img src="https://i.imgur.com/RZoFhvz.jpg" class="lazyload" data-srcset="https://i.imgur.com/RZoFhvz.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
-<p>利用上面這張圖，我們想找出正方形的特徵，當我們第一次說出<strong>四個邊的時候</strong>，我們就會就會發現，坐上方的不規則四邊形會被分類錯誤，因此我們希望下一次能修正這個錯誤。但是在修正的過程中，我們可能也會發現新的錯誤，因此我們必須不斷去修修改改我們的條件。另外上圖我沒有將分類正確的物體縮小，事實上分類正確的物體應該要<strong>變小一些</strong>。</p>
-<p><img src="https://media.geeksforgeeks.org/wp-content/uploads/20190324085500/adaboost.jpg" class="lazyload" data-srcset="https://media.geeksforgeeks.org/wp-content/uploads/20190324085500/adaboost.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
-<p>我們來觀察一下上面這張圖，他會先對原始照片分類，接著去找出錯誤的地方並放大（權重放大），接著再去找其他的特徵，希望將錯誤縮小。另外要注意的是，圖形的分類方式是序列的，跟我們昨天看到的 <strong>平行</strong> 是有所不同的。最後的 <strong>Aggregation</strong> 也是將這些<strong>序列</strong>找出來的分類聚合出來！</p>
-<h2 id="Adaboost"><a href="#Adaboost" class="headerlink" title="Adaboost"></a>Adaboost</h2><h3 id="個別模型"><a href="#個別模型" class="headerlink" title="個別模型"></a>個別模型</h3><p>有了 <strong>boosting</strong> 的概念後，我們來看一看 <strong>Adaboost</strong> 的演算法，這是一個用在二元分類的演算法。我們先對每個個別的小 <strong>model</strong> 研究。假設我們有 $N$ 個點。首先我們先將我們每個點的權重設為 $\frac{1}{N}$，我們計算分類錯誤的方式是利用加權平均：</p>
-<p>$$<br>error = \epsilon_t = \frac{\sum_{n=1}^N u_n^{(t)}1 { y_n \neq g_t(x_n) } }{\sum_{n=1}^N u_n^{(t)}}<br>$$</p>
-<p>而這也正是我上面說的<strong>改變權重</strong>，當我們 $u_t$ 愈大，他導致的錯誤也愈多，因此我們的 <strong>model</strong> 就會試著將這筆資料做更好的分類。另外我們的 $\epsilon_t$ 的範圍是 $0 \leq \epsilon_t \leq \frac{1}{2}$，因為當大於 $\frac{1}{2}$ 的時候代表我們只要將我們預測的東西做調換，就又可以得到小於 $\frac{1}{2}$ 的預測率了。</p>
-<p>另外，我們也要有改變權重的方式，因此我們定義一個 <strong>scaling factor</strong> 用作改變權重的乘數，對 <strong>scaling factor</strong> 的推導可以看<a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PLXVfgk9fNX2IQOYPmqjqWsNUFl2kpk1U2">參考資料[2]</a>。</p>
-<p>$$<br>\text{Scaling factor} = f_t = \sqrt{\frac{1- \epsilon_t}{\epsilon_t}}<br>$$</p>
-<ul>
-<li><p>當我們<strong>model</strong>將某筆資料 $n$ 分類正確，則其權重 $u_n^{t}$ 就會變成:<br>  $$<br>  u_n^{t+1} = \frac{u_n^t}{f_t}<br>  $$</p>
-</li>
-<li><p>當我們 <strong>model</strong> 將某筆資料 $n$ 分類錯誤，則其權重 $u_n^{t}$ 就會變成:<br>  $$<br>  u_n^{t+1} = u_n^t * f_t<br>  $$</p>
-</li>
-</ul>
-<p>這邊我們用 $t$ 與 $t+1$ 表示，是為了更清楚表的我們每個<strong>小樹</strong>都是透過序列（一個接一個）訓練的。另外每個序列模型我們都希望可以多樣化一些，因此權重也可以扮演這樣的角色，幫助我們模型更加強大可以做更好的分類。多樣化的意思指的是 <strong>tree</strong> $g^{t}$ 用到 $u^{t+1}$ 的權重時，會有很差的結果，而對 <strong>tree</strong> $g^{t+1}$ 卻有很好的分類能力，這也意味著每個模型有自己強大的地方。</p>
-<h3 id="Weak-classifier"><a href="#Weak-classifier" class="headerlink" title="Weak classifier"></a>Weak classifier</h3><p>其實我們上面一直有個觀念沒有說得很清楚，那就是我們每一棵小樹 $g(t)$ 事實上都是一種 <strong>weak classifier</strong>，也就是只能分類一次的決策樹。假如我們可以讓樹一直長，那我們就可以直接將資料點分完了，根本不需要去訓練我們每個分類模型的重要行。因此我們對於每一個模型都只能切一刀，並且這一刀要將資料分得誤差最小。但是只切一刀終歸無法將資料分乾淨（要是可以，那就是線性可分了），因此才會叫 <strong>weak classifier</strong>。</p>
-<h3 id="Aggregation"><a href="#Aggregation" class="headerlink" title="Aggregation"></a>Aggregation</h3><p>當我們每個個別的小 <strong>model</strong> $g(t)$ 做好後，我們還必須將他們一起聚合在一起做預測。但這邊我們不能將每個模型的預測的結果直接做平均。因為我們每個模型都有各自的好壞或專長的分類的東西，因此我們直接做平均就不符合我們設計權重的概念，因此我們也必須利用權重來做分析，也就是所有模型的線性組合。</p>
-<p>我們先來思考一個問題，當我們的 $error \ \epsilon_t$ 等於 $\frac{1}{2}$，我們可以推斷我們的模型是在亂猜測，因為我們自己亂猜測也可以達到接近 $\frac{1}{2}$ 的機率，沒有任何用處。因此線性組合的權重 $\alpha_t$ 就可以設成 $0$，相反當我們得到 $0$，代表這個模型非常強大，因此我們可以將他的權重 $\alpha_t$ 設成 $\infty$。</p>
-<p>這時候我們就可以借我們的 $f_t$，當我們 $\epsilon_t=0$ 的時候，我們 $f_t$ 可以得到 $\infty$，當我們 $\epsilon_t = \frac{1}{2}$ 可以得到 $1$，此時我們的 $\alpha_t$ 就可以用 $\ln(f_t)$ 來決定。因此我們最終的決定權是：</p>
-<p>$$<br>G(x) = sign(\sum_{t=1}^T \alpha_t g_t(x))<br>$$</p>
-<p>其中 $sign(x)$ 的表示是：</p>
-<p>$$<br>sign(x)=<br>\begin{cases}<br>1  \ , \text{if} \ x \gt 0 \\<br>-1 \ , \text{if} \ x \lt 0 \\<br>0, \ otherwise<br>\end{cases}<br>$$</p>
-<p>而 $\sum_{t=1}^T \alpha_t g_t(x)$ 基本上不會有 0 的出現。</p>
-<h3 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h3><p>這邊我們就列出整個 <strong>Adaboost</strong> 的演算法流程：</p>
-<p>$$<br>\begin{align}<br>&amp; u^{(1)} = \begin{pmatrix}\frac{1}{N}, \frac{1}{N}, …, \frac{1}{N}\end{pmatrix} \\<br>&amp; \text{for t = 1, 2, …, T :} \\<br>&amp; \space \space \space \space get \ g_t \ by \ D_t\\<br>&amp; \space \space \space \space update  \ u^{t}  \ to  \ u^{t+1}  \ by  \ f_t \\<br>&amp; \space \space \space \space compute \ \alpha_t = \ln(f_t) \\<br>&amp; return \ G(x) = sign(\sum_{t=1}^T \alpha_t g_t(x))<br>\end{align}<br>$$</p>
-<h2 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h2><p>我一樣放在 <strong>Notebook</strong> 裡，這裡我們就看結果吧！<br><br></p>
-<p><img src="https://i.imgur.com/pMS5Yrp.png" class="lazyload" data-srcset="https://i.imgur.com/pMS5Yrp.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
-<p>可以觀察到經過愈多次，我們的模型得適應能力愈強，對於一些雜訊的處理能力也愈好！</p>
-<h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>今天介紹完的 <strong>Adaboost</strong>，了解到他就是利用 <strong>boosting</strong> 加上 <strong>Decision tree (with weak classifier)</strong> 。明天接著要來介紹 <strong>Gradient boost</strong>！</p>
+<h2 id="直觀想法"><a href="#直觀想法" class="headerlink" title="直觀想法"></a>直觀想法</h2><p>上篇我們在說 <strong>Adaboost</strong> 的時候，是說我們利用我們的 <strong>error</strong> 來找到我們每個 <strong>model</strong> 的權重。而 <strong>Gradient boost</strong> 的概念是利用我們跟我們真實資料的 <strong>Loss function</strong> 來做權重，因此他更在乎的是我們的 <strong>residual</strong>（剩下資料的對錯）。</p>
+<h2 id="Gradient-boost"><a href="#Gradient-boost" class="headerlink" title="Gradient boost"></a>Gradient boost</h2><h3 id="演算法"><a href="#演算法" class="headerlink" title="演算法"></a>演算法</h3><p>這邊我就先貼維基上的演算法流程（個人覺得比論文還好懂一些），大家可以隨時滑上來看看我們到什麼地方。</p>
+<p><img src="https://i.imgur.com/gzWGa91.png" class="lazyload" data-srcset="https://i.imgur.com/gzWGa91.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
+<h3 id="模型的訓練目標"><a href="#模型的訓練目標" class="headerlink" title="模型的訓練目標"></a>模型的訓練目標</h3><p>我們先來說明一下 <strong>Gradient boost</strong> 到底是在訓練什麼。其實看我們的演算法，會發現他最後輸出的是一個 $F_M(x)$ 的函數，因此這才是我們的分類器。這個 $F_M(x)$ 才會決定我們最終的輸出，事實上這個 $F_M(x)$ 也是由一堆樹 $h(x)$ 所組合出來的。</p>
+<p>而這個模型初始化的策略 <strong>(1)</strong> 也是很有趣，他不是直接用 0 或是其他方式，而是再第一步就用一個<strong>常數</strong> 使得我們最初的 $F_0(x)$ 直接是最小的，也就是連初始化都在做<strong>最佳化</strong>。</p>
+<h3 id="模型的訓練方式"><a href="#模型的訓練方式" class="headerlink" title="模型的訓練方式"></a>模型的訓練方式</h3><p>當初始化完後，就開始一連串的 <strong>Boosting</strong> 了。我們先來看一下 $\tilde y_i$ 到底是什麼。事實上 $\tilde y_i$ 在做的就是尋找我們的 <strong>loss function</strong> 的梯度，但是是沿著 $F_m(x)$ 的方向，也就是說他在尋找我們每筆資料丟進去 $F_{m-1}(x)$ 所得到的梯度，資料 $x_i$ 所得到的梯度是 $r_{im}$，其中 $m$ 表示的是第 $m$ 次更新。</p>
+<p>而 (2-2) 就是利用我們的 <strong>weak learner</strong> 來找出新的資料點 $h(x, r_m)$，記住不再是原本我們<strong>類別資料</strong> $y$。因此得到新的樹 $h(x)$ 是用來將<strong>資料做梯度</strong>的分類的，例如給定 $1$ 會回傳一個梯度 0.5。</p>
+<p>我們先來看看一個式子：</p>
+<p>$$<br>F_{m -1} + \gamma h_m(x_i)<br>$$</p>
+<p>這個式子就是在更新我們的模型！我們將原本的模型，再加上一個我們訓練的 <strong>weak learner</strong> 的模型，而 $\gamma$ 就像我們的 <strong>learning rate</strong>（很類似我們的 <strong>Gradient descent</strong>）。而我們的 $\gamma$ 則是由更新後的模型的 <strong>Loss function</strong> 來決定，我們希望找到合適的 $\gamma$ 使得我們之後的 <strong>Loss function</strong> 會降低。之後並用此來更新我們的模型成為 $F_{m}(x)$。重複多次後最終輸出 $F_M(x)$。</p>
+<h2 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h2><p>我程式碼一樣放在 <strong>Notebook</strong>，我們也同樣看一下我們的結果吧！<br><img src="https://i.imgur.com/XyULbDh.png" class="lazyload" data-srcset="https://i.imgur.com/XyULbDh.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
+<p>其實由這張圖我們可以發現，最後愈多的<strong>樹</strong>可能會造成 <strong>overfitting</strong>，因此我們在用<strong>gradient boosting</strong> 應該要小心。</p>
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
-<li><a target="_blank" rel="noopener" href="http://cs229.stanford.edu/">CS 229 from Standford</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PLXVfgk9fNX2IQOYPmqjqWsNUFl2kpk1U2">機器學習技法 林軒田教授</a></li>
+<li><a target="_blank" rel="noopener" href="https://towardsdatascience.com/demystifying-maths-of-gradient-boosting-bd5715e82b7c">Demystifying Maths of Gradient Boosting</a></li>
+<li><a target="_blank" rel="noopener" href="https://statweb.stanford.edu/~jhf/ftp/trebst.pdf">Greedy Function Approximation: A Gradient Boosting Machine</a></li>
 </ol>
 <br/>
 <br/>
-<a href="/2020/09/11/it/it-22" float=left>Last</a> <a href="/2020/09/12/it/it-24" style="float: right;">Next</a><!-- flag of hidden posts -->
+<a href="/2020/09/12/it/it-23" float=left>Last</a> <a href="#" style="float: right;">Next</a><!-- flag of hidden posts -->
             </div>
              
             <div class="post-footer__meta">
@@ -428,8 +408,8 @@
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'http://yoursite.com/2020/09/12/it/it-23/';
-                this.page.identifier = '2020/09/12/it/it-23/';
+                this.page.url = 'http://yoursite.com/2020/09/12/it/it-24/';
+                this.page.identifier = '2020/09/12/it/it-24/';
             };
             (function(){
                 var dsq = document.createElement('script');
