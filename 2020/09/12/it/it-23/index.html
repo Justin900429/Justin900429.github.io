@@ -40,7 +40,7 @@
 <meta property="og:image" content="https://media.geeksforgeeks.org/wp-content/uploads/20190324085500/adaboost.jpg">
 <meta property="og:image" content="https://i.imgur.com/pMS5Yrp.png">
 <meta property="article:published_time" content="2020-09-12T06:05:37.000Z">
-<meta property="article:modified_time" content="2020-09-12T06:33:08.566Z">
+<meta property="article:modified_time" content="2020-09-12T08:32:13.376Z">
 <meta property="article:author" content="Justin Ruan">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://i.imgur.com/RZoFhvz.jpg">
@@ -214,7 +214,7 @@
     <div class="post__with-side">
         <aside class="post-side">
             <div class="post-side__toc">
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Notebook"><span class="toc-number">2.</span> <span class="toc-text">Notebook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Boosting"><span class="toc-number">3.</span> <span class="toc-text">Boosting</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Adaboost"><span class="toc-number">4.</span> <span class="toc-text">Adaboost</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%80%8B%E5%88%A5%E6%A8%A1%E5%9E%8B"><span class="toc-number">4.1.</span> <span class="toc-text">個別模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Aggregation"><span class="toc-number">4.2.</span> <span class="toc-text">Aggregation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Algorithm"><span class="toc-number">4.3.</span> <span class="toc-text">Algorithm</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">5.</span> <span class="toc-text">程式碼</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">6.</span> <span class="toc-text">結語</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">7.</span> <span class="toc-text">參考資料</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Notebook"><span class="toc-number">2.</span> <span class="toc-text">Notebook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Boosting"><span class="toc-number">3.</span> <span class="toc-text">Boosting</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Adaboost"><span class="toc-number">4.</span> <span class="toc-text">Adaboost</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%80%8B%E5%88%A5%E6%A8%A1%E5%9E%8B"><span class="toc-number">4.1.</span> <span class="toc-text">個別模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Weak-classifier"><span class="toc-number">4.2.</span> <span class="toc-text">Weak classifier</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Aggregation"><span class="toc-number">4.3.</span> <span class="toc-text">Aggregation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Algorithm"><span class="toc-number">4.4.</span> <span class="toc-text">Algorithm</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">5.</span> <span class="toc-text">程式碼</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">6.</span> <span class="toc-text">結語</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">7.</span> <span class="toc-text">參考資料</span></a></li></ol>
             </div>
         </aside>
         <article class="post content-card">
@@ -242,6 +242,7 @@
 </li>
 </ul>
 <p>這邊我們用 $t$ 與 $t+1$ 表示，是為了更清楚表的我們每個<strong>小樹</strong>都是透過序列（一個接一個）訓練的。另外每個序列模型我們都希望可以多樣化一些，因此權重也可以扮演這樣的角色，幫助我們模型更加強大可以做更好的分類。多樣化的意思指的是 <strong>tree</strong> $g^{t}$ 用到 $u^{t+1}$ 的權重時，會有很差的結果，而對 <strong>tree</strong> $g^{t+1}$ 卻有很好的分類能力，這也意味著每個模型有自己強大的地方。</p>
+<h3 id="Weak-classifier"><a href="#Weak-classifier" class="headerlink" title="Weak classifier"></a>Weak classifier</h3><p>其實我們上面一直有個觀念沒有說得很清楚，那就是我們每一棵小樹 $g(t)$ 事實上都是一種 <strong>weak classifier</strong>，也就是只能分類一次的決策樹。假如我們可以讓樹一直長，那我們就可以直接將資料點分完了，根本不需要去訓練我們每個分類模型的重要行。因此我們對於每一個模型都只能切一刀，並且這一刀要將資料分得誤差最小。但是只切一刀終歸無法將資料分乾淨（要是可以，那就是線性可分了），因此才會叫 <strong>weak classifier</strong>。</p>
 <h3 id="Aggregation"><a href="#Aggregation" class="headerlink" title="Aggregation"></a>Aggregation</h3><p>當我們每個個別的小 <strong>model</strong> $g(t)$ 做好後，我們還必須將他們一起聚合在一起做預測。但這邊我們不能將每個模型的預測的結果直接做平均。因為我們每個模型都有各自的好壞或專長的分類的東西，因此我們直接做平均就不符合我們設計權重的概念，因此我們也必須利用權重來做分析，也就是所有模型的線性組合。</p>
 <p>我們先來思考一個問題，當我們的 $error \ \epsilon_t$ 等於 $\frac{1}{2}$，我們可以推斷我們的模型是在亂猜測，因為我們自己亂猜測也可以達到接近 $\frac{1}{2}$ 的機率，沒有任何用處。因此線性組合的權重 $\alpha_t$ 就可以設成 $0$，相反當我們得到 $0$，代表這個模型非常強大，因此我們可以將他的權重 $\alpha_t$ 設成 $\infty$。</p>
 <p>這時候我們就可以借我們的 $f_t$，當我們 $\epsilon_t=0$ 的時候，我們 $f_t$ 可以得到 $\infty$，當我們 $\epsilon_t = \frac{1}{2}$ 可以得到 $1$，此時我們的 $\alpha_t$ 就可以用 $\ln(f_t)$ 來決定。因此我們最終的決定權是：</p>
@@ -254,7 +255,7 @@
 <h2 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h2><p>我一樣放在 <strong>Notebook</strong> 裡，這裡我們就看結果吧！<br><br></p>
 <p><img src="https://i.imgur.com/pMS5Yrp.png" class="lazyload" data-srcset="https://i.imgur.com/pMS5Yrp.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
 <p>可以觀察到經過愈多次，我們的模型得適應能力愈強，對於一些雜訊的處理能力也愈好！</p>
-<h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>今天介紹我們的 <strong>Adaboost</strong>，明天要來介紹 <strong>Gradient boost</strong>！</p>
+<h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>今天介紹完的 <strong>Adaboost</strong>，了解到他就是利用 <strong>boosting</strong> 加上 <strong>Decision tree (with weak classifier)</strong> 。明天接著要來介紹 <strong>Gradient boost</strong>！</p>
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
 <li><a target="_blank" rel="noopener" href="http://cs229.stanford.edu/">CS 229 from Standford</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PLXVfgk9fNX2IQOYPmqjqWsNUFl2kpk1U2">機器學習技法 林軒田教授</a></li>
