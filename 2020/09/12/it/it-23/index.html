@@ -40,7 +40,7 @@
 <meta property="og:image" content="https://media.geeksforgeeks.org/wp-content/uploads/20190324085500/adaboost.jpg">
 <meta property="og:image" content="https://i.imgur.com/pMS5Yrp.png">
 <meta property="article:published_time" content="2020-09-12T06:05:37.000Z">
-<meta property="article:modified_time" content="2020-09-12T06:12:04.758Z">
+<meta property="article:modified_time" content="2020-09-12T06:30:53.905Z">
 <meta property="article:author" content="Justin Ruan">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://i.imgur.com/RZoFhvz.jpg">
@@ -241,10 +241,10 @@
 <li><p>當我們 <strong>model</strong> 將某筆資料 $n$ 分類錯誤，則其權重 $u_n^{t}$ 就會變成:<br>  $$<br>  u_n^{t+1} = u_n^t * f_t<br>  $$</p>
 </li>
 </ul>
-<p>這邊我們用 $t$ 與 $t+1$ 表示，是為了更清楚表的我們每個小模型都是透過序列（一個接一個）訓練的。</p>
+<p>這邊我們用 $t$ 與 $t+1$ 表示，是為了更清楚表的我們每個<strong>小樹</strong>都是透過序列（一個接一個）訓練的。另外每個序列模型我們都希望可以多樣化一些，因此權重也可以扮演這樣的角色，幫助我們模型更加強大可以做更好的分類。多樣化的意思指的是 <strong>tree</strong> $g^{t}$ 用到 $u^{t+1}$ 的權重時，會有很差的結果，而對 <strong>tree</strong> $g^{t+1}$ 卻有很好的分類能力，這也意味著每個模型有自己強大的地方。</p>
 <h3 id="Aggregation"><a href="#Aggregation" class="headerlink" title="Aggregation"></a>Aggregation</h3><p>當我們每個個別的小 <strong>model</strong> $g(t)$ 做好後，我們還必須將他們一起聚合在一起做預測。但這邊我們不能將每個模型的預測的結果直接做平均。因為我們每個模型都有各自的好壞或專長的分類的東西，因此我們直接做平均就不符合我們設計權重的概念，因此我們也必須利用權重來做分析，也就是所有模型的線性組合。</p>
-<p>我們先來思考一個問題，當我們的 $error \ e_t$ 等於 $\frac{1}{2}$，我們可以推斷我們的模型是在亂猜測，因為我們自己亂猜測也可以達到接近 $\frac{1}{2}$ 的機率，沒有任何用處。因此線性組合的權重 $\alpha_t$ 就可以設成 $0$，相反當我們得到 $0$，代表這個模型非常強大，因此我們可以將他的權重 $\alpha_t$ 設成 $\infty$。</p>
-<p>這時候我們就可以借我們的 $f_t$，當我們 $\epsilon_t = 0$ 的時候，我們 $f_t$ 可以得到 $\infty$，當我們 $epsilon_t = \frac{1}{2}$ 可以得到 $1$，此時我們的 $\alpha_t$ 就可以用 $\ln(f_t)$ 來決定。因此我們最終的決定權是：</p>
+<p>我們先來思考一個問題，當我們的 $error \ \epsilon_t$ 等於 $\frac{1}{2}$，我們可以推斷我們的模型是在亂猜測，因為我們自己亂猜測也可以達到接近 $\frac{1}{2}$ 的機率，沒有任何用處。因此線性組合的權重 $\alpha_t$ 就可以設成 $0$，相反當我們得到 $0$，代表這個模型非常強大，因此我們可以將他的權重 $\alpha_t$ 設成 $\infty$。</p>
+<p>這時候我們就可以借我們的 $f_t$，當我們 $\epsilon_t=0$ 的時候，我們 $f_t$ 可以得到 $\infty$，當我們 $\epsilon_t = \frac{1}{2}$ 可以得到 $1$，此時我們的 $\alpha_t$ 就可以用 $\ln(f_t)$ 來決定。因此我們最終的決定權是：</p>
 <p>$$<br>G(x) = sign(\sum_{t=1}^T \alpha_t g_t(x))<br>$$</p>
 <p>其中 $sign(x)$ 的表示是：</p>
 <p>$$<br>sign(x)=<br>\begin{cases}<br>1  \ , \text{if} \ x \gt 0 \\<br>-1 \ , \text{if} \ x \lt 0 \\<br>0, \ otherwise<br>\end{cases}<br>$$</p>
