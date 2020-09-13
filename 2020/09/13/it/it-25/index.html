@@ -21,7 +21,7 @@
     <!-- meta -->
 
 
-<title>[Series - 24] Boosting - 2 - Gradient Boosting | Justin</title><meta name="robots" content="noindex">
+<title>[Series - 25] K-means | Justin</title><meta name="robots" content="noindex">
 
 
 
@@ -29,20 +29,21 @@
 
     <!-- OpenGraph -->
  
-    <meta name="description" content="[Series - 24] Boosting - 2 - Gradient BoostingSee moreBack to the series page   前言昨天講完 Adaboost，今天要來介紹另一個演算法， Gradient boost。 NotebookNotebook 直觀想法上篇我們在說 Adaboost 的時候，是說我們利用我們的 error 來找到我們每個 model 的權重">
+    <meta name="description" content="[Series - 25] K-meansSee moreBack to the series page   NotebookNotebook 前言今天要介紹的演算法屬於 Unsupervised。這個演算法個概念非常簡單，今天我們也會自己實作這個演算法！ K-meansK-means 的直覺概念就是誰離我近你就是我們的類別！因此在整個演算法最初的概念就是先找幾個資料點當作我們的標準點，每個標準點">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Series - 24] Boosting - 2 - Gradient Boosting">
-<meta property="og:url" content="http://yoursite.com/2020/09/12/it/it-24/index.html">
+<meta property="og:title" content="[Series - 25] K-means">
+<meta property="og:url" content="http://yoursite.com/2020/09/13/it/it-25/index.html">
 <meta property="og:site_name" content="Justin">
-<meta property="og:description" content="[Series - 24] Boosting - 2 - Gradient BoostingSee moreBack to the series page   前言昨天講完 Adaboost，今天要來介紹另一個演算法， Gradient boost。 NotebookNotebook 直觀想法上篇我們在說 Adaboost 的時候，是說我們利用我們的 error 來找到我們每個 model 的權重">
+<meta property="og:description" content="[Series - 25] K-meansSee moreBack to the series page   NotebookNotebook 前言今天要介紹的演算法屬於 Unsupervised。這個演算法個概念非常簡單，今天我們也會自己實作這個演算法！ K-meansK-means 的直覺概念就是誰離我近你就是我們的類別！因此在整個演算法最初的概念就是先找幾個資料點當作我們的標準點，每個標準點">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://i.imgur.com/gzWGa91.png">
-<meta property="og:image" content="https://i.imgur.com/XyULbDh.png">
-<meta property="article:published_time" content="2020-09-12T12:53:50.000Z">
-<meta property="article:modified_time" content="2020-09-13T06:05:25.967Z">
+<meta property="og:image" content="https://web.ntnu.edu.tw/~algo/Clustering3.png">
+<meta property="og:image" content="https://2.bp.blogspot.com/-qjkm9EBPa9Y/Tg8jSfWDVbI/AAAAAAAAADE/ayF32eyE6iQ/s1600/%25E8%259E%25A2%25E5%25B9%2595%25E5%25BF%25AB%25E7%2585%25A7%2B2011-07-02%2B%25E4%25B8%258B%25E5%258D%25889.54.49.png">
+<meta property="og:image" content="https://i.imgur.com/0TbcyvW.png">
+<meta property="article:published_time" content="2020-09-13T06:04:34.000Z">
+<meta property="article:modified_time" content="2020-09-13T06:07:41.323Z">
 <meta property="article:author" content="Justin Ruan">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://i.imgur.com/gzWGa91.png">
+<meta name="twitter:image" content="https://web.ntnu.edu.tw/~algo/Clustering3.png">
 
 
     
@@ -190,11 +191,11 @@
     
 <div class="post-title">
     <h1 class="post-title__text">
-        [Series - 24] Boosting - 2 - Gradient Boosting
+        [Series - 25] K-means
     </h1>
     <div class="post-title__meta">
         <a href="/archives/2020/09/" class="post-meta__date button">
-    2020-09-12
+    2020-09-13
 </a>
         
  
@@ -213,36 +214,59 @@
     <div class="post__with-side">
         <aside class="post-side">
             <div class="post-side__toc">
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Notebook"><span class="toc-number">2.</span> <span class="toc-text">Notebook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B4%E8%A7%80%E6%83%B3%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">直觀想法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gradient-boost"><span class="toc-number">4.</span> <span class="toc-text">Gradient boost</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%94%E7%AE%97%E6%B3%95"><span class="toc-number">4.1.</span> <span class="toc-text">演算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%A8%93%E7%B7%B4%E7%9B%AE%E6%A8%99"><span class="toc-number">4.2.</span> <span class="toc-text">模型的訓練目標</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%A8%93%E7%B7%B4%E6%96%B9%E5%BC%8F"><span class="toc-number">4.3.</span> <span class="toc-text">模型的訓練方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">5.</span> <span class="toc-text">程式碼</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">6.</span> <span class="toc-text">參考資料</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Notebook"><span class="toc-number">1.</span> <span class="toc-text">Notebook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">2.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#K-means"><span class="toc-number">3.</span> <span class="toc-text">K-means</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Distance"><span class="toc-number">4.</span> <span class="toc-text">Distance</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Euclidean-distance"><span class="toc-number">4.1.</span> <span class="toc-text">Euclidean distance</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Manhattan-distance"><span class="toc-number">4.2.</span> <span class="toc-text">Manhattan distance</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">5.</span> <span class="toc-text">程式碼</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">6.</span> <span class="toc-text">參考資料</span></a></li></ol>
             </div>
         </aside>
         <article class="post content-card">
             <div class="post__header"></div>
             <div class="post__content">
-                <h1 id="Series-24-Boosting-2-Gradient-Boosting"><a href="#Series-24-Boosting-2-Gradient-Boosting" class="headerlink" title="[Series - 24] Boosting - 2 - Gradient Boosting"></a>[Series - 24] Boosting - 2 - Gradient Boosting</h1><blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/2020/08/29/it/it-series/">Back to the series page</a></p>
+                <h1 id="Series-25-K-means"><a href="#Series-25-K-means" class="headerlink" title="[Series - 25] K-means"></a>[Series - 25] K-means</h1><blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/2020/08/29/it/it-series/">Back to the series page</a></p>
 </div></blockquote>
 
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>昨天講完 <strong>Adaboost</strong>，今天要來介紹另一個演算法， <strong>Gradient boost</strong>。</p>
-<h2 id="Notebook"><a href="#Notebook" class="headerlink" title="Notebook"></a>Notebook</h2><p><a target="_blank" rel="noopener" href="https://colab.research.google.com/github/Justin900429/IT-used/blob/master/Boosting.ipynb">Notebook</a></p>
-<h2 id="直觀想法"><a href="#直觀想法" class="headerlink" title="直觀想法"></a>直觀想法</h2><p>上篇我們在說 <strong>Adaboost</strong> 的時候，是說我們利用我們的 <strong>error</strong> 來找到我們每個 <strong>model</strong> 的權重。而 <strong>Gradient boost</strong> 的概念是利用我們跟我們真實資料的 <strong>Loss function</strong> 來做權重，因此他更在乎的是我們的 <strong>residual</strong>（剩下資料的對錯）。</p>
-<h2 id="Gradient-boost"><a href="#Gradient-boost" class="headerlink" title="Gradient boost"></a>Gradient boost</h2><h3 id="演算法"><a href="#演算法" class="headerlink" title="演算法"></a>演算法</h3><p>這邊我就先貼維基上的演算法流程（個人覺得比論文還好懂一些），大家可以隨時滑上來看看我們到什麼地方。</p>
-<p><img src="https://i.imgur.com/gzWGa91.png" class="lazyload" data-srcset="https://i.imgur.com/gzWGa91.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
-<h3 id="模型的訓練目標"><a href="#模型的訓練目標" class="headerlink" title="模型的訓練目標"></a>模型的訓練目標</h3><p>我們先來說明一下 <strong>Gradient boost</strong> 到底是在訓練什麼。其實看我們的演算法，會發現他最後輸出的是一個 $F_M(x)$ 的函數，因此這才是我們的分類器。這個 $F_M(x)$ 才會決定我們最終的輸出，事實上這個 $F_M(x)$ 也是由一堆樹 $h(x)$ 所組合出來的。</p>
-<p>而這個模型初始化的策略 <strong>(1)</strong> 也是很有趣，他不是直接用 0 或是其他方式，而是再第一步就用一個<strong>常數</strong> 使得我們最初的 $F_0(x)$ 直接是最小的，也就是連初始化都在做<strong>最佳化</strong>。</p>
-<h3 id="模型的訓練方式"><a href="#模型的訓練方式" class="headerlink" title="模型的訓練方式"></a>模型的訓練方式</h3><p>當初始化完後，就開始一連串的 <strong>Boosting</strong> 了。我們先來看一下 $\tilde y_i$ 到底是什麼。事實上 $\tilde y_i$ 在做的就是尋找我們的 <strong>loss function</strong> 的梯度，但是是沿著 $F_m(x)$ 的方向，也就是說他在尋找我們每筆資料丟進去 $F_{m-1}(x)$ 所得到的梯度，資料 $x_i$ 所得到的梯度是 $r_{im}$，其中 $m$ 表示的是第 $m$ 次更新。</p>
-<p>而 (2-2) 就是利用我們的 <strong>weak learner</strong> 來找出新的資料點 $h(x, r_m)$，記住不再是原本我們<strong>類別資料</strong> $y$。因此得到新的樹 $h(x)$ 是用來將<strong>資料做梯度</strong>的分類的，例如給定 $1$ 會回傳一個梯度 0.5。</p>
-<p>我們先來看看一個式子：</p>
-<p>$$<br>F_{m -1} + \gamma h_m(x_i)<br>$$</p>
-<p>這個式子就是在更新我們的模型！我們將原本的模型，再加上一個我們訓練的 <strong>weak learner</strong> 的模型，而 $\gamma$ 就像我們的 <strong>learning rate</strong>（很類似我們的 <strong>Gradient descent</strong>）。而我們的 $\gamma$ 則是由更新後的模型的 <strong>Loss function</strong> 來決定，我們希望找到合適的 $\gamma$ 使得我們之後的 <strong>Loss function</strong> 會降低。之後並用此來更新我們的模型成為 $F_{m}(x)$。重複多次後最終輸出 $F_M(x)$。</p>
-<h2 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h2><p>我程式碼一樣放在 <strong>Notebook</strong>，我們也同樣看一下我們的結果吧！<br><img src="https://i.imgur.com/XyULbDh.png" class="lazyload" data-srcset="https://i.imgur.com/XyULbDh.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
-<p>其實由這張圖我們可以發現，最後愈多的<strong>樹</strong>可能會造成 <strong>overfitting</strong>，因此我們在用<strong>gradient boosting</strong> 應該要小心。</p>
+<h2 id="Notebook"><a href="#Notebook" class="headerlink" title="Notebook"></a>Notebook</h2><p><a target="_blank" rel="noopener" href="https://colab.research.google.com/github/Justin900429/IT-used/blob/master/Kmeans.ipynb">Notebook</a></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天要介紹的演算法屬於 <strong>Unsupervised</strong>。這個演算法個概念非常簡單，今天我們也會自己實作這個演算法！</p>
+<h2 id="K-means"><a href="#K-means" class="headerlink" title="K-means"></a>K-means</h2><p><strong>K-means</strong> 的直覺概念就是誰離我近你就是我們的類別！因此在整個演算法最初的概念就是先找幾個資料點當作我們的<strong>標準點</strong>，每個標準點代表一個種類的<strong>中心</strong>，再算各點到這些<strong>標準點</strong>的距離，離哪個<strong>標準點</strong>愈近，就是那個種類的點。而新的標準點會是在分配完各點後，取各種類的平均當作新的<strong>標準點</strong>。</p>
+<center><img src="https://web.ntnu.edu.tw/~algo/Clustering3.png" class="lazyload" data-srcset="https://web.ntnu.edu.tw/~algo/Clustering3.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="/></center>
+<br>
+
+<p>從上面這張圖我們可以看到最初我們也是從所有的資料點挑 $n$ 個點當我們的標準點（$n$ 代表我們的類別）。接著算每個點到各 <strong>標準點</strong> 的距離，在取新的 <strong>類別的平均</strong>，重複這些動作直到收斂。</p>
+<h2 id="Distance"><a href="#Distance" class="headerlink" title="Distance"></a>Distance</h2><p>在介紹看程式碼之前，我們會先介紹不同的距離算法，讓大家對 <strong>K-means</strong> 更有感覺！</p>
+<p><img src="https://2.bp.blogspot.com/-qjkm9EBPa9Y/Tg8jSfWDVbI/AAAAAAAAADE/ayF32eyE6iQ/s1600/%25E8%259E%25A2%25E5%25B9%2595%25E5%25BF%25AB%25E7%2585%25A7%2B2011-07-02%2B%25E4%25B8%258B%25E5%258D%25889.54.49.png" class="lazyload" data-srcset="https://2.bp.blogspot.com/-qjkm9EBPa9Y/Tg8jSfWDVbI/AAAAAAAAADE/ayF32eyE6iQ/s1600/%25E8%259E%25A2%25E5%25B9%2595%25E5%25BF%25AB%25E7%2585%25A7%2B2011-07-02%2B%25E4%25B8%258B%25E5%258D%25889.54.49.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
+<h3 id="Euclidean-distance"><a href="#Euclidean-distance" class="headerlink" title="Euclidean distance"></a>Euclidean distance</h3><p>我相信歐式距離大家肯定都是耳熟能詳，但是我們這裡還是說明一下:</p>
+<p>假設我們有兩點$A(a_1, b_1), B(a_2, b_2)$，其距離會是兩點的最短直線（上圖綠色），長度為：</p>
+<p>$$<br>\overline{AB} = \sqrt{(a_1 - a_2)^2 + (b_1 - b_2)^2}<br>$$</p>
+<h3 id="Manhattan-distance"><a href="#Manhattan-distance" class="headerlink" title="Manhattan distance"></a>Manhattan distance</h3><p>曼哈頓距離大家可能比較少用過，同樣是$A, B$ 兩點，<strong>Manhattan distance</strong> 指的是<strong>紅色虛線</strong>加起來的距離。也就是:</p>
+<p>$$<br>\overline{AB} = \mid a_1 - a_2 \mid + \mid b_1 - b_2  \ \mid<br>$$</p>
+<p>這個距離可能會用在地圖上，因為我任兩個點不太可能直接穿越，可能會有街區啊，建築等阻擋，因此距離就會用 <strong>Manhattan distance</strong>。</p>
+<h2 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h2><p>這邊我只貼實作的部分，利用 <strong>sklearn</strong> 的方式一樣在 <strong>Notebook</strong>。</p>
+<p>在算各點的距離公式時，我這邊是直接用 <strong>sklearn</strong> 裡的函式 <code>pairwise_distances_argmin</code>。這個函數吃我們的資料以及中心點。之後會回傳一個矩陣紀錄各點距離哪個中心點最近。</p>
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">find_clusters</span>(<span class="hljs-params">X, n_clusters</span>):</span>
+    <span class="hljs-comment"># Randomly choose clusters from origin datasets</span>
+    point_index = np.random.randint(low=<span class="hljs-number">0</span>, high=X.shape[<span class="hljs-number">0</span>] - <span class="hljs-number">1</span>, size=n_clusters)
+    centers = X[point_index]
+    
+    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+        <span class="hljs-comment"># Assign labels based on closest center</span>
+        labels = pairwise_distances_argmin(X, centers)
+        
+        <span class="hljs-comment"># Find new centers from means of points</span>
+        new_centers = np.array([X[labels == i].mean(axis=<span class="hljs-number">0</span>)
+                                <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(n_clusters)])
+        
+        <span class="hljs-comment"># Check for convergence</span>
+        <span class="hljs-keyword">if</span> np.all(centers == new_centers):
+            <span class="hljs-keyword">break</span>
+        centers = new_centers
+    
+    <span class="hljs-keyword">return</span> centers, labels</code></pre>
+<p><img src="https://i.imgur.com/0TbcyvW.png" class="lazyload" data-srcset="https://i.imgur.com/0TbcyvW.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
-<li><a target="_blank" rel="noopener" href="https://towardsdatascience.com/demystifying-maths-of-gradient-boosting-bd5715e82b7c">Demystifying Maths of Gradient Boosting</a></li>
-<li><a target="_blank" rel="noopener" href="https://statweb.stanford.edu/~jhf/ftp/trebst.pdf">Greedy Function Approximation: A Gradient Boosting Machine</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.itread01.com/content/1544250602.html">三種常見的距離概念</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.oreilly.com/library/view/python-data-science/9781491912126/">Python Data Science Handbook</a></li>
 </ol>
 <br/>
 <br/>
-<a href="/2020/09/12/it/it-23" float=left>Last</a> <a href="/2020/09/13/it/it-25" style="float: right;">Next</a><!-- flag of hidden posts -->
+<a href="/2020/09/12/it/it-24" float=left>Last</a> <a href="/2020/09/13/it/it-25" style="float: right;">Next</a><!-- flag of hidden posts -->
             </div>
              
             <div class="post-footer__meta">
@@ -408,8 +432,8 @@
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'http://yoursite.com/2020/09/12/it/it-24/';
-                this.page.identifier = '2020/09/12/it/it-24/';
+                this.page.url = 'http://yoursite.com/2020/09/13/it/it-25/';
+                this.page.identifier = '2020/09/13/it/it-25/';
             };
             (function(){
                 var dsq = document.createElement('script');
