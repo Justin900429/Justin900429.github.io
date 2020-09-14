@@ -21,7 +21,7 @@
     <!-- meta -->
 
 
-<title>[Series - 25] K-means | Justin</title><meta name="robots" content="noindex">
+<title>[Series - 26] - Expectation maximization - 1 | Justin</title><meta name="robots" content="noindex">
 
 
 
@@ -29,21 +29,23 @@
 
     <!-- OpenGraph -->
  
-    <meta name="description" content="[Series - 25] K-meansSee moreBack to the series page   NotebookNotebook 前言今天要介紹的演算法屬於 Unsupervised。這個演算法個概念非常簡單，今天我們也會自己實作這個演算法！ K-meansK-means 的直覺概念就是誰離我近你就是我們的類別！因此在整個演算法最初的概念就是先找幾個資料點當作我們的標準點，每個標準點">
+    <meta name="description" content="[Series - 26] - Expectation maximization - 1See moreBack to the series page   前言今天要講的東西比較特別，這是用來分析我們的 Unsupervised 的資料。今天我們會稍微看一下這個演算法，明天會看看這個演算法的例子。 EM 的想法在 Unsupervised learning 的世界裡，我們沒有所謂的指摽可以學習，這">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Series - 25] K-means">
-<meta property="og:url" content="http://yoursite.com/2020/09/13/it/it-25/index.html">
+<meta property="og:title" content="[Series - 26] - Expectation maximization - 1">
+<meta property="og:url" content="http://yoursite.com/2020/09/14/it/it-26/index.html">
 <meta property="og:site_name" content="Justin">
-<meta property="og:description" content="[Series - 25] K-meansSee moreBack to the series page   NotebookNotebook 前言今天要介紹的演算法屬於 Unsupervised。這個演算法個概念非常簡單，今天我們也會自己實作這個演算法！ K-meansK-means 的直覺概念就是誰離我近你就是我們的類別！因此在整個演算法最初的概念就是先找幾個資料點當作我們的標準點，每個標準點">
+<meta property="og:description" content="[Series - 26] - Expectation maximization - 1See moreBack to the series page   前言今天要講的東西比較特別，這是用來分析我們的 Unsupervised 的資料。今天我們會稍微看一下這個演算法，明天會看看這個演算法的例子。 EM 的想法在 Unsupervised learning 的世界裡，我們沒有所謂的指摽可以學習，這">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://web.ntnu.edu.tw/~algo/Clustering3.png">
-<meta property="og:image" content="https://2.bp.blogspot.com/-qjkm9EBPa9Y/Tg8jSfWDVbI/AAAAAAAAADE/ayF32eyE6iQ/s1600/%25E8%259E%25A2%25E5%25B9%2595%25E5%25BF%25AB%25E7%2585%25A7%2B2011-07-02%2B%25E4%25B8%258B%25E5%258D%25889.54.49.png">
-<meta property="og:image" content="https://i.imgur.com/0TbcyvW.png">
-<meta property="article:published_time" content="2020-09-13T06:04:34.000Z">
-<meta property="article:modified_time" content="2020-09-14T02:54:06.914Z">
+<meta property="og:image" content="https://jason-chen-1992.weebly.com/uploads/1/0/8/5/108557741/k-means_1_orig.png">
+<meta property="og:image" content="https://www.researchgate.net/profile/Junjian_Qi/publication/320407284/figure/fig3/AS:667869792722944@1536243975025/Illustration-of-the-convergence-of-EM-algorithm-32.png">
+<meta property="og:image" content="https://i.stack.imgur.com/GNBZ4.png">
+<meta property="og:image" content="https://www.medcalc.org/manual/_help/functions/log.png">
+<meta property="og:image" content="https://jakevdp.github.io/PythonDataScienceHandbook/figures/05.11-expectation-maximization.png">
+<meta property="article:published_time" content="2020-09-14T02:53:22.000Z">
+<meta property="article:modified_time" content="2020-09-14T02:56:28.883Z">
 <meta property="article:author" content="Justin Ruan">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://web.ntnu.edu.tw/~algo/Clustering3.png">
+<meta name="twitter:image" content="https://jason-chen-1992.weebly.com/uploads/1/0/8/5/108557741/k-means_1_orig.png">
 
 
     
@@ -191,11 +193,11 @@
     
 <div class="post-title">
     <h1 class="post-title__text">
-        [Series - 25] K-means
+        [Series - 26] - Expectation maximization - 1
     </h1>
     <div class="post-title__meta">
         <a href="/archives/2020/09/" class="post-meta__date button">
-    2020-09-13
+    2020-09-14
 </a>
         
  
@@ -214,59 +216,80 @@
     <div class="post__with-side">
         <aside class="post-side">
             <div class="post-side__toc">
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Notebook"><span class="toc-number">1.</span> <span class="toc-text">Notebook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">2.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#K-means"><span class="toc-number">3.</span> <span class="toc-text">K-means</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Distance"><span class="toc-number">4.</span> <span class="toc-text">Distance</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Euclidean-distance"><span class="toc-number">4.1.</span> <span class="toc-text">Euclidean distance</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Manhattan-distance"><span class="toc-number">4.2.</span> <span class="toc-text">Manhattan distance</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">5.</span> <span class="toc-text">程式碼</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">6.</span> <span class="toc-text">參考資料</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EM-%E7%9A%84%E6%83%B3%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">EM 的想法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Jensen-inequality"><span class="toc-number">3.</span> <span class="toc-text">Jensen inequality</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EM-algorithm"><span class="toc-number">4.</span> <span class="toc-text">EM algorithm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9E%E9%A1%A7-KMeans"><span class="toc-number">5.</span> <span class="toc-text">回顧 KMeans</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">6.</span> <span class="toc-text">結語</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">7.</span> <span class="toc-text">參考資料</span></a></li></ol>
             </div>
         </aside>
         <article class="post content-card">
             <div class="post__header"></div>
             <div class="post__content">
-                <h1 id="Series-25-K-means"><a href="#Series-25-K-means" class="headerlink" title="[Series - 25] K-means"></a>[Series - 25] K-means</h1><blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/2020/08/29/it/it-series/">Back to the series page</a></p>
+                <h1 id="Series-26-Expectation-maximization-1"><a href="#Series-26-Expectation-maximization-1" class="headerlink" title="[Series - 26] - Expectation maximization - 1"></a>[Series - 26] - Expectation maximization - 1</h1><blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/2020/08/29/it/it-series/">Back to the series page</a></p>
 </div></blockquote>
 
-<h2 id="Notebook"><a href="#Notebook" class="headerlink" title="Notebook"></a>Notebook</h2><p><a target="_blank" rel="noopener" href="https://colab.research.google.com/github/Justin900429/IT-used/blob/master/Kmeans.ipynb">Notebook</a></p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天要介紹的演算法屬於 <strong>Unsupervised</strong>。這個演算法個概念非常簡單，今天我們也會自己實作這個演算法！</p>
-<h2 id="K-means"><a href="#K-means" class="headerlink" title="K-means"></a>K-means</h2><p><strong>K-means</strong> 的直覺概念就是誰離我近你就是我們的類別！因此在整個演算法最初的概念就是先找幾個資料點當作我們的<strong>標準點</strong>，每個標準點代表一個種類的<strong>中心</strong>，再算各點到這些<strong>標準點</strong>的距離，離哪個<strong>標準點</strong>愈近，就是那個種類的點。而新的標準點會是在分配完各點後，取各種類的平均當作新的<strong>標準點</strong>。</p>
-<center><img src="https://web.ntnu.edu.tw/~algo/Clustering3.png" class="lazyload" data-srcset="https://web.ntnu.edu.tw/~algo/Clustering3.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="/></center>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天要講的東西比較特別，這是用來分析我們的 <strong>Unsupervised</strong> 的資料。今天我們會稍微看一下這個演算法，明天會看看這個演算法的例子。</p>
+<h2 id="EM-的想法"><a href="#EM-的想法" class="headerlink" title="EM 的想法"></a>EM 的想法</h2><p>在 <strong>Unsupervised learning</strong> 的世界裡，我們沒有所謂的指摽可以學習，這意味著我們的模型有一個<strong>隱藏</strong>的變數我們不知道，而這個隱藏的變數 $z$ 是用來表示某個資料點為某類別的機率。</p>
+<p>$$<br>z^{(i)} \sim Multinomial(\phi)<br>$$</p>
+<p>$$<br>where \ \phi_j \geq 0, \ \sum_{j=1}^k \phi_j = 1<br>$$</p>
+<p><img src="https://jason-chen-1992.weebly.com/uploads/1/0/8/5/108557741/k-means_1_orig.png" class="lazyload" data-srcset="https://jason-chen-1992.weebly.com/uploads/1/0/8/5/108557741/k-means_1_orig.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
 <br>
 
-<p>從上面這張圖我們可以看到最初我們也是從所有的資料點挑 $n$ 個點當我們的標準點（$n$ 代表我們的類別）。接著算每個點到各 <strong>標準點</strong> 的距離，在取新的 <strong>類別的平均</strong>，重複這些動作直到收斂。</p>
-<h2 id="Distance"><a href="#Distance" class="headerlink" title="Distance"></a>Distance</h2><p>在介紹看程式碼之前，我們會先介紹不同的距離算法，讓大家對 <strong>K-means</strong> 更有感覺！</p>
-<p><img src="https://2.bp.blogspot.com/-qjkm9EBPa9Y/Tg8jSfWDVbI/AAAAAAAAADE/ayF32eyE6iQ/s1600/%25E8%259E%25A2%25E5%25B9%2595%25E5%25BF%25AB%25E7%2585%25A7%2B2011-07-02%2B%25E4%25B8%258B%25E5%258D%25889.54.49.png" class="lazyload" data-srcset="https://2.bp.blogspot.com/-qjkm9EBPa9Y/Tg8jSfWDVbI/AAAAAAAAADE/ayF32eyE6iQ/s1600/%25E8%259E%25A2%25E5%25B9%2595%25E5%25BF%25AB%25E7%2585%25A7%2B2011-07-02%2B%25E4%25B8%258B%25E5%258D%25889.54.49.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
-<h3 id="Euclidean-distance"><a href="#Euclidean-distance" class="headerlink" title="Euclidean distance"></a>Euclidean distance</h3><p>我相信歐式距離大家肯定都是耳熟能詳，但是我們這裡還是說明一下:</p>
-<p>假設我們有兩點$A(a_1, b_1), B(a_2, b_2)$，其距離會是兩點的最短直線（上圖綠色），長度為：</p>
-<p>$$<br>\overline{AB} = \sqrt{(a_1 - a_2)^2 + (b_1 - b_2)^2}<br>$$</p>
-<h3 id="Manhattan-distance"><a href="#Manhattan-distance" class="headerlink" title="Manhattan distance"></a>Manhattan distance</h3><p>曼哈頓距離大家可能比較少用過，同樣是$A, B$ 兩點，<strong>Manhattan distance</strong> 指的是<strong>紅色虛線</strong>加起來的距離。也就是:</p>
-<p>$$<br>\overline{AB} = \mid a_1 - a_2 \mid + \mid b_1 - b_2  \ \mid<br>$$</p>
-<p>這個距離可能會用在地圖上，因為我任兩個點不太可能直接穿越，可能會有街區啊，建築等阻擋，因此距離就會用 <strong>Manhattan distance</strong>。</p>
-<h2 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h2><p>這邊我只貼實作的部分，利用 <strong>sklearn</strong> 的方式一樣在 <strong>Notebook</strong>。</p>
-<p>在算各點的距離公式時，我這邊是直接用 <strong>sklearn</strong> 裡的函式 <code>pairwise_distances_argmin</code>。這個函數吃我們的資料以及中心點。之後會回傳一個矩陣紀錄各點距離哪個中心點最近。</p>
-<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">find_clusters</span>(<span class="hljs-params">X, n_clusters</span>):</span>
-    <span class="hljs-comment"># Randomly choose clusters from origin datasets</span>
-    point_index = np.random.randint(low=<span class="hljs-number">0</span>, high=X.shape[<span class="hljs-number">0</span>] - <span class="hljs-number">1</span>, size=n_clusters)
-    centers = X[point_index]
-    
-    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
-        <span class="hljs-comment"># Assign labels based on closest center</span>
-        labels = pairwise_distances_argmin(X, centers)
-        
-        <span class="hljs-comment"># Find new centers from means of points</span>
-        new_centers = np.array([X[labels == i].mean(axis=<span class="hljs-number">0</span>)
-                                <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(n_clusters)])
-        
-        <span class="hljs-comment"># Check for convergence</span>
-        <span class="hljs-keyword">if</span> np.all(centers == new_centers):
-            <span class="hljs-keyword">break</span>
-        centers = new_centers
-    
-    <span class="hljs-keyword">return</span> centers, labels</code></pre>
-<p><img src="https://i.imgur.com/0TbcyvW.png" class="lazyload" data-srcset="https://i.imgur.com/0TbcyvW.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
+<p>其實這有點類似先有雞還是先有蛋的問題。如果說我們可以知道這個 <strong>z</strong> 那我們就可以很輕鬆找出我們各點的機率，並且透過 $x$ 的分佈，確認我們的類別可能會長什麼樣子。然而我們現在卻是不知道 $z$，因此大大限制我們能做到的事。</p>
+<p>而 <strong>EM</strong> 正幫助我們解決這個困難。比起我們一次找到最正確的方向，<strong>EM</strong> 利用現階段的最佳解做更新，再找到下次的最佳解，利用這種方式收斂。</p>
+<center><img src="https://www.researchgate.net/profile/Junjian_Qi/publication/320407284/figure/fig3/AS:667869792722944@1536243975025/Illustration-of-the-convergence-of-EM-algorithm-32.png" class="lazyload" data-srcset="https://www.researchgate.net/profile/Junjian_Qi/publication/320407284/figure/fig3/AS:667869792722944@1536243975025/Illustration-of-the-convergence-of-EM-algorithm-32.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="/></center>
+
+<p>假如藍色是我們無法預測得目標，而綠色是我們現階段 <strong>EM</strong> 找到的分佈。<strong>EM</strong>做的事就是慢慢更新綠色的線，使得慢慢接近藍色的最大值。</p>
+<h2 id="Jensen-inequality"><a href="#Jensen-inequality" class="headerlink" title="Jensen inequality"></a>Jensen inequality</h2><p>在開始之前我們先來認識一下 <strong>Jesen equality</strong>。</p>
+<center><img src="https://i.stack.imgur.com/GNBZ4.png" class="lazyload" data-srcset="https://i.stack.imgur.com/GNBZ4.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" width=500/></center>
+
+<p>上面有兩個圖形分別是 <strong>Convex</strong> 跟 <strong>Concave</strong>，差別就在於開口的方向，如果用數學的方式來表達的話，就是在某個區間 $[a, b]$，存在一個數 $k \in [a, b]$，使得所有數都 $\leq f(k)$ 則為 <strong>Concave</strong>，反之 $\geq f(k)$ 則為 <strong>Convex</strong>。</p>
+<p><strong>Jensen inequality</strong> 為：</p>
+<ul>
+<li><strong>Convex</strong><br>  $$<br>  f(E(x)) \leq E(f(x))<br>  $$</li>
+<li><strong>Concave</strong><br>  $$<br>  E(f(x)) \leq f(E(x))<br>  $$</li>
+</ul>
+<p>其實這些不等式都不太需要記，因為 $E(x)$ 描述的就是 $x$ 的平均，而$f(E(x))$ 描述的就是 $x$ 平均的函式值，而 $E(f(x))$ 描述的就是 $y$ 的平均值。因此誰高誰低只要把圖形畫出來就能知道不等式的方向！</p>
+<h2 id="EM-algorithm"><a href="#EM-algorithm" class="headerlink" title="EM algorithm"></a>EM algorithm</h2><p>我們相要得到最好的結果不外乎是利用 <strong>MLE</strong>，因此我們這邊就寫出我們的 <strong>MLE</strong> 吧！假設我們有 $(x^{(1)}, x^{(2)}, …, x^{(m)})$ 的資料，而 $z^{(i)} \sim Multinomial(\phi)$:</p>
+<p>$$<br>\begin{align}<br>l(\theta) &amp;= \sum_{i=1}^m\log p(x;\theta) \\<br>&amp;= \sum_{i=1}^{m}\log (\sum_{z}p(x, z; \theta))<br>\end{align}<br>$$</p>
+<p>這邊我們利用了以下的等式：</p>
+<p>$$<br>p(x) = \sum_{z}p(x, z)<br>$$</p>
+<p>我們假設有一個 $Q_i(z^{(i)})$，是用來表示 $z^{(i)}$ 的分佈的，我們將我們的式子改寫成：</p>
+<p>$$<br>\begin{align}<br>l(\theta) &amp;= \sum_{i=1}^{m}\log (\sum_{z}p(x^{(i)}, z^{(i)}; \theta)) \\<br>&amp;= \sum_{i=1}^{m}\log (\sum_{z}Q(z^{(i)}) \frac{p(x^{(i)}, z^{(i)}; \theta)}{Q(z^{(i)})})  \\<br>\end{align}<br>$$</p>
+<p>我們知道我們的 $\log$ 是 <strong>Concave</strong></p>
+<center><img src="https://www.medcalc.org/manual/_help/functions/log.png" class="lazyload" data-srcset="https://www.medcalc.org/manual/_help/functions/log.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></center>
+
+<p>而$\sum_{z}Q(z^{(i)}) \frac{p(x^{(i)}, z^{(i)}; \theta)}{Q(z^{(i)})}$ 可以看成是 $E(x)$，取 $\log$，則變成 $f(E(x))$ 因此我們可以利用，<strong>Concave</strong> 版的 <strong>Jensen inequality</strong>，寫成：</p>
+<p>$$<br>\begin{align}<br>l(\theta) &amp;= \sum_{i=1}^{m}\log (\sum_{z}Q(z^{(i)}) \frac{p(x^{(i)}, z^{(i)}; \theta)}{Q(z^{(i)})}) \\<br>&amp;\geq \sum_{i=1}^{m}\sum_{z}Q(z^{(i)}) \log(\frac{p(x^{(i)}, z^{(i)}; \theta)}{Q(z^{(i)})})<br>\end{align}<br>$$</p>
+<p>我們希望我們可以使<strong>等號成立</strong>，而要使 <strong>Jensen inequality</strong> 的等號成立的條件是 $f(x)$ 是一個常數：</p>
+<p>$$<br>f(x) = c<br>$$</p>
+<p>因此我們希望：</p>
+<p>$$<br>\frac{p(x^{(i)}, z^{(i)}; \theta)}{Q(z^{(i)})} ＝c<br>$$</p>
+<p>而我們又知道 $\sum_{z}Q(z_i) = 1$，因此我們可以得到：</p>
+<p>$$<br>\frac{1}{c}\sum_{z}p(x^{(i)}, z^{(i)}; \theta) = \sum_{z}Q(z_i) = 1<br>$$</p>
+<p>因此 $c$ 就是 $\sum_{z}p(x^{(i)}, z^{(i)}; \theta)$，帶回原本的式子我們可以解得：</p>
+<p>$$<br>\begin{align}<br>    Q(z^{(i)}) &amp;= \frac{p(x^{(i)}, z^{(i)}; \theta)}{\sum_{z}p(x^{(i)}, z^{(i)}; \theta)} \\<br>    &amp;=  \frac{p(x^{(i)}, z^{(i)}; \theta)}{p(x^{(i)})}  \\<br>    &amp;= p(z^{(i)}\mid x^{(i)};\theta)<br>\end{align}<br>$$</p>
+<p>因此我們的演算法流程就是：</p>
+<br>
+
+<p>Repeat until convergence {<br><br></p>
+<ul>
+<li>(<strong>E step</strong>), For each i set:<br>  $$<br>  Q_i(z^{(i)}) := p(z^{(i)}\mid x^{(i)}; \theta)<br>  $$</li>
+<li>(<strong>M step</strong>), Set:<br>  $$<br>  \theta := \underset{\theta}{argmax} \sum_{i=1}^{m}\sum_{z}Q(z^{(i)}) \log(\frac{p(x^{(i)}, z^{(i)}; \theta)}{Q(z^{(i)})})<br>  $$</li>
+</ul>
+<p>}</p>
+<h2 id="回顧-KMeans"><a href="#回顧-KMeans" class="headerlink" title="回顧 KMeans"></a>回顧 <strong>KMeans</strong></h2><p>其實我們上篇講的也是蘊含 <strong>EM</strong> 在裡面，雖然說我們不需要用到複雜的數學模型，但是精神是一樣的。我們的<strong>標準點</strong>就是 <strong>EM</strong> 裡的 $\theta$：</p>
+<ul>
+<li><strong>E step</strong>: 找到每個點距離哪個標準點最近</li>
+<li><strong>M step</strong>: 利用現在各點來更新新的標準點</li>
+</ul>
+<p>下圖會更清楚：</p>
+<p><img src="https://jakevdp.github.io/PythonDataScienceHandbook/figures/05.11-expectation-maximization.png" class="lazyload" data-srcset="https://jakevdp.github.io/PythonDataScienceHandbook/figures/05.11-expectation-maximization.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
+<h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>這篇是介紹 <strong>EM</strong> 的一些概念，我們下篇就會講到 <strong>EM</strong> 的實力 <strong>Mixture Gaussian</strong>。</p>
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
-<li><a target="_blank" rel="noopener" href="https://www.itread01.com/content/1544250602.html">三種常見的距離概念</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.oreilly.com/library/view/python-data-science/9781491912126/">Python Data Science Handbook</a></li>
+<li><a target="_blank" rel="noopener" href="http://cs229.stanford.edu/">cs229 from Standford</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjd0IS_0ufrAhULyIsBHfJ2BvIQFjASegQIAxAC&url=https://people.eecs.berkeley.edu/~pabbeel/cs287-fa13/slides/Likelihood_EM_HMM_Kalman.pdf&usg=AOvVaw2ETJ7-NqXLzDuOwIbM5CI-">Maximum Likelihood (ML), Expectation Maximization (EM)</a></li>
 </ol>
 <br/>
 <br/>
-<a href="/2020/09/12/it/it-24" float=left>Last</a> <a href="/2020/09/14/it/it-26" style="float: right;">Next</a><!-- flag of hidden posts -->
+<a href="/2020/09/13/it/it-25" float=left>Last</a> <a href="/2020/09/14/it/it-26" style="float: right;">Next</a><!-- flag of hidden posts -->
             </div>
              
             <div class="post-footer__meta">
@@ -432,8 +455,8 @@
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'http://yoursite.com/2020/09/13/it/it-25/';
-                this.page.identifier = '2020/09/13/it/it-25/';
+                this.page.url = 'http://yoursite.com/2020/09/14/it/it-26/';
+                this.page.identifier = '2020/09/14/it/it-26/';
             };
             (function(){
                 var dsq = document.createElement('script');
