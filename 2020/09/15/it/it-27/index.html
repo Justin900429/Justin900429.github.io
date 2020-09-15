@@ -40,7 +40,7 @@
 <meta property="og:image" content="https://i.imgur.com/CafL6BL.png">
 <meta property="og:image" content="https://i.imgur.com/MD3gO3g.png">
 <meta property="article:published_time" content="2020-09-15T01:36:00.000Z">
-<meta property="article:modified_time" content="2020-09-15T10:58:35.475Z">
+<meta property="article:modified_time" content="2020-09-15T11:22:11.990Z">
 <meta property="article:author" content="Justin Ruan">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://ds055uzetaobb.cloudfront.net/brioche/uploads/c8Z276WNXH-gaussianmixture.png?width=1200">
@@ -254,13 +254,15 @@
 <p>這裡我們用以下等式代換，</p>
 <p>$$<br>tr(A) = A, \ if \ A \in R<br>$$</p>
 <p>因此我們可以得到：</p>
-<p>$$<br>\begin{align}<br>&amp;\sum_{i=1}^{m}\sum_{j=1}^k w_j^{(i)}(-\frac{1}{2}\log\vert \Sigma_j \vert-\frac{1}{2}tr\big ((x^{(i)} - \mu_j)^T\Sigma^{-1}<em>j (x^{(i)} - u_j)\big)) \\<br>&amp; \sum_{i=1}^{m}\sum</em>{j=1}^k w_j^{(i)}(-\frac{1}{2}\log\vert \Sigma_j \vert-\frac{1}{2}tr\big (\Sigma^{-1}_j (x^{(i)} - \mu_j)^T(x^{(i)} - u_j)\big))<br>\end{align}<br>$$</p>
+<p>$$<br>\sum_{i=1}^{m}\sum_{j=1}^k w_j^{(i)}(-\frac{1}{2}\log\vert \Sigma_j \vert-\frac{1}{2}tr\big ((x^{(i)} - \mu_j)^T\Sigma^{-1}_j (x^{(i)} - u_j)\big)) \\<br>$$</p>
+<p>$$<br> = \sum_{i=1}^{m}\sum_{j=1}^k w_j^{(i)}(-\frac{1}{2}\log\vert \Sigma_j \vert-\frac{1}{2}tr\big(\Sigma^{-1}_j (x^{(i)} - \mu_j)^T(x^{(i)} - u_j)\big))<br>$$</p>
 <p>我們先看看 $tr\big (\Sigma^{-1}_j (x^{(i)} - \mu_j)^T(x^{(i)} - u_j)\big)$ 微分後會變什麼，我們先令 $(x^{(i)} - \mu_j)^T(x^{(i)} - u_j)$ 為 $B$，因此：</p>
 <p>$$<br>\begin{align}<br>&amp;\frac{\partial}{\partial \Sigma_j}\Sigma_j^{-1}B = \frac{\partial \Sigma_j^{-1}B}{\partial \Sigma_j^{-1}} \frac{\partial \Sigma_j^{-1}}{\partial \Sigma_j} \\<br>&amp;= -B^T \Sigma_j^{-1}\Sigma_j^\prime\Sigma_j^{-1} \\<br>\end{align}<br>$$</p>
 <p>因為 $B$ 和 $\Sigma_j^{-1}$ 都是對稱矩陣，因此 $B^T\Sigma_j^{-1}$ 等於 $\Sigma_j^{-1}B^T$ 也等於 $\Sigma_j^{-1}B$。因此現在變成</p>
 <p>$$<br>-\Sigma_j^{-1}B\Sigma_j^{-1} = -\Sigma_j^{-1} (x^{(i)} - \mu_j)^T(x^{(i)} - u_j) \Sigma_j^{-1}<br>$$</p>
 <p>對 $\Sigma_j$ 微分：</p>
-<p>$$<br>\begin{align}<br>&amp;\frac{\partial}{\partial \Sigma_j} \sum_{i=1}^{m}\sum_{j=1}^k w_j^{(i)}(-\frac{1}{2}\log\vert \Sigma_j \vert-\frac{1}{2}tr\big ((x^{(i)} - \mu_j)^T\Sigma^{-1}<em>j (x^{(i)} - u_j)\big)) \\<br>&amp;= \sum_{i=1}^{m}\sum</em>{j=1}^k w_j^{(i)}(-\frac{1}{2}\Sigma_j^{-1}+\frac{1}{2}\Sigma_j^{-1} (x^{(i)} - \mu_j)^T(x^{(i)} - u_j) \Sigma_j^{-1})<br>\end{align}<br>$$</p>
+<p>$$<br>\frac{\partial}{\partial \Sigma_j} \sum_{i=1}^{m}\sum_{j=1}^k w_j^{(i)}(-\frac{1}{2}\log\vert \Sigma_j \vert-\frac{1}{2}tr\big ((x^{(i)} - \mu_j)^T\Sigma^{-1}_j (x^{(i)} - u_j)\big)) \\<br>$$</p>
+<p>$$<br>= \sum_{i=1}^{m}\sum_{j=1}^k w_j^{(i)}(-\frac{1}{2}\Sigma_j^{-1}+\frac{1}{2}\Sigma_j^{-1} (x^{(i)} - \mu_j)^T(x^{(i)} - u_j) \Sigma_j^{-1})<br>$$</p>
 <p>令此式為 $0$，解得</p>
 <p>$$<br>\Sigma_j = \frac{\sum_{i=1}^m w_j^{(i)}(x^{(i)} - \mu_j)(x^{(i)} - \mu_j)^T}{\sum_{i=1}^mw_j^{(i)}}<br>$$</p>
 <p>到這邊我們已經可以找出我們所有的 <strong>Gaussian</strong> 了！</p>
