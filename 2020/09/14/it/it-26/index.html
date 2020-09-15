@@ -42,7 +42,7 @@
 <meta property="og:image" content="https://www.medcalc.org/manual/_help/functions/log.png">
 <meta property="og:image" content="https://jakevdp.github.io/PythonDataScienceHandbook/figures/05.11-expectation-maximization.png">
 <meta property="article:published_time" content="2020-09-14T02:53:22.000Z">
-<meta property="article:modified_time" content="2020-09-15T01:40:38.218Z">
+<meta property="article:modified_time" content="2020-09-15T01:45:29.285Z">
 <meta property="article:author" content="Justin Ruan">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://jason-chen-1992.weebly.com/uploads/1/0/8/5/108557741/k-means_1_orig.png">
@@ -233,6 +233,7 @@
 <br>
 
 <p>其實這有點類似先有雞還是先有蛋的問題。如果說我們可以知道這個 <strong>z</strong> 那我們就可以很輕鬆找出我們各點的機率，並且透過 $x$ 的分佈，確認我們的類別可能會長什麼樣子。然而我們現在卻是不知道 $z$，因此大大限制我們能做到的事。</p>
+<p>舉個例子，假設我們有 $n$ 個袋子，我們從任意袋子抽出一顆球，那這顆球是從第 $k$ 個袋子抽出來的機率是 $z_k$。但是我們無法得知ㄉ $z_k$ 是多少，甚至所以的 $z$ 我們也都不清楚。</p>
 <p>而 <strong>EM</strong> 正幫助我們解決這個困難。比起我們一次找到最正確的方向，<strong>EM</strong> 利用現階段的最佳解做更新，再找到下次的最佳解，利用這種方式收斂。</p>
 <center><img src="https://www.researchgate.net/profile/Junjian_Qi/publication/320407284/figure/fig3/AS:667869792722944@1536243975025/Illustration-of-the-convergence-of-EM-algorithm-32.png" class="lazyload" data-srcset="https://www.researchgate.net/profile/Junjian_Qi/publication/320407284/figure/fig3/AS:667869792722944@1536243975025/Illustration-of-the-convergence-of-EM-algorithm-32.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="/></center>
 
