@@ -21,7 +21,7 @@
     <!-- meta -->
 
 
-<title>[Series - 26] Expectation maximization - 1 | Justin</title><meta name="robots" content="noindex">
+<title>[Series - 27] Expectation Maximization - 2 - Mixture of Gaussians | Justin</title><meta name="robots" content="noindex">
 
 
 
@@ -29,23 +29,21 @@
 
     <!-- OpenGraph -->
  
-    <meta name="description" content="[Series - 26] Expectation maximization - 1See moreBack to the series page   前言今天要講的東西比較特別，這是用來分析我們的 Unsupervised 的資料。今天我們會稍微看一下這個演算法，明天會看看這個演算法的例子。 EM 的想法在 Unsupervised learning 的世界裡，我們沒有所謂的指摽可以學習，這意味">
+    <meta name="description" content="[Series - 27] Expectation Maximization - 2 - Mixture of GaussiansSee moreBack to the series page   前言我們今天要認識一下 Mixture of Gaussian 是什麼，同時還有如何利用 EM 來解決這個問題。 NotebookNotebook Mixture of Gaussian假設我們下面有一">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Series - 26] Expectation maximization - 1">
-<meta property="og:url" content="http://yoursite.com/2020/09/14/it/it-26/index.html">
+<meta property="og:title" content="[Series - 27] Expectation Maximization - 2 - Mixture of Gaussians">
+<meta property="og:url" content="http://yoursite.com/2020/09/15/it/it-27/index.html">
 <meta property="og:site_name" content="Justin">
-<meta property="og:description" content="[Series - 26] Expectation maximization - 1See moreBack to the series page   前言今天要講的東西比較特別，這是用來分析我們的 Unsupervised 的資料。今天我們會稍微看一下這個演算法，明天會看看這個演算法的例子。 EM 的想法在 Unsupervised learning 的世界裡，我們沒有所謂的指摽可以學習，這意味">
+<meta property="og:description" content="[Series - 27] Expectation Maximization - 2 - Mixture of GaussiansSee moreBack to the series page   前言我們今天要認識一下 Mixture of Gaussian 是什麼，同時還有如何利用 EM 來解決這個問題。 NotebookNotebook Mixture of Gaussian假設我們下面有一">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://jason-chen-1992.weebly.com/uploads/1/0/8/5/108557741/k-means_1_orig.png">
-<meta property="og:image" content="https://www.researchgate.net/profile/Junjian_Qi/publication/320407284/figure/fig3/AS:667869792722944@1536243975025/Illustration-of-the-convergence-of-EM-algorithm-32.png">
-<meta property="og:image" content="https://i.stack.imgur.com/GNBZ4.png">
-<meta property="og:image" content="https://www.medcalc.org/manual/_help/functions/log.png">
-<meta property="og:image" content="https://jakevdp.github.io/PythonDataScienceHandbook/figures/05.11-expectation-maximization.png">
-<meta property="article:published_time" content="2020-09-14T02:53:22.000Z">
-<meta property="article:modified_time" content="2020-09-15T01:40:38.218Z">
+<meta property="og:image" content="https://ds055uzetaobb.cloudfront.net/brioche/uploads/c8Z276WNXH-gaussianmixture.png?width=1200">
+<meta property="og:image" content="https://i.imgur.com/CafL6BL.png">
+<meta property="og:image" content="https://i.imgur.com/MD3gO3g.png">
+<meta property="article:published_time" content="2020-09-15T01:36:00.000Z">
+<meta property="article:modified_time" content="2020-09-15T01:39:48.995Z">
 <meta property="article:author" content="Justin Ruan">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://jason-chen-1992.weebly.com/uploads/1/0/8/5/108557741/k-means_1_orig.png">
+<meta name="twitter:image" content="https://ds055uzetaobb.cloudfront.net/brioche/uploads/c8Z276WNXH-gaussianmixture.png?width=1200">
 
 
     
@@ -193,11 +191,11 @@
     
 <div class="post-title">
     <h1 class="post-title__text">
-        [Series - 26] Expectation maximization - 1
+        [Series - 27] Expectation Maximization - 2 - Mixture of Gaussians
     </h1>
     <div class="post-title__meta">
         <a href="/archives/2020/09/" class="post-meta__date button">
-    2020-09-14
+    2020-09-15
 </a>
         
  
@@ -216,80 +214,56 @@
     <div class="post__with-side">
         <aside class="post-side">
             <div class="post-side__toc">
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EM-%E7%9A%84%E6%83%B3%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">EM 的想法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Jensen-inequality"><span class="toc-number">3.</span> <span class="toc-text">Jensen inequality</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EM-algorithm"><span class="toc-number">4.</span> <span class="toc-text">EM algorithm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9E%E9%A1%A7-KMeans"><span class="toc-number">5.</span> <span class="toc-text">回顧 KMeans</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">6.</span> <span class="toc-text">結語</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">7.</span> <span class="toc-text">參考資料</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Notebook"><span class="toc-number">2.</span> <span class="toc-text">Notebook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mixture-of-Gaussian"><span class="toc-number">3.</span> <span class="toc-text">Mixture of Gaussian</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EM-on-mixture-of-Gaussian"><span class="toc-number">4.</span> <span class="toc-text">EM on mixture of Gaussian</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#phi-j"><span class="toc-number">4.1.</span> <span class="toc-text">$\phi_j$</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mu-j"><span class="toc-number">4.2.</span> <span class="toc-text">$\mu_j$</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">5.</span> <span class="toc-text">程式碼</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">6.</span> <span class="toc-text">結語</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">7.</span> <span class="toc-text">參考資料</span></a></li></ol>
             </div>
         </aside>
         <article class="post content-card">
             <div class="post__header"></div>
             <div class="post__content">
-                <h1 id="Series-26-Expectation-maximization-1"><a href="#Series-26-Expectation-maximization-1" class="headerlink" title="[Series - 26] Expectation maximization - 1"></a>[Series - 26] Expectation maximization - 1</h1><blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/2020/08/29/it/it-series/">Back to the series page</a></p>
+                <h1 id="Series-27-Expectation-Maximization-2-Mixture-of-Gaussians"><a href="#Series-27-Expectation-Maximization-2-Mixture-of-Gaussians" class="headerlink" title="[Series - 27] Expectation Maximization - 2 - Mixture of Gaussians"></a>[Series - 27] Expectation Maximization - 2 - Mixture of Gaussians</h1><blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/2020/08/29/it/it-series/">Back to the series page</a></p>
 </div></blockquote>
 
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天要講的東西比較特別，這是用來分析我們的 <strong>Unsupervised</strong> 的資料。今天我們會稍微看一下這個演算法，明天會看看這個演算法的例子。</p>
-<h2 id="EM-的想法"><a href="#EM-的想法" class="headerlink" title="EM 的想法"></a>EM 的想法</h2><p>在 <strong>Unsupervised learning</strong> 的世界裡，我們沒有所謂的指摽可以學習，這意味著我們的模型有一個<strong>隱藏</strong>的變數我們不知道，而這個隱藏的變數 $z$ 是用來表示某個資料點為某類別的機率。</p>
-<p>$$<br>z^{(i)} \sim Multinomial(\phi)<br>$$</p>
-<p>$$<br>where \ \phi_j \geq 0, \ \sum_{j=1}^k \phi_j = 1<br>$$</p>
-<p><img src="https://jason-chen-1992.weebly.com/uploads/1/0/8/5/108557741/k-means_1_orig.png" class="lazyload" data-srcset="https://jason-chen-1992.weebly.com/uploads/1/0/8/5/108557741/k-means_1_orig.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>我們今天要認識一下 <strong>Mixture of Gaussian</strong> 是什麼，同時還有如何利用 <strong>EM</strong> 來解決這個問題。</p>
+<h2 id="Notebook"><a href="#Notebook" class="headerlink" title="Notebook"></a>Notebook</h2><p><a target="_blank" rel="noopener" href="https://colab.research.google.com/github/Justin900429/IT-used/blob/master/Mixture_of_Gaussian.ipynb">Notebook</a></p>
+<h2 id="Mixture-of-Gaussian"><a href="#Mixture-of-Gaussian" class="headerlink" title="Mixture of Gaussian"></a>Mixture of Gaussian</h2><p>假設我們下面有一些資料（左下圖），如果說我們已經知道有<strong>兩群</strong>資料，並且這兩個資料都有各自的高斯分佈，同時這兩個高斯分佈有重疊的部分，這就是<strong>Mixture of Gaussian</strong>。因此我們可以利用 <strong>EM</strong> 來找出我們各高斯分佈的<strong>平均</strong>以及其<strong>標準差</strong>。</p>
+<center><img src="https://ds055uzetaobb.cloudfront.net/brioche/uploads/c8Z276WNXH-gaussianmixture.png?width=1200" class="lazyload" data-srcset="https://ds055uzetaobb.cloudfront.net/brioche/uploads/c8Z276WNXH-gaussianmixture.png?width=1200" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="/></center>
+
 <br>
 
-<p>其實這有點類似先有雞還是先有蛋的問題。如果說我們可以知道這個 <strong>z</strong> 那我們就可以很輕鬆找出我們各點的機率，並且透過 $x$ 的分佈，確認我們的類別可能會長什麼樣子。然而我們現在卻是不知道 $z$，因此大大限制我們能做到的事。</p>
-<p>而 <strong>EM</strong> 正幫助我們解決這個困難。比起我們一次找到最正確的方向，<strong>EM</strong> 利用現階段的最佳解做更新，再找到下次的最佳解，利用這種方式收斂。</p>
-<center><img src="https://www.researchgate.net/profile/Junjian_Qi/publication/320407284/figure/fig3/AS:667869792722944@1536243975025/Illustration-of-the-convergence-of-EM-algorithm-32.png" class="lazyload" data-srcset="https://www.researchgate.net/profile/Junjian_Qi/publication/320407284/figure/fig3/AS:667869792722944@1536243975025/Illustration-of-the-convergence-of-EM-algorithm-32.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="/></center>
-
-<p>假如藍色是我們無法預測得目標，而綠色是我們現階段 <strong>EM</strong> 找到的分佈。<strong>EM</strong>做的事就是慢慢更新綠色的線，使得慢慢接近藍色的最大值。</p>
-<h2 id="Jensen-inequality"><a href="#Jensen-inequality" class="headerlink" title="Jensen inequality"></a>Jensen inequality</h2><p>在開始之前我們先來認識一下 <strong>Jesen equality</strong>。</p>
-<center><img src="https://i.stack.imgur.com/GNBZ4.png" class="lazyload" data-srcset="https://i.stack.imgur.com/GNBZ4.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" width=500/></center>
-
-<p>上面有兩個圖形分別是 <strong>Convex</strong> 跟 <strong>Concave</strong>，差別就在於開口的方向，如果用數學的方式來表達的話，就是在某個區間 $[a, b]$，存在一個數 $k \in [a, b]$，使得所有數都 $\leq f(k)$ 則為 <strong>Concave</strong>，反之 $\geq f(k)$ 則為 <strong>Convex</strong>。</p>
-<p><strong>Jensen inequality</strong> 為：</p>
+<p>既然是高斯，我們就知道 $p(x^{(i)}\mid z^{(i)})$ 是高斯分佈：</p>
+<p>$$<br>p(x^{(i)} \mid z^{(i)}) = \frac{1}{(2\pi)^{\frac{n}{2}} \mid \Sigma_j \mid^\frac{1}{2}}exp(-\frac{1}{2}(x^{(i)} - u_j)^T\Sigma_j^{-1}(x^{(i)} - u_j))<br>$$</p>
+<p>我們有兩個高斯分佈：</p>
 <ul>
-<li><strong>Convex</strong><br>  $$<br>  f(E(x)) \leq E(f(x))<br>  $$</li>
-<li><strong>Concave</strong><br>  $$<br>  E(f(x)) \leq f(E(x))<br>  $$</li>
+<li>藍色： $\mu=0, \sigma=1$</li>
+<li>橘色： $\mu=3, \sigma=2$</li>
 </ul>
-<p>其實這些不等式都不太需要記，因為 $E(x)$ 描述的就是 $x$ 的平均，而$f(E(x))$ 描述的就是 $x$ 平均的函式值，而 $E(f(x))$ 描述的就是 $y$ 的平均值。因此誰高誰低只要把圖形畫出來就能知道不等式的方向！</p>
-<h2 id="EM-algorithm"><a href="#EM-algorithm" class="headerlink" title="EM algorithm"></a>EM algorithm</h2><p>我們相要得到最好的結果不外乎是利用 <strong>MLE</strong>，因此我們這邊就寫出我們的 <strong>MLE</strong> 吧！假設我們有 $(x^{(1)}, x^{(2)}, …, x^{(m)})$ 的資料，而 $z^{(i)} \sim Multinomial(\phi)$:</p>
-<p>$$<br>\begin{align}<br>l(\theta) &amp;= \sum_{i=1}^m\log p(x;\theta) \\<br>&amp;= \sum_{i=1}^{m}\log (\sum_{z}p(x, z; \theta))<br>\end{align}<br>$$</p>
-<p>這邊我們利用了以下的等式：</p>
-<p>$$<br>p(x) = \sum_{z}p(x, z)<br>$$</p>
-<p>我們假設有一個 $Q_i(z^{(i)})$，是用來表示 $z^{(i)}$ 的分佈的，我們將我們的式子改寫成：</p>
-<p>$$<br>\begin{align}<br>l(\theta) &amp;= \sum_{i=1}^{m}\log (\sum_{z}p(x^{(i)}, z^{(i)}; \theta)) \\<br>&amp;= \sum_{i=1}^{m}\log (\sum_{z}Q(z^{(i)}) \frac{p(x^{(i)}, z^{(i)}; \theta)}{Q(z^{(i)})})  \\<br>\end{align}<br>$$</p>
-<p>我們知道我們的 $\log$ 是 <strong>Concave</strong></p>
-<center><img src="https://www.medcalc.org/manual/_help/functions/log.png" class="lazyload" data-srcset="https://www.medcalc.org/manual/_help/functions/log.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></center>
+<p>而我們的綠色是藍色加橘色，也就是我們的 <strong>mixture of Gaussian</strong>。</p>
+<p><img src="https://i.imgur.com/CafL6BL.png" class="lazyload" data-srcset="https://i.imgur.com/CafL6BL.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
+<h2 id="EM-on-mixture-of-Gaussian"><a href="#EM-on-mixture-of-Gaussian" class="headerlink" title="EM on mixture of Gaussian"></a>EM on mixture of Gaussian</h2><p>我們來看一下如何利用 <strong>EM</strong> 找出各高斯分佈的位置。</p>
+<ol>
+<li>首先 <strong>E step</strong> 我們要令 $Q_i(z^{(i)} = j) = p(z^{(i)} = j \mid x^{(i)};\phi, \mu, \Sigma)$，為方便運算我們直接將$Q_i(z^{(i)} = j)$ 寫作 $w_j^{(i)}$。根據我們 <strong>Bayes rules</strong>:<br>$$<br>p(z^{(i)} =j \mid x^{(i)}; \phi, \mu, \Sigma) = \frac{p(x^{(i)}\mid z^{(i)}=j;\mu, \Sigma)p(z^{(j)}=j;\phi)}{\sum_{l=1}^k p(x^{(i)}\mid z^{(i)} = l; \mu, \Sigma)p(z^{(i)}=l;\phi)}<br>$$<br>其中 $k$ 代表代表我們希望找到幾個<strong>高斯分佈</strong>。</li>
+<li>接著 <strong>M step</strong> 要找出 $\theta := \underset{\theta}{argmax} \sum_{i=1}^{m}\sum_{z}Q(z^{(i)}) \log(\frac{p(x^{(i)}, z^{(i)}; \theta)}{Q(z^{(i)})})$，其中 $\theta$ 又可以猜成三種，分別是 $\phi, \mu, \Sigma$。而每一個高斯都有各自的分佈，因此我們有 $\phi_j, \mu_j, \Sigma_j,for \ j = 1, …,k$ ，其中 $m$ 代表有 $m$ 筆資料。</li>
+</ol>
+<h3 id="phi-j"><a href="#phi-j" class="headerlink" title="$\phi_j$"></a>$\phi_j$</h3><p>將原式化簡後，留只跟 $\phi_{j}$ 有關的會得到 $\sum_{i=1}^m \sum_{j=1}^k w_j^{(i)}log\phi_j$，同時又受限於 $\sum_{j=1}^k\phi_j = 1$，因此我們可以使用<strong>Laplace multiplier</strong> 來解<br>$$<br>L(\phi) = \sum_{i=1}^m \sum_{j=1}^k w_j^{(i)}log\phi_j + \beta \sum_{j=1}^k\phi_j<br>$$<br>對 $L(\phi)$ 取微分得到:<br>$$<br>\frac{\partial}{\partial \phi_j}L(\phi) = \sum_{i=1}^{m} \frac{w_j^{(i)}}{\phi_j} + \beta<br>$$<br>使 $L(\phi_j)$ 等於 0 會得到：<br>$$<br>\phi_ = \frac{\sum_{i=1}^m w_j^{(i)}}{-\beta}<br>$$<br>再利用我們的限制式$\sum_{j=1}^k\phi_j = 1$可解得 $-\beta = m$，因此我們的 $\phi_j$ 是：<br>$$<br>\phi_j:= \frac{1}{m}\sum_{i=1}^mw_j^{(i)}<br>$$</p>
+<h3 id="mu-j"><a href="#mu-j" class="headerlink" title="$\mu_j$"></a>$\mu_j$</h3><p>將原式化簡後，留只跟 $\mu_j$ 有關的式子是<br>$$<br>\sum_{i=1}^{m}\sum_{j=1}^{k}w_j^{(i)}\frac{1}{2}(x^{(i)} - \mu_j)^T \Sigma^{-1}(x^{(i)} - \mu_j)<br>$$</p>
+<p>對 $\mu_j$ 微分</p>
+<p>$$<br>\begin{align}<br>&amp;\frac{\partial}{\partial \mu_j}  \sum_{i=1}^{m}\sum_{j=1}^{k}w_j^{(i)}\frac{1}{2}(x^{(i)} - \mu_j)^T \Sigma^{-1}(x^{(i)} - \mu_j) \\<br>&amp;= \frac{1}{2}\sum_{i=1}^l w_j^{(i)} \frac{\partial}{\partial \mu_j}2\mu_j^T\Sigma^{-1}x^{(i)} - u_j^T\Sigma_j^-1\mu_j \\<br>&amp;= \sum_{i=1}^m w_j^{(i)}(\Sigma_j^{-1}x^{(i)} - \Sigma_{j}^{-1}\mu_j)<br>\end{align}<br>$$</p>
+<p>另此式為 $0$ 解得：</p>
+<p>$$<br>\mu_j := \frac{\sum_{i=1}^{m}w_j^{(i)}x^{i}}{\sum_{i=1}^{m} w_j^{(i)}}<br>$$</p>
+<h2 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h2><p>我一樣將程式碼放在 <strong>Notebook</strong>，這邊我就放我們的結果。<br><br></p>
+<p><img src="https://i.imgur.com/MD3gO3g.png" class="lazyload" data-srcset="https://i.imgur.com/MD3gO3g.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
+<p>另外下面這行加負號的原因是因為 <code>score_samples</code> 是求的 <strong>log likelihood</strong>，因此我們需要加負號，將他從負的轉為正的。($\log(x) &lt; 0, \ when  \ x \in (0, 1)$)</p>
+<pre><code class="hljs python"><span class="hljs-comment"># Compute the loglikelihood</span>
+Z = -clf.score_samples(XX)</code></pre>
 
-<p>而$\sum_{z}Q(z^{(i)}) \frac{p(x^{(i)}, z^{(i)}; \theta)}{Q(z^{(i)})}$ 可以看成是 $E(x)$，取 $\log$，則變成 $f(E(x))$ 因此我們可以利用，<strong>Concave</strong> 版的 <strong>Jensen inequality</strong>，寫成：</p>
-<p>$$<br>\begin{align}<br>l(\theta) &amp;= \sum_{i=1}^{m}\log (\sum_{z}Q(z^{(i)}) \frac{p(x^{(i)}, z^{(i)}; \theta)}{Q(z^{(i)})}) \\<br>&amp;\geq \sum_{i=1}^{m}\sum_{z}Q(z^{(i)}) \log(\frac{p(x^{(i)}, z^{(i)}; \theta)}{Q(z^{(i)})})<br>\end{align}<br>$$</p>
-<p>我們希望我們可以使<strong>等號成立</strong>，而要使 <strong>Jensen inequality</strong> 的等號成立的條件是 $f(x)$ 是一個常數：</p>
-<p>$$<br>f(x) = c<br>$$</p>
-<p>因此我們希望：</p>
-<p>$$<br>\frac{p(x^{(i)}, z^{(i)}; \theta)}{Q(z^{(i)})} ＝c<br>$$</p>
-<p>而我們又知道 $\sum_{z}Q(z_i) = 1$，因此我們可以得到：</p>
-<p>$$<br>\frac{1}{c}\sum_{z}p(x^{(i)}, z^{(i)}; \theta) = \sum_{z}Q(z_i) = 1<br>$$</p>
-<p>因此 $c$ 就是 $\sum_{z}p(x^{(i)}, z^{(i)}; \theta)$，帶回原本的式子我們可以解得：</p>
-<p>$$<br>\begin{align}<br>    Q(z^{(i)}) &amp;= \frac{p(x^{(i)}, z^{(i)}; \theta)}{\sum_{z}p(x^{(i)}, z^{(i)}; \theta)} \\<br>    &amp;=  \frac{p(x^{(i)}, z^{(i)}; \theta)}{p(x^{(i)})}  \\<br>    &amp;= p(z^{(i)}\mid x^{(i)};\theta)<br>\end{align}<br>$$</p>
-<p>因此我們的演算法流程就是：</p>
-<br>
-
-<p>Repeat until convergence {<br><br></p>
-<ul>
-<li>(<strong>E step</strong>), For each i set:<br>  $$<br>  Q_i(z^{(i)}) := p(z^{(i)}\mid x^{(i)}; \theta)<br>  $$</li>
-<li>(<strong>M step</strong>), Set:<br>  $$<br>  \theta := \underset{\theta}{argmax} \sum_{i=1}^{m}\sum_{z}Q(z^{(i)}) \log(\frac{p(x^{(i)}, z^{(i)}; \theta)}{Q(z^{(i)})})<br>  $$</li>
-</ul>
-<p>}</p>
-<h2 id="回顧-KMeans"><a href="#回顧-KMeans" class="headerlink" title="回顧 KMeans"></a>回顧 <strong>KMeans</strong></h2><p>其實我們上篇講的也是蘊含 <strong>EM</strong> 在裡面，雖然說我們不需要用到複雜的數學模型，但是精神是一樣的。我們的<strong>標準點</strong>就是 <strong>EM</strong> 裡的 $\theta$：</p>
-<ul>
-<li><strong>E step</strong>: 找到每個點距離哪個標準點最近</li>
-<li><strong>M step</strong>: 利用現在各點來更新新的標準點</li>
-</ul>
-<p>下圖會更清楚：</p>
-<p><img src="https://jakevdp.github.io/PythonDataScienceHandbook/figures/05.11-expectation-maximization.png" class="lazyload" data-srcset="https://jakevdp.github.io/PythonDataScienceHandbook/figures/05.11-expectation-maximization.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
-<h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>這篇是介紹 <strong>EM</strong> 的一些概念，我們下篇就會講到 <strong>EM</strong> 的實力 <strong>Mixture Gaussian</strong>。</p>
+<h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>今天講完了<strong>EM</strong> 在 <strong>Mixture of Gaussian</strong> 的應用，下篇我們就來看看 <strong>PCA</strong> 吧！    </p>
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
 <li><a target="_blank" rel="noopener" href="http://cs229.stanford.edu/">cs229 from Standford</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjd0IS_0ufrAhULyIsBHfJ2BvIQFjASegQIAxAC&url=https://people.eecs.berkeley.edu/~pabbeel/cs287-fa13/slides/Likelihood_EM_HMM_Kalman.pdf&usg=AOvVaw2ETJ7-NqXLzDuOwIbM5CI-">Maximum Likelihood (ML), Expectation Maximization (EM)</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/@chih.sheng.huang821/%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92-em-%E6%BC%94%E7%AE%97%E6%B3%95-expectation-maximization-algorithm-em-%E9%AB%98%E6%96%AF%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B-gaussian-mixture-model-gmm-%E5%92%8Cgmm-em%E8%A9%B3%E7%B4%B0%E6%8E%A8%E5%B0%8E-c6f634410483">機器學習:EM 演算法(Expectation-Maximization Algorithm, EM)、高斯混合模型(Gaussian Mixture Model, GMM)和GMM-EM詳細推導</a></li>
 </ol>
 <br/>
 <br/>
-<a href="/2020/09/13/it/it-25" float=left>Last</a> <a href="/2020/09/15/it/it-27" style="float: right;">Next</a><!-- flag of hidden posts -->
+<a href="/2020/09/14/it/it-26" float=left>Last</a> <a href="/2020/09/15/it/it-27" style="float: right;">Next</a><!-- flag of hidden posts -->
             </div>
              
             <div class="post-footer__meta">
@@ -455,8 +429,8 @@
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'http://yoursite.com/2020/09/14/it/it-26/';
-                this.page.identifier = '2020/09/14/it/it-26/';
+                this.page.url = 'http://yoursite.com/2020/09/15/it/it-27/';
+                this.page.identifier = '2020/09/15/it/it-27/';
             };
             (function(){
                 var dsq = document.createElement('script');
