@@ -40,7 +40,7 @@
 <meta property="og:image" content="https://images.squarespace-cdn.com/content/v1/5a316dfecf81e0076f50dae2/1522752880095-DI3R3LSBWJ2WBPYWNT01/ke17ZwdGBToddI8pDm48kI4uVNG1hm1axjtkGwge4TsUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8N_N4V1vUb5AoIIIbLZhVYxCRW4BPu10St3TBAUQYVKcKgxlDbnvjnsTO33Uzt3Lw_WuxT4icEaJY4eS8IgGuGm9EWldjYe8sCzhH8Y4VAKv/PCA.png">
 <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/9/98/Projection_and_rejection.png">
 <meta property="article:published_time" content="2020-09-16T03:13:21.000Z">
-<meta property="article:modified_time" content="2020-09-16T12:07:17.398Z">
+<meta property="article:modified_time" content="2020-09-16T12:32:26.606Z">
 <meta property="article:author" content="Justin Ruan">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://www.researchgate.net/profile/Bo_Li134/publication/220777949/figure/fig1/AS:305519303643136@1449852886284/b-Data-sampled-from-a-sine-shaped-manifold-b-LLE-mapped-data.png">
@@ -254,6 +254,7 @@
 </ol>
 <p>假設我們要將原本 $n$ 維的資料投影到 $m$ 維，並且 $m \lt n$，<strong>eigenvector</strong> 依 <strong>eigenvales</strong> 排下來的順序是 $u_1, u_2, …, u_m$，則我們的新維度資料 $k^{(i)}$ 就是：</p>
 <p>$$<br>k^{(i)} =<br>\begin{pmatrix}<br>u_1^{^T}x^{(i)} \\<br>u_2^{^T}x^{(i)} \\<br>\vdots \\<br>u_m^{^T}x^{(i)}<br>\end{pmatrix}<br>\in R^m<br>$$</p>
+<p>不難發現，我們新資料就是舊資料的特徵組合，形成新的資料維度，其中 <strong>linear coefficients</strong> 即為 <strong>eigenvectors</strong> 的各數字。</p>
 <h2 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h2><p>我們一樣把程式碼放在 <strong>Notebook</strong>，我們這邊就不貼程式碼了。不過可以注意到我們用 <strong>KMeans</strong> 來分類的話也可以得到不錯的分類分數。</p>
 <h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>今天我們講完 <strong>PCA</strong>，下篇我們會講 <strong>ICA</strong>。</p>
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
