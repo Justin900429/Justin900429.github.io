@@ -21,7 +21,7 @@
     <!-- meta -->
 
 
-<title>[Series - 28] Dimension reduction - PCA | Justin</title><meta name="robots" content="noindex">
+<title>[Series - 29] Independent Component Analysis | Justin</title><meta name="robots" content="noindex">
 
 
 
@@ -29,21 +29,22 @@
 
     <!-- OpenGraph -->
  
-    <meta name="description" content="[Series - 28] Dimension reduction - PCASee moreBack to the series page   前言這篇我們要來說一下 PCA，這是一個很重要的降維方式。 NotebookNotebook Dimension reduction我們先來說一下什麼是 dimenstion reduction。假設我們資料有很多維，我們今天希望能將這些點投影到某個更低">
+    <meta name="description" content="[Series - 29] Independent Component AnalysisSee moreBack to the series page   前言今天我們要來說明一下什麼是 ICA，以及他有哪些問題想要解決。 NotebookNotebook ICA概念ICA 最經典的問題就是**雞尾酒派對問題(cocktail partiy problem)**，包含我們的實作也是。這個問題想要描">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Series - 28] Dimension reduction - PCA">
-<meta property="og:url" content="http://yoursite.com/2020/09/16/it/it-28/index.html">
+<meta property="og:title" content="[Series - 29] Independent Component Analysis">
+<meta property="og:url" content="http://yoursite.com/2020/09/17/it/it-29/index.html">
 <meta property="og:site_name" content="Justin">
-<meta property="og:description" content="[Series - 28] Dimension reduction - PCASee moreBack to the series page   前言這篇我們要來說一下 PCA，這是一個很重要的降維方式。 NotebookNotebook Dimension reduction我們先來說一下什麼是 dimenstion reduction。假設我們資料有很多維，我們今天希望能將這些點投影到某個更低">
+<meta property="og:description" content="[Series - 29] Independent Component AnalysisSee moreBack to the series page   前言今天我們要來說明一下什麼是 ICA，以及他有哪些問題想要解決。 NotebookNotebook ICA概念ICA 最經典的問題就是**雞尾酒派對問題(cocktail partiy problem)**，包含我們的實作也是。這個問題想要描">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://www.researchgate.net/profile/Bo_Li134/publication/220777949/figure/fig1/AS:305519303643136@1449852886284/b-Data-sampled-from-a-sine-shaped-manifold-b-LLE-mapped-data.png">
-<meta property="og:image" content="https://images.squarespace-cdn.com/content/v1/5a316dfecf81e0076f50dae2/1522752880095-DI3R3LSBWJ2WBPYWNT01/ke17ZwdGBToddI8pDm48kI4uVNG1hm1axjtkGwge4TsUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8N_N4V1vUb5AoIIIbLZhVYxCRW4BPu10St3TBAUQYVKcKgxlDbnvjnsTO33Uzt3Lw_WuxT4icEaJY4eS8IgGuGm9EWldjYe8sCzhH8Y4VAKv/PCA.png">
-<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/9/98/Projection_and_rejection.png">
-<meta property="article:published_time" content="2020-09-16T03:13:21.000Z">
-<meta property="article:modified_time" content="2020-09-17T01:38:32.661Z">
+<meta property="og:image" content="https://media.geeksforgeeks.org/wp-content/uploads/20190521012201/ica.jpg">
+<meta property="og:image" content="https://www.researchgate.net/profile/Olga_M_Conde/publication/248706730/figure/fig9/AS:667072812044289@1536053960035/ICA-PCA-analysis-process-on-the-reflectance-images-224-Solving-ambiguity-problems-from.jpg">
+<meta property="og:image" content="https://i.stack.imgur.com/eK3BG.png">
+<meta property="og:image" content="https://i.imgur.com/R6Kbpcs.png">
+<meta property="article:published_time" content="2020-09-17T01:37:51.000Z">
+<meta property="article:modified_time" content="2020-09-17T01:40:24.254Z">
 <meta property="article:author" content="Justin Ruan">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://www.researchgate.net/profile/Bo_Li134/publication/220777949/figure/fig1/AS:305519303643136@1449852886284/b-Data-sampled-from-a-sine-shaped-manifold-b-LLE-mapped-data.png">
+<meta name="twitter:image" content="https://media.geeksforgeeks.org/wp-content/uploads/20190521012201/ica.jpg">
 
 
     
@@ -191,11 +192,11 @@
     
 <div class="post-title">
     <h1 class="post-title__text">
-        [Series - 28] Dimension reduction - PCA
+        [Series - 29] Independent Component Analysis
     </h1>
     <div class="post-title__meta">
         <a href="/archives/2020/09/" class="post-meta__date button">
-    2020-09-16
+    2020-09-17
 </a>
         
  
@@ -214,55 +215,54 @@
     <div class="post__with-side">
         <aside class="post-side">
             <div class="post-side__toc">
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Notebook"><span class="toc-number">2.</span> <span class="toc-text">Notebook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dimension-reduction"><span class="toc-number">3.</span> <span class="toc-text">Dimension reduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PCA"><span class="toc-number">4.</span> <span class="toc-text">PCA</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%94%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B"><span class="toc-number">5.</span> <span class="toc-text">演算法流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%99%E6%BA%96%E5%8C%96"><span class="toc-number">5.1.</span> <span class="toc-text">標準化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%95%E5%BD%B1%E9%95%B7"><span class="toc-number">5.2.</span> <span class="toc-text">投影長</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Eigenvalue"><span class="toc-number">5.3.</span> <span class="toc-text">Eigenvalue</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">6.</span> <span class="toc-text">程式碼</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">7.</span> <span class="toc-text">結語</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">8.</span> <span class="toc-text">參考資料</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Notebook"><span class="toc-number">2.</span> <span class="toc-text">Notebook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ICA%E6%A6%82%E5%BF%B5"><span class="toc-number">3.</span> <span class="toc-text">ICA概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PCA-v-s-ICA"><span class="toc-number">4.</span> <span class="toc-text">PCA v.s. ICA</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ICA%E5%8E%9F%E7%90%86"><span class="toc-number">5.</span> <span class="toc-text">ICA原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">6.</span> <span class="toc-text">程式碼</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">7.</span> <span class="toc-text">參考資料</span></a></li></ol>
             </div>
         </aside>
         <article class="post content-card">
             <div class="post__header"></div>
             <div class="post__content">
-                <h1 id="Series-28-Dimension-reduction-PCA"><a href="#Series-28-Dimension-reduction-PCA" class="headerlink" title="[Series - 28] Dimension reduction - PCA"></a>[Series - 28] Dimension reduction - PCA</h1><blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/2020/08/29/it/it-series/">Back to the series page</a></p>
+                <h1 id="Series-29-Independent-Component-Analysis"><a href="#Series-29-Independent-Component-Analysis" class="headerlink" title="[Series - 29] Independent Component Analysis"></a>[Series - 29] Independent Component Analysis</h1><blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/2020/08/29/it/it-series/">Back to the series page</a></p>
 </div></blockquote>
 
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>這篇我們要來說一下 <strong>PCA</strong>，這是一個很重要的降維方式。</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天我們要來說明一下什麼是 <strong>ICA</strong>，以及他有哪些問題想要解決。</p>
 <h2 id="Notebook"><a href="#Notebook" class="headerlink" title="Notebook"></a>Notebook</h2><p><a target="_blank" rel="noopener" href="https://colab.research.google.com/github/Justin900429/IT-used/blob/master/PCA.ipynb">Notebook</a></p>
-<h2 id="Dimension-reduction"><a href="#Dimension-reduction" class="headerlink" title="Dimension reduction"></a>Dimension reduction</h2><p>我們先來說一下什麼是 <strong>dimenstion reduction</strong>。假設我們資料有很多維，我們今天希望能將這些點<strong>投影</strong>到某個更低的維度，這個動作就叫 <strong>dimension reduction</strong>。</p>
-<p><img src="https://www.researchgate.net/profile/Bo_Li134/publication/220777949/figure/fig1/AS:305519303643136@1449852886284/b-Data-sampled-from-a-sine-shaped-manifold-b-LLE-mapped-data.png" class="lazyload" data-srcset="https://www.researchgate.net/profile/Bo_Li134/publication/220777949/figure/fig1/AS:305519303643136@1449852886284/b-Data-sampled-from-a-sine-shaped-manifold-b-LLE-mapped-data.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
-<p>我們來看看這張圖，原本左邊的圖形是在一個更高維的空間，圖形是很複雜的一個圖形。經過投影，期圖形變為右邊的的平面。經過投影我們可以將一些<strong>我們用不到的維度去除</strong>，留下可以決定資料的維度。</p>
-<h2 id="PCA"><a href="#PCA" class="headerlink" title="PCA"></a>PCA</h2><p><strong>PCA</strong> 全名是 <strong>Principal component analysis</strong>，這是眾多降維的其中一種方式。這個降維的方法是對資料的 <strong>variance</strong> 做降維。我們先來想一下，我們希望我們資料可以有很好的特徵做分類，那就是希望我們的資料不要擠在一起，也就是希望可以把資料分開一點。因此 <strong>PCA</strong> 會在原本的資料空間找到一個向量，使資料投影到此向量上會得到<strong>最大</strong>的<strong>variance</strong>。</p>
-<p><img src="https://images.squarespace-cdn.com/content/v1/5a316dfecf81e0076f50dae2/1522752880095-DI3R3LSBWJ2WBPYWNT01/ke17ZwdGBToddI8pDm48kI4uVNG1hm1axjtkGwge4TsUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8N_N4V1vUb5AoIIIbLZhVYxCRW4BPu10St3TBAUQYVKcKgxlDbnvjnsTO33Uzt3Lw_WuxT4icEaJY4eS8IgGuGm9EWldjYe8sCzhH8Y4VAKv/PCA.png" class="lazyload" data-srcset="https://images.squarespace-cdn.com/content/v1/5a316dfecf81e0076f50dae2/1522752880095-DI3R3LSBWJ2WBPYWNT01/ke17ZwdGBToddI8pDm48kI4uVNG1hm1axjtkGwge4TsUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8N_N4V1vUb5AoIIIbLZhVYxCRW4BPu10St3TBAUQYVKcKgxlDbnvjnsTO33Uzt3Lw_WuxT4icEaJY4eS8IgGuGm9EWldjYe8sCzhH8Y4VAKv/PCA.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
-<p>上面這張圖的左邊是原本資料所在的空間，我們找到一個向量<strong>PC1</strong>會使得投影後的 <strong>variance</strong> 最大，而會找到跟<strong>PC 1</strong>垂直的向量 <strong>PC 2</strong> 作為新的 <strong>y</strong> 軸。我們可以關遲到在左邊的資料是比較密集的，但是經過投影後我們就得到更容易分類的資料了！</p>
-<h2 id="演算法流程"><a href="#演算法流程" class="headerlink" title="演算法流程"></a>演算法流程</h2><h3 id="標準化"><a href="#標準化" class="headerlink" title="標準化"></a>標準化</h3><p>在做投影前，我們都會先做資料的標準化。假如我們沒有標準化，可能某筆資料的單位很大，進而使我們的 <strong>variance</strong> 也變大，導致我們 <strong>PCA</strong> 的能力下降。</p>
-<h3 id="投影長"><a href="#投影長" class="headerlink" title="投影長"></a>投影長</h3><p>我們來說明一下如何求得投影長。我們現在要將 $\vec a$ 投影到 $\vec b$，得到的結果是 $\vec{a_1}$。假設我們 $\vec b$ 是單位向量，也就是 $\lVert u \rVert = 1$。 投影長指的就是我們的 $\lVert a_1 \rVert$。</p>
-<center><img src="https://upload.wikimedia.org/wikipedia/commons/9/98/Projection_and_rejection.png" class="lazyload" data-srcset="https://upload.wikimedia.org/wikipedia/commons/9/98/Projection_and_rejection.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" width=450/></center>
+<h2 id="ICA概念"><a href="#ICA概念" class="headerlink" title="ICA概念"></a>ICA概念</h2><p><strong>ICA</strong> 最經典的問題就是**雞尾酒派對問題(cocktail partiy problem)**，包含我們的實作也是。這個問題想要描述的就是我們講台上有 $n$ 個講者，同時有 $n$ 個麥克風在收這些講者的聲音。假設我們利用每隻麥克風收集到的聲音，我們可不可以把 $n$ 個講者的聲波個別分開。</p>
+<center><img src="https://media.geeksforgeeks.org/wp-content/uploads/20190521012201/ica.jpg" class="lazyload" data-srcset="https://media.geeksforgeeks.org/wp-content/uploads/20190521012201/ica.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="/></center>
 
-<p>投影長的算法是 (我們這邊就用 $a, b$ 取代 $\vec a, \vec b$ )</p>
-<p>$$<br>\rVert a_1 \lVert = \lVert a^T b \rVert, \ where \ \lVert b \rVert = 1<br>$$</p>
-<p>下面我們都會將投影長取平方，可以更方便地做運算。</p>
-<p>假如我們有 $n$ 個資料點，我們希望找到向量 $u$，使得 $\frac{1}{n}\sum_{i=1}^n (x^{(i)^T}u)^2$ 最大，也就是：</p>
-<p>$$<br>\underset{u}{\max}\frac{1}{n}\sum_{i=1}^n (x^{(i)^T}u)^2<br>$$</p>
-<p>將原式展開可以得到：</p>
-<p>$$<br>\frac{1}{n}\sum_{i=1}^n x^{(i)^T}ux^{(i)^T}u<br>$$</p>
-<p>又因為 $x^{(i)^T}u$ 為常數因此也會等於 $u^Tx^{(i)}$，因此我們可以在寫成：</p>
-<p>$$<br>\begin{align}<br>&amp; \frac{1}{n}\sum_{i=1}^n u^Tx^{(i)}x^{(i)^T}u \\<br>&amp;= u^T (\frac{1}{n}\sum_{i=1}^n x^{(i)}x^{(i)^T})u<br>\end{align}<br>$$</p>
-<h3 id="Eigenvalue"><a href="#Eigenvalue" class="headerlink" title="Eigenvalue"></a>Eigenvalue</h3><p>此式的最佳解 $u$</p>
-<p>$$<br>\underset{u}{\max} u^T (\frac{1}{n}\sum_{i=1}^n x^{(i)}x^{(i)^T})u<br>$$</p>
-<p>就是 $\frac{1}{n}\sum_{i=1}^n x^{(i)}x^{(i)^T}$ 矩陣的 <strong>principle eigenvector</strong>。這邊我就不證明這個式子了。</p>
-<p>上面找 <strong>principle eigenvector</strong> 是只要投影到一維。如果說我們要投影到更多維，我們可以依大小投影到不同的 <strong>eigenvectors</strong> 上。如果說資料不是方陣，我們就需要用到 <strong>SVD</strong> 來做分解。我們得到的對角矩陣可以用來解釋變異數的比例，因此我們可以用下列兩種方式來決定要投影到什麼維度。</p>
-<ol>
-<li>維度</li>
-<li><strong>data component</strong></li>
-</ol>
-<p>假設我們要將原本 $n$ 維的資料投影到 $m$ 維，並且 $m \lt n$，<strong>eigenvector</strong> 依 <strong>eigenvales</strong> 排下來的順序是 $u_1, u_2, …, u_m$，則我們的新維度資料 $k^{(i)}$ 就是：</p>
-<p>$$<br>k^{(i)} =<br>\begin{pmatrix}<br>u_1^{^T}x^{(i)} \\<br>u_2^{^T}x^{(i)} \\<br>\vdots \\<br>u_m^{^T}x^{(i)}<br>\end{pmatrix}<br>\in R^m<br>$$</p>
-<p>不難發現，我們新資料就是舊資料的特徵組合，形成新的資料維度。其中 <strong>linear coefficients</strong> 即為 <strong>eigenvectors</strong> 的各數字。</p>
-<h2 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h2><p>我們一樣把程式碼放在 <strong>Notebook</strong>，我們這邊就不貼程式碼了。不過可以注意到我們用 <strong>KMeans</strong> 來分類的話也可以得到不錯的分類分數。</p>
-<h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>今天我們講完 <strong>PCA</strong>，下篇我們會講 <strong>ICA</strong>。</p>
+<h2 id="PCA-v-s-ICA"><a href="#PCA-v-s-ICA" class="headerlink" title="PCA v.s. ICA"></a>PCA v.s. ICA</h2><p>首先我們來說明一下 <strong>ICA</strong> 本身比較少用到，除非說有一些特徵需要獨立萃取。 而 <strong>PCA</strong> 利用 <strong>特徵組合</strong> 的方式將資料做降維。而 <strong>ICA</strong> 則是偏向萃取資料，利用矩陣的運算將資料萃取還原。</p>
+<p>但是這不代表 <strong>PCA</strong> 跟 <strong>ICA</strong> 不能合作！下圖就是一個先利用 <strong>PCA</strong> 去掉不特別的維度，並且再利用 <strong>ICA</strong> 將特徵萃取出來。</p>
+<p><img src="https://www.researchgate.net/profile/Olga_M_Conde/publication/248706730/figure/fig9/AS:667072812044289@1536053960035/ICA-PCA-analysis-process-on-the-reflectance-images-224-Solving-ambiguity-problems-from.jpg" class="lazyload" data-srcset="https://www.researchgate.net/profile/Olga_M_Conde/publication/248706730/figure/fig9/AS:667072812044289@1536053960035/ICA-PCA-analysis-process-on-the-reflectance-images-224-Solving-ambiguity-problems-from.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
+<h2 id="ICA原理"><a href="#ICA原理" class="headerlink" title="ICA原理"></a>ICA原理</h2><p>假設我們原本的資料是 $s \in R^n$，而我們觀察到的結果是 $x \in R^n$，我們猜測中間有一個矩陣轉換 $A$，使得 $x = As$。因此想要求得 $s$，我們必須找到 $A^{-1}$，我們才能利用 $s = A^{-1}x$ 將 $s$ 換算出來。我們一般會稱 $A$ 是 <strong>mixing matrix</strong>，$W = A^{-1}$ 是 <strong>unmixing matrix</strong>。另外，我們利用 $w_j^T$ 代表 $W$ 第 $j$ 行的向量。</p>
+<p>$$<br>W = \begin{pmatrix}<br>    - w_1^T - \\<br>    - w_2^T - \\<br>    \vdots \\<br>    - w_n^T -<br>    \end{pmatrix}<br>$$</p>
+<p>另外我們再先說明一下如何計算 $s$ 的機率分佈。假設我們已經有 $p(a)$ 的機率分佈，又知道 $a = Kb$，則：</p>
+<p>$$<br>p(a) = \frac{p(b)}{\vert K \vert}<br>$$</p>
+<p>為什麼要除以 $\vert K \vert$ 的原因是我們會將原圖形的高度乘以 $K$ 倍，但是機率都是要維持 $1$，因此我們需要將全部的值再除以 $\vert K \vert$。因此我們可以求得：</p>
+<p>$$<br>p(x) = \frac{p(s)}{\vert A \vert}<br>$$</p>
+<p>我們又知道 $\vert A \vert \vert A^{-1} \vert = 1$，因此經過化簡，我們可以得到</p>
+<p>$$<br>p(x) = \vert W \vert p(s), \ where \ \vert W \vert = \vert A^{-1} \vert<br>$$</p>
+<p>但是在解此式之前，我們要先為 $p_s$ 找到合適的機率分佈。我們必須滿足 $\int_{-\infty}^{\infty}p_s = 1$。我們又知道 <strong>CDF</strong> 會等於 $F(s) = p(s \leq s_0) = \int_{-\infty}^{s_0}p_s(s)ds$，其圖形會介於 $0$ 到 $1$ 之間，類似這樣：</p>
+<br>
+<center><img src="https://i.stack.imgur.com/eK3BG.png" class="lazyload" data-srcset="https://i.stack.imgur.com/eK3BG.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="/></center>
+<br>
+
+<p>看到這個圖形我們想到 <strong>sigmoid</strong> 會適合當我們的模型，因此我們就可以令 $F(s) = g(s)$，我們又知道 $F(s)^ \prime = p(s)$，因此 $p(s) = g^{\prime}(s)$。</p>
+<p>回到我們的模型，我們利用 <strong>Log-likelihood</strong> 來解決這個問題。假設我們有 $m$ 筆資料 $\{x^{(i)}; \  i = 1, …, m \}$，因此對於每一個 $x^{(i)}$，我們可以得到：</p>
+<p>$$<br>p_x(x^{(i)}) = \prod_{j=1}^{n}p_s(w_j^Tx^{(i)}) \vert W \vert<br>$$</p>
+<p>而將所有資料合併就是：</p>
+<p>$$<br>L(W) = \prod_{i=1}^{m}\prod_{j=1}^{n}p_s(w_j^Tx^{(i)}) \vert W \vert<br>$$</p>
+<p>而我們取 $\log$ 後就變成</p>
+<p>$$<br>l(W) = \sum_{i=1}^w \big ( \sum_{j=1}^n \log g^{\prime}(w_j^Tx^{(i)})  + \log \vert W \vert \big)<br>$$</p>
+<p>對 $W$ 取微分後利用 <strong>gradient descent</strong> 就可以求得解了。這邊我們直接說明最後的更新方式是：</p>
+<p>$$<br>W = W + \alpha \big( \begin{pmatrix}1-2g(w_1^Tx^{(i)}) \\ 1-2g(w_2^Tx^{(i)}) \\ \vdots \\ 1-2g(w_n^Tx^{(i)})  \end{pmatrix} x^{(i)^T}  + (W^T)^{-1}\big)<br>$$</p>
+<h2 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h2><p>程式碼都在 <strong>Notebook</strong> 裡了，程式是用 <strong>sklearn</strong> 官網裡的示範，附上最後的結果：</p>
+<p><img src="https://i.imgur.com/R6Kbpcs.png" class="lazyload" data-srcset="https://i.imgur.com/R6Kbpcs.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg=="></p>
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
 <li><a target="_blank" rel="noopener" href="http://cs229.stanford.edu/">CS229 from Standford</a></li>
+<li><a target="_blank" rel="noopener" href="https://scikit-learn.org/stable/auto_examples/decomposition/plot_ica_blind_source_separation.html#sphx-glr-auto-examples-decomposition-plot-ica-blind-source-separation-py">Blind source separation using FastICA [scikit learn documentation]</a></li>
 </ol>
 <br/>
 <br/>
-<a href="/2020/09/15/it/it-27" float=left>Last</a> <a href="/2020/09/17/it/it-29" style="float: right;">Next</a><!-- flag of hidden posts -->
+<a href="/2020/09/16/it/it-28" float=left>Last</a> <a href="/2020/09/17/it/it-29" style="float: right;">Next</a><!-- flag of hidden posts -->
             </div>
              
             <div class="post-footer__meta">
@@ -428,8 +428,8 @@
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'http://yoursite.com/2020/09/16/it/it-28/';
-                this.page.identifier = '2020/09/16/it/it-28/';
+                this.page.url = 'http://yoursite.com/2020/09/17/it/it-29/';
+                this.page.identifier = '2020/09/17/it/it-29/';
             };
             (function(){
                 var dsq = document.createElement('script');
