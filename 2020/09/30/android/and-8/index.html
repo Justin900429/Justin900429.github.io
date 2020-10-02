@@ -48,7 +48,7 @@
 <meta property="og:image" content="https://i.imgur.com/SggSWWC.png">
 <meta property="og:image" content="https://i.imgur.com/23wuEpG.png">
 <meta property="article:published_time" content="2020-09-30T09:01:08.000Z">
-<meta property="article:modified_time" content="2020-10-02T03:17:32.530Z">
+<meta property="article:modified_time" content="2020-10-02T03:32:28.695Z">
 <meta property="article:author" content="Justin Ruan">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://i.imgur.com/BrwrpVf.png">
@@ -240,12 +240,12 @@
 <h2 id="Life-Cycle"><a href="#Life-Cycle" class="headerlink" title="Life Cycle"></a>Life Cycle</h2><p>我們之前有提過如何用 <strong>Life Cycle</strong>。因為現在的手機都支援多工執行，常常放音樂開始玩遊戲。而要執行這些程式時，手機都會耗費一些記憶體來處理這些功能。如果手機記憶體愈小，能同時做的事情就會愈少。因此對於資源的分配以及釋放就要有很好的方式來處理，因此才有了 <strong>Life Cycle</strong> 來做處理。附上更詳細的圖同時也跟 <strong>fragment</strong> 的週期連上。</p>
 <center><img src="https://miro.medium.com/max/694/1*ALMDBkuAAZ28BJ2abmvniA.png" class="lazyload" data-srcset="https://miro.medium.com/max/694/1*ALMDBkuAAZ28BJ2abmvniA.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" width=500/></center>
 
-<p>程式最一開始會執行 <strong>onCreate()**，如果有 **fragment</strong>，就會為<strong>fragment</strong> 執行創建 <strong>onAttach()</strong>, <strong>onCreate()</strong>, <strong>onCreateView()**。，</strong>onActivtyCreated()<strong>。接著來到 **onStart()**，此時程式才是正式開啟。在使用過程中都會處於 **onResume()</strong> 的階段。</p>
-<p>如果現在的 <strong>Activity</strong> 被切換掉後，會進入到 <strong>onPause()**，並接著到 **onStop()**，此時畫面已經切換完成。如果又會到此 **Activity</strong>，會呼叫 <strong>onRestart</strong>，並執行 <strong>onStart</strong>，重新開始一個循環。</p>
-<p>如果此 <strong>Activity</strong> 被銷毀，會經過 <strong>onDestroy()**，此時如果有 **Fragement</strong>，會分別呼叫 <strong>onDestroyView()**，</strong>onDestroy()<strong>，</strong>onDetach()**。</p>
+<p>程式最一開始會執行 <strong>onCreate</strong>，如果有 <strong>fragment</strong>，就會為<strong>fragment</strong> 執行創建 <strong>onAttach</strong>, <strong>onCreate</strong>, <strong>onCreateView</strong>。，<strong>onActivtyCreated</strong>。接著來到 <strong>onStart</strong>，此時程式才是正式開啟。在使用過程中都會處於 <strong>onResume</strong> 的階段。</p>
+<p>如果現在的 <strong>Activity</strong> 被切換掉後，會進入到 <strong>onPause</strong>，並接著到 <strong>onStop</strong>，此時畫面已經切換完成。如果又會到此 <strong>Activity</strong>，會呼叫 <strong>onRestart</strong>，並執行 <strong>onStart</strong>，重新開始一個循環。</p>
+<p>如果此 <strong>Activity</strong> 被銷毀，會經過 <strong>onDestroy</strong>，此時如果有 <strong>Fragement</strong>，會分別呼叫 <strong>onDestroyView</strong>，<strong>onDestroy</strong>，<strong>onDetach</strong>。</p>
 <h2 id="觀察-Life-Cycle"><a href="#觀察-Life-Cycle" class="headerlink" title="觀察 Life Cycle"></a>觀察 Life Cycle</h2><p>上述說明生命週期並不需要特別記住，但是要有些概念。我們這邊要來覆寫上述的所有函式，並在利用 <strong>Log</strong> 的方式印出。</p>
 <h3 id="Log"><a href="#Log" class="headerlink" title="Log"></a>Log</h3><p><strong>Log</strong> 是可以用來記錄程式執行狀況的方式，類似將東西印出來，但是不會印到程式上面，而是在 <strong>Android studio</strong> 的底下 <strong>Verbose</strong> 裡。<strong>Log</strong> 可以提示的方式有很多種，例如說我們可以利用 <strong>Log.e()</strong> 來在 <strong>error message</strong> 裡看到我們的訊息。</p>
-<p>更多的功能可以參考 <a target="_blank" rel="noopener" href="https://developer.android.com/studio/debug/am-logcat"><strong>Android documentation</strong></a>。這邊我就說明 **Log.i()**，其餘的使用方式相同，但是顯示區域不一樣。</p>
+<p>更多的功能可以參考 <a target="_blank" rel="noopener" href="https://developer.android.com/studio/debug/am-logcat"><strong>Android documentation</strong></a>。這邊我就說明 <strong>Log.i()</strong> ，其餘的使用方式相同，但是顯示區域不一樣。</p>
 <p><strong>Log</strong> 有兩個參數，第一個是 <strong>tag</strong>，第二個就是想要輸入的訊息，可以使用變數。使用 <strong>tag</strong> 的原因可以加快查詢 <strong>log</strong> 的速度。</p>
 <pre><code class="hljs kotlin">Log.i(<span class="hljs-string">&quot;MainActivity&quot;</span>, <span class="hljs-string">&quot;hello&quot;</span>)</code></pre>
 
