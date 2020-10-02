@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    <link rel="shortcut icon" type='image/x-icon' href="/mylogo.ico">
+
+
+    <!-- meta -->
+
+
+<title>Android Toast and Alert Dialog | Justin</title><meta name="robots" content="noindex">
+
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="Android Toast and Alert DialogSee moreBack to the series page   前言今天我們說明如何自訂 Toast 跟 Alert Dialog。看完後會了解到：  如何使用 Toast。 自訂 Toast。 Alert Dialog 的用法。 自訂 Alert Dialog。  Toast重溫之前我們有提過 Toast 的使用方法會在底下提示，用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Toast and Alert Dialog">
+<meta property="og:url" content="http://yoursite.com/2020/10/02/android/and-9/index.html">
+<meta property="og:site_name" content="Justin">
+<meta property="og:description" content="Android Toast and Alert DialogSee moreBack to the series page   前言今天我們說明如何自訂 Toast 跟 Alert Dialog。看完後會了解到：  如何使用 Toast。 自訂 Toast。 Alert Dialog 的用法。 自訂 Alert Dialog。  Toast重溫之前我們有提過 Toast 的使用方法會在底下提示，用">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/8fvSJDy.jpg">
+<meta property="og:image" content="https://i.imgur.com/udwMHoi.jpg">
+<meta property="og:image" content="https://i.imgur.com/Ix5YKbL.png">
+<meta property="og:image" content="https://i.imgur.com/O0z2Ci1.gif">
+<meta property="article:published_time" content="2020-10-02T03:16:52.000Z">
+<meta property="article:modified_time" content="2020-10-02T03:18:51.650Z">
+<meta property="article:author" content="Justin Ruan">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://i.imgur.com/8fvSJDy.jpg">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-theme-cards@1.0/dist/css/style/dark.min.css">
+
+    
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-cards@1.0/dist/js/darkmode.min.js"></script>
+
+
+
+    
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/atom-one-light.min.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')===-1)this.media='all'">
+        
+            <link rel="stylesheet" id="hl-dark-theme" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/railscasts.min.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')!==-1)this.media='all'">
+        
+    
+
+    
+
+    
+    <link rel="stylesheet" href="/css/style/note.css" media="none" onload="this.media='all'">
+
+
+     
+
+    <!-- custom head -->
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+    <body>
+        <div id="app">
+            <header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">
+                Justin's blog
+            </span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/about/" class="navbar-menu button">
+                        Home
+                    </a>
+                
+                    <a href="/" class="navbar-menu button">
+                        Articles
+                    </a>
+                
+                    <a href="/tags/" class="navbar-menu button">
+                        Tags
+                    </a>
+                
+                    <a href="/archives/" class="navbar-menu button">
+                        Archives
+                    </a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+    <a href="javaScript:void(0);" id="btn-toggle-dark">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+    </a>
+
+
+         
+    <a href="javaScript:void(0);" id="b2t" aria-label="Back to Top" title="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='32' height='32' fill="currentColor" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M13.889,11.611c-0.17,0.17-0.443,0.17-0.612,0l-3.189-3.187l-3.363,3.36c-0.171,0.171-0.441,0.171-0.612,0c-0.172-0.169-0.172-0.443,0-0.611l3.667-3.669c0.17-0.17,0.445-0.172,0.614,0l3.496,3.493C14.058,11.167,14.061,11.443,13.889,11.611 M18.25,10c0,4.558-3.693,8.25-8.25,8.25c-4.557,0-8.25-3.692-8.25-8.25c0-4.557,3.693-8.25,8.25-8.25C14.557,1.75,18.25,5.443,18.25,10 M17.383,10c0-4.07-3.312-7.382-7.383-7.382S2.618,5.93,2.618,10S5.93,17.381,10,17.381S17.383,14.07,17.383,10"></path>
+        </svg>
+    </a>
+
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path>
+                </svg>
+            </a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                <a class="dropback-icon button" id="btn-dropback">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
+                        <path fill="currentColor" d="M11.469,10l7.08-7.08c0.406-0.406,0.406-1.064,0-1.469c-0.406-0.406-1.063-0.406-1.469,0L10,8.53l-7.081-7.08c-0.406-0.406-1.064-0.406-1.469,0c-0.406,0.406-0.406,1.063,0,1.469L8.531,10L1.45,17.081c-0.406,0.406-0.406,1.064,0,1.469c0.203,0.203,0.469,0.304,0.735,0.304c0.266,0,0.531-0.101,0.735-0.304L10,11.469l7.08,7.081c0.203,0.203,0.469,0.304,0.735,0.304c0.267,0,0.532-0.101,0.735-0.304c0.406-0.406,0.406-1.064,0-1.469L11.469,10z"></path>
+                    </svg>
+                </a>
+                
+                    <a href="/about/" class="dropdown-menu button">
+                        Home
+                    </a>
+                
+                    <a href="/" class="dropdown-menu button">
+                        Articles
+                    </a>
+                
+                    <a href="/tags/" class="dropdown-menu button">
+                        Tags
+                    </a>
+                
+                    <a href="/archives/" class="dropdown-menu button">
+                        Archives
+                    </a>
+                
+            </div>
+            <script>
+                document.getElementById('btn-dropdown').addEventListener('click', () => {
+                    const dd = document.getElementById('dropdown-menus');
+                    requestAnimationFrame(() => {
+                        dd.style.display = 'flex';
+                        requestAnimationFrame(() => {
+                            dd.style.transform = 'translateY(0)';
+                            dd.style.opacity = '1';
+                        });
+                    });
+                });
+                document.getElementById('btn-dropback').addEventListener('click', () => {
+                    const dd = document.getElementById('dropdown-menus');
+                    dd.style.transform = 'translateY(2.25rem)';                    
+                    dd.style.opacity = '0';
+                    setTimeout(() => {dd.style.display = 'none';}, 350);
+                });
+            </script>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+<div class="post-title">
+    <h1 class="post-title__text">
+        Android Toast and Alert Dialog
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2020/10/" class="post-meta__date button">
+    2020-10-02
+</a>
+        
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <div class="post__with-side">
+        <aside class="post-side">
+            <div class="post-side__toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Toast"><span class="toc-number">2.</span> <span class="toc-text">Toast</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E6%BA%AB"><span class="toc-number">2.1.</span> <span class="toc-text">重溫</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E8%A8%82-Toast"><span class="toc-number">2.2.</span> <span class="toc-text">自訂 Toast</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Alert-Dialog"><span class="toc-number">3.</span> <span class="toc-text">Alert Dialog</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Alert-builder"><span class="toc-number">3.1.</span> <span class="toc-text">Alert builder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%89%E9%88%95%E9%A1%9E%E5%9E%8B"><span class="toc-number">3.2.</span> <span class="toc-text">按鈕類型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Anonymous-builder"><span class="toc-number">3.3.</span> <span class="toc-text">Anonymous builder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Items"><span class="toc-number">3.4.</span> <span class="toc-text">Items</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B1%95%E7%A4%BA%E5%8D%80"><span class="toc-number">4.</span> <span class="toc-text">展示區</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E8%A8%82-Toast-1"><span class="toc-number">4.1.</span> <span class="toc-text">自訂 Toast</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B0%A1%E6%98%93%E7%89%88-Alert-Dialog"><span class="toc-number">4.2.</span> <span class="toc-text">簡易版 Alert Dialog</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#setItems-Alert-Dialog"><span class="toc-number">4.3.</span> <span class="toc-text">setItems Alert Dialog</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#setSingleChoiceItem-Alert-Dialog"><span class="toc-number">4.4.</span> <span class="toc-text">setSingleChoiceItem Alert Dialog</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E6%95%B4-MainActivity-%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">4.5.</span> <span class="toc-text">完整 MainActivity 程式碼</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-number">5.</span> <span class="toc-text">References</span></a></li></ol>
+            </div>
+        </aside>
+        <article class="post content-card">
+            <div class="post__header"></div>
+            <div class="post__content">
+                <h1 id="Android-Toast-and-Alert-Dialog"><a href="#Android-Toast-and-Alert-Dialog" class="headerlink" title="Android Toast and Alert Dialog"></a>Android Toast and Alert Dialog</h1><blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/2020/09/21/android/and-series/">Back to the series page</a></p>
+</div></blockquote>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天我們說明如何自訂 <strong>Toast</strong> 跟 <strong>Alert Dialog</strong>。看完後會了解到：</p>
+<ol>
+<li>如何使用 <strong>Toast</strong>。</li>
+<li>自訂 <strong>Toast</strong>。</li>
+<li><strong>Alert Dialog</strong> 的用法。</li>
+<li>自訂 <strong>Alert Dialog</strong>。</li>
+</ol>
+<h2 id="Toast"><a href="#Toast" class="headerlink" title="Toast"></a>Toast</h2><h3 id="重溫"><a href="#重溫" class="headerlink" title="重溫"></a>重溫</h3><p>之前我們有提過 <strong>Toast</strong> 的使用方法會在底下提示，用法為：</p>
+<pre><code class="hljs kotlin">Toast.makeText(<span class="hljs-keyword">this</span>, &lt;message&gt;, &lt;time&gt;).show()</code></pre>
+
+<h3 id="自訂-Toast"><a href="#自訂-Toast" class="headerlink" title="自訂 Toast"></a>自訂 Toast</h3><p>其實我們也可以將我們的 <strong>Toast</strong> 視為一個物件，並改變他的 <strong>properties</strong>.</p>
+<pre><code class="hljs kotlin"><span class="hljs-comment">// Make a Toast() object</span>
+<span class="hljs-keyword">val</span> toast = Toast(<span class="hljs-keyword">this</span>)
+
+<span class="hljs-comment">// Properties of toast</span>
+toast.setGravity(Gravity.TOP, <span class="hljs-number">10</span>, <span class="hljs-number">10</span>) <span class="hljs-comment">// Set position</span>
+toast.duration = Toast.LENGHT_SHORT <span class="hljs-comment">// time for toast to show</span>
+toast.view = layoutInflater.inflate(R.layout.toast_layout, <span class="hljs-literal">null</span>) <span class="hljs-comment">// Custom layout</span>
+
+<span class="hljs-comment">// Show the toast</span>
+toast.show()</code></pre>
+
+<p>我們來看一下我們在這邊設定的 <strong>properties</strong>：</p>
+<ul>
+<li><p><code>toast.setGravity</code><br>  <strong>第一個</strong>參數設定我們的位置 Gravity.TOP （上）、Gravity.RIGHT（右）<br>、Gravity.LEFT （左）、Gravity.BOTTOM （下）、Gravity.CENTER （中間）。<br>  <strong>第二跟第三</strong>設定我們 <strong>x</strong> 跟 <strong>y</strong> 的偏移值。</p>
+</li>
+<li><p><code>toast.durate</code><br>  設定持續時間。有 <code>Toast.LENGTH_LONG</code> 跟 <code>Toast.LENGTH_SHORT</code>，分別是 2 秒跟 3.5 秒。</p>
+</li>
+<li><p><code>toast.view</code><br>  <strong>toast.view</strong> 可以設定使用者要求的 <strong>layout</strong>。使用方式跟我們之前說過的 <strong>inflate</strong> 的方式。後面 <strong>layout</strong> 的名字則是使用 **R.layout.<layout_name>**。</p>
+</li>
+</ul>
+<p>此外，在 <code>toast.setGravity</code> 可以透過 <strong>or</strong> 來組合顯示。例如說要在上方中央的話就是：</p>
+<pre><code class="hljs kotlin">toast.setGravity(Gravity.TOP or Gravity.CENTER, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>)</code></pre>
+
+<h2 id="Alert-Dialog"><a href="#Alert-Dialog" class="headerlink" title="Alert Dialog"></a>Alert Dialog</h2><p>有時候我們在使用 <strong>app</strong> 的時，會有跳出視窗來體醒我們訊息，或是要求權限等等，這就是 <strong>alert dialog</strong> 的作用。例如底下的提示訊息。</p>
+<br>
+<center><img src="https://i.imgur.com/8fvSJDy.jpg" class="lazyload" data-srcset="https://i.imgur.com/8fvSJDy.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" width=350/></center>
+<br>
+
+<h3 id="Alert-builder"><a href="#Alert-builder" class="headerlink" title="Alert builder"></a>Alert builder</h3><p>要創立我們的 <strong>alert dialog</strong> 需要使用到 <strong>AlertDialog builder</strong>。同時我們也需要傳入要在哪個 <strong>Acitivity</strong> 出現。</p>
+<pre><code class="hljs kotlin"><span class="hljs-keyword">val</span> dialog = AlertDialog.builder(<span class="hljs-keyword">this</span>)</code></pre>
+
+<p>標題需要用到 <code>setTitle()</code> 來設定。內容則是用 <code>setMessage()</code>。</p>
+<pre><code class="hljs kotlin">dialog.setTitle(<span class="hljs-string">&quot;Pratice alert dialog&quot;</span>)
+dialog.setMessage(<span class="hljs-string">&quot;Hello World!&quot;</span>)</code></pre>
+
+
+<h3 id="按鈕類型"><a href="#按鈕類型" class="headerlink" title="按鈕類型"></a>按鈕類型</h3><p>一般我們在做 <strong>Alert Dialog</strong> 時會提供三種按鈕給使用者，像上圖有 <strong>cancel</strong>、<strong>no</strong>、<strong>yes</strong> 等等。一般這三種對應到 <code>setNeuralButton()</code>, <code>setPositiveButton()</code>, <code>setNegativeButton()</code>。提供這三種按鈕可以為使用者的選擇而作出相對應的反應。</p>
+<br>
+<center><img src="https://i.imgur.com/udwMHoi.jpg" class="lazyload" data-srcset="https://i.imgur.com/udwMHoi.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" width=560/></center>
+<br>
+
+
+<pre><code class="hljs kotlin"><span class="hljs-comment">// Neutral button</span>
+dialog.setNeutralButton(<span class="hljs-string">&quot;Cancel&quot;</span>) &#123;dialog, which -&gt;
+    Toast.makeText(<span class="hljs-keyword">this</span>, <span class="hljs-string">&quot;Press &#x27;cancel&#x27; button&quot;</span>, Toast.LENGTH_SHORT).show()
+&#125;
+
+<span class="hljs-comment">// Positive button</span>
+dialog.setPositiveButton(<span class="hljs-string">&quot;Yes&quot;</span>) &#123;dialog, which -&gt;
+    Toast.makeText(<span class="hljs-keyword">this</span>, <span class="hljs-string">&quot;Press &#x27;yes&#x27; button&quot;</span>, Toast.LENGTH_SHORT).show()
+&#125;
+
+<span class="hljs-comment">// Negative button</span>
+dialog.setNegativeButton(<span class="hljs-string">&quot;No&quot;</span>) &#123;dialog, which -&gt;
+    Toast.makeText(<span class="hljs-keyword">this</span>, <span class="hljs-string">&quot;Press &#x27;no&#x27; button&quot;</span>, Toast.LENGTH_SHORT).show()
+&#125;</code></pre>
+
+<p>一般來說我們按鈕有兩個參數我這邊把它命名成 <strong>dialog</strong> 跟 <strong>which</strong>。雖然這邊用不到，但是我們還是要設定，讓 <strong>lambda</strong> 可以接受參數。箭頭後面就接要的功能。</p>
+<p>最後要顯示則是要利用 <strong>show</strong>。</p>
+<pre><code class="hljs kotlin">dialog.show()</code></pre>
+
+<h3 id="Anonymous-builder"><a href="#Anonymous-builder" class="headerlink" title="Anonymous builder"></a>Anonymous builder</h3><p>上述的方式我們都需要建立物件在啟用功能，我們也可以簡化他。首先我們不需要指派物件，我們可以直接使用 <strong>AlertDialog builder</strong>，並對所有的 <strong>properties</strong> 都用 <em>.</em> 來呼叫。</p>
+<pre><code class="hljs kotlin">AlertDialog.Builder(<span class="hljs-keyword">this</span>)
+    .setTitle(<span class="hljs-string">&quot;Practice alert dialog&quot;</span>)
+    .setMessage(<span class="hljs-string">&quot;Hello world!&quot;</span>)
+    .setNeutralButton(<span class="hljs-string">&quot;Cancel&quot;</span>) &#123;dialog, which -&gt;
+        Toast.makeText(<span class="hljs-keyword">this</span>, <span class="hljs-string">&quot;Press &#x27;cancel&#x27; button&quot;</span>, Toast.LENGTH_SHORT).show()
+    &#125;
+    .setNegativeButton(<span class="hljs-string">&quot;No&quot;</span>) &#123;dialog, which -&gt;
+        Toast.makeText(<span class="hljs-keyword">this</span>, <span class="hljs-string">&quot;Press &#x27;no&#x27; button&quot;</span>, Toast.LENGTH_SHORT).show()
+    &#125;
+    .setPositiveButton(<span class="hljs-string">&quot;Yes&quot;</span>) &#123;dialog, which -&gt;
+        Toast.makeText(<span class="hljs-keyword">this</span>, <span class="hljs-string">&quot;Press &#x27;yes&#x27; button&quot;</span>, Toast.LENGTH_SHORT).show()
+    &#125;
+    .show()</code></pre>
+
+<h3 id="Items"><a href="#Items" class="headerlink" title="Items"></a>Items</h3><p>除了提示訊息，我們也可以讓使用著選擇選項。大致分為兩方式，<code>setItems()</code> , <code>setSingleItems()</code>。<br><br></p>
+<center><img src="https://i.imgur.com/Ix5YKbL.png" class="lazyload" data-srcset="https://i.imgur.com/Ix5YKbL.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" width=500/></center>
+<br>
+
+<p>前者方式會是屬於按下後就是最後選擇，後者則是可以讓使用者按 <strong>DONE</strong> 之後退出。</p>
+<ul>
+<li><strong>setItems()</strong><br>  在參數方面我們需要傳入一個 <strong>string array</strong>。此物件為 <strong>java</strong> 中的 <strong>array</strong>，因此我們 <strong>不能使用 listOf</strong>，要使用 **arrayOf&lt;string&gt;**。  <br><br>  <pre><code class="hljs kotlin">    <span class="hljs-keyword">val</span> items = arrayOf&lt;String&gt;(<span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-string">&quot;2&quot;</span>, <span class="hljs-string">&quot;3&quot;</span>, <span class="hljs-string">&quot;4&quot;</span>, <span class="hljs-string">&quot;5&quot;</span>)
+    
+    dialog.setItems(items) &#123;dialogInterface, i -&gt;
+        Toast.makeText(
+            <span class="hljs-keyword">this</span>, 
+            <span class="hljs-string">&quot;You choose <span class="hljs-subst">$&#123;items[i]&#125;</span>!&quot;</span>,
+            Toast.LENGTH_SHORT).show()
+    &#125;
+    ```   
+* **setSingleChoiceItems()**
+    在參數方面，我們除了要傳入 **array**，我們也需要給定預設值，例如 <span class="hljs-number">0</span> 就是預設第一個物件被選擇。令外我們也可以設定一個變數 `position` 來記錄使用者選擇哪個物件。因此當使用者按下 **DONE** 之後，我們可以設定某個 **TextView** 為使用者選的結果。 &lt;br&gt;&lt;br&gt;
+    ```kotlin
+    <span class="hljs-keyword">val</span> items = arrayOf&lt;String&gt;(<span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-string">&quot;2&quot;</span>, <span class="hljs-string">&quot;3&quot;</span>, <span class="hljs-string">&quot;4&quot;</span>, <span class="hljs-string">&quot;5&quot;</span>)
+    <span class="hljs-keyword">val</span> position = <span class="hljs-number">0</span>;
+    
+    dialog.setSingleChoiceItems(items, <span class="hljs-number">0</span>) &#123;dialogInterface, i -&gt;
+        position = i;
+    &#125;
+    dialog.setPositiveButton(<span class="hljs-string">&quot;Done&quot;</span>) &#123;dialog, which -&gt;
+        Toast.makeText(
+            <span class="hljs-keyword">this</span>, 
+            <span class="hljs-string">&quot;You choose <span class="hljs-subst">$&#123;position&#125;</span>!&quot;</span>, 
+            Toast.LENGTH_SHORT).show()
+        txt_num.text = position.toString()
+    &#125;</code></pre>
+
+</li>
+</ul>
+<p>當然上述的方式也可以用 <strong>Anoymous</strong> 的方式來建立。</p>
+<h2 id="展示區"><a href="#展示區" class="headerlink" title="展示區"></a>展示區</h2><p>這次我們要做的就是融合上述所介紹的元件，我們會建立四個 <strong>Button</strong> 來展示不同功能。</p>
+<br>
+<center><img src="https://i.imgur.com/O0z2Ci1.gif" class="lazyload" data-srcset="https://i.imgur.com/O0z2Ci1.gif" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" width=250/></center>
+<br>
+
+<p>我們先來設計 <strong>layout</strong>：</p>
+<pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">androidx.constraintlayout.widget.ConstraintLayout</span> </span>
+<span class="hljs-tag">    <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">xmlns:app</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res-auto&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">xmlns:tools</span>=<span class="hljs-string">&quot;http://schemas.android.com/tools&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;match_parent&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;match_parent&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">tools:context</span>=<span class="hljs-string">&quot;.MainActivity&quot;</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">Button</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:id</span>=<span class="hljs-string">&quot;@+id/btn_custoa&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:text</span>=<span class="hljs-string">&quot;Custom toast&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintBottom_toTopOf</span>=<span class="hljs-string">&quot;@+id/btn_orial&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintHorizontal_bias</span>=<span class="hljs-string">&quot;0.5&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintLeft_toLeftOf</span>=<span class="hljs-string">&quot;parent&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintRight_toRightOf</span>=<span class="hljs-string">&quot;parent&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintTop_toTopOf</span>=<span class="hljs-string">&quot;parent&quot;</span> /&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">Button</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:id</span>=<span class="hljs-string">&quot;@+id/btn_orial&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:text</span>=<span class="hljs-string">&quot;common alert&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintBottom_toTopOf</span>=<span class="hljs-string">&quot;@+id/btn_choal_1&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintEnd_toEndOf</span>=<span class="hljs-string">&quot;parent&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintHorizontal_bias</span>=<span class="hljs-string">&quot;0.5&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintStart_toStartOf</span>=<span class="hljs-string">&quot;parent&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintTop_toBottomOf</span>=<span class="hljs-string">&quot;@+id/btn_custoa&quot;</span> /&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">Button</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:id</span>=<span class="hljs-string">&quot;@+id/btn_choal_1&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:text</span>=<span class="hljs-string">&quot;Choice Alert 1&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintBottom_toTopOf</span>=<span class="hljs-string">&quot;@+id/btn_choal_2&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintEnd_toEndOf</span>=<span class="hljs-string">&quot;parent&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintHorizontal_bias</span>=<span class="hljs-string">&quot;0.5&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintStart_toStartOf</span>=<span class="hljs-string">&quot;parent&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintTop_toBottomOf</span>=<span class="hljs-string">&quot;@+id/btn_orial&quot;</span> /&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">Button</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:id</span>=<span class="hljs-string">&quot;@+id/btn_choal_2&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:text</span>=<span class="hljs-string">&quot;Choice alert 2&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintBottom_toBottomOf</span>=<span class="hljs-string">&quot;parent&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintEnd_toStartOf</span>=<span class="hljs-string">&quot;@+id/txt_num&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintHorizontal_bias</span>=<span class="hljs-string">&quot;0.5&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintStart_toStartOf</span>=<span class="hljs-string">&quot;parent&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintTop_toBottomOf</span>=<span class="hljs-string">&quot;@+id/btn_choal_1&quot;</span> /&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextView</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:id</span>=<span class="hljs-string">&quot;@+id/txt_num&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:ems</span>=<span class="hljs-string">&quot;5&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:textSize</span>=<span class="hljs-string">&quot;20sp&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:text</span>=<span class="hljs-string">&quot;No number&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:gravity</span>=<span class="hljs-string">&quot;center&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintBottom_toBottomOf</span>=<span class="hljs-string">&quot;parent&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintEnd_toEndOf</span>=<span class="hljs-string">&quot;parent&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintHorizontal_bias</span>=<span class="hljs-string">&quot;0.5&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintStart_toEndOf</span>=<span class="hljs-string">&quot;@+id/btn_choal_2&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintTop_toBottomOf</span>=<span class="hljs-string">&quot;@+id/btn_choal_1&quot;</span> /&gt;</span>
+
+<span class="hljs-tag">&lt;/<span class="hljs-name">androidx.constraintlayout.widget.ConstraintLayout</span>&gt;</span></code></pre>
+
+<p>我們需要再創立另一個 <strong>layout</strong> 給我們自訂的 <strong>Toast</strong>。其排版為下。</p>
+<pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">LinearLayout</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">android:orientation</span>=<span class="hljs-string">&quot;horizontal&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span>&gt;</span>
+
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextView</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:text</span>=<span class="hljs-string">&quot;⭐️ Hello&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:layout_gravity</span>=<span class="hljs-string">&quot;center&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:textSize</span>=<span class="hljs-string">&quot;20sp&quot;</span>/&gt;</span>
+        
+<span class="hljs-tag">&lt;/<span class="hljs-name">LinearLayout</span>&gt;</span></code></pre>
+
+<p>我們先將我們的 <strong>MainActivity</strong> 裡的 <code>onCreate</code> 程式碼設計貼上。</p>
+<pre><code class="hljs kotlin"><span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onCreate</span><span class="hljs-params">(savedInstanceState: <span class="hljs-type">Bundle</span>?)</span></span> &#123;
+    <span class="hljs-keyword">super</span>.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_main)
+
+    <span class="hljs-comment">// Button to show custom toast</span>
+    btn_custoa.setOnClickListener &#123;
+        showToast()
+    &#125;
+
+    <span class="hljs-comment">// Button to show Original alert dialog</span>
+    btn_orial.setOnClickListener &#123;
+        showOriginalAlert()
+    &#125;
+
+    <span class="hljs-comment">// Button to show items alert dialog</span>
+    btn_choal_1.setOnClickListener &#123;
+        showChoiceAlert1()
+    &#125;
+
+    <span class="hljs-comment">// Button to show items alert dialog</span>
+    btn_choal_2.setOnClickListener &#123;
+        showChoiceAlert2()
+    &#125;
+&#125;</code></pre>
+
+<p>接著在同一個 <strong>Class</strong> 內撰寫各自的函式。</p>
+<h3 id="自訂-Toast-1"><a href="#自訂-Toast-1" class="headerlink" title="自訂 Toast"></a>自訂 <strong>Toast</strong></h3><pre><code class="hljs kotlin"><span class="hljs-comment">/*</span>
+<span class="hljs-comment">Show custom toast message</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">showToast</span><span class="hljs-params">()</span></span> &#123;
+    <span class="hljs-comment">// Make Toast object</span>
+    <span class="hljs-keyword">val</span> toast = Toast(<span class="hljs-keyword">this</span>)
+
+    <span class="hljs-comment">// Set position</span>
+    toast.setGravity(Gravity.CENTER or Gravity.TOP, <span class="hljs-number">0</span>, <span class="hljs-number">200</span>)
+    <span class="hljs-comment">// Duration time</span>
+    toast.duration = Toast.LENGTH_SHORT
+    <span class="hljs-comment">// Custom view</span>
+    toast.view = layoutInflater.inflate(R.layout.toast_layout, <span class="hljs-literal">null</span>)
+
+    <span class="hljs-comment">// Show custom toast</span>
+    toast.show()
+&#125;</code></pre>
+
+<h3 id="簡易版-Alert-Dialog"><a href="#簡易版-Alert-Dialog" class="headerlink" title="簡易版 Alert Dialog"></a>簡易版 Alert Dialog</h3><pre><code class="hljs kotlin"><span class="hljs-comment">/*</span>
+<span class="hljs-comment">Alert Dialog with no choice items</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">showOriginalAlert</span><span class="hljs-params">()</span></span> &#123;
+    AlertDialog.Builder(<span class="hljs-keyword">this</span>)
+        .setTitle(<span class="hljs-string">&quot;Practice alert dialog&quot;</span>)
+        .setMessage(<span class="hljs-string">&quot;Hello world!&quot;</span>)
+        .setNeutralButton(<span class="hljs-string">&quot;Cancel&quot;</span>) &#123;dialog, which -&gt;
+            Toast.makeText(<span class="hljs-keyword">this</span>, <span class="hljs-string">&quot;Press &#x27;cancel&#x27; button&quot;</span>, Toast.LENGTH_SHORT).show()
+        &#125;
+        .setNegativeButton(<span class="hljs-string">&quot;No&quot;</span>) &#123;dialog, which -&gt;
+            Toast.makeText(<span class="hljs-keyword">this</span>, <span class="hljs-string">&quot;Press &#x27;no&#x27; button&quot;</span>, Toast.LENGTH_SHORT).show()
+        &#125;
+        .setPositiveButton(<span class="hljs-string">&quot;Yes&quot;</span>) &#123;dialog, which -&gt;
+            Toast.makeText(<span class="hljs-keyword">this</span>, <span class="hljs-string">&quot;Press &#x27;yes&#x27; button&quot;</span>, Toast.LENGTH_SHORT).show()
+        &#125;
+        .show()
+&#125;</code></pre>
+
+<h3 id="setItems-Alert-Dialog"><a href="#setItems-Alert-Dialog" class="headerlink" title="setItems Alert Dialog"></a>setItems Alert Dialog</h3><pre><code class="hljs kotlin"><span class="hljs-comment">/*</span>
+<span class="hljs-comment">Alert Dialog with multiple itmes</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">showChoiceAlert1</span><span class="hljs-params">()</span></span> &#123;
+    <span class="hljs-comment">// Array for option</span>
+    <span class="hljs-keyword">val</span> items = arrayOf&lt;String&gt;(<span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-string">&quot;2&quot;</span>, <span class="hljs-string">&quot;3&quot;</span>, <span class="hljs-string">&quot;4&quot;</span>, <span class="hljs-string">&quot;5&quot;</span>)
+
+    <span class="hljs-comment">// Alert Dialog</span>
+    AlertDialog.Builder(<span class="hljs-keyword">this</span>)
+        .setTitle(<span class="hljs-string">&quot;Choose a number!&quot;</span>)
+        .setItems(items) &#123;dialogInterface, i -&gt;
+            Toast.makeText(<span class="hljs-keyword">this</span>, <span class="hljs-string">&quot;You choose <span class="hljs-subst">$&#123;items[i]&#125;</span>!&quot;</span>, Toast.LENGTH_SHORT).show()
+        &#125;
+        .show()
+&#125;</code></pre>
+
+<h3 id="setSingleChoiceItem-Alert-Dialog"><a href="#setSingleChoiceItem-Alert-Dialog" class="headerlink" title="setSingleChoiceItem Alert Dialog"></a>setSingleChoiceItem Alert Dialog</h3><pre><code class="hljs kotlin"><span class="hljs-comment">/*</span>
+<span class="hljs-comment">Alert Dialog with single choice item</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">showChoiceAlert2</span><span class="hljs-params">()</span></span> &#123;
+    <span class="hljs-comment">// Array for option</span>
+    <span class="hljs-keyword">val</span> items = arrayOf&lt;String&gt;(<span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-string">&quot;2&quot;</span>, <span class="hljs-string">&quot;3&quot;</span>, <span class="hljs-string">&quot;4&quot;</span>, <span class="hljs-string">&quot;5&quot;</span>)
+    <span class="hljs-comment">// Record the position</span>
+    <span class="hljs-keyword">var</span> position = <span class="hljs-number">0</span>;
+
+    <span class="hljs-comment">// Alert Dialog</span>
+    AlertDialog.Builder(<span class="hljs-keyword">this</span>)
+        .setTitle(<span class="hljs-string">&quot;Choose a number!&quot;</span>)
+        .setSingleChoiceItems(items, <span class="hljs-number">0</span>) &#123;dialogInterface, i -&gt;
+            position = i;
+        &#125;
+        .setPositiveButton(<span class="hljs-string">&quot;Done&quot;</span>) &#123;dialog, which -&gt;
+            Toast.makeText(<span class="hljs-keyword">this</span>, <span class="hljs-string">&quot;You choose <span class="hljs-subst">$&#123;position&#125;</span>!&quot;</span>, Toast.LENGTH_SHORT).show()
+            txt_num.text = position.toString()
+        &#125;
+        .show()
+&#125;</code></pre>
+
+<h3 id="完整-MainActivity-程式碼"><a href="#完整-MainActivity-程式碼" class="headerlink" title="完整 MainActivity 程式碼"></a>完整 MainActivity 程式碼</h3><pre><code class="hljs kotlin"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MainActivity</span> : <span class="hljs-type">AppCompatActivity</span></span>() &#123;
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onCreate</span><span class="hljs-params">(savedInstanceState: <span class="hljs-type">Bundle</span>?)</span></span> &#123;
+        <span class="hljs-keyword">super</span>.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        <span class="hljs-comment">// Button to show custom toast</span>
+        btn_custoa.setOnClickListener &#123;
+            showToast()
+        &#125;
+
+        <span class="hljs-comment">// Button to show Original alert dialog</span>
+        btn_orial.setOnClickListener &#123;
+            showOriginalAlert()
+        &#125;
+
+        <span class="hljs-comment">// Button to show items alert dialog</span>
+        btn_choal_1.setOnClickListener &#123;
+            showChoiceAlert1()
+        &#125;
+
+        <span class="hljs-comment">// Button to show items alert dialog</span>
+        btn_choal_2.setOnClickListener &#123;
+            showChoiceAlert2()
+        &#125;
+    &#125;
+
+    <span class="hljs-comment">/*</span>
+<span class="hljs-comment">    Alert Dialog with multiple itmes</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">showChoiceAlert1</span><span class="hljs-params">()</span></span> &#123;
+        <span class="hljs-comment">// Array for option</span>
+        <span class="hljs-keyword">val</span> items = arrayOf&lt;String&gt;(<span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-string">&quot;2&quot;</span>, <span class="hljs-string">&quot;3&quot;</span>, <span class="hljs-string">&quot;4&quot;</span>, <span class="hljs-string">&quot;5&quot;</span>)
+
+        <span class="hljs-comment">// Alert Dialog</span>
+        AlertDialog.Builder(<span class="hljs-keyword">this</span>)
+            .setTitle(<span class="hljs-string">&quot;Choose a number!&quot;</span>)
+            .setItems(items) &#123;dialogInterface, i -&gt;
+                Toast.makeText(<span class="hljs-keyword">this</span>, <span class="hljs-string">&quot;You choose <span class="hljs-subst">$&#123;items[i]&#125;</span>!&quot;</span>, Toast.LENGTH_SHORT).show()
+            &#125;
+            .show()
+    &#125;
+
+    <span class="hljs-comment">/*</span>
+<span class="hljs-comment">    Alert Dialog with single choice item</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">showChoiceAlert2</span><span class="hljs-params">()</span></span> &#123;
+        <span class="hljs-comment">// Array for option</span>
+        <span class="hljs-keyword">val</span> items = arrayOf&lt;String&gt;(<span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-string">&quot;2&quot;</span>, <span class="hljs-string">&quot;3&quot;</span>, <span class="hljs-string">&quot;4&quot;</span>, <span class="hljs-string">&quot;5&quot;</span>)
+        <span class="hljs-comment">// Record the position</span>
+        <span class="hljs-keyword">var</span> position = <span class="hljs-number">0</span>;
+
+        <span class="hljs-comment">// Alert Dialog</span>
+        AlertDialog.Builder(<span class="hljs-keyword">this</span>)
+            .setTitle(<span class="hljs-string">&quot;Choose a number!&quot;</span>)
+            .setSingleChoiceItems(items, <span class="hljs-number">0</span>) &#123;dialogInterface, i -&gt;
+                position = i;
+            &#125;
+            .setPositiveButton(<span class="hljs-string">&quot;Done&quot;</span>) &#123;dialog, which -&gt;
+                Toast.makeText(<span class="hljs-keyword">this</span>, <span class="hljs-string">&quot;You choose <span class="hljs-subst">$&#123;position&#125;</span>!&quot;</span>, Toast.LENGTH_SHORT).show()
+                txt_num.text = position.toString()
+            &#125;
+            .show()
+    &#125;
+
+    <span class="hljs-comment">/*</span>
+<span class="hljs-comment">    Alert Dialog with no choice items</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">showOriginalAlert</span><span class="hljs-params">()</span></span> &#123;
+        AlertDialog.Builder(<span class="hljs-keyword">this</span>)
+            .setTitle(<span class="hljs-string">&quot;Practice alert dialog&quot;</span>)
+            .setMessage(<span class="hljs-string">&quot;Hello world!&quot;</span>)
+            .setNeutralButton(<span class="hljs-string">&quot;Cancel&quot;</span>) &#123;dialog, which -&gt;
+                Toast.makeText(<span class="hljs-keyword">this</span>, <span class="hljs-string">&quot;Press &#x27;cancel&#x27; button&quot;</span>, Toast.LENGTH_SHORT).show()
+            &#125;
+            .setNegativeButton(<span class="hljs-string">&quot;No&quot;</span>) &#123;dialog, which -&gt;
+                Toast.makeText(<span class="hljs-keyword">this</span>, <span class="hljs-string">&quot;Press &#x27;no&#x27; button&quot;</span>, Toast.LENGTH_SHORT).show()
+            &#125;
+            .setPositiveButton(<span class="hljs-string">&quot;Yes&quot;</span>) &#123;dialog, which -&gt;
+                Toast.makeText(<span class="hljs-keyword">this</span>, <span class="hljs-string">&quot;Press &#x27;yes&#x27; button&quot;</span>, Toast.LENGTH_SHORT).show()
+            &#125;
+            .show()
+    &#125;
+
+
+    <span class="hljs-comment">/*</span>
+<span class="hljs-comment">    Show custom toast message</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">showToast</span><span class="hljs-params">()</span></span> &#123;
+        <span class="hljs-comment">// Make Toast object</span>
+        <span class="hljs-keyword">val</span> toast = Toast(<span class="hljs-keyword">this</span>)
+
+        <span class="hljs-comment">// Set position</span>
+        toast.setGravity(Gravity.CENTER or Gravity.TOP, <span class="hljs-number">0</span>, <span class="hljs-number">200</span>)
+        <span class="hljs-comment">// Duration time</span>
+        toast.duration = Toast.LENGTH_SHORT
+        <span class="hljs-comment">// Custom view</span>
+        toast.view = layoutInflater.inflate(R.layout.toast_layout, <span class="hljs-literal">null</span>)
+
+        <span class="hljs-comment">// Show custom toast</span>
+        toast.show()
+    &#125;
+&#125;</code></pre>
+
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://learnexp.tw/%E3%80%90android%E3%80%91toast-%E5%BF%AB%E9%A1%AF%E5%85%83%E4%BB%B6/">【Android】Toast 快顯元件</a></li>
+<li><a target="_blank" rel="noopener" href="https://kotlin.litotom.com/android-zhuan-an-kai-fa/6-activity-she-ji/6.5-shi-yong-dui-hua-kuang-alertdialog-lei-bie">6.5 使用對話框－AlertDialog 類別</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.books.com.tw/products/0010815422">輕鬆學會Android Kotlin實作開發：精心設計16個Lab讓你快速上手</a></li>
+</ol>
+<br/>
+<br/>
+<a href="/2020/09/30/android/and-8" float=left>Last</a> <a href="/2020/10/02/android/and-9" style="float: right;">Next</a><!-- flag of hidden posts -->
+            </div>
+             
+            <div class="post-footer__meta">
+    <p>
+        updated at 2020-10-02
+    </p>
+</div> 
+            <div class="post-meta__cats">
+    
+    
+</div> 
+        </article>
+        
+            <div class="post__comments content-card" id="comment">
+                
+    <h4>Comments</h4>
+    
+    <div id="disqus_thread">Unable to load Disqus, please make sure your network can access.</div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+            </div>
+        
+    </div>
+
+
+</main>
+
+            <footer class="footer">
+    
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/viz.js/1.7.1/viz.js'></script>
+        <script>
+          String.prototype.replaceAll = function(search, replacement) {
+            var target = this;
+            return target.split(search).join(replacement);
+          };
+      
+          let vizObjects = document.querySelectorAll('.graphviz')
+      
+          for (let item of vizObjects) {
+            let svg = undefined
+            try {
+              svg = Viz(item.textContent.replaceAll('–', '--'), 'svg')
+            } catch(e) {
+              svg = `<pre class="error">${e}</pre>`
+            }
+            item.outerHTML = svg
+          }
+        </script>
+    
+    
+
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright&nbsp;©&nbsp;2020&nbsp;<a href="/">Justin</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+        
+    <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+    <script>
+        window.lazyLoadOptions = {
+            elements_selector: ".lazyload",
+            threshold: 0
+        };
+    </script>
+ 
+
+ 
+
+ 
+
+ 
+
+  
+
+
+
+ 
+
+
+    
+
+
+ 
+
+ 
+    <script defer src="/js/b2t.js"></script>
+
+
+
+
+
+    
+    <script>
+        function loadComment() {
+            window.disqus_config = function () {
+                this.page.url = 'http://yoursite.com/2020/10/02/android/and-9/';
+                this.page.identifier = '2020/10/02/android/and-9/';
+            };
+            (function(){
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + 'https-justin900429-github-io' + '.disqus.com/embed.js';
+                (document.head || document.body).appendChild(dsq);
+            })();
+        }
+    
+        var runningOnBrowser = typeof window !== "undefined";
+        var isBot = runningOnBrowser && !("onscroll" in window) || typeof navigator !== "undefined" && /(gle|ing|ro|msn)bot|crawl|spider|yand|duckgo/i.test(navigator.userAgent);
+        var supportsIntersectionObserver = runningOnBrowser && "IntersectionObserver" in window;
+    
+        setTimeout(function () {
+            if (!isBot && supportsIntersectionObserver) {
+                var comment_observer = new IntersectionObserver(function(entries) {
+                    if (entries[0].isIntersecting) {
+                        loadComment();
+                        comment_observer.disconnect();
+                    }
+                }, { threshold: [0] });
+                comment_observer.observe(document.getElementById('comment'));
+            } else {
+                loadComment();
+            }
+        }, 1);
+    </script>
+
+
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+
+
+    </body>
+</html>
