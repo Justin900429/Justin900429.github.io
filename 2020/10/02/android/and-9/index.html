@@ -29,19 +29,19 @@
 
     <!-- OpenGraph -->
  
-    <meta name="description" content="Android Toast and Alert DialogSee moreBack to the series page   前言今天我們說明如何自訂 Toast 跟 Alert Dialog。看完後會了解到：  如何使用 Toast。 自訂 Toast。 Alert Dialog 的用法。 自訂 Alert Dialog。  Toast重溫之前我們有提過 Toast 的使用方法會在底下提示，用">
+    <meta name="description" content="Android Toast and Alert DialogSee moreBack to the series page   前言今天我們說明如何自訂 Toast 跟 Alert Dialog。 這篇看完後會了解到： 如何使用 Toast。 自訂 Toast。 Alert Dialog 的用法。 自訂 Alert Dialog。    Toast重溫之前我們有提過 Toast 的使用方法會在底下">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android Toast and Alert Dialog">
 <meta property="og:url" content="http://yoursite.com/2020/10/02/android/and-9/index.html">
 <meta property="og:site_name" content="Justin">
-<meta property="og:description" content="Android Toast and Alert DialogSee moreBack to the series page   前言今天我們說明如何自訂 Toast 跟 Alert Dialog。看完後會了解到：  如何使用 Toast。 自訂 Toast。 Alert Dialog 的用法。 自訂 Alert Dialog。  Toast重溫之前我們有提過 Toast 的使用方法會在底下提示，用">
+<meta property="og:description" content="Android Toast and Alert DialogSee moreBack to the series page   前言今天我們說明如何自訂 Toast 跟 Alert Dialog。 這篇看完後會了解到： 如何使用 Toast。 自訂 Toast。 Alert Dialog 的用法。 自訂 Alert Dialog。    Toast重溫之前我們有提過 Toast 的使用方法會在底下">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://i.imgur.com/8fvSJDy.jpg">
 <meta property="og:image" content="https://i.imgur.com/udwMHoi.jpg">
 <meta property="og:image" content="https://i.imgur.com/Ix5YKbL.png">
 <meta property="og:image" content="https://i.imgur.com/O0z2Ci1.gif">
 <meta property="article:published_time" content="2020-10-02T03:16:52.000Z">
-<meta property="article:modified_time" content="2020-10-02T03:36:17.593Z">
+<meta property="article:modified_time" content="2020-10-04T11:21:10.372Z">
 <meta property="article:author" content="Justin Ruan">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://i.imgur.com/8fvSJDy.jpg">
@@ -52,20 +52,11 @@
  
 
 
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-theme-cards@1.0/dist/css/style/dark.min.css">
-
-    
-<script src="https://cdn.jsdelivr.net/npm/hexo-theme-cards@1.0/dist/js/darkmode.min.js"></script>
-
-
 
     
     
     
         <link rel="stylesheet" id="hl-default-theme" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/atom-one-light.min.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')===-1)this.media='all'">
-        
-            <link rel="stylesheet" id="hl-dark-theme" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/railscasts.min.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')!==-1)this.media='all'">
         
     
 
@@ -122,10 +113,6 @@
 
         
         
-    <a href="javaScript:void(0);" id="btn-toggle-dark">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-    </a>
-
 
          
     <a href="javaScript:void(0);" id="b2t" aria-label="Back to Top" title="Back to Top">
@@ -224,13 +211,15 @@
                 <h1 id="Android-Toast-and-Alert-Dialog"><a href="#Android-Toast-and-Alert-Dialog" class="headerlink" title="Android Toast and Alert Dialog"></a>Android Toast and Alert Dialog</h1><blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/2020/09/21/android/and-series/">Back to the series page</a></p>
 </div></blockquote>
 
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天我們說明如何自訂 <strong>Toast</strong> 跟 <strong>Alert Dialog</strong>。看完後會了解到：</p>
-<ol>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天我們說明如何自訂 <strong>Toast</strong> 跟 <strong>Alert Dialog</strong>。</p>
+<blockquote class="blockquote-note blockquote-note__important"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></div>這篇看完後會了解到：</div><div class="blockquote-note__content"><ol>
 <li>如何使用 <strong>Toast</strong>。</li>
 <li>自訂 <strong>Toast</strong>。</li>
 <li><strong>Alert Dialog</strong> 的用法。</li>
 <li>自訂 <strong>Alert Dialog</strong>。</li>
 </ol>
+</div></blockquote>
+
 <h2 id="Toast"><a href="#Toast" class="headerlink" title="Toast"></a>Toast</h2><h3 id="重溫"><a href="#重溫" class="headerlink" title="重溫"></a>重溫</h3><p>之前我們有提過 <strong>Toast</strong> 的使用方法會在底下提示，用法為：</p>
 <pre><code class="hljs kotlin">Toast.makeText(<span class="hljs-keyword">this</span>, &lt;message&gt;, &lt;time&gt;).show()</code></pre>
 
@@ -655,7 +644,7 @@ dialog.setPositiveButton(<span class="hljs-string">&quot;Done&quot;</span>) &#12
              
             <div class="post-footer__meta">
     <p>
-        updated at 2020-10-02
+        updated at 2020-10-04
     </p>
 </div> 
             <div class="post-meta__cats">
