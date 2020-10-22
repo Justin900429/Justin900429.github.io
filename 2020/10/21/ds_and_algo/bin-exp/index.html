@@ -37,7 +37,7 @@
 <meta property="og:description" content="Binary exponentonentiationSee moreBack to the series page   IntroductionIn this article, we’ll going to find out what is binary exponentiation and the advantage of using binary exponentiation. After r">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-10-21T07:35:25.000Z">
-<meta property="article:modified_time" content="2020-10-22T06:58:04.905Z">
+<meta property="article:modified_time" content="2020-10-22T07:54:38.528Z">
 <meta property="article:author" content="Justin Ruan">
 <meta name="twitter:card" content="summary_large_image">
 
@@ -306,12 +306,12 @@
 <h2 id="Analysis-of-binary-exponentiation"><a href="#Analysis-of-binary-exponentiation" class="headerlink" title="Analysis of binary exponentiation"></a>Analysis of binary exponentiation</h2><p>We have just mentioned that the important part of the time complexity is the exponent. In the binary exponentiation, the most important idea is to devide the exponent by 2. Therefore, the time complexity is $O(\log _2n)$.</p>
 <pre><code class="hljs cpp">...
 <span class="hljs-comment">// devide exp by2</span>
-<span class="hljs-built_in">exp</span> &gt;&gt;= <span class="hljs-number">1</span>
+exponent &gt;&gt;= <span class="hljs-number">1</span>
 ...</code></pre>
 
 <pre><code class="hljs cpp">...
 <span class="hljs-comment">// count the base^(exp/2)</span>
-<span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> <span class="hljs-keyword">int</span> res = binpow(base, <span class="hljs-built_in">exp</span> / <span class="hljs-number">2</span>);
+<span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> <span class="hljs-keyword">int</span> res = binpow(base, exponent / <span class="hljs-number">2</span>);
 ...</code></pre>
 
 <h2 id="Fast-computing-the-modulo-of-large-exponent"><a href="#Fast-computing-the-modulo-of-large-exponent" class="headerlink" title="Fast computing the modulo of large exponent"></a>Fast computing the modulo of large exponent</h2><p>One thing we may encounter in programming (such as Miller Robin primality tests) is to compute:</p>
