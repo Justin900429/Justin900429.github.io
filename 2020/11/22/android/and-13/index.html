@@ -44,7 +44,7 @@
 <meta property="og:image" content="https://i.imgur.com/NeL6rd7.png">
 <meta property="og:image" content="https://i.imgur.com/fvAIOkF.gif">
 <meta property="article:published_time" content="2020-11-21T16:08:49.000Z">
-<meta property="article:modified_time" content="2020-11-21T16:14:17.095Z">
+<meta property="article:modified_time" content="2020-11-21T16:25:56.491Z">
 <meta property="article:author" content="Justin Ruan">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://i.imgur.com/DM403DU.png">
@@ -267,23 +267,28 @@
 
 <h3 id="showAsAction"><a href="#showAsAction" class="headerlink" title="showAsAction"></a>showAsAction</h3><p>我剛剛在上面有提到說 <code>showAsAction</code> 可以用來控制我們 <strong>option</strong> 顯示方式，一般來說共有五種方式，分別是 <code>ifRoom</code>、 <code>never</code>、 <code>always</code>、 <code>withText</code> 跟 <code>collapseActionView</code>。</p>
 <ul>
-<li><code>ifRoom</code><br>  如果在 <strong>Action Bar</strong> 還有空間的話會直接顯示，如果沒有空間就會移入三點選單起來。</li>
-<li><code>never</code><br>  如果不想直接顯示，而是透過收納的方式，則可以使用這個。但是一定要給定 <strong>item</strong> 而不能單純用 <strong>icon</strong>。例如：  <pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">item</span></span>
+<li><p><code>ifRoom</code><br>  如果在 <strong>Action Bar</strong> 還有空間的話會直接顯示，如果沒有空間就會移入三點選單起來。</p>
+</li>
+<li><p><code>never</code><br>  如果不想直接顯示，而是透過收納的方式，則可以使用這個。但是一定要給定 <strong>item</strong> 而不能單純用 <strong>icon</strong>。例如：</p>
+  <pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">item</span></span>
 <span class="hljs-tag">    <span class="hljs-attr">android:id</span>=<span class="hljs-string">&quot;@+id/menu_easter_egg&quot;</span></span>
 <span class="hljs-tag">    <span class="hljs-attr">android:title</span>=<span class="hljs-string">&quot;You found me!&quot;</span></span>
 <span class="hljs-tag">    <span class="hljs-attr">app:showAsAction</span>=<span class="hljs-string">&quot;never&quot;</span>/&gt;</span></code></pre>
   <br>
   <center><img src="https://i.imgur.com/uiFb66v.png" class="lazyload" data-srcset="https://i.imgur.com/uiFb66v.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" width=300/></center>
   <br></li>
-<li><code>always</code><br>  不管 <strong>Action Bar</strong> 還有沒有空間，一律顯示出來不折疊。 </li>
-<li><code>withText</code><br>  盡可能將 <strong>title</strong> 跟 <strong>icon</strong> 一起顯示出來。會被放在 <strong>摺疊區</strong>。</li>
-<li><code>collapseActionView</code><br>  可以將 <strong>ActionBar</strong> 的其他 <strong>icon</strong> 折疊起來。可以參考<a target="_blank" rel="noopener" href="https://developer.android.com/training/appbar/action-views">官方文檔</a>。  <br>
+<li><p><code>always</code><br>  不管 <strong>Action Bar</strong> 還有沒有空間，一律顯示出來不折疊。 </p>
+</li>
+<li><p><code>withText</code><br>  盡可能將 <strong>title</strong> 跟 <strong>icon</strong> 一起顯示出來。會被放在 <strong>摺疊區</strong>。</p>
+</li>
+<li><p><code>collapseActionView</code><br>  可以將 <strong>ActionBar</strong> 的其他 <strong>icon</strong> 折疊起來。可以參考<a target="_blank" rel="noopener" href="https://developer.android.com/training/appbar/action-views">官方文檔</a>。</p>
+  <br>
   <center><img src="https://i.imgur.com/NeL6rd7.png" class="lazyload" data-srcset="https://i.imgur.com/NeL6rd7.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" width=300/></center>
   <br>
 
 </li>
 </ul>
-<h2 id="Infate-menu"><a href="#Infate-menu" class="headerlink" title="Infate menu"></a>Infate menu</h2><p>雖然我們已經做好了 <strong>menu</strong>，我們還是需要在 <strong>Activity</strong> 裡面利用 <strong>onCreateOptionsMenu</strong> 來製作我們的 <strong>menu</strong>。 我們需要 <strong>override</strong> <code>onCreateOptionsMenu</code>。</p>
+<h2 id="Infate-menu"><a href="#Infate-menu" class="headerlink" title="Infate menu"></a>Infate menu</h2><p>雖然我們已經設計好介面，我們還是需要在 <strong>Activity</strong> 裡面利用 <strong>onCreateOptionsMenu</strong> 來製作我們的 <strong>menu</strong>。</p>
 <pre><code class="hljs kotlin"><span class="hljs-comment">/*</span>
 <span class="hljs-comment"> Override the function to create menu</span>
 <span class="hljs-comment"> */</span>
