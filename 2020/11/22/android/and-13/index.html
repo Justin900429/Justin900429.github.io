@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    <link rel="shortcut icon" type='image/x-icon' href="/mylogo.ico">
+
+
+    <!-- meta -->
+
+
+<title>Android Menu | Justin</title><meta name="robots" content="noindex">
+
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="Android MenuSee moreBack to the series page   前言今天我們會說明如何在 App 裡創建 Menu 這篇看完後會了解到： 新增 Menu 以及顯示方式。 新增 Menu 的 Action。    Menu一般我們在使用 App 時，右上方通常會出現選單來使用。一般我們可以將選單的內容放出來，也可以收納起來。    製作 Menu在製作 Menu 之前，我">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Menu">
+<meta property="og:url" content="http://justin900429.github.io/2020/11/22/android/and-13/index.html">
+<meta property="og:site_name" content="Justin">
+<meta property="og:description" content="Android MenuSee moreBack to the series page   前言今天我們會說明如何在 App 裡創建 Menu 這篇看完後會了解到： 新增 Menu 以及顯示方式。 新增 Menu 的 Action。    Menu一般我們在使用 App 時，右上方通常會出現選單來使用。一般我們可以將選單的內容放出來，也可以收納起來。    製作 Menu在製作 Menu 之前，我">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/DM403DU.png">
+<meta property="og:image" content="https://i.imgur.com/nV16OnZ.png">
+<meta property="og:image" content="https://i.imgur.com/iRgxbWE.png">
+<meta property="og:image" content="https://i.imgur.com/wwfDC2K.png">
+<meta property="og:image" content="https://i.imgur.com/uiFb66v.png">
+<meta property="og:image" content="https://i.imgur.com/NeL6rd7.png">
+<meta property="og:image" content="https://i.imgur.com/fvAIOkF.gif">
+<meta property="article:published_time" content="2020-11-21T16:08:49.000Z">
+<meta property="article:modified_time" content="2020-11-21T16:14:17.095Z">
+<meta property="article:author" content="Justin Ruan">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://i.imgur.com/DM403DU.png">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+
+
+    
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/atom-one-light.min.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')===-1)this.media='all'">
+        
+    
+
+    
+
+    
+    <link rel="stylesheet" href="/css/style/note.css" media="none" onload="this.media='all'">
+
+
+     
+
+    <!-- custom head -->
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+    <body>
+        <div id="app">
+            <header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">
+                Justin's blog
+            </span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/about/" class="navbar-menu button">
+                        Home
+                    </a>
+                
+                    <a href="/" class="navbar-menu button">
+                        Articles
+                    </a>
+                
+                    <a href="/tags/" class="navbar-menu button">
+                        Tags
+                    </a>
+                
+                    <a href="/archives/" class="navbar-menu button">
+                        Archives
+                    </a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+
+         
+    <a href="javaScript:void(0);" id="b2t" aria-label="Back to Top" title="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='32' height='32' fill="currentColor" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M13.889,11.611c-0.17,0.17-0.443,0.17-0.612,0l-3.189-3.187l-3.363,3.36c-0.171,0.171-0.441,0.171-0.612,0c-0.172-0.169-0.172-0.443,0-0.611l3.667-3.669c0.17-0.17,0.445-0.172,0.614,0l3.496,3.493C14.058,11.167,14.061,11.443,13.889,11.611 M18.25,10c0,4.558-3.693,8.25-8.25,8.25c-4.557,0-8.25-3.692-8.25-8.25c0-4.557,3.693-8.25,8.25-8.25C14.557,1.75,18.25,5.443,18.25,10 M17.383,10c0-4.07-3.312-7.382-7.383-7.382S2.618,5.93,2.618,10S5.93,17.381,10,17.381S17.383,14.07,17.383,10"></path>
+        </svg>
+    </a>
+
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path>
+                </svg>
+            </a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                <a class="dropback-icon button" id="btn-dropback">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
+                        <path fill="currentColor" d="M11.469,10l7.08-7.08c0.406-0.406,0.406-1.064,0-1.469c-0.406-0.406-1.063-0.406-1.469,0L10,8.53l-7.081-7.08c-0.406-0.406-1.064-0.406-1.469,0c-0.406,0.406-0.406,1.063,0,1.469L8.531,10L1.45,17.081c-0.406,0.406-0.406,1.064,0,1.469c0.203,0.203,0.469,0.304,0.735,0.304c0.266,0,0.531-0.101,0.735-0.304L10,11.469l7.08,7.081c0.203,0.203,0.469,0.304,0.735,0.304c0.267,0,0.532-0.101,0.735-0.304c0.406-0.406,0.406-1.064,0-1.469L11.469,10z"></path>
+                    </svg>
+                </a>
+                
+                    <a href="/about/" class="dropdown-menu button">
+                        Home
+                    </a>
+                
+                    <a href="/" class="dropdown-menu button">
+                        Articles
+                    </a>
+                
+                    <a href="/tags/" class="dropdown-menu button">
+                        Tags
+                    </a>
+                
+                    <a href="/archives/" class="dropdown-menu button">
+                        Archives
+                    </a>
+                
+            </div>
+            <script>
+                document.getElementById('btn-dropdown').addEventListener('click', () => {
+                    const dd = document.getElementById('dropdown-menus');
+                    requestAnimationFrame(() => {
+                        dd.style.display = 'flex';
+                        requestAnimationFrame(() => {
+                            dd.style.transform = 'translateY(0)';
+                            dd.style.opacity = '1';
+                        });
+                    });
+                });
+                document.getElementById('btn-dropback').addEventListener('click', () => {
+                    const dd = document.getElementById('dropdown-menus');
+                    dd.style.transform = 'translateY(2.25rem)';                    
+                    dd.style.opacity = '0';
+                    setTimeout(() => {dd.style.display = 'none';}, 350);
+                });
+            </script>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+<div class="post-title">
+    <h1 class="post-title__text">
+        Android Menu
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2020/11/" class="post-meta__date button">
+    2020-11-22
+</a>
+        
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <div class="post__with-side">
+        <aside class="post-side">
+            <div class="post-side__toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Menu"><span class="toc-number">2.</span> <span class="toc-text">Menu</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A3%BD%E4%BD%9C-Menu"><span class="toc-number">3.</span> <span class="toc-text">製作 Menu</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%92%B0%E5%AF%AB-Menu"><span class="toc-number">4.</span> <span class="toc-text">撰寫 Menu</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#showAsAction"><span class="toc-number">4.1.</span> <span class="toc-text">showAsAction</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Infate-menu"><span class="toc-number">5.</span> <span class="toc-text">Infate menu</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A8%AD%E5%AE%9A-Action"><span class="toc-number">6.</span> <span class="toc-text">設定 Action</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">7.</span> <span class="toc-text">程式碼</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Result"><span class="toc-number">8.</span> <span class="toc-text">Result</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#References"><span class="toc-number">8.1.</span> <span class="toc-text">References</span></a></li></ol></li></ol>
+            </div>
+        </aside>
+        <article class="post content-card">
+            <div class="post__header"></div>
+            <div class="post__content">
+                <h1 id="Android-Menu"><a href="#Android-Menu" class="headerlink" title="Android Menu"></a>Android Menu</h1><blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/2020/09/21/android/and-series/">Back to the series page</a></p>
+</div></blockquote>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天我們會說明如何在 App 裡創建 Menu</p>
+<blockquote class="blockquote-note blockquote-note__important"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></div>這篇看完後會了解到：</div><div class="blockquote-note__content"><ol>
+<li>新增 Menu 以及顯示方式。</li>
+<li>新增 Menu 的 Action。</li>
+</ol>
+</div></blockquote>
+
+<h2 id="Menu"><a href="#Menu" class="headerlink" title="Menu"></a>Menu</h2><p>一般我們在使用 App 時，右上方通常會出現選單來使用。一般我們可以將選單的內容放出來，也可以收納起來。</p>
+<center><img src="https://i.imgur.com/DM403DU.png" class="lazyload" data-srcset="https://i.imgur.com/DM403DU.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" width=250/></center>
+
+
+<h2 id="製作-Menu"><a href="#製作-Menu" class="headerlink" title="製作 Menu"></a>製作 Menu</h2><p>在製作 <strong>Menu</strong> 之前，我們必須為其製作一個 <strong>resource folder</strong> 方便我們之後使用與分類。製作的方式也很簡單，在我們的左邊選單欄裡 <strong>res</strong> 按右鍵，按 <strong>New</strong> 並新增 <strong>Android Resource Directory</strong>。</p>
+<br>
+<center><img src="https://i.imgur.com/nV16OnZ.png" class="lazyload" data-srcset="https://i.imgur.com/nV16OnZ.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" width=500/></center>
+<br>
+
+<p>之後會發現在 <strong>res</strong> 的目錄下多了 <strong>menu</strong> 這個資料夾。</p>
+<br>
+<center><img src="https://i.imgur.com/iRgxbWE.png" class="lazyload" data-srcset="https://i.imgur.com/iRgxbWE.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" width=250/></center>
+<br>
+
+<p>此時就可以在 <strong>menu</strong> 底下新增 <strong>xml</strong> 的檔案。</p>
+<h2 id="撰寫-Menu"><a href="#撰寫-Menu" class="headerlink" title="撰寫 Menu"></a>撰寫 Menu</h2><p>當我們創立好我們的 <strong>xml</strong> 的時候，我們會發現他的初始檔案是：</p>
+<pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">menu</span> <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">xmlns:app</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res-auto&quot;</span>&gt;</span>
+
+<span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span></code></pre>
+
+<p>這樣代表我們的 <strong>xml</strong> 初步已經創立好了。接著就要來新增我們的 <strong>menu</strong> 的選項了。</p>
+<p>想要建立 <strong>option</strong>，我們就要用<code>&lt;item /&gt;</code> 的 <strong>tag</strong> 來創立。例如我想創建一個 <strong>contact</strong> 的 <strong>option</strong>，我就可以用</p>
+<pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">item</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">android:id</span>=<span class="hljs-string">&quot;@+id/menu_contact&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">android:title</span>=<span class="hljs-string">&quot;Contact&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">app:showAsAction</span>=<span class="hljs-string">&quot;ifRoom&quot;</span>/&gt;</span></code></pre>
+
+<p>其中 <code>title</code> 就是我們要顯示的文字，而 <code>showAsAction</code> 就是我們 <strong>option</strong> 顯示的方式。另外，除了顯示文字我們也可以利用 <strong>icon</strong> 的方式來製作圖表。我們只要將我們做好的 <strong>icon</strong> 放到 <strong>resource</strong> 的資料夾，或是利用 <strong>android</strong> 內建的 <strong>vector asset</strong> 來製作也可以。使用 <strong>icon</strong> 的方式就是加上 <code>andorid:icon=</code>，例如：</p>
+<pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">item</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">android:id</span>=<span class="hljs-string">&quot;@+id/menu_heart&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">android:title</span>=<span class="hljs-string">&quot;Heart&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">android:icon</span>=<span class="hljs-string">&quot;@drawable/ic_baseline_favorite_24&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">app:showAsAction</span>=<span class="hljs-string">&quot;ifRoom&quot;</span>/&gt;</span></code></pre>
+
+<p>其中</p>
+<pre><code class="hljs xml">android:icon=&quot;@drawable/ic_baseline_favorite_24&quot;</code></pre>
+
+<p>是指取用 <strong>res/drawable</strong> 裡的 <strong>ic_baseline_favorite_24</strong> 至個 <strong>icon</strong>。</p>
+<p>剛剛製作的 <strong>contact</strong> 跟 <strong>icon</strong> 會呈現如下圖。</p>
+<center><img src="https://i.imgur.com/wwfDC2K.png" class="lazyload" data-srcset="https://i.imgur.com/wwfDC2K.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" width=300/></center>
+
+
+<h3 id="showAsAction"><a href="#showAsAction" class="headerlink" title="showAsAction"></a>showAsAction</h3><p>我剛剛在上面有提到說 <code>showAsAction</code> 可以用來控制我們 <strong>option</strong> 顯示方式，一般來說共有五種方式，分別是 <code>ifRoom</code>、 <code>never</code>、 <code>always</code>、 <code>withText</code> 跟 <code>collapseActionView</code>。</p>
+<ul>
+<li><code>ifRoom</code><br>  如果在 <strong>Action Bar</strong> 還有空間的話會直接顯示，如果沒有空間就會移入三點選單起來。</li>
+<li><code>never</code><br>  如果不想直接顯示，而是透過收納的方式，則可以使用這個。但是一定要給定 <strong>item</strong> 而不能單純用 <strong>icon</strong>。例如：  <pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">item</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">android:id</span>=<span class="hljs-string">&quot;@+id/menu_easter_egg&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">android:title</span>=<span class="hljs-string">&quot;You found me!&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">app:showAsAction</span>=<span class="hljs-string">&quot;never&quot;</span>/&gt;</span></code></pre>
+  <br>
+  <center><img src="https://i.imgur.com/uiFb66v.png" class="lazyload" data-srcset="https://i.imgur.com/uiFb66v.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" width=300/></center>
+  <br></li>
+<li><code>always</code><br>  不管 <strong>Action Bar</strong> 還有沒有空間，一律顯示出來不折疊。 </li>
+<li><code>withText</code><br>  盡可能將 <strong>title</strong> 跟 <strong>icon</strong> 一起顯示出來。會被放在 <strong>摺疊區</strong>。</li>
+<li><code>collapseActionView</code><br>  可以將 <strong>ActionBar</strong> 的其他 <strong>icon</strong> 折疊起來。可以參考<a target="_blank" rel="noopener" href="https://developer.android.com/training/appbar/action-views">官方文檔</a>。  <br>
+  <center><img src="https://i.imgur.com/NeL6rd7.png" class="lazyload" data-srcset="https://i.imgur.com/NeL6rd7.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" width=300/></center>
+  <br>
+
+</li>
+</ul>
+<h2 id="Infate-menu"><a href="#Infate-menu" class="headerlink" title="Infate menu"></a>Infate menu</h2><p>雖然我們已經做好了 <strong>menu</strong>，我們還是需要在 <strong>Activity</strong> 裡面利用 <strong>onCreateOptionsMenu</strong> 來製作我們的 <strong>menu</strong>。 我們需要 <strong>override</strong> <code>onCreateOptionsMenu</code>。</p>
+<pre><code class="hljs kotlin"><span class="hljs-comment">/*</span>
+<span class="hljs-comment"> Override the function to create menu</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onCreateOptionsMenu</span><span class="hljs-params">(menu: <span class="hljs-type">Menu</span>?)</span></span>: <span class="hljs-built_in">Boolean</span> &#123;
+    <span class="hljs-comment">// Inflate the menu xml</span>
+    menuInflater.inflate(R.menu.menu, menu)
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+&#125;</code></pre>
+
+<p>這裡我們用之前講過的 <strong>inflate</strong> 來製作我們的 <strong>menu</strong>。其中 <code>R.menu.menu</code> 指的就是在 <strong>res/menu/menu.xml</strong>，如果是要 <strong>inflate</strong> <strong>test.xml</strong> 可以用 <code>R.menu.test</code>。</p>
+<h2 id="設定-Action"><a href="#設定-Action" class="headerlink" title="設定 Action"></a>設定 Action</h2><p>製作玩 <strong>menu</strong> 後，我們要來設定我們每個 <strong>option</strong> 的反應。這邊我們需要去 <strong>override</strong> <code>onOptionsItemSelected</code>。另外要注意的是，<code>onOptionsItemSelected</code> 不會只設定 <strong>menu</strong> 的 <strong>action</strong>，因此我們在設定 <strong>ID</strong> 時要設的不一樣才不會搞混。</p>
+<pre><code class="hljs kotlin"><span class="hljs-comment">/*</span>
+<span class="hljs-comment"> Override the function to set up the action</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onOptionsItemSelected</span><span class="hljs-params">(item: <span class="hljs-type">MenuItem</span>)</span></span>: <span class="hljs-built_in">Boolean</span> &#123;
+    <span class="hljs-comment">// Set up the action for each items</span>
+    <span class="hljs-keyword">when</span> (item.itemId) &#123;
+        R.id.menu_contact -&gt; &#123;
+            Toast.makeText(<span class="hljs-keyword">this</span>, <span class="hljs-string">&quot;Don&#x27;t have any contact&quot;</span>, Toast.LENGTH_SHORT).show()
+        &#125;
+        R.id.menu_heart -&gt; &#123;
+            Toast.makeText(<span class="hljs-keyword">this</span>, <span class="hljs-string">&quot;To my belove&quot;</span>, Toast.LENGTH_SHORT).show()
+        &#125;
+        R.id.menu_easter_egg -&gt; &#123;
+            Toast.makeText(<span class="hljs-keyword">this</span>, <span class="hljs-string">&quot;You found the easter egg!&quot;</span>, Toast.LENGTH_SHORT).show()
+        &#125;
+    &#125;
+
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.onOptionsItemSelected(item)
+&#125;</code></pre>
+
+<p>這邊我們只是單純設定 <strong>Toast</strong> 來顯示按的是哪個 <strong>option</strong>，如果需要也可以做出換頁。</p>
+<h2 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h2><ul>
+<li><p>menu.xml</p>
+<pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">menu</span> </span>
+<span class="hljs-tag">    <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">xmlns:app</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res-auto&quot;</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">item</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:id</span>=<span class="hljs-string">&quot;@+id/menu_contact&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:title</span>=<span class="hljs-string">&quot;Contact&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:showAsAction</span>=<span class="hljs-string">&quot;ifRoom&quot;</span>/&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">item</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:id</span>=<span class="hljs-string">&quot;@+id/menu_heart&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:icon</span>=<span class="hljs-string">&quot;@drawable/ic_baseline_favorite_black&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:title</span>=<span class="hljs-string">&quot;Heart&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:showAsAction</span>=<span class="hljs-string">&quot;collapseActionView&quot;</span>/&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">item</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:id</span>=<span class="hljs-string">&quot;@+id/menu_easter_egg&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:title</span>=<span class="hljs-string">&quot;You found me!&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:showAsAction</span>=<span class="hljs-string">&quot;never&quot;</span>/&gt;</span>
+
+<span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span></code></pre>
+</li>
+<li><p>MainActivity</p>
+<pre><code class="hljs kotlin"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MainActivity</span> : <span class="hljs-type">AppCompatActivity</span></span>() &#123;
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onCreate</span><span class="hljs-params">(savedInstanceState: <span class="hljs-type">Bundle</span>?)</span></span> &#123;
+        <span class="hljs-keyword">super</span>.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+    &#125;
+
+    <span class="hljs-comment">/*</span>
+<span class="hljs-comment">     Override the function to create menu</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onCreateOptionsMenu</span><span class="hljs-params">(menu: <span class="hljs-type">Menu</span>?)</span></span>: <span class="hljs-built_in">Boolean</span> &#123;
+        <span class="hljs-comment">// Inflate the menu xml</span>
+        menuInflater.inflate(R.menu.menu, menu)
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+    &#125;
+
+    <span class="hljs-comment">/*</span>
+<span class="hljs-comment">     Override the function to set up the action</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onOptionsItemSelected</span><span class="hljs-params">(item: <span class="hljs-type">MenuItem</span>)</span></span>: <span class="hljs-built_in">Boolean</span> &#123;
+        <span class="hljs-comment">// Set up the action for each items</span>
+        <span class="hljs-keyword">when</span> (item.itemId) &#123;
+            R.id.menu_contact -&gt; &#123;
+                Toast.makeText(<span class="hljs-keyword">this</span>, 
+                               <span class="hljs-string">&quot;Don&#x27;t have any contact&quot;</span>,
+                               Toast.LENGTH_SHORT
+                               ).show()
+            &#125;
+            R.id.menu_heart -&gt; &#123;
+                Toast.makeText(<span class="hljs-keyword">this</span>,
+                               <span class="hljs-string">&quot;To my belove&quot;</span>,               
+                               Toast.LENGTH_SHORT
+                               ).show()
+            &#125;
+            R.id.menu_easter_egg -&gt; &#123;
+                Toast.makeText(<span class="hljs-keyword">this</span>,
+                               <span class="hljs-string">&quot;You found the easter egg!&quot;</span>,
+                               Toast.LENGTH_SHORT
+                               ).show()
+            &#125;
+        &#125;
+
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.onOptionsItemSelected(item)
+    &#125;
+&#125;</code></pre>
+
+</li>
+</ul>
+<h2 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h2><br>
+<center><img src="https://i.imgur.com/fvAIOkF.gif" class="lazyload" data-srcset="https://i.imgur.com/fvAIOkF.gif" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXMzMyWlpYU2uzLAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==" width=300/></center>
+<br>
+
+<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ol>
+<li><a target="_blank" rel="noopener" href="https://litotom.com/product/android-ebook-kotlin-2/">Android 實作這樣學: Kotlin 電子書 (下冊)</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.android.com/guide/topics/resources/menu-resource">Menu resource from Android developer</a></li>
+</ol>
+<br/>
+<br/>
+<a href="/2020/10/08/android/and-12" float=left>Last</a> <a href="/2020/11/22/android/and-13" style="float: right;">Next</a>
+<!-- flag of hidden posts -->
+            </div>
+             
+            <div class="post-footer__meta">
+    <p>
+        updated at 2020-11-22
+    </p>
+</div> 
+            <div class="post-meta__cats">
+    
+    
+</div> 
+        </article>
+        
+            <div class="post__comments content-card" id="comment">
+                
+    <h4>Comments</h4>
+    
+    <div id="disqus_thread">Unable to load Disqus, please make sure your network can access.</div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+            </div>
+        
+    </div>
+
+
+</main>
+
+            <footer class="footer">
+    
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/viz.js/1.7.1/viz.js'></script>
+        <script>
+          String.prototype.replaceAll = function(search, replacement) {
+            var target = this;
+            return target.split(search).join(replacement);
+          };
+      
+          let vizObjects = document.querySelectorAll('.graphviz')
+      
+          for (let item of vizObjects) {
+            let svg = undefined
+            try {
+              svg = Viz(item.textContent.replaceAll('–', '--'), 'svg')
+            } catch(e) {
+              svg = `<pre class="error">${e}</pre>`
+            }
+            item.outerHTML = svg
+          }
+        </script>
+    
+    
+
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright&nbsp;©&nbsp;2020&nbsp;<a href="/">Justin</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+        
+    <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+    <script>
+        window.lazyLoadOptions = {
+            elements_selector: ".lazyload",
+            threshold: 0
+        };
+    </script>
+ 
+
+ 
+
+ 
+
+ 
+
+  
+
+
+
+ 
+
+
+    
+
+
+ 
+
+ 
+    <script defer src="/js/b2t.js"></script>
+
+
+
+
+
+    
+    <script>
+        function loadComment() {
+            window.disqus_config = function () {
+                this.page.url = 'http://justin900429.github.io/2020/11/22/android/and-13/';
+                this.page.identifier = '2020/11/22/android/and-13/';
+            };
+            (function(){
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + 'https-justin900429-github-io' + '.disqus.com/embed.js';
+                (document.head || document.body).appendChild(dsq);
+            })();
+        }
+    
+        var runningOnBrowser = typeof window !== "undefined";
+        var isBot = runningOnBrowser && !("onscroll" in window) || typeof navigator !== "undefined" && /(gle|ing|ro|msn)bot|crawl|spider|yand|duckgo/i.test(navigator.userAgent);
+        var supportsIntersectionObserver = runningOnBrowser && "IntersectionObserver" in window;
+    
+        setTimeout(function () {
+            if (!isBot && supportsIntersectionObserver) {
+                var comment_observer = new IntersectionObserver(function(entries) {
+                    if (entries[0].isIntersecting) {
+                        loadComment();
+                        comment_observer.disconnect();
+                    }
+                }, { threshold: [0] });
+                comment_observer.observe(document.getElementById('comment'));
+            } else {
+                loadComment();
+            }
+        }, 1);
+    </script>
+
+
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+
+
+    </body>
+</html>
