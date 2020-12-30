@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://justin900429.github.io/404.html</loc>
+    
+    <lastmod>2020-12-30</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://justin900429.github.io/2020/09/21/android/and-series/</loc>
     
     <lastmod>2020-12-30</lastmod>
@@ -74,7 +81,7 @@
   </url>
   
   <url>
-    <loc>http://justin900429.github.io/tags/OpenCV/</loc>
+    <loc>http://justin900429.github.io/tags/Data-structure-and-algorithm/</loc>
     <lastmod>2020-12-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -88,7 +95,7 @@
   </url>
   
   <url>
-    <loc>http://justin900429.github.io/tags/Data-structure-and-algorithm/</loc>
+    <loc>http://justin900429.github.io/tags/OpenCV/</loc>
     <lastmod>2020-12-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
