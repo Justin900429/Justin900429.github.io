@@ -2,13 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://justin900429.github.io/googlee9009dd9489c2283.html</loc>
-    
-    <lastmod>2020-12-30</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://justin900429.github.io/2020/09/21/android/and-series/</loc>
     
     <lastmod>2020-12-30</lastmod>
@@ -81,13 +74,6 @@
   </url>
   
   <url>
-    <loc>http://justin900429.github.io/tags/Data-structure-and-algorithm/</loc>
-    <lastmod>2020-12-30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://justin900429.github.io/tags/OpenCV/</loc>
     <lastmod>2020-12-30</lastmod>
     <changefreq>daily</changefreq>
@@ -96,6 +82,13 @@
   
   <url>
     <loc>http://justin900429.github.io/tags/AI/</loc>
+    <lastmod>2020-12-30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://justin900429.github.io/tags/Data-structure-and-algorithm/</loc>
     <lastmod>2020-12-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
