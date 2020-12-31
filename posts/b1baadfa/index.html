@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    
+        <link rel="shortcut icon" href="/mylogo.ico">
+    
+    
+    
+    
+    
+
+
+    <!-- meta -->
+
+
+<title>[Series - 9] 實戰演練 | Justin</title><meta name="robots" content="noindex">
+
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="[Series - 9] 實戰演練Acknowledge This article was written by Joyce.    See moreBack to the series page   前言接下來，我們將帶各位實際分析一筆數據，並從中獲得資訊。  波士頓房價評估使用sklearn提供的數據，來做分析，如此一來就不用再引入csv檔，而我們用來舉例的是**load_boston()**">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Series - 9] 實戰演練">
+<meta property="og:url" content="justin900429.github.io/posts/b1baadfa/index.html">
+<meta property="og:site_name" content="Justin">
+<meta property="og:description" content="[Series - 9] 實戰演練Acknowledge This article was written by Joyce.    See moreBack to the series page   前言接下來，我們將帶各位實際分析一筆數據，並從中獲得資訊。  波士頓房價評估使用sklearn提供的數據，來做分析，如此一來就不用再引入csv檔，而我們用來舉例的是**load_boston()**">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/g7Aff00.png">
+<meta property="og:image" content="https://i.imgur.com/L0QfyDa.png">
+<meta property="og:image" content="https://i.imgur.com/ZoiIe4F.png">
+<meta property="og:image" content="https://i.imgur.com/bMlzQGs.png">
+<meta property="og:image" content="https://i.imgur.com/7SU1pta.png">
+<meta property="og:image" content="https://i.imgur.com/hbvdcqq.png">
+<meta property="og:image" content="https://i.imgur.com/elmuU1l.png">
+<meta property="article:published_time" content="2020-09-10T10:35:27.000Z">
+<meta property="article:modified_time" content="2020-12-31T01:11:47.182Z">
+<meta property="article:author" content="Justin Ruan">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://i.imgur.com/g7Aff00.png">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+
+
+    
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/atom-one-light.min.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')===-1)this.media='all'">
+        
+    
+
+    
+
+     
+
+    <!-- custom head -->
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+    <body>
+        <div id="app">
+            <header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">Justin&#39;s blog</span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/about/" class="navbar-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="navbar-menu button">CV</a>
+                
+                    <a href="/" class="navbar-menu button">Articles</a>
+                
+                    <a href="/tags/" class="navbar-menu button">Tags</a>
+                
+                    <a href="/archives/" class="navbar-menu button">Archives</a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+
+         
+    <a href="#" class="button" id="b2t" aria-label="Back to Top" title="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="32" height="32">
+            <path d="M233.376 722.752L278.624 768 512 534.624 745.376 768l45.248-45.248L512 444.128zM192 352h640V288H192z" fill="currentColor"></path>
+        </svg>
+    </a>
+
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                
+                    <a href="/about/" class="dropdown-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="dropdown-menu button">CV</a>
+                
+                    <a href="/" class="dropdown-menu button">Articles</a>
+                
+                    <a href="/tags/" class="dropdown-menu button">Tags</a>
+                
+                    <a href="/archives/" class="dropdown-menu button">Archives</a>
+                
+            </div>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+
+<div class="post-title">
+    <h1 class="post-title__text">
+        [Series - 9] 實戰演練
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2020/09/" class="post-meta__date button">2020-09-10</a>
+        
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <aside class="post-side">
+        <div class="post-side__toc">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A2%E5%A3%AB%E9%A0%93%E6%88%BF%E5%83%B9%E8%A9%95%E4%BC%B0"><span class="toc-number">2.</span> <span class="toc-text">波士頓房價評估</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C%E9%80%A3%E7%B5%90"><span class="toc-number">3.</span> <span class="toc-text">實作連結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E5%85%A5%E8%B3%87%E6%96%99"><span class="toc-number">4.</span> <span class="toc-text">引入資料</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B3%87%E6%96%99%E5%85%A7%E5%AE%B9"><span class="toc-number">5.</span> <span class="toc-text">資料內容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AA%A2%E6%9F%A5%E8%B3%87%E6%96%99"><span class="toc-number">6.</span> <span class="toc-text">檢查資料</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E5%A4%B1%E5%80%BC%E6%AA%A2%E6%9F%A5"><span class="toc-number">6.1.</span> <span class="toc-text">缺失值檢查</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E5%90%88%E7%90%86%E5%80%BC%E7%9A%84%E6%AA%A2%E6%9F%A5"><span class="toc-number">7.</span> <span class="toc-text">不合理值的檢查</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A2%BA%E8%AA%8D%E7%9B%AE%E6%A8%99"><span class="toc-number">8.</span> <span class="toc-text">確認目標</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E6%AD%A5%E6%8E%A8%E7%90%86"><span class="toc-number">9.</span> <span class="toc-text">初步推理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%BF%E5%83%B9%E8%88%87%E6%AF%8F%E5%80%8B%E7%89%B9%E5%BE%B5%E7%9A%84%E9%97%9C%E4%BF%82"><span class="toc-number">10.</span> <span class="toc-text">房價與每個特徵的關係</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8A%AF%E7%BD%AA%E7%8E%87"><span class="toc-number">10.1.</span> <span class="toc-text">犯罪率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%BF%E9%96%93%E6%95%B8"><span class="toc-number">10.2.</span> <span class="toc-text">房間數</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%BB%91%E4%BA%BA%E7%9A%84%E6%AF%94%E7%8E%87"><span class="toc-number">10.3.</span> <span class="toc-text">黑人的比率</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%84%E7%89%B9%E5%BE%B5%E9%96%93%E7%9A%84%E7%9B%B8%E9%97%9C%E6%80%A7"><span class="toc-number">11.</span> <span class="toc-text">各特徵間的相關性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B7%9A%E6%80%A7%E8%BF%B4%E6%AD%B8"><span class="toc-number">12.</span> <span class="toc-text">線性迴歸</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%B9%E5%BE%B5%E9%87%8D%E8%A6%81%E6%80%A7"><span class="toc-number">13.</span> <span class="toc-text">特徵重要性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PCA%E9%99%8D%E7%B6%AD"><span class="toc-number">14.</span> <span class="toc-text">PCA降維</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">15.</span> <span class="toc-text">結語</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">16.</span> <span class="toc-text">參考資料</span></a></li></ol>
+        </div>
+    </aside>
+    <a class="btn-toc button" id="btn-toc" tabindex="0">
+        <svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path>
+        </svg>
+    </a>
+    <div class="toc-menus" id="toc-menus">
+        <div class="toc-title">Article Directory</div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A2%E5%A3%AB%E9%A0%93%E6%88%BF%E5%83%B9%E8%A9%95%E4%BC%B0"><span class="toc-number">2.</span> <span class="toc-text">波士頓房價評估</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C%E9%80%A3%E7%B5%90"><span class="toc-number">3.</span> <span class="toc-text">實作連結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E5%85%A5%E8%B3%87%E6%96%99"><span class="toc-number">4.</span> <span class="toc-text">引入資料</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B3%87%E6%96%99%E5%85%A7%E5%AE%B9"><span class="toc-number">5.</span> <span class="toc-text">資料內容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AA%A2%E6%9F%A5%E8%B3%87%E6%96%99"><span class="toc-number">6.</span> <span class="toc-text">檢查資料</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E5%A4%B1%E5%80%BC%E6%AA%A2%E6%9F%A5"><span class="toc-number">6.1.</span> <span class="toc-text">缺失值檢查</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E5%90%88%E7%90%86%E5%80%BC%E7%9A%84%E6%AA%A2%E6%9F%A5"><span class="toc-number">7.</span> <span class="toc-text">不合理值的檢查</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A2%BA%E8%AA%8D%E7%9B%AE%E6%A8%99"><span class="toc-number">8.</span> <span class="toc-text">確認目標</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E6%AD%A5%E6%8E%A8%E7%90%86"><span class="toc-number">9.</span> <span class="toc-text">初步推理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%BF%E5%83%B9%E8%88%87%E6%AF%8F%E5%80%8B%E7%89%B9%E5%BE%B5%E7%9A%84%E9%97%9C%E4%BF%82"><span class="toc-number">10.</span> <span class="toc-text">房價與每個特徵的關係</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8A%AF%E7%BD%AA%E7%8E%87"><span class="toc-number">10.1.</span> <span class="toc-text">犯罪率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%BF%E9%96%93%E6%95%B8"><span class="toc-number">10.2.</span> <span class="toc-text">房間數</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%BB%91%E4%BA%BA%E7%9A%84%E6%AF%94%E7%8E%87"><span class="toc-number">10.3.</span> <span class="toc-text">黑人的比率</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%84%E7%89%B9%E5%BE%B5%E9%96%93%E7%9A%84%E7%9B%B8%E9%97%9C%E6%80%A7"><span class="toc-number">11.</span> <span class="toc-text">各特徵間的相關性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B7%9A%E6%80%A7%E8%BF%B4%E6%AD%B8"><span class="toc-number">12.</span> <span class="toc-text">線性迴歸</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%B9%E5%BE%B5%E9%87%8D%E8%A6%81%E6%80%A7"><span class="toc-number">13.</span> <span class="toc-text">特徵重要性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PCA%E9%99%8D%E7%B6%AD"><span class="toc-number">14.</span> <span class="toc-text">PCA降維</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">15.</span> <span class="toc-text">結語</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">16.</span> <span class="toc-text">參考資料</span></a></li></ol>
+    </div>
+
+
+<article class="post content-card">
+    <div class="post__header"></div>
+    <div class="post__content">
+        <h1 id="Series-9-實戰演練"><a href="#Series-9-實戰演練" class="headerlink" title="[Series - 9] 實戰演練"></a>[Series - 9] 實戰演練</h1><blockquote class="blockquote-note blockquote-note__info"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></div>Acknowledge</div><div class="blockquote-note__content"><blockquote>
+<p>This article was written by Joyce.</p>
+</blockquote>
+</div></blockquote>
+
+<blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/2020/08/29/it/it-series/">Back to the series page</a></p>
+</div></blockquote>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>接下來，我們將帶各位實際分析一筆數據，並從中獲得資訊。</p>
+<hr>
+<h2 id="波士頓房價評估"><a href="#波士頓房價評估" class="headerlink" title="波士頓房價評估"></a>波士頓房價評估</h2><p>使用sklearn提供的數據，來做分析，如此一來就不用再引入csv檔，而我們用來舉例的是**load_boston()**，接下來就讓我們一步步的來瞭解資料，使用分析的結果，獲得資訊吧。</p>
+<hr>
+<h2 id="實作連結"><a href="#實作連結" class="headerlink" title="實作連結"></a>實作連結</h2><p><a target="_blank" rel="noopener" href="https://colab.research.google.com/drive/1nBhh_ovtxB4Gr9kwpnIMwzk3EYMcbf8L#scrollTo=gUC0w90BlB0D">colab-連結</a></p>
+<hr>
+<h2 id="引入資料"><a href="#引入資料" class="headerlink" title="引入資料"></a>引入資料</h2><p>因為是sklearn提供的數據，直接從datasets裡引入即可。</p>
+<pre><code class="hljs python"><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> datasets <span class="hljs-comment"># 引入sklearn裏頭的資料集</span>
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd <span class="hljs-comment"># 引入Pandas</span>
+
+data = datasets.load_boston() <span class="hljs-comment"># 取得波士頓房價的數據</span>
+df_data = pd.DataFrame(data.data, columns=data.feature_names) <span class="hljs-comment"># 將數據以改成DataFrame的方式呈現</span></code></pre>
+<hr>
+<h2 id="資料內容"><a href="#資料內容" class="headerlink" title="資料內容"></a>資料內容</h2><p>在分析資料前，一定要先了解有多少筆資料，每個特徵的意義，因此我們先將資料列印出來討論。</p>
+<pre><code class="hljs python">df_data <span class="hljs-comment">#　查看資料</span></code></pre>
+<p>output</p>
+<pre><code class="hljs plain">
+        CRIM	ZN	INDUS	CHAS	NOX	RM	AGE	DIS	RAD	TAX	PTRATIO	B	LSTAT
+0	0.00632	18.0	2.31	0.0	0.538	6.575	65.2	4.0900	1.0	296.0	15.3	396.90	4.98
+1	0.02731	0.0	7.07	0.0	0.469	6.421	78.9	4.9671	2.0	242.0	17.8	396.90	9.14
+2	0.02729	0.0	7.07	0.0	0.469	7.185	61.1	4.9671	2.0	242.0	17.8	392.83	4.03
+3	0.03237	0.0	2.18	0.0	0.458	6.998	45.8	6.0622	3.0	222.0	18.7	394.63	2.94
+4	0.06905	0.0	2.18	0.0	0.458	7.147	54.2	6.0622	3.0	222.0	18.7	396.90	5.33
+...	...	...	...	...	...	...	...	...	...	...	...	...	...
+501	0.06263	0.0	11.93	0.0	0.573	6.593	69.1	2.4786	1.0	273.0	21.0	391.99	9.67
+502	0.04527	0.0	11.93	0.0	0.573	6.120	76.7	2.2875	1.0	273.0	21.0	396.90	9.08
+503	0.06076	0.0	11.93	0.0	0.573	6.976	91.0	2.1675	1.0	273.0	21.0	396.90	5.64
+504	0.10959	0.0	11.93	0.0	0.573	6.794	89.3	2.3889	1.0	273.0	21.0	393.45	6.48
+505	0.04741	0.0	11.93	0.0	0.573	6.030	80.8	2.5050	1.0	273.0	21.0	396.90	7.88
+506 rows × 13 columns</code></pre>
+<pre><code class="hljs python">data.DESCR <span class="hljs-comment"># 查看data的特徵說明</span></code></pre>
+
+<p>由output可知，共有506筆資料，有13種特徵，而每個特徵的意義分別為</p>
+<ul>
+<li>CRIM :每個城鎮的人均犯罪率 (per capita crime rate by town)</li>
+<li>ZN : 佔地25,000平方英尺以上的住宅區域比例(proportion of residential land zoned for lots over 25,000 sq.ft.)</li>
+<li>INDUS : 每個城鎮非零售業的營業面積比例(proportion of non-retail business acres per town)</li>
+<li>CHAS : 是否靠近河邊(Charles River dummy variable (= 1 if tract bounds river; 0 otherwise))</li>
+<li>NOX : 一氧化氮濃度（ppm)(nitric oxides concentration (parts per 10 million))</li>
+<li>RM : 每個住宅的平均房間數(average number of rooms per dwelling)</li>
+<li>AGE : 1940年前私有住宅的住房比率(proportion of owner-occupied units built prior to 1940)</li>
+<li>DIS : 與五個波士頓工做地區的加權距離(weighted distances to five Boston employment centres)</li>
+<li>RAD : 徑向公路的通達指數(index of accessibility to radial highways)</li>
+<li>TAX : 每10,000美元的所需繳的財產稅(full-value property-tax rate per $10,000)</li>
+<li>PTRATIO : 每個城鎮的師生比例(pupil-teacher ratio by town)</li>
+<li>B : 黑人比例(值為$1000\times(Bk-0.63)^2$)(1000(Bk - 0.63)^2 where Bk is the proportion of blacks by town)</li>
+<li>LSTAT : 中下階級的比率(% lower status of the population)<pre><code class="hljs python">data.target <span class="hljs-comment"># 查看正確的房價</span></code></pre>
+output<pre><code class="hljs plain">array([24. , 21.6, 34.7, 33.4, 36.2, 28.7, 22.9, 27.1, 16.5, 18.9, 15. ,
+       18.9, 21.7, 20.4, 18.2, 19.9, 23.1, 17.5, 20.2, 18.2, 13.6, 19.6,
+       15.2, 14.5, 15.6, 13.9, 16.6, 14.8, 18.4, 21. , 12.7, 14.5, 13.2,
+       13.1, 13.5, 18.9, 20. , 21. , 24.7, 30.8, 34.9, 26.6, 25.3, 24.7,......])</code></pre>
+<blockquote>
+<p>target 取的是該城鎮房價的中間值</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h2 id="檢查資料"><a href="#檢查資料" class="headerlink" title="檢查資料"></a>檢查資料</h2><h3 id="缺失值檢查"><a href="#缺失值檢查" class="headerlink" title="缺失值檢查"></a>缺失值檢查</h3><p>我們先查看每一行是否具有缺失值，有的話再來決定如何處理它。由下面的輸出資訊，我們可以知道所有的資料都是完整的。</p>
+<pre><code class="hljs python">df_data.isnull().any() <span class="hljs-comment"># 檢查是否有缺失值</span></code></pre>
+<p>output</p>
+<pre><code class="hljs plain">CRIM       False
+ZN         False
+INDUS      False
+CHAS       False
+NOX        False
+RM         False
+AGE        False
+DIS        False
+RAD        False
+TAX        False
+PTRATIO    False
+B          False
+LSTAT      False
+dtype: bool</code></pre>
+<h2 id="不合理值的檢查"><a href="#不合理值的檢查" class="headerlink" title="不合理值的檢查"></a>不合理值的檢查</h2><p>有些特徵的定義是比率，那麼值是必然會介於0到100之間，而判斷是否在河邊的值也只會有0和1，我們檢查這些值是否異常。而檢查的結果都沒有異常。</p>
+<pre><code class="hljs python">flag = <span class="hljs-literal">False</span> 
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> df_data[<span class="hljs-string">&quot;CRIM&quot;</span>]: <span class="hljs-comment"># 檢查CRIM是否都為合理值</span>
+  <span class="hljs-keyword">if</span>(i &lt; <span class="hljs-number">0</span> <span class="hljs-keyword">or</span> i &gt; <span class="hljs-number">100</span>): 
+    flag = <span class="hljs-literal">True</span>
+    <span class="hljs-keyword">break</span>
+print(flag)</code></pre>
+<p>output</p>
+<pre><code class="hljs plain">False</code></pre>
+<blockquote>
+<p>其餘特徵的檢查，把CRIM這個特徵改掉就好，而執行完你會發現全部的結果都是False。</p>
+</blockquote>
+<pre><code class="hljs python">df_data[<span class="hljs-string">&quot;CHAS&quot;</span>].unique()</code></pre>
+<p>output</p>
+<pre><code class="hljs plain">array([0., 1.])</code></pre>
+<hr>
+<h2 id="確認目標"><a href="#確認目標" class="headerlink" title="確認目標"></a>確認目標</h2><p>這份資料提供了波士頓各個城鎮的資料，像是<strong>犯罪率</strong>、<strong>師生比</strong>、<strong>平均房間數</strong>，每一個特徵都有可能會影響房價，而我們的目標就是使用這些特徵來<strong>預測出房價</strong>。</p>
+<hr>
+<h2 id="初步推理"><a href="#初步推理" class="headerlink" title="初步推理"></a>初步推理</h2><ol>
+<li>犯罪率 : 當犯罪率越高的話，房價會下降。</li>
+<li>一氧化氮濃度 : 可以初略代表空氣汙染的程度，因此濃度越高的話，房價也會下降。</li>
+<li>房間數 : 理論上房間數越多，房價會越高。</li>
+<li>師生比例 : 當考慮教育機能的時候，會希望此值比較低，表示老師的數量較多，越低房價會上升。</li>
+<li>黑人的比率 : 通常黑人區的房價會比較低。</li>
+<li>中下階級的比率 : 當比率越高，表示不是處於高級住宅區，房價會比較低。</li>
+</ol>
+<hr>
+<h2 id="房價與每個特徵的關係"><a href="#房價與每個特徵的關係" class="headerlink" title="房價與每個特徵的關係"></a>房價與每個特徵的關係</h2><p>在此我們就舉三個特徵來做討論</p>
+<ol>
+<li>犯罪率</li>
+<li>房間數</li>
+<li>黑人的比率<h3 id="犯罪率"><a href="#犯罪率" class="headerlink" title="犯罪率"></a>犯罪率</h3>下圖，我們可以推測犯罪率與房價成反比關係，亦即當犯罪率越高，房價會越低。<pre><code class="hljs python">x = data.target <span class="hljs-comment"># 房價數據</span>
+y = df_data[<span class="hljs-string">&quot;CRIM&quot;</span>] <span class="hljs-comment"># 犯罪率數據</span>
+
+plt.xlabel(<span class="hljs-string">&quot;house price&quot;</span>) <span class="hljs-comment"># x軸的標題</span>
+plt.ylabel(<span class="hljs-string">&quot;crime rate&quot;</span>) <span class="hljs-comment"># y軸的標題</span>
+plt.scatter(x, y) <span class="hljs-comment"># 繪製散點圖</span>
+plt.show() <span class="hljs-comment"># 顯示圖形</span></code></pre>
+<img src="https://i.imgur.com/g7Aff00.png"><h3 id="房間數"><a href="#房間數" class="headerlink" title="房間數"></a>房間數</h3>由下圖我們可知雖然有些值有偏離，但大約呈線性的關係，為正相關。<pre><code class="hljs python">x = data.target <span class="hljs-comment"># 房價數據</span>
+y = df_data[<span class="hljs-string">&quot;RM&quot;</span>] <span class="hljs-comment"># 房間數數據</span>
+
+plt.xlabel(<span class="hljs-string">&quot;house price&quot;</span>) <span class="hljs-comment"># x軸的標題</span>
+plt.ylabel(<span class="hljs-string">&quot;number of rooms&quot;</span>) <span class="hljs-comment"># y軸的標題</span>
+plt.scatter(x, y) <span class="hljs-comment"># 繪製散點圖</span>
+plt.show() <span class="hljs-comment"># 顯示圖形</span></code></pre>
+<img src="https://i.imgur.com/L0QfyDa.png"><h3 id="黑人的比率"><a href="#黑人的比率" class="headerlink" title="黑人的比率"></a>黑人的比率</h3>在初步分析的時候，我們推測黑人比率越高房價會越低，顯然對波士頓的房價不適用。<pre><code class="hljs pytho">x &#x3D; data.target # 房價數據
+y &#x3D; df_data[&quot;B&quot;] # 黑人比率數據
+
+plt.xlabel(&quot;house price&quot;) # x軸的標題
+plt.ylabel(&quot;proportion of blacks&quot;) # y軸的標題
+plt.scatter(x, y) # 繪製散點圖
+plt.show() # 顯示圖形</code></pre>
+<img src="https://i.imgur.com/ZoiIe4F.png"></li>
+</ol>
+<hr>
+<h2 id="各特徵間的相關性"><a href="#各特徵間的相關性" class="headerlink" title="各特徵間的相關性"></a>各特徵間的相關性</h2><p>由下表可知每個特徵各自的相關性，通常我們會定義大於0.7為高度相關，像是TAX與RAD之間的相關係數高達0.91，我們可以去思考其背後的意義，將數據變的更有價值。</p>
+<pre><code class="hljs pthon">df_data.corr(method&#x3D;&quot;pearson&quot;)</code></pre>
+<p>output</p>
+<pre><code class="hljs plain">
+        CRIM	       ZN	       INDUS	       CHAS	       NOX	       RM	       AGE	       DIS	       RAD	       TAX	       PTRATIO	       B	       LSTAT
+CRIM	1.000000	-0.200469	0.406583	-0.055892	0.420972	-0.219247	0.352734	-0.379670	0.625505	0.582764	0.289946	-0.385064	0.455621
+ZN	-0.200469	1.000000	-0.533828	-0.042697	-0.516604	0.311991	-0.569537	0.664408	-0.311948	-0.314563	-0.391679	0.175520	-0.412995
+INDUS	0.406583	-0.533828	1.000000	0.062938	0.763651	-0.391676	0.644779	-0.708027	0.595129	0.720760	0.383248	-0.356977	0.603800
+CHAS	-0.055892	-0.042697	0.062938	1.000000	0.091203	0.091251	0.086518	-0.099176	-0.007368	-0.035587	-0.121515	0.048788	-0.053929
+NOX	0.420972	-0.516604	0.763651	0.091203	1.000000	-0.302188	0.731470	-0.769230	0.611441	0.668023	0.188933	-0.380051	0.590879
+RM	-0.219247	0.311991	-0.391676	0.091251	-0.302188	1.000000	-0.240265	0.205246	-0.209847	-0.292048	-0.355501	0.128069	-0.613808
+AGE	0.352734	-0.569537	0.644779	0.086518	0.731470	-0.240265	1.000000	-0.747881	0.456022	0.506456	0.261515	-0.273534	0.602339
+DIS	-0.379670	0.664408	-0.708027	-0.099176	-0.769230	0.205246	-0.747881	1.000000	-0.494588	-0.534432	-0.232471	0.291512	-0.496996
+RAD	0.625505	-0.311948	0.595129	-0.007368	0.611441	-0.209847	0.456022	-0.494588	1.000000	0.910228	0.464741	-0.444413	0.488676
+TAX	0.582764	-0.314563	0.720760	-0.035587	0.668023	-0.292048	0.506456	-0.534432	0.910228	1.000000	0.460853	-0.441808	0.543993
+PTRATIO	0.289946	-0.391679	0.383248	-0.121515	0.188933	-0.355501	0.261515	-0.232471	0.464741	0.460853	1.000000	-0.177383	0.374044
+B	-0.385064	0.175520	-0.356977	0.048788	-0.380051	0.128069	-0.273534	0.291512	-0.444413	-0.441808	-0.177383	1.000000	-0.366087
+LSTAT	0.455621	-0.412995	0.603800	-0.053929	0.590879	-0.613808	0.602339	-0.496996	0.488676	0.543993	0.374044	-0.366087	1.000000</code></pre>
+<p>因為有13個特徵，滿滿的數字我們無法一下看出低度相關還是高度相關，因此我們將它改成塗色的呈現。</p>
+<pre><code class="hljs python"><span class="hljs-keyword">import</span> seaborn <span class="hljs-keyword">as</span> sns <span class="hljs-comment"># 引入seaborn</span>
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt <span class="hljs-comment"># 引入pyplot</span>
+
+plt.figure(figsize= (<span class="hljs-number">13</span>, <span class="hljs-number">13</span>)) <span class="hljs-comment"># 圖形大小</span>
+sns.heatmap(df_data.corr(),annot = <span class="hljs-literal">True</span>) <span class="hljs-comment"># 塗顏色</span>
+plt.show() <span class="hljs-comment"># 顯示圖形</span></code></pre>
+<p>output<br><img src="https://i.imgur.com/bMlzQGs.png"></p>
+<h2 id="線性迴歸"><a href="#線性迴歸" class="headerlink" title="線性迴歸"></a>線性迴歸</h2><p>要做線性迴歸的第一個步驟需要將資料分成兩個部分，一個是訓練的資料，另一個是測試的資料，這個比例要拿捏好，準確性太高跟太低都不好，接下來訓練的模型，我們都採取73比，也就是把70%的資料拿去訓練，留下30%的資料作測試用。</p>
+<p>首先我們將13個特徵全部拿去做分析，來看看結果在來考慮下一步。</p>
+<pre><code class="hljs python"><span class="hljs-keyword">from</span> sklearn.linear_model <span class="hljs-keyword">import</span> LinearRegression <span class="hljs-comment"># 引入LinearRegression</span>
+<span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split <span class="hljs-comment"># 引入train_test_split</span>
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt <span class="hljs-comment"># 引入pyplot</span>
+
+x = data.data <span class="hljs-comment"># 13個特徵的數據</span>
+y = data.target <span class="hljs-comment"># 房價數據</span>
+
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = <span class="hljs-number">0.3</span>, random_state = <span class="hljs-number">1</span>) <span class="hljs-comment"># 將數據分成73比</span>
+lnregr = LinearRegression()
+lnregr.fit(x_train, y_train) <span class="hljs-comment"># 將資料拿去訓練</span>
+
+y_predict = lnregr.predict(x_test) <span class="hljs-comment"># 北test的資料用訓練出來的模型去預測</span>
+
+plt.xlabel(<span class="hljs-string">&quot;actual price&quot;</span>) <span class="hljs-comment"># x軸的標題</span>
+plt.ylabel(<span class="hljs-string">&quot;predict pcice&quot;</span>) <span class="hljs-comment"># y軸的標題</span>
+plt.plot([<span class="hljs-number">0</span>,<span class="hljs-number">50</span>], [<span class="hljs-number">0</span>,<span class="hljs-number">50</span>]) <span class="hljs-comment"># 劃一條基準線</span>
+plt.scatter(y_test, y_predict) <span class="hljs-comment"># 比對預測跟實際的差別</span>
+plt.show() <span class="hljs-comment"># 察看結果</span></code></pre>
+<p>output<br><img src="https://i.imgur.com/7SU1pta.png"></p>
+<pre><code class="hljs python">lnregr.score(x_train, y_train) <span class="hljs-comment"># 訓練模型的正確率</span></code></pre>
+<p>output</p>
+<pre><code class="hljs plain">0.7103879080674731</code></pre>
+<p>思考 : 為甚麼正確率這麼低呢？因為線性迴歸的的方程式為一條直線，當特徵與房價不成線性關係的話，那麼再怎麼分析，正確率都不會高。<br>解決：</p>
+<ol>
+<li>只討論呈線性關係的特徵</li>
+<li>使用多項式迴歸</li>
+<li>降維</li>
+</ol>
+<p>而前兩種解決方法這裡就不再詳細討論了。</p>
+<hr>
+<h2 id="特徵重要性"><a href="#特徵重要性" class="headerlink" title="特徵重要性"></a>特徵重要性</h2><p>我們在上面的分析是使用直接13個特徵，如果我們可以只選取比較重要的特徵出來討論，會不會得到更好的結果呢？特別注意到如果要找尋重要性的話，一定要先做標準化，不然數據跑出來的結果會整個失真。</p>
+<pre><code class="hljs python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd <span class="hljs-comment"># 引入pandas</span>
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np <span class="hljs-comment"># 引入numpy</span>
+<span class="hljs-keyword">from</span> sklearn.tree <span class="hljs-keyword">import</span> DecisionTreeClassifier <span class="hljs-comment"># 引入DecisionTreeClassifier</span>
+<span class="hljs-keyword">from</span> sklearn.preprocessing <span class="hljs-keyword">import</span> StandardScaler
+<span class="hljs-keyword">from</span> sklearn.decomposition <span class="hljs-keyword">import</span> PCA <span class="hljs-comment"># 引入PCA</span>
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt <span class="hljs-comment"># 引入pyplot</span>
+
+x = data.data <span class="hljs-comment"># 13個特徵的數據</span>
+y = data.target <span class="hljs-comment"># 特徵名稱</span>
+
+std_tool = StandardScaler() 
+x = std_tool.fit_transform(x) <span class="hljs-comment"># 將資料標準化</span>
+
+dt_model = LinearRegression()
+dt_model.fit(x,y)
+feature_importance = dt_model.coef_ <span class="hljs-comment"># 重要性</span>
+
+plt.figure(figsize=(<span class="hljs-number">12</span>, <span class="hljs-number">6</span>)) <span class="hljs-comment"># 圖形大小</span>
+plt.bar(df_data.columns , feature_importance) <span class="hljs-comment"># 繪製成直方圖</span>
+plt.show() <span class="hljs-comment"># 顯示圖形</span></code></pre>
+<p><img src="https://i.imgur.com/hbvdcqq.png"><br>基本上數值(取絕對值後)越大代表越重要。因此我們決定將<strong>CRIM</strong>、<strong>INDUS</strong>、<strong>CHAS</strong>、<strong>AGE</strong>、<strong>B</strong>刪除，再做一次線性迴歸。</p>
+<pre><code class="hljs python">df_data2 = df_data.drop([<span class="hljs-string">&quot;CRIM&quot;</span>, <span class="hljs-string">&quot;INDUS&quot;</span>, <span class="hljs-string">&quot;CHAS&quot;</span>, <span class="hljs-string">&quot;AGE&quot;</span>, <span class="hljs-string">&quot;B&quot;</span>], axis = <span class="hljs-number">1</span>)
+
+x = df_data2 <span class="hljs-comment"># 重要特徵的數據</span>
+y = data.target <span class="hljs-comment"># 房價數據</span>
+
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = <span class="hljs-number">0.3</span>, random_state = <span class="hljs-number">1</span>) <span class="hljs-comment"># 將數據分成73比</span>
+
+std_tool = StandardScaler() 
+x_train = std_tool.fit_transform(x_train) <span class="hljs-comment"># 將資料標準化</span>
+
+lnregr = LinearRegression()
+lnregr.fit(x_train, y_train) <span class="hljs-comment"># 將資料拿去訓練</span>
+
+x_test = std_tool.transform(x_test)
+y_predict = lnregr.predict(x_test) <span class="hljs-comment"># 北test的資料用訓練出來的模型去預測</span>
+
+plt.xlabel(<span class="hljs-string">&quot;actual price&quot;</span>) <span class="hljs-comment"># x軸的標題</span>
+plt.ylabel(<span class="hljs-string">&quot;predict pcice&quot;</span>) <span class="hljs-comment"># y軸的標題</span>
+plt.plot([<span class="hljs-number">0</span>,<span class="hljs-number">50</span>], [<span class="hljs-number">0</span>,<span class="hljs-number">50</span>]) <span class="hljs-comment"># 劃一條基準線</span>
+plt.scatter(y_test, y_predict) <span class="hljs-comment"># 比對預測跟實際的差別</span>
+plt.show() <span class="hljs-comment"># 察看結果</span></code></pre>
+<p>output<br><img src="https://i.imgur.com/elmuU1l.png"></p>
+<pre><code class="hljs python">lnregr.score(x_train, y_train) <span class="hljs-comment"># 訓練模型的正確率</span></code></pre>
+<p>output</p>
+<pre><code class="hljs plain">0.7723543146059919</code></pre>
+<p>0.7609335561698132</p>
+<hr>
+<h2 id="PCA降維"><a href="#PCA降維" class="headerlink" title="PCA降維"></a>PCA降維</h2><p>因為數據只有506筆，基本上當數據量越少，所需的維度就要少，因此我們使用PCA降維的方式，它是屬於線性的降維。</p>
+<pre><code class="hljs python"><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split <span class="hljs-comment"># 引入train_test_split</span>
+<span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> decomposition <span class="hljs-comment"># 引入decomposition</span>
+<span class="hljs-keyword">from</span> sklearn.preprocessing <span class="hljs-keyword">import</span> StandardScaler
+
+x = data.data <span class="hljs-comment"># pca降維後的數據</span>
+y = data.target <span class="hljs-comment"># 房價數據</span>
+
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = <span class="hljs-number">0.3</span>, random_state = <span class="hljs-number">1</span>) <span class="hljs-comment"># 將數據分成73比</span>
+
+<span class="hljs-comment"># Standarize our training data</span>
+std_tool = StandardScaler()
+std_tool.fit(x_train)
+x_train = std_tool.transform(x_train)
+
+<span class="hljs-comment"># PC降維</span>
+pca = decomposition.PCA(n_components=<span class="hljs-number">0.95</span>)
+pca.fit(x_train)
+x_train = pca.transform(x_train)</code></pre>
+<pre><code class="hljs python"><span class="hljs-keyword">from</span> sklearn.linear_model <span class="hljs-keyword">import</span> LinearRegression <span class="hljs-comment"># 引入LinearRegression</span>
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt <span class="hljs-comment"># 引入pyplot</span>
+
+lnregr = LinearRegression()
+lnregr.fit(x_train, y_train) <span class="hljs-comment"># 將資料拿去訓練</span>
+
+<span class="hljs-comment"># Standarize x_test</span>
+x_test = std_tool.transform(x_test)
+
+<span class="hljs-comment"># Dimension reduction usng PCA</span>
+x_test = pca.transform(x_test)
+y_predict = lnregr.predict(x_test) <span class="hljs-comment"># 將test的資料用訓練出來的模型去預測</span>
+
+plt.xlabel(<span class="hljs-string">&quot;actual price&quot;</span>) <span class="hljs-comment"># x軸的標題</span>
+plt.ylabel(<span class="hljs-string">&quot;predict pcice&quot;</span>) <span class="hljs-comment"># y軸的標題</span>
+plt.plot([<span class="hljs-number">0</span>,<span class="hljs-number">50</span>], [<span class="hljs-number">0</span>,<span class="hljs-number">50</span>]) <span class="hljs-comment"># 劃一條基準線</span>
+plt.scatter(y_test, y_predict) <span class="hljs-comment"># 比對預測跟實際的差別</span>
+plt.show() <span class="hljs-comment"># 察看結果</span></code></pre>
+
+<pre><code class="hljs python">lnregr.score(x_train, y_train) <span class="hljs-comment"># 訓練模型的正確率</span></code></pre>
+<p>output</p>
+<pre><code class="hljs plain">0.7723543146059919</code></pre>
+
+<hr>
+<h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>我們在這篇文章僅做了一些初步的分析，尚未找到最好的模型，可以考慮SVM或決策樹，但是它的分析步驟，就類似這樣模式，在分析的過程中延伸問題，改變問題，尋找更好的方向，得到更加有用的結果。</p>
+<hr>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.itread01.com/content/1569945722.html">波士頓房價預測 - 最簡單入門機器學習 - Jupyter</a></li>
+<li><a target="_blank" rel="noopener" href="http://moocs.nccu.edu.tw/media/17898">用線性回歸預測波士頓房價</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.itread01.com/content/1543176315.html">python資料預處理 ：資料降維</a></li>
+</ul>
+<br/>
+<br/>
+<a href="/2020/09/09/it/it-8" float=left>Last</a> <a href="/2020/09/11/it/it-10" style="float: right;">Next</a><!-- flag of hidden posts -->
+    </div>
+     
+    <div class="post-footer__meta"><p>updated at 2020-12-31</p></div> 
+    <div class="post-meta__cats"></div> 
+</article>
+
+
+
+
+    <div class="post__comments content-card" id="comment">
+        
+    <h4>Comments</h4>
+    
+    <div id="disqus_thread">Unable to load Disqus, please make sure your network can access.</div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    </div>
+
+
+
+</main>
+
+            <footer class="footer">
+    
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/viz.js/1.7.1/viz.js'></script>
+        <script>
+          String.prototype.replaceAll = function(search, replacement) {
+            var target = this;
+            return target.split(search).join(replacement);
+          };
+      
+          let vizObjects = document.querySelectorAll('.graphviz')
+      
+          for (let item of vizObjects) {
+            let svg = undefined
+            try {
+              svg = Viz(item.textContent.replaceAll('–', '--'), 'svg')
+            } catch(e) {
+              svg = `<pre class="error">${e}</pre>`
+            }
+            item.outerHTML = svg
+          }
+        </script>
+    
+    
+
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright © 2020 <a href="/">Justin</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+         
+
+ 
+
+ 
+
+ 
+
+  
+
+
+
+ 
+
+
+    
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+    
+    <script>
+        function loadComment() {
+            window.disqus_config = function () {
+                this.page.url = 'justin900429.github.io/posts/b1baadfa/';
+                this.page.identifier = 'posts/b1baadfa/';
+            };
+            (function(){
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + 'https-justin900429-github-io' + '.disqus.com/embed.js';
+                (document.head || document.body).appendChild(dsq);
+            })();
+        }
+    
+        var runningOnBrowser = typeof window !== "undefined";
+        var isBot = runningOnBrowser && !("onscroll" in window) || typeof navigator !== "undefined" && /(gle|ing|ro|msn)bot|crawl|spider|yand|duckgo/i.test(navigator.userAgent);
+        var supportsIntersectionObserver = runningOnBrowser && "IntersectionObserver" in window;
+    
+        setTimeout(function () {
+            if (!isBot && supportsIntersectionObserver) {
+                var comment_observer = new IntersectionObserver(function(entries) {
+                    if (entries[0].isIntersecting) {
+                        loadComment();
+                        comment_observer.disconnect();
+                    }
+                }, { threshold: [0] });
+                comment_observer.observe(document.getElementById('comment'));
+            } else {
+                loadComment();
+            }
+        }, 1);
+    </script>
+
+
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+
+
+
+    </body>
+</html>

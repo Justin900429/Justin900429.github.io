@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    
+        <link rel="shortcut icon" href="/mylogo.ico">
+    
+    
+    
+    
+    
+
+
+    <!-- meta -->
+
+
+<title>[Series - 20] Classification - SVM - 3 | Justin</title><meta name="robots" content="noindex">
+
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="[Series - 20] Classification - SVM - 3See moreBack to the series page   前言今天要延續上篇說的，繼續討論關於 Kernel 的強大！ NotebookNotebook Feature mapping在講什麼是 Kernel 之前，我們先來認識什麼是 Feature mapping。我們現在講的 SVM 都是專注在討論線性可分的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Series - 20] Classification - SVM - 3">
+<meta property="og:url" content="justin900429.github.io/posts/f94cb630/index.html">
+<meta property="og:site_name" content="Justin">
+<meta property="og:description" content="[Series - 20] Classification - SVM - 3See moreBack to the series page   前言今天要延續上篇說的，繼續討論關於 Kernel 的強大！ NotebookNotebook Feature mapping在講什麼是 Kernel 之前，我們先來認識什麼是 Feature mapping。我們現在講的 SVM 都是專注在討論線性可分的">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/BBLpm1w.png">
+<meta property="og:image" content="https://i.imgur.com/TrxJ8zY.png">
+<meta property="og:image" content="https://i.imgur.com/ZJ7lmwt.png">
+<meta property="og:image" content="https://i.imgur.com/DEq6g7C.png">
+<meta property="og:image" content="https://miro.medium.com/max/2090/1*r9CO-gp1uuRsYooCLL9UeQ.png">
+<meta property="og:image" content="https://i.imgur.com/WhHLLu6.png">
+<meta property="article:published_time" content="2020-09-09T07:55:02.000Z">
+<meta property="article:modified_time" content="2020-12-31T01:11:47.153Z">
+<meta property="article:author" content="Justin Ruan">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://i.imgur.com/BBLpm1w.png">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+
+
+    
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/atom-one-light.min.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')===-1)this.media='all'">
+        
+    
+
+    
+
+     
+
+    <!-- custom head -->
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+    <body>
+        <div id="app">
+            <header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">Justin&#39;s blog</span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/about/" class="navbar-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="navbar-menu button">CV</a>
+                
+                    <a href="/" class="navbar-menu button">Articles</a>
+                
+                    <a href="/tags/" class="navbar-menu button">Tags</a>
+                
+                    <a href="/archives/" class="navbar-menu button">Archives</a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+
+         
+    <a href="#" class="button" id="b2t" aria-label="Back to Top" title="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="32" height="32">
+            <path d="M233.376 722.752L278.624 768 512 534.624 745.376 768l45.248-45.248L512 444.128zM192 352h640V288H192z" fill="currentColor"></path>
+        </svg>
+    </a>
+
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                
+                    <a href="/about/" class="dropdown-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="dropdown-menu button">CV</a>
+                
+                    <a href="/" class="dropdown-menu button">Articles</a>
+                
+                    <a href="/tags/" class="dropdown-menu button">Tags</a>
+                
+                    <a href="/archives/" class="dropdown-menu button">Archives</a>
+                
+            </div>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+
+<div class="post-title">
+    <h1 class="post-title__text">
+        [Series - 20] Classification - SVM - 3
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2020/09/" class="post-meta__date button">2020-09-09</a>
+        
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <aside class="post-side">
+        <div class="post-side__toc">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Notebook"><span class="toc-number">2.</span> <span class="toc-text">Notebook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Feature-mapping"><span class="toc-number">3.</span> <span class="toc-text">Feature mapping</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kernel"><span class="toc-number">4.</span> <span class="toc-text">Kernel</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E7%BE%A9"><span class="toc-number">4.1.</span> <span class="toc-text">定義</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kernel-%E7%9A%84%E7%A8%AE%E9%A1%9E"><span class="toc-number">4.2.</span> <span class="toc-text">Kernel 的種類</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kernel-SVM-%E7%9A%84%E8%A7%A3"><span class="toc-number">4.3.</span> <span class="toc-text">Kernel SVM 的解</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kernel-trick"><span class="toc-number">5.</span> <span class="toc-text">Kernel trick</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">6.</span> <span class="toc-text">程式碼</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">7.</span> <span class="toc-text">結語</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">8.</span> <span class="toc-text">參考資料</span></a></li></ol>
+        </div>
+    </aside>
+    <a class="btn-toc button" id="btn-toc" tabindex="0">
+        <svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path>
+        </svg>
+    </a>
+    <div class="toc-menus" id="toc-menus">
+        <div class="toc-title">Article Directory</div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Notebook"><span class="toc-number">2.</span> <span class="toc-text">Notebook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Feature-mapping"><span class="toc-number">3.</span> <span class="toc-text">Feature mapping</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kernel"><span class="toc-number">4.</span> <span class="toc-text">Kernel</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E7%BE%A9"><span class="toc-number">4.1.</span> <span class="toc-text">定義</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kernel-%E7%9A%84%E7%A8%AE%E9%A1%9E"><span class="toc-number">4.2.</span> <span class="toc-text">Kernel 的種類</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kernel-SVM-%E7%9A%84%E8%A7%A3"><span class="toc-number">4.3.</span> <span class="toc-text">Kernel SVM 的解</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kernel-trick"><span class="toc-number">5.</span> <span class="toc-text">Kernel trick</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">6.</span> <span class="toc-text">程式碼</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">7.</span> <span class="toc-text">結語</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">8.</span> <span class="toc-text">參考資料</span></a></li></ol>
+    </div>
+
+
+<article class="post content-card">
+    <div class="post__header"></div>
+    <div class="post__content">
+        <h1 id="Series-20-Classification-SVM-3"><a href="#Series-20-Classification-SVM-3" class="headerlink" title="[Series - 20] Classification - SVM - 3"></a>[Series - 20] Classification - SVM - 3</h1><blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/2020/08/29/it/it-series/">Back to the series page</a></p>
+</div></blockquote>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天要延續上篇說的，繼續討論關於 <strong>Kernel</strong> 的強大！</p>
+<h2 id="Notebook"><a href="#Notebook" class="headerlink" title="Notebook"></a>Notebook</h2><p><a target="_blank" rel="noopener" href="https://colab.research.google.com/github/Justin900429/IT-used/blob/master/SVM.ipynb">Notebook</a></p>
+<h2 id="Feature-mapping"><a href="#Feature-mapping" class="headerlink" title="Feature mapping"></a>Feature mapping</h2><p>在講什麼是 <strong>Kernel</strong> 之前，我們先來認識什麼是 <strong>Feature mapping</strong>。我們現在講的 <strong>SVM</strong> 都是專注在討論<strong>線性可分</strong>的資料，如果是遇到下面這張圖，以我們現在方式可能還不足以解決：</p>
+<br>
+<center><img src="https://i.imgur.com/BBLpm1w.png" width=400/></center>
+
+<p>但是要是我們可以<mark>創造更多的特徵</mark>，將資料投影到更高維的空間，也許我們就有機會可以用平面來分割我們的資料點了：</p>
+<br>
+<center><img src="https://i.imgur.com/TrxJ8zY.png" width=400/></center>
+
+
+<p>因此我們定義一個函數 $\phi(x)$，使得原本的 $x$ 可以投射到更高維：</p>
+<p>$$<br>x \rightarrow \phi(x) \ , x \in R^k \ , \phi(x) \in R^n \ ; where \ n \ \gt k<br>$$</p>
+<p>我們舉個例子，假設我們現在有一些二維的資料 $X = (x_1, x_2)$，我們現在將資料投射到三維空間 $\phi(x) = (x_1, x_2, x_1x_2)$。程式碼都在 <strong>Notebook</strong> 裡。</p>
+<br>
+<center><img src="https://i.imgur.com/ZJ7lmwt.png" width=400/></center>
+<br>
+<center><img src="https://i.imgur.com/DEq6g7C.png" width=450/></center>
+<br>
+
+<p>現在我們對 <strong>Feature mapping</strong> 有更多了解了，不知道大家有沒有發現，其實到這裡我們並沒有真正脫離 $d$，因為我們在計算 $q_{n, m}$ 時，我們的 $\phi(x)$ 內積仍然在更高維度的 $R^n$。因此我們希望我們可以找到一個方式，使得我們內積不會因為 <strong>feature mapping</strong> 而有更複雜的運算，而<strong>可以維持原本 $x$ 的內積所需要的複雜度</strong>，而這正是我們上篇所謂跟維度 $d$ 沒關係的核心觀念！</p>
+<h2 id="Kernel"><a href="#Kernel" class="headerlink" title="Kernel"></a>Kernel</h2><h3 id="定義"><a href="#定義" class="headerlink" title="定義"></a>定義</h3><p>給定一個 <strong>Feature mapping</strong>，<strong>Kernel</strong>的定義則為：</p>
+<p>$$<br>K(x, z) = \phi(x)^T\phi(z)<br>$$</p>
+<p>我們再來回憶一下我們的 <strong>SVM</strong> 的最佳解是什麼：</p>
+<p>$$<br>\begin{align}<br>\underset{\alpha}{min} \ \  \frac{1}{2}\sum_{i=1}^{n} &amp; \sum_{j=1}^{n}\alpha_i \alpha_j y^{(i)}y^{(j)} x^{(i)T}x^{(j)} - \sum_{i = 1}^n\alpha_i \\<br>s.t. \ \ &amp; \sum_{i=1}^n \alpha_iy^{(i)} = 0 \\<br>&amp; \alpha_i \geq 0 \ \text{for i = 1, …, n}<br>\end{align}<br>$$</p>
+<p>而我們要是將我們的 $x \rightarrow \phi(x)$，則我們可以寫成：</p>
+<p>$$<br>\underset{\alpha}{min} \ \  \frac{1}{2}\sum_{i=1}^{n} \sum_{j=1}^{n}\alpha_i \alpha_j y^{(i)}y^{(j)} \phi(x^{(i)})^T\phi(x^{(j)}) - \sum_{i = 1}^n\alpha_i \\<br>$$</p>
+<p>再換成：</p>
+<p>$$<br>\underset{\alpha}{min} \ \  \frac{1}{2}\sum_{i=1}^{n} \sum_{j=1}^{n}\alpha_i \alpha_j y^{(i)}y^{(j)} K(x^{(i)}, x^{(j)}) - \sum_{i = 1}^n\alpha_i \\<br>$$</p>
+<p>而 <strong>Kernel</strong> 正幫助我們脫離 <strong>高維度內積造成的複雜度</strong>。</p>
+<h3 id="Kernel-的種類"><a href="#Kernel-的種類" class="headerlink" title="Kernel 的種類"></a>Kernel 的種類</h3><p>並不是所有的 <strong>mapping</strong> 都可以具有 <strong>Kernel</strong> 的性質。我們先來看看有哪些種類以及他的定義。</p>
+<ol>
+<li><p><strong>Linear kernel</strong><br> $$<br> K(x, y) = x^Ty<br> $$<br> 就是我們原本在用的 <strong>SVM</strong></p>
+</li>
+<li><p><strong>Polynomial kernel</strong><br> $$<br> K(x, y) = (\zeta + \gamma x^Ty)^Q<br> $$<br> $Q$ 就是我們希望<strong>Kernel</strong>幫我們做 <strong>mapping</strong> 的次方數。</p>
+</li>
+<li><p><strong>Guassian Kernel a.k.a. Radial Basisi Function</strong><br> $$<br> K(x, y) = exp(-\gamma \lVert x - y \rVert^2)<br> $$<br> $\gamma$ 愈大，我們的高斯分佈就會愈尖，因此要小心使用才不會造成 <strong>Overfitting</strong>。</p>
+ <br>
+
+<p> <img src="https://miro.medium.com/max/2090/1*r9CO-gp1uuRsYooCLL9UeQ.png"></p>
+</li>
+</ol>
+<h3 id="Kernel-SVM-的解"><a href="#Kernel-SVM-的解" class="headerlink" title="Kernel SVM 的解"></a>Kernel SVM 的解</h3><p>我們還是要回到我們的 $w, b$，，因此我們來看看可不可以使用 <strong>kernel</strong>。</p>
+<p>我們知道 $w, b$ 的解是：<br>$$<br>\begin{align}<br>w &amp;= \sum_{i=1}^n \alpha_i y^{(i)} x^{(i)} \\<br>b &amp;= y^{(i)} - w^Tx^{(i)}<br>\end{align}<br>$$</p>
+<p>將 $w$ 帶到 $b$ 裡面：</p>
+<p>$$<br>\begin{align}<br>b &amp;= y^{(i)} - (\sum_{j=1}^n \alpha_i y^{(j)} x^{(j)})^Tx^{(i)} \\<br>&amp;= y^{(i)} - \sum_{j=1}^n \alpha_i y^{(j)} x^{(j)T}x^{(i)} \\<br>&amp;= y^{(i)} - \sum_{j=1}^n \alpha_i y^{(j)}K(x^{(j)}, x^{(i)})<br>\end{align}<br>$$</p>
+<p>而我們在做<strong>預測</strong>的時候，我們使用的函數是之前介紹過的 $g(z)$</p>
+<p>$$<br>\begin{align}<br>g(z) &amp;= g(w^Tx + b) = g((\sum_{j=1}^n \alpha_i y^{(j)} x^{(j)})^Tx + b) \\<br>&amp;= g(\sum_{j=1}^n \alpha_i y^{(j)} x^{(j)T}x + b) \\<br>&amp;= g(\sum_{j=1}^n \alpha_i y^{(j)}K(x^{(j)}, x) + b)<br>\end{align}<br>$$</p>
+<p>雖然我們的 $w$ 還是跟 $x$ 有關係，但只要我們不需要畫出分割線的話，我們可以直接用 <strong>kernel</strong> 幫我們做出預測！</p>
+<h2 id="Kernel-trick"><a href="#Kernel-trick" class="headerlink" title="Kernel trick"></a>Kernel trick</h2><p>既然是專門拿來取代內積的方式，只要演算法裡面有內積的形式，我們就可以呼叫出 <strong>Kernel</strong> 幫我們做高維的事情，這概念就叫 <strong>Kernel trick</strong>！因此我們之前用的 <strong>Logistic Regression</strong> 就可以使用 <strong>kernel trick</strong> 來做到分類！</p>
+<h2 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h2><p>我一樣把程式碼放在 <strong>Notebook</strong> 裡。預測的結果是：</p>
+<center><img src="https://i.imgur.com/WhHLLu6.png" width=600/></center>
+
+<h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>這篇終於結束 <strong>SVM</strong> 的漫長之旅了！希望大家都能從這幾篇學到 <strong>SVM</strong> 的核心觀念。下次我們就要說 <strong>Decision Tree</strong> 了！</p>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
+<li><a target="_blank" rel="noopener" href="http://cs229.stanford.edu/">CS 229 from Standford</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PLXVfgk9fNX2IQOYPmqjqWsNUFl2kpk1U2">機器學習技法 林軒田教授</a></li>
+<li><a target="_blank" rel="noopener" href="https://scikit-learn.org/stable/auto_examples/svm/plot_separating_hyperplane.html">SVM: Maximum margin separating hyperplane [documentation]</a></li>
+</ol>
+<br/>
+<br/>
+<a href="/2020/09/08/it/it-19" float=left>Last</a> <a href="/2020/09/10/it/it-21" style="float: right;">Next</a><!-- flag of hidden posts -->
+    </div>
+     
+    <div class="post-footer__meta"><p>updated at 2020-12-31</p></div> 
+    <div class="post-meta__cats"></div> 
+</article>
+
+
+
+
+    <div class="post__comments content-card" id="comment">
+        
+    <h4>Comments</h4>
+    
+    <div id="disqus_thread">Unable to load Disqus, please make sure your network can access.</div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    </div>
+
+
+
+</main>
+
+            <footer class="footer">
+    
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/viz.js/1.7.1/viz.js'></script>
+        <script>
+          String.prototype.replaceAll = function(search, replacement) {
+            var target = this;
+            return target.split(search).join(replacement);
+          };
+      
+          let vizObjects = document.querySelectorAll('.graphviz')
+      
+          for (let item of vizObjects) {
+            let svg = undefined
+            try {
+              svg = Viz(item.textContent.replaceAll('–', '--'), 'svg')
+            } catch(e) {
+              svg = `<pre class="error">${e}</pre>`
+            }
+            item.outerHTML = svg
+          }
+        </script>
+    
+    
+
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright © 2020 <a href="/">Justin</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+         
+
+ 
+
+ 
+
+ 
+
+  
+
+
+
+ 
+
+
+    
+ 
+
+ 
+
+
+    <script>
+        if (typeof MathJax === 'undefined') {
+            window.MathJax = {
+                loader: {
+                    source: {
+                        '[tex]/amsCd': '[tex]/amscd',
+                        '[tex]/AMScd': '[tex]/amscd'
+                    }
+                },
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                },
+                options: {
+                    renderActions: {
+                        findScript: [10, doc => {
+                            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                                const display = !!node.type.match(/; *mode=display/);
+                                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                                const text = document.createTextNode('');
+                                node.parentNode.replaceChild(text, node);
+                                math.start = {node: text, delim: '', n: 0};
+                                math.end = {node: text, delim: '', n: 0};
+                                doc.math.push(math);
+                            });
+                        }, '', false],
+                        insertedScript: [200, () => {
+                            document.querySelectorAll('mjx-container').forEach(node => {
+                                let target = node.parentNode;
+                                if (target.nodeName.toLowerCase() === 'li') {
+                                    target.parentNode.classList.add('has-jax');
+                                }
+                            });
+                        }, '', false]
+                    }
+                }
+            };
+            (function () {
+                var script = document.createElement('script');
+                script.src = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js";
+                script.defer = true;
+                document.head.appendChild(script);
+            })();
+        } else {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+        }
+    </script>
+ 
+
+ 
+
+ 
+
+
+    
+    <script>
+        function loadComment() {
+            window.disqus_config = function () {
+                this.page.url = 'justin900429.github.io/posts/f94cb630/';
+                this.page.identifier = 'posts/f94cb630/';
+            };
+            (function(){
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + 'https-justin900429-github-io' + '.disqus.com/embed.js';
+                (document.head || document.body).appendChild(dsq);
+            })();
+        }
+    
+        var runningOnBrowser = typeof window !== "undefined";
+        var isBot = runningOnBrowser && !("onscroll" in window) || typeof navigator !== "undefined" && /(gle|ing|ro|msn)bot|crawl|spider|yand|duckgo/i.test(navigator.userAgent);
+        var supportsIntersectionObserver = runningOnBrowser && "IntersectionObserver" in window;
+    
+        setTimeout(function () {
+            if (!isBot && supportsIntersectionObserver) {
+                var comment_observer = new IntersectionObserver(function(entries) {
+                    if (entries[0].isIntersecting) {
+                        loadComment();
+                        comment_observer.disconnect();
+                    }
+                }, { threshold: [0] });
+                comment_observer.observe(document.getElementById('comment'));
+            } else {
+                loadComment();
+            }
+        }, 1);
+    </script>
+
+
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+
+
+
+    </body>
+</html>

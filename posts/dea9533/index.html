@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    
+        <link rel="shortcut icon" href="/mylogo.ico">
+    
+    
+    
+    
+    
+
+
+    <!-- meta -->
+
+
+<title>[Series - 30] What&#39;s next? | Justin</title><meta name="robots" content="noindex">
+
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="[Series - 30] What’s next?See moreBack to the series page   下一步這 30 篇只不過是 AI 領域的冰山一角，我們還有很多東西沒有提到，例如說 bias, variance，validation 很多很多，在這之後還有 Deep learning 和 Reinforcement learning，這些主題都是很有趣，如果大家沒有對這領域失">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Series - 30] What&#39;s next?">
+<meta property="og:url" content="justin900429.github.io/posts/dea9533/index.html">
+<meta property="og:site_name" content="Justin">
+<meta property="og:description" content="[Series - 30] What’s next?See moreBack to the series page   下一步這 30 篇只不過是 AI 領域的冰山一角，我們還有很多東西沒有提到，例如說 bias, variance，validation 很多很多，在這之後還有 Deep learning 和 Reinforcement learning，這些主題都是很有趣，如果大家沒有對這領域失">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.meme-arsenal.com/memes/78a1b1d922421072ed34c82c3b68e9ab.jpg">
+<meta property="article:published_time" content="2020-09-18T05:15:30.000Z">
+<meta property="article:modified_time" content="2020-12-31T01:11:47.166Z">
+<meta property="article:author" content="Justin Ruan">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.meme-arsenal.com/memes/78a1b1d922421072ed34c82c3b68e9ab.jpg">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+
+
+    
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/atom-one-light.min.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')===-1)this.media='all'">
+        
+    
+
+    
+
+     
+
+    <!-- custom head -->
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+    <body>
+        <div id="app">
+            <header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">Justin&#39;s blog</span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/about/" class="navbar-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="navbar-menu button">CV</a>
+                
+                    <a href="/" class="navbar-menu button">Articles</a>
+                
+                    <a href="/tags/" class="navbar-menu button">Tags</a>
+                
+                    <a href="/archives/" class="navbar-menu button">Archives</a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+
+         
+    <a href="#" class="button" id="b2t" aria-label="Back to Top" title="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="32" height="32">
+            <path d="M233.376 722.752L278.624 768 512 534.624 745.376 768l45.248-45.248L512 444.128zM192 352h640V288H192z" fill="currentColor"></path>
+        </svg>
+    </a>
+
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                
+                    <a href="/about/" class="dropdown-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="dropdown-menu button">CV</a>
+                
+                    <a href="/" class="dropdown-menu button">Articles</a>
+                
+                    <a href="/tags/" class="dropdown-menu button">Tags</a>
+                
+                    <a href="/archives/" class="dropdown-menu button">Archives</a>
+                
+            </div>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+
+<div class="post-title">
+    <h1 class="post-title__text">
+        [Series - 30] What&#39;s next?
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2020/09/" class="post-meta__date button">2020-09-18</a>
+        
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <aside class="post-side">
+        <div class="post-side__toc">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E4%B8%80%E6%AD%A5"><span class="toc-number">1.</span> <span class="toc-text">下一步</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8C%E8%B3%BD%E5%BF%83%E5%BE%97"><span class="toc-number">2.</span> <span class="toc-text">完賽心得</span></a></li></ol>
+        </div>
+    </aside>
+    <a class="btn-toc button" id="btn-toc" tabindex="0">
+        <svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path>
+        </svg>
+    </a>
+    <div class="toc-menus" id="toc-menus">
+        <div class="toc-title">Article Directory</div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E4%B8%80%E6%AD%A5"><span class="toc-number">1.</span> <span class="toc-text">下一步</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8C%E8%B3%BD%E5%BF%83%E5%BE%97"><span class="toc-number">2.</span> <span class="toc-text">完賽心得</span></a></li></ol>
+    </div>
+
+
+<article class="post content-card">
+    <div class="post__header"></div>
+    <div class="post__content">
+        <h1 id="Series-30-What’s-next"><a href="#Series-30-What’s-next" class="headerlink" title="[Series - 30] What’s next?"></a>[Series - 30] What’s next?</h1><blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/2020/08/29/it/it-series/">Back to the series page</a></p>
+</div></blockquote>
+
+<h2 id="下一步"><a href="#下一步" class="headerlink" title="下一步"></a>下一步</h2><p>這 <strong>30</strong> 篇只不過是 <strong>AI</strong> 領域的冰山一角，我們還有很多東西沒有提到，例如說 <strong>bias, variance</strong>，<strong>validation</strong> 很多很多，在這之後還有 <strong>Deep learning</strong> 和 <strong>Reinforcement learning</strong>，這些主題都是很有趣，如果大家沒有對這領域失望，也可以繼續專研！網路上也很多開放課成，例如 <strong>MIT</strong> 、<strong>Standford</strong>、<strong>NTU</strong> 、 <strong>NCTU</strong> 等學校都有課程可以閱讀，期待大家都會更上一層樓！</p>
+<h2 id="完賽心得"><a href="#完賽心得" class="headerlink" title="完賽心得"></a>完賽心得</h2><p>這 <strong>30</strong> 篇所講的東西說多也不多，但是都是我認爲很重要的演算法。這過程中也有很多數學，不知道有沒有勸退很多人XD。這 30 篇也是提早都寫好的，這篇是在 <strong>2020/9/18</strong> 寫的，大家看到已經是 <strong>[Series-30]</strong> 了。為了寫這 <strong>30</strong> 篇，我們也讀了很多也複習很多，除了跟大家分享外，我們也在進步！</p>
+<p>謝謝很多讀者的支持，也謝謝 <strong>Joyce</strong> 和我一起參加，我們也會繼續在寫科技文章的路上努力，期待跟更多人分享我們所學、所想、所做。這是以後文章會發佈的地方，也請大家多多支持。</p>
+<br>
+<center><img src="https://www.meme-arsenal.com/memes/78a1b1d922421072ed34c82c3b68e9ab.jpg" width=500/></center>
+
+<br/>
+<br/>
+<a href="/2020/09/17/it/it-29" float=left>Last</a><!-- flag of hidden posts -->
+    </div>
+     
+    <div class="post-footer__meta"><p>updated at 2020-12-31</p></div> 
+    <div class="post-meta__cats"></div> 
+</article>
+
+
+
+
+    <div class="post__comments content-card" id="comment">
+        
+    <h4>Comments</h4>
+    
+    <div id="disqus_thread">Unable to load Disqus, please make sure your network can access.</div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    </div>
+
+
+
+</main>
+
+            <footer class="footer">
+    
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/viz.js/1.7.1/viz.js'></script>
+        <script>
+          String.prototype.replaceAll = function(search, replacement) {
+            var target = this;
+            return target.split(search).join(replacement);
+          };
+      
+          let vizObjects = document.querySelectorAll('.graphviz')
+      
+          for (let item of vizObjects) {
+            let svg = undefined
+            try {
+              svg = Viz(item.textContent.replaceAll('–', '--'), 'svg')
+            } catch(e) {
+              svg = `<pre class="error">${e}</pre>`
+            }
+            item.outerHTML = svg
+          }
+        </script>
+    
+    
+
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright © 2020 <a href="/">Justin</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+         
+
+ 
+
+ 
+
+ 
+
+  
+
+
+
+ 
+
+
+    
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+    
+    <script>
+        function loadComment() {
+            window.disqus_config = function () {
+                this.page.url = 'justin900429.github.io/posts/dea9533/';
+                this.page.identifier = 'posts/dea9533/';
+            };
+            (function(){
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + 'https-justin900429-github-io' + '.disqus.com/embed.js';
+                (document.head || document.body).appendChild(dsq);
+            })();
+        }
+    
+        var runningOnBrowser = typeof window !== "undefined";
+        var isBot = runningOnBrowser && !("onscroll" in window) || typeof navigator !== "undefined" && /(gle|ing|ro|msn)bot|crawl|spider|yand|duckgo/i.test(navigator.userAgent);
+        var supportsIntersectionObserver = runningOnBrowser && "IntersectionObserver" in window;
+    
+        setTimeout(function () {
+            if (!isBot && supportsIntersectionObserver) {
+                var comment_observer = new IntersectionObserver(function(entries) {
+                    if (entries[0].isIntersecting) {
+                        loadComment();
+                        comment_observer.disconnect();
+                    }
+                }, { threshold: [0] });
+                comment_observer.observe(document.getElementById('comment'));
+            } else {
+                loadComment();
+            }
+        }, 1);
+    </script>
+
+
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+
+
+
+    </body>
+</html>

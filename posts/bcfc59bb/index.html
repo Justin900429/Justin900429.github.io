@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    
+        <link rel="shortcut icon" href="/mylogo.ico">
+    
+    
+    
+    
+    
+
+
+    <!-- meta -->
+
+
+<title>[Series - 29] Independent Component Analysis | Justin</title><meta name="robots" content="noindex">
+
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="[Series - 29] Independent Component AnalysisSee moreBack to the series page   前言今天我們要來說明一下什麼是 ICA，以及他有哪些問題想要解決。 NotebookNotebook ICA概念ICA 最經典的問題就是**雞尾酒派對問題(cocktail partiy problem)**，包含我們的實作也是。這個問題想要描">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Series - 29] Independent Component Analysis">
+<meta property="og:url" content="justin900429.github.io/posts/bcfc59bb/index.html">
+<meta property="og:site_name" content="Justin">
+<meta property="og:description" content="[Series - 29] Independent Component AnalysisSee moreBack to the series page   前言今天我們要來說明一下什麼是 ICA，以及他有哪些問題想要解決。 NotebookNotebook ICA概念ICA 最經典的問題就是**雞尾酒派對問題(cocktail partiy problem)**，包含我們的實作也是。這個問題想要描">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://media.geeksforgeeks.org/wp-content/uploads/20190521012201/ica.jpg">
+<meta property="og:image" content="https://www.researchgate.net/profile/Olga_M_Conde/publication/248706730/figure/fig9/AS:667072812044289@1536053960035/ICA-PCA-analysis-process-on-the-reflectance-images-224-Solving-ambiguity-problems-from.jpg">
+<meta property="og:image" content="https://i.stack.imgur.com/eK3BG.png">
+<meta property="og:image" content="https://i.imgur.com/R6Kbpcs.png">
+<meta property="article:published_time" content="2020-09-17T01:37:51.000Z">
+<meta property="article:modified_time" content="2020-12-31T01:11:47.164Z">
+<meta property="article:author" content="Justin Ruan">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://media.geeksforgeeks.org/wp-content/uploads/20190521012201/ica.jpg">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+
+
+    
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/atom-one-light.min.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')===-1)this.media='all'">
+        
+    
+
+    
+
+     
+
+    <!-- custom head -->
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+    <body>
+        <div id="app">
+            <header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">Justin&#39;s blog</span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/about/" class="navbar-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="navbar-menu button">CV</a>
+                
+                    <a href="/" class="navbar-menu button">Articles</a>
+                
+                    <a href="/tags/" class="navbar-menu button">Tags</a>
+                
+                    <a href="/archives/" class="navbar-menu button">Archives</a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+
+         
+    <a href="#" class="button" id="b2t" aria-label="Back to Top" title="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="32" height="32">
+            <path d="M233.376 722.752L278.624 768 512 534.624 745.376 768l45.248-45.248L512 444.128zM192 352h640V288H192z" fill="currentColor"></path>
+        </svg>
+    </a>
+
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                
+                    <a href="/about/" class="dropdown-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="dropdown-menu button">CV</a>
+                
+                    <a href="/" class="dropdown-menu button">Articles</a>
+                
+                    <a href="/tags/" class="dropdown-menu button">Tags</a>
+                
+                    <a href="/archives/" class="dropdown-menu button">Archives</a>
+                
+            </div>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+
+<div class="post-title">
+    <h1 class="post-title__text">
+        [Series - 29] Independent Component Analysis
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2020/09/" class="post-meta__date button">2020-09-17</a>
+        
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <aside class="post-side">
+        <div class="post-side__toc">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Notebook"><span class="toc-number">2.</span> <span class="toc-text">Notebook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ICA%E6%A6%82%E5%BF%B5"><span class="toc-number">3.</span> <span class="toc-text">ICA概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PCA-v-s-ICA"><span class="toc-number">4.</span> <span class="toc-text">PCA v.s. ICA</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ICA%E5%8E%9F%E7%90%86"><span class="toc-number">5.</span> <span class="toc-text">ICA原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">6.</span> <span class="toc-text">程式碼</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">7.</span> <span class="toc-text">參考資料</span></a></li></ol>
+        </div>
+    </aside>
+    <a class="btn-toc button" id="btn-toc" tabindex="0">
+        <svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path>
+        </svg>
+    </a>
+    <div class="toc-menus" id="toc-menus">
+        <div class="toc-title">Article Directory</div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Notebook"><span class="toc-number">2.</span> <span class="toc-text">Notebook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ICA%E6%A6%82%E5%BF%B5"><span class="toc-number">3.</span> <span class="toc-text">ICA概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PCA-v-s-ICA"><span class="toc-number">4.</span> <span class="toc-text">PCA v.s. ICA</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ICA%E5%8E%9F%E7%90%86"><span class="toc-number">5.</span> <span class="toc-text">ICA原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">6.</span> <span class="toc-text">程式碼</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">7.</span> <span class="toc-text">參考資料</span></a></li></ol>
+    </div>
+
+
+<article class="post content-card">
+    <div class="post__header"></div>
+    <div class="post__content">
+        <h1 id="Series-29-Independent-Component-Analysis"><a href="#Series-29-Independent-Component-Analysis" class="headerlink" title="[Series - 29] Independent Component Analysis"></a>[Series - 29] Independent Component Analysis</h1><blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/2020/08/29/it/it-series/">Back to the series page</a></p>
+</div></blockquote>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天我們要來說明一下什麼是 <strong>ICA</strong>，以及他有哪些問題想要解決。</p>
+<h2 id="Notebook"><a href="#Notebook" class="headerlink" title="Notebook"></a>Notebook</h2><p><a target="_blank" rel="noopener" href="https://colab.research.google.com/github/Justin900429/IT-used/blob/master/ICA.ipynb">Notebook</a></p>
+<h2 id="ICA概念"><a href="#ICA概念" class="headerlink" title="ICA概念"></a>ICA概念</h2><p><strong>ICA</strong> 最經典的問題就是**雞尾酒派對問題(cocktail partiy problem)**，包含我們的實作也是。這個問題想要描述的就是我們講台上有 $n$ 個講者，同時有 $n$ 個麥克風在收這些講者的聲音。假設我們利用每隻麥克風收集到的聲音，我們可不可以把 $n$ 個講者的聲波個別分開。</p>
+<center><img src="https://media.geeksforgeeks.org/wp-content/uploads/20190521012201/ica.jpg"/></center>
+
+<h2 id="PCA-v-s-ICA"><a href="#PCA-v-s-ICA" class="headerlink" title="PCA v.s. ICA"></a>PCA v.s. ICA</h2><p>首先我們來說明一下 <strong>ICA</strong> 本身比較少用到，除非說有一些特徵需要獨立萃取。 而 <strong>PCA</strong> 利用 <strong>特徵組合</strong> 的方式將資料做降維。而 <strong>ICA</strong> 則是偏向萃取資料，利用矩陣的運算將資料萃取還原。</p>
+<p>但是這不代表 <strong>PCA</strong> 跟 <strong>ICA</strong> 不能合作！下圖就是一個先利用 <strong>PCA</strong> 去掉不特別的維度，並且再利用 <strong>ICA</strong> 將特徵萃取出來。</p>
+<p><img src="https://www.researchgate.net/profile/Olga_M_Conde/publication/248706730/figure/fig9/AS:667072812044289@1536053960035/ICA-PCA-analysis-process-on-the-reflectance-images-224-Solving-ambiguity-problems-from.jpg"></p>
+<h2 id="ICA原理"><a href="#ICA原理" class="headerlink" title="ICA原理"></a>ICA原理</h2><p>假設我們原本的資料是 $s \in R^n$，而我們觀察到的結果是 $x \in R^n$，我們猜測中間有一個矩陣轉換 $A$，使得 $x = As$。因此想要求得 $s$，我們必須找到 $A^{-1}$，我們才能利用 $s = A^{-1}x$ 將 $s$ 換算出來。我們一般會稱 $A$ 是 <strong>mixing matrix</strong>，$W = A^{-1}$ 是 <strong>unmixing matrix</strong>。另外，我們利用 $w_j^T$ 代表 $W$ 第 $j$ 行的向量。</p>
+<p>$$<br>W = \begin{pmatrix}<br>    - w_1^T - \\<br>    - w_2^T - \\<br>    \vdots \\<br>    - w_n^T -<br>    \end{pmatrix}<br>$$</p>
+<p>另外我們再先說明一下如何計算 $s$ 的機率分佈。假設我們已經有 $p(a)$ 的機率分佈，又知道 $a = Kb$，則：</p>
+<p>$$<br>p(a) = \frac{p(b)}{\vert K \vert}<br>$$</p>
+<p>為什麼要除以 $\vert K \vert$ 的原因是我們會將原圖形的高度乘以 $K$ 倍，但是機率都是要維持 $1$，因此我們需要將全部的值再除以 $\vert K \vert$。因此我們可以求得：</p>
+<p>$$<br>p(x) = \frac{p(s)}{\vert A \vert}<br>$$</p>
+<p>我們又知道 $\vert A \vert \vert A^{-1} \vert = 1$，因此經過化簡，我們可以得到</p>
+<p>$$<br>p(x) = \vert W \vert p(s), \ where \ \vert W \vert = \vert A^{-1} \vert<br>$$</p>
+<p>但是在解此式之前，我們要先為 $p_s$ 找到合適的機率分佈。我們必須滿足 $\int_{-\infty}^{\infty}p_s = 1$。我們又知道 <strong>CDF</strong> 會等於 $F(s) = p(s \leq s_0) = \int_{-\infty}^{s_0}p_s(s)ds$，其圖形會介於 $0$ 到 $1$ 之間，類似這樣：</p>
+<br>
+<center><img src="https://i.stack.imgur.com/eK3BG.png"/></center>
+<br>
+
+<p>看到這個圖形我們想到 <strong>sigmoid</strong> 會適合當我們的模型，因此我們就可以令 $F(s) = g(s)$，我們又知道 $F(s)^ \prime = p(s)$，因此 $p(s) = g^{\prime}(s)$。</p>
+<p>回到我們的模型，我們利用 <strong>Log-likelihood</strong> 來解決這個問題。假設我們有 $m$ 筆資料 $\{x^{(i)}; \  i = 1, …, m \}$，因此對於每一個 $x^{(i)}$，我們可以得到：</p>
+<p>$$<br>p_x(x^{(i)}) = \prod_{j=1}^{n}p_s(w_j^Tx^{(i)}) \vert W \vert<br>$$</p>
+<p>而將所有資料合併就是：</p>
+<p>$$<br>L(W) = \prod_{i=1}^{m}\prod_{j=1}^{n}p_s(w_j^Tx^{(i)}) \vert W \vert<br>$$</p>
+<p>而我們取 $\log$ 後就變成</p>
+<p>$$<br>l(W) = \sum_{i=1}^w \big ( \sum_{j=1}^n \log g^{\prime}(w_j^Tx^{(i)})  + \log \vert W \vert \big)<br>$$</p>
+<p>對 $W$ 取微分後利用 <strong>gradient descent</strong> 就可以求得解了。這邊我們直接說明最後的更新方式是：</p>
+<p>$$<br>W = W + \alpha \big( \begin{pmatrix}1-2g(w_1^Tx^{(i)}) \\ 1-2g(w_2^Tx^{(i)}) \\ \vdots \\ 1-2g(w_n^Tx^{(i)})  \end{pmatrix} x^{(i)^T}  + (W^T)^{-1}\big)<br>$$</p>
+<h2 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h2><p>程式碼都在 <strong>Notebook</strong> 裡了，程式是用 <strong>sklearn</strong> 官網裡的示範，附上最後的結果：</p>
+<p><img src="https://i.imgur.com/R6Kbpcs.png"></p>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
+<li><a target="_blank" rel="noopener" href="http://cs229.stanford.edu/">CS229 from Standford</a></li>
+<li><a target="_blank" rel="noopener" href="https://scikit-learn.org/stable/auto_examples/decomposition/plot_ica_blind_source_separation.html#sphx-glr-auto-examples-decomposition-plot-ica-blind-source-separation-py">Blind source separation using FastICA [scikit learn documentation]</a></li>
+</ol>
+<br/>
+<br/>
+<a href="/2020/09/16/it/it-28" float=left>Last</a> <a href="/2020/09/18/it/it-30" style="float: right;">Next</a><!-- flag of hidden posts -->
+    </div>
+     
+    <div class="post-footer__meta"><p>updated at 2020-12-31</p></div> 
+    <div class="post-meta__cats"></div> 
+</article>
+
+
+
+
+    <div class="post__comments content-card" id="comment">
+        
+    <h4>Comments</h4>
+    
+    <div id="disqus_thread">Unable to load Disqus, please make sure your network can access.</div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    </div>
+
+
+
+</main>
+
+            <footer class="footer">
+    
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/viz.js/1.7.1/viz.js'></script>
+        <script>
+          String.prototype.replaceAll = function(search, replacement) {
+            var target = this;
+            return target.split(search).join(replacement);
+          };
+      
+          let vizObjects = document.querySelectorAll('.graphviz')
+      
+          for (let item of vizObjects) {
+            let svg = undefined
+            try {
+              svg = Viz(item.textContent.replaceAll('–', '--'), 'svg')
+            } catch(e) {
+              svg = `<pre class="error">${e}</pre>`
+            }
+            item.outerHTML = svg
+          }
+        </script>
+    
+    
+
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright © 2020 <a href="/">Justin</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+         
+
+ 
+
+ 
+
+ 
+
+  
+
+
+
+ 
+
+
+    
+ 
+
+ 
+
+
+    <script>
+        if (typeof MathJax === 'undefined') {
+            window.MathJax = {
+                loader: {
+                    source: {
+                        '[tex]/amsCd': '[tex]/amscd',
+                        '[tex]/AMScd': '[tex]/amscd'
+                    }
+                },
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                },
+                options: {
+                    renderActions: {
+                        findScript: [10, doc => {
+                            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                                const display = !!node.type.match(/; *mode=display/);
+                                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                                const text = document.createTextNode('');
+                                node.parentNode.replaceChild(text, node);
+                                math.start = {node: text, delim: '', n: 0};
+                                math.end = {node: text, delim: '', n: 0};
+                                doc.math.push(math);
+                            });
+                        }, '', false],
+                        insertedScript: [200, () => {
+                            document.querySelectorAll('mjx-container').forEach(node => {
+                                let target = node.parentNode;
+                                if (target.nodeName.toLowerCase() === 'li') {
+                                    target.parentNode.classList.add('has-jax');
+                                }
+                            });
+                        }, '', false]
+                    }
+                }
+            };
+            (function () {
+                var script = document.createElement('script');
+                script.src = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js";
+                script.defer = true;
+                document.head.appendChild(script);
+            })();
+        } else {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+        }
+    </script>
+ 
+
+ 
+
+ 
+
+
+    
+    <script>
+        function loadComment() {
+            window.disqus_config = function () {
+                this.page.url = 'justin900429.github.io/posts/bcfc59bb/';
+                this.page.identifier = 'posts/bcfc59bb/';
+            };
+            (function(){
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + 'https-justin900429-github-io' + '.disqus.com/embed.js';
+                (document.head || document.body).appendChild(dsq);
+            })();
+        }
+    
+        var runningOnBrowser = typeof window !== "undefined";
+        var isBot = runningOnBrowser && !("onscroll" in window) || typeof navigator !== "undefined" && /(gle|ing|ro|msn)bot|crawl|spider|yand|duckgo/i.test(navigator.userAgent);
+        var supportsIntersectionObserver = runningOnBrowser && "IntersectionObserver" in window;
+    
+        setTimeout(function () {
+            if (!isBot && supportsIntersectionObserver) {
+                var comment_observer = new IntersectionObserver(function(entries) {
+                    if (entries[0].isIntersecting) {
+                        loadComment();
+                        comment_observer.disconnect();
+                    }
+                }, { threshold: [0] });
+                comment_observer.observe(document.getElementById('comment'));
+            } else {
+                loadComment();
+            }
+        }, 1);
+    </script>
+
+
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+
+
+
+    </body>
+</html>

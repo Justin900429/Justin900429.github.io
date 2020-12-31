@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    
+        <link rel="shortcut icon" href="/mylogo.ico">
+    
+    
+    
+    
+    
+
+
+    <!-- meta -->
+
+
+<title>OpenCV - 4 | Justin</title><meta name="robots" content="noindex">
+
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="OpenCV with Python – 4Content README OpenCV with Python – 1 OpenCV with Python – 2 OpenCV with Python – 3 OpenCV with Python – 4 OpenCV with Python – 5  IntroductionSo far, we have mentioned lots of i">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenCV - 4">
+<meta property="og:url" content="justin900429.github.io/posts/251286da/index.html">
+<meta property="og:site_name" content="Justin">
+<meta property="og:description" content="OpenCV with Python – 4Content README OpenCV with Python – 1 OpenCV with Python – 2 OpenCV with Python – 3 OpenCV with Python – 4 OpenCV with Python – 5  IntroductionSo far, we have mentioned lots of i">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/d3c79Tp.jpg">
+<meta property="article:published_time" content="2020-08-28T14:00:01.000Z">
+<meta property="article:modified_time" content="2020-12-31T01:11:47.213Z">
+<meta property="article:author" content="Justin Ruan">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://i.imgur.com/d3c79Tp.jpg">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+
+
+    
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/atom-one-light.min.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')===-1)this.media='all'">
+        
+    
+
+    
+
+     
+
+    <!-- custom head -->
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+    <body>
+        <div id="app">
+            <header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">Justin&#39;s blog</span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/about/" class="navbar-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="navbar-menu button">CV</a>
+                
+                    <a href="/" class="navbar-menu button">Articles</a>
+                
+                    <a href="/tags/" class="navbar-menu button">Tags</a>
+                
+                    <a href="/archives/" class="navbar-menu button">Archives</a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+
+         
+    <a href="#" class="button" id="b2t" aria-label="Back to Top" title="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="32" height="32">
+            <path d="M233.376 722.752L278.624 768 512 534.624 745.376 768l45.248-45.248L512 444.128zM192 352h640V288H192z" fill="currentColor"></path>
+        </svg>
+    </a>
+
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                
+                    <a href="/about/" class="dropdown-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="dropdown-menu button">CV</a>
+                
+                    <a href="/" class="dropdown-menu button">Articles</a>
+                
+                    <a href="/tags/" class="dropdown-menu button">Tags</a>
+                
+                    <a href="/archives/" class="dropdown-menu button">Archives</a>
+                
+            </div>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+
+<div class="post-title">
+    <h1 class="post-title__text">
+        OpenCV - 4
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2020/08/" class="post-meta__date button">2020-08-28</a>
+        
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <aside class="post-side">
+        <div class="post-side__toc">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Content"><span class="toc-number">1.</span> <span class="toc-text">Content</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">2.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Morphology"><span class="toc-number">3.</span> <span class="toc-text">Morphology</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Contour-shape-detection"><span class="toc-number">4.</span> <span class="toc-text">Contour &#x2F; shape detection</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#What-is-contours"><span class="toc-number">4.1.</span> <span class="toc-text">What is contours?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flow-chart-of-finding-contours"><span class="toc-number">4.2.</span> <span class="toc-text">Flow chart of finding contours</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-by-step-explanation"><span class="toc-number">4.3.</span> <span class="toc-text">Step by step explanation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-number">5.</span> <span class="toc-text">Summary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">6.</span> <span class="toc-text">Reference</span></a></li></ol>
+        </div>
+    </aside>
+    <a class="btn-toc button" id="btn-toc" tabindex="0">
+        <svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path>
+        </svg>
+    </a>
+    <div class="toc-menus" id="toc-menus">
+        <div class="toc-title">Article Directory</div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Content"><span class="toc-number">1.</span> <span class="toc-text">Content</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">2.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Morphology"><span class="toc-number">3.</span> <span class="toc-text">Morphology</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Contour-shape-detection"><span class="toc-number">4.</span> <span class="toc-text">Contour &#x2F; shape detection</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#What-is-contours"><span class="toc-number">4.1.</span> <span class="toc-text">What is contours?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flow-chart-of-finding-contours"><span class="toc-number">4.2.</span> <span class="toc-text">Flow chart of finding contours</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-by-step-explanation"><span class="toc-number">4.3.</span> <span class="toc-text">Step by step explanation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-number">5.</span> <span class="toc-text">Summary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">6.</span> <span class="toc-text">Reference</span></a></li></ol>
+    </div>
+
+
+<article class="post content-card">
+    <div class="post__header"></div>
+    <div class="post__content">
+        <h1 id="OpenCV-with-Python-–-4"><a href="#OpenCV-with-Python-–-4" class="headerlink" title="OpenCV with Python – 4"></a>OpenCV with Python – 4</h1><h2 id="Content"><a href="#Content" class="headerlink" title="Content"></a>Content</h2><ul>
+<li><a href="/2020/08/28/opencv/README/">README</a></li>
+<li><a href="/2020/08/27/opencv/opencv1">OpenCV with Python – 1</a></li>
+<li><a href="/2020/08/28/opencv/opencv2">OpenCV with Python – 2</a></li>
+<li><a href="/2020/08/28/opencv/opencv3">OpenCV with Python – 3</a></li>
+<li><a href="/2020/08/28/opencv/opencv4">OpenCV with Python – 4</a></li>
+<li><a href="/2020/08/28/opencv/opencv5">OpenCV with Python – 5</a></li>
+</ul>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>So far, we have mentioned lots of image preprocessing technique. We’re going to talk one more approach for elimanating noise and move to the application aspect.</p>
+<h2 id="Morphology"><a href="#Morphology" class="headerlink" title="Morphology"></a>Morphology</h2><p>Morphology is an image processing theroy based on <strong>Lattice theory</strong> and <strong>topology</strong>. Here, we’re not going to talk about what is morphology. In fact, we’re focus only on <strong>dilation</strong> and <strong>erosion</strong>. </p>
+<p><strong>Dilation</strong> help us to make picture brightness and make the features more bigger then before.</p>
+<p><strong>Erosion</strong> can make the feature smaller then before.</p>
+<p>Often, we will come across lots of noise or some less important feature. We can first apply <strong>erosion to erase noise or rescale the size</strong> and convert the <strong>wanted features back to the original one by dilation</strong>. Let’s see how dilation and erosion do:</p>
+<ul>
+<li><strong>Dilation</strong>:<br>  The value of the output pixel is the ==maximum== value of all pixels in the neighborhood.</li>
+<li><strong>Erosion</strong>:<br>  The value of the output pixel is the ==minimum== value of all pixels in the neighborhood.</li>
+</ul>
+<p>Notice that before doing the dilation or erosion, we should ensure that the image is in <strong>binary format</strong>, that is, 0 and 1.</p>
+<ul>
+<li><strong>Function in OpenCV</strong><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+img = cv2.imread(<span class="hljs-string">&quot;resources/shapes.jpg&quot;</span>)
+
+<span class="hljs-comment"># Change the image to gray scale</span>
+img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+<span class="hljs-comment"># Blur the image</span>
+img_blur = cv2.GaussianBlur(img_gray, (<span class="hljs-number">7</span>, <span class="hljs-number">7</span>), <span class="hljs-number">0</span>)
+
+<span class="hljs-comment"># Convert to 0, 1 (Here just for demostration)</span>
+img_thresh = cv2.threshold(img_blur, <span class="hljs-number">200</span>, <span class="hljs-number">1</span>, cv2.THRESH_BINARY_INV)[<span class="hljs-number">1</span>].astype(np.float)
+
+<span class="hljs-comment"># Define the kernel (The size of the neighboorhood)</span>
+kernel = np.ones((<span class="hljs-number">69</span>, <span class="hljs-number">69</span>), np.uint8)
+
+<span class="hljs-comment"># First erase the noise</span>
+<span class="hljs-string">&#x27;&#x27;&#x27;</span>
+<span class="hljs-string">kernel -&gt; size for doing the erosion</span>
+<span class="hljs-string">iteratoin -&gt; times to do the erosion</span>
+<span class="hljs-string">&#x27;&#x27;&#x27;</span>
+img_eroded = cv2.erode(img_thresh, kernel, iterations=<span class="hljs-number">1</span>)
+
+<span class="hljs-comment"># Back to the original feature</span>
+<span class="hljs-string">&#x27;&#x27;&#x27;</span>
+<span class="hljs-string">kernel -&gt; size for doing the dilation</span>
+<span class="hljs-string">iteratoin -&gt; times to do the dilation</span>
+<span class="hljs-string">&#x27;&#x27;&#x27;</span>
+img_dilation = cv2.dilate(img_eroded, kernel, iterations=<span class="hljs-number">1</span>)
+
+<span class="hljs-comment"># Show the above image</span>
+result = np.hstack([img_thresh, img_eroded, img_dilation])
+
+cv2.imshow(<span class="hljs-string">&quot;Result&quot;</span>, result)
+
+cv2.waitKey(<span class="hljs-number">0</span>)
+cv2.destroyAllWindows()
+cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
+
+</li>
+</ul>
+<p><img src="https://i.imgur.com/d3c79Tp.jpg"></p>
+<p>We removed hexagon but also affect other shapes in the image.</p>
+<h2 id="Contour-shape-detection"><a href="#Contour-shape-detection" class="headerlink" title="Contour / shape detection"></a>Contour / shape detection</h2><h3 id="What-is-contours"><a href="#What-is-contours" class="headerlink" title="What is contours?"></a>What is contours?</h3><p>Contours is simply a <strong>curve joining all of the continuous points</strong> along the specific boundary. Let’s say when we see a circle, how do we recognize it as a circle not the rectangle? That’s a stupid question, but we should first know <strong>HOW</strong> humans do, then we can apply it to the computer. Below image show how we do.</p>
+<center><img src=https://i.imgur.com/ky5zhsF.jpg width=450 /></center>
+
+<h3 id="Flow-chart-of-finding-contours"><a href="#Flow-chart-of-finding-contours" class="headerlink" title="Flow chart of finding contours"></a>Flow chart of finding contours</h3><p>Due to the complexity of the function in this session, I will first go through the function going to use and demonstrate all of it later. Here is the flow chart to do the contour detection.</p>
+<center><img src=https://i.imgur.com/WEiit8g.jpg width=600 /></center>
+
+<h3 id="Step-by-step-explanation"><a href="#Step-by-step-explanation" class="headerlink" title="Step by step explanation"></a>Step by step explanation</h3><p>The complete code will be showed after this session.</p>
+<ol>
+<li><p><strong>Read Image</strong></p>
+ <pre><code class="hljs python">img = cv2.imread(<span class="hljs-string">&quot;resources/shapes.jpg&quot;</span>)</code></pre></li>
+<li><p><strong>Blur the image</strong><br> Remove noise.</p>
+ <pre><code class="hljs python"><span class="hljs-comment"># Change the image to gray scale and blur the image</span>
+img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+img_blur = cv2.GaussianBlur(img_gray, (<span class="hljs-number">3</span>, <span class="hljs-number">3</span>), <span class="hljs-number">1</span>)</code></pre>
+</li>
+<li><p><strong>Convert to binary format</strong><br> Using <strong>Canny</strong> or <strong>Threshold</strong>.</p>
+ <pre><code class="hljs python"><span class="hljs-comment"># Edge detection</span>
+img_canny = cv2.Canny(img_blur, <span class="hljs-number">50</span>, <span class="hljs-number">50</span>)</code></pre>
+
+</li>
+</ol>
+<p>So far, we have finish the preprocessing. We combine them togetherand start to implement a function called <code>get_countours</code>. (Function starts at ==line 78==, we will walk throught it step by step).</p>
+<pre><code class="hljs python"><span class="hljs-string">&#x27;&#x27;&#x27;1. Read image&#x27;&#x27;&#x27;</span>
+img = cv2.imread(<span class="hljs-string">&quot;resources/shapes.jpg&quot;</span>)
+
+<span class="hljs-string">&#x27;&#x27;&#x27;2. Blur image&#x27;&#x27;&#x27;</span>
+<span class="hljs-comment"># Change the image to gray scale and blur the image</span>
+img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+img_blur = cv2.GaussianBlur(img_gray, (<span class="hljs-number">3</span>, <span class="hljs-number">3</span>), <span class="hljs-number">1</span>)
+
+<span class="hljs-string">&#x27;&#x27;&#x27;3. Convert to binary image&#x27;&#x27;&#x27;</span>
+<span class="hljs-comment"># Edge detection</span>
+img_canny = cv2.Canny(img_blur, <span class="hljs-number">50</span>, <span class="hljs-number">50</span>)
+
+<span class="hljs-comment"># Copy the original image</span>
+img_contour = img.copy()
+
+<span class="hljs-string">&#x27;&#x27;&#x27;Other steps&#x27;&#x27;&#x27;</span>
+<span class="hljs-comment"># Get contours</span>
+get_contours(img_canny)</code></pre>
+
+<ol start="4">
+<li><p><strong>Find contours</strong></p>
+<ul>
+<li><p><code>cv2.findContours(img, mode, method, ...)</code> <a target="_blank" rel="noopener" href="https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html#findcontours">Documentation</a></p>
+<ul>
+<li>img: Image to find contour.  </li>
+<li>mode: Contour retrieval mode. See the detail in documentation.  </li>
+<li>Method: Contour approximation method. See the detail in documentation.  </li>
+</ul>
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getContours</span>(<span class="hljs-params">img</span>):</span>
+    <span class="hljs-string">&#x27;&#x27;&#x27;</span>
+<span class="hljs-string">    4. Find contours</span>
+<span class="hljs-string">    In this session, we ignore the use of hierarchy</span>
+<span class="hljs-string">    &#x27;&#x27;&#x27;</span>
+    contours, hierarchy = cv2.findContours(img, cv2.RETR_EXTERNAL,
+                                            cv2.CHAIN_APPROX_NONE)
+    
+    <span class="hljs-string">&#x27;&#x27;&#x27;</span>
+<span class="hljs-string">    Print the contours to see the result by yourself.</span>
+<span class="hljs-string">    You should notice contours is a list with np.array.</span>
+<span class="hljs-string">    Each elements represent one contours you find. </span>
+<span class="hljs-string">    Each contours include all the points on it.</span>
+<span class="hljs-string">    &#x27;&#x27;&#x27;</span>
+    print(contours)
+    print(contours.shape)</code></pre>
+<blockquote>
+<p>If mode is cv2.CHAIN_APPROX_SIMPLE, it will only return the points. Otherwise, cv2.CHAIN_APPROX_NONE will return the line. You can try it by yourself!</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p><strong>Drop the noise</strong><br> Here, we use the size of the area to drop the noise. We use <mark>threshold to drop the noise</mark>. </br></p>
+<ul>
+<li><p><code>cv2.contourArea(contour)</code> <a target="_blank" rel="noopener" href="https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html#contourarea">Documentation</a></p>
+<ul>
+<li>contour: Contour get from cv2.findContours(). In fact, it could be point vectors.<pre><code class="hljs python"><span class="hljs-comment"># Get the area of the closed contour</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_contours</span>(<span class="hljs-params">img</span>):</span>
+    <span class="hljs-string">&#x27;&#x27;&#x27;4. Find contours&#x27;&#x27;&#x27;</span>
+    <span class="hljs-comment"># Retreive the outer contours</span>
+    contours, hierarchy = cv2.findContours(img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+
+    <span class="hljs-keyword">for</span> cnt <span class="hljs-keyword">in</span> contours:
+        <span class="hljs-comment"># Get the area of the closed contour</span>
+        area = cv2.contourArea(cnt)
+
+        <span class="hljs-string">&#x27;&#x27;&#x27;</span>
+<span class="hljs-string">        We can calculate the area for the bounding shapes.</span>
+<span class="hljs-string">        And drop the smaller area.</span>
+<span class="hljs-string">        &#x27;&#x27;&#x27;</span>
+        print(area)
+
+        <span class="hljs-comment"># Clean noise by setting the threshold of area</span>
+        <span class="hljs-keyword">if</span> area &lt; <span class="hljs-number">800</span>:
+            <span class="hljs-keyword">continue</span></code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Draw the contours</strong></p>
+<ul>
+<li><p><code>cv2.drawContours(img_output, contour, contourIdx, color, thickness)</code> <a target="_blank" rel="noopener" href="https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html#drawcontours">Documentation</a></p>
+<ul>
+<li>img_output: Draw on which image.  </li>
+<li>contour: Point vectors (Same as above).  </li>
+<li>contourIdx: Index for which contour to draw. If negative, draw all the contours.  </li>
+</ul>
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_contours</span>(<span class="hljs-params">img</span>):</span>
+    <span class="hljs-string">&#x27;&#x27;&#x27;4. Find contours&#x27;&#x27;&#x27;</span>
+    <span class="hljs-comment"># Retreive the outer contours</span>
+    contours, hierarchy = cv2.findContours(img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+
+    <span class="hljs-keyword">for</span> cnt <span class="hljs-keyword">in</span> contours:
+        <span class="hljs-string">&#x27;&#x27;&#x27;5. Drop the noise&#x27;&#x27;&#x27;</span>
+        <span class="hljs-comment"># Get the area of the closed contour</span>
+        area = cv2.contourArea(cnt)
+
+        print(area)
+
+        <span class="hljs-comment"># Clean noise by setting the threshold of area</span>
+        <span class="hljs-keyword">if</span> area &lt; <span class="hljs-number">800</span>:
+            <span class="hljs-keyword">continue</span>
+
+        <span class="hljs-comment"># Draw the contour</span>
+        <span class="hljs-string">&#x27;&#x27;&#x27;</span>
+<span class="hljs-string">        img_contour is the copy of origin image in line 74.</span>
+<span class="hljs-string">        You should add cv2.imshow by yourself to see the result.</span>
+<span class="hljs-string">        &#x27;&#x27;&#x27;</span>
+        cv2.drawContours(img_contour, cnt, <span class="hljs-number">-1</span>, (<span class="hljs-number">255</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>), <span class="hljs-number">3</span>)</code></pre>
+</li>
+</ul>
+</li>
+<li><p><strong>Recognize the shapes</strong><br> Draw the ==bounding box== and put the text to specify each shapes.</p>
+<ul>
+<li><p><code>cv2.arcLength(contour, closed)</code> <a target="_blank" rel="noopener" href="https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html#arclength">Documentation</a></p>
+<ul>
+<li>closed: Flag indicating whether the curve is closed or not.</li>
+</ul>
+</li>
+<li><p><code>cv2.approxPolyDP(contour, epsilon, closed)</code> <a target="_blank" rel="noopener" href="https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html#approxpolydp">Documentation</a>  </p>
+<ul>
+<li>epsilon: Specifying the approximation accuracy.  </li>
+</ul>
+</li>
+<li><p><code>cv2.boundingRect(points)</code> <a target="_blank" rel="noopener" href="https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html#boundingrect">Documentation</a>  </p>
+<ul>
+<li>points: Point vectors.</br>
+
+</li>
+</ul>
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_contours</span>(<span class="hljs-params">img</span>):</span>
+    <span class="hljs-string">&#x27;&#x27;&#x27;4. Find contours&#x27;&#x27;&#x27;</span>
+    <span class="hljs-comment"># Retreive the outer contours</span>
+    contours, hierarchy = cv2.findContours(img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+
+    <span class="hljs-keyword">for</span> cnt <span class="hljs-keyword">in</span> contours:
+        <span class="hljs-string">&#x27;&#x27;&#x27;5. Drop the noise&#x27;&#x27;&#x27;</span>
+        <span class="hljs-comment"># Get the area of the closed contour</span>
+        area = cv2.contourArea(cnt)
+
+        <span class="hljs-comment"># Clean noise by setting the threshold of area</span>
+        <span class="hljs-keyword">if</span> area &lt; <span class="hljs-number">800</span>:
+            <span class="hljs-keyword">continue</span>
+
+        <span class="hljs-string">&#x27;&#x27;&#x27;6.1 Draw the contours&#x27;&#x27;&#x27;</span>
+        cv2.drawContours(img_contour, cnt, <span class="hljs-number">-1</span>, (<span class="hljs-number">255</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>), <span class="hljs-number">3</span>)
+
+        <span class="hljs-comment"># Connt the peripheral </span>
+        peri = cv2.arcLength(cnt, <span class="hljs-literal">True</span>)
+
+        <span class="hljs-string">&#x27;&#x27;&#x27;6.2 Regconize the shape&#x27;&#x27;&#x27;</span>
+        <span class="hljs-comment"># Get the vertex of the shape</span>
+        approx = cv2.approxPolyDP(cnt, <span class="hljs-number">0.02</span> * peri, <span class="hljs-literal">True</span>)
+
+        <span class="hljs-comment"># Count the number of the sides</span>
+        obj_cor = len(approx)
+
+        <span class="hljs-comment"># Get the bounding box of the shape</span>
+        x, y, w, h = cv2.boundingRect(approx)
+
+        <span class="hljs-string">&#x27;&#x27;&#x27;</span>
+<span class="hljs-string">        Print out the new info</span>
+<span class="hljs-string">        &#x27;&#x27;&#x27;</span>
+        print(<span class="hljs-string">&quot;The peripheral is&quot;</span>, peri)
+        print(<span class="hljs-string">&quot;The vertex are:&quot;</span>, approx)
+        print(<span class="hljs-string">&quot;Therefore, there are &#123;&#125; sides.&quot;</span>.format(obj_cor))
+        print(<span class="hljs-string">&quot;The boundind box is&quot;</span>, (x, y, w, h))
+        print(<span class="hljs-string">&quot;-&quot;</span>*<span class="hljs-number">100</span>)</code></pre>
+
+
+</li>
+</ul>
+</li>
+</ol>
+</br>
+
+<p><strong>Code</strong></p>
+<pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getContours</span>(<span class="hljs-params">img</span>):</span>
+    <span class="hljs-string">&#x27;&#x27;&#x27;4. Find contours&#x27;&#x27;&#x27;</span>
+    contours, hierarchy = cv2.findContours(img, cv2.RETR_EXTERNAL,
+                                                cv2.CHAIN_APPROX_NONE)
+    
+    <span class="hljs-comment"># Process all the contours</span>
+    <span class="hljs-keyword">for</span> cnt <span class="hljs-keyword">in</span> contours:
+        <span class="hljs-string">&#x27;&#x27;&#x27;5. Drop the noise&#x27;&#x27;&#x27;</span>
+        <span class="hljs-comment"># Get the area of the closed contour</span>
+        area = cv2.contourArea(cnt)
+        
+        <span class="hljs-comment"># Clean noise by setting the threshold of area</span>
+        <span class="hljs-keyword">if</span> area &lt; <span class="hljs-number">800</span>:
+            <span class="hljs-keyword">continue</span>
+         
+        <span class="hljs-string">&#x27;&#x27;&#x27;6.1 Draw the contours&#x27;&#x27;&#x27;</span>
+        cv2.drawContours(img_contour, cnt, <span class="hljs-number">-1</span>, (<span class="hljs-number">255</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>), <span class="hljs-number">3</span>)
+        
+        <span class="hljs-string">&#x27;&#x27;&#x27;6.2 Regconize the shape&#x27;&#x27;&#x27;</span>
+        <span class="hljs-comment"># Count the peripheral </span>
+        peri = cv2.arcLength(cnt, <span class="hljs-literal">True</span>)
+        
+        <span class="hljs-comment"># Get the size of the shape</span>
+        approx = cv2.approxPolyDP(cnt, <span class="hljs-number">0.02</span> * peri, <span class="hljs-literal">True</span>)
+        
+        <span class="hljs-comment"># Count the number of the sides</span>
+        obj_cor = len(approx)
+        
+        <span class="hljs-comment"># Get the bounding box of the shape</span>
+        x, y, w, h = cv2.boundingRect(approx)
+        
+        <span class="hljs-comment"># Detect the shape</span>
+        <span class="hljs-keyword">if</span> obj_cor == <span class="hljs-number">3</span>:
+            object_type = <span class="hljs-string">&quot;Tri&quot;</span>
+        <span class="hljs-keyword">elif</span> obj_cor == <span class="hljs-number">4</span>:
+            <span class="hljs-comment"># Check whether is circle or rectangle</span>
+            asp_ratio = w / h
+            
+            <span class="hljs-comment"># Error for getting the square</span>
+            <span class="hljs-keyword">if</span> (asp_ratio &gt; <span class="hljs-number">0.95</span>) &amp; (asp_ratio &lt; <span class="hljs-number">1.05</span>):
+                object_type = <span class="hljs-string">&quot;Square&quot;</span>
+            <span class="hljs-keyword">else</span>:
+                object_type = <span class="hljs-string">&quot;Rectangle&quot;</span>
+        <span class="hljs-keyword">elif</span> obj_cor == <span class="hljs-number">5</span>:
+            object_type = <span class="hljs-string">&quot;Pentagon&quot;</span>
+        <span class="hljs-keyword">elif</span> obj_cor == <span class="hljs-number">6</span>:
+            object_type = <span class="hljs-string">&quot;Hexagon&quot;</span>
+        <span class="hljs-keyword">else</span>:
+            object_type = <span class="hljs-string">&quot;Circle&quot;</span>
+        
+        <span class="hljs-comment"># Drow the bounding box and put the shape text on it</span>
+        cv2.rectangle(img_contour, (x, y), (x + w, y + h), (<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">255</span>), <span class="hljs-number">3</span>)
+        cv2.putText(img_contour, object_type,
+                    (x + (w // <span class="hljs-number">2</span>) - <span class="hljs-number">20</span>, y - <span class="hljs-number">15</span>), 
+                    cv2.FONT_HERSHEY_COMPLEX, <span class="hljs-number">0.5</span>,
+                    (<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>), <span class="hljs-number">2</span>)
+
+
+<span class="hljs-string">&#x27;&#x27;&#x27;1. Read image&#x27;&#x27;&#x27;</span>
+img = cv2.imread(<span class="hljs-string">&quot;resources/shapes.jpg&quot;</span>)
+
+<span class="hljs-string">&#x27;&#x27;&#x27;2. Blur image&#x27;&#x27;&#x27;</span>
+<span class="hljs-comment"># Change the image to gray scale and blur the image</span>
+img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+img_blur = cv2.GaussianBlur(img_gray, (<span class="hljs-number">3</span>, <span class="hljs-number">3</span>), <span class="hljs-number">1</span>)
+
+<span class="hljs-string">&#x27;&#x27;&#x27;3. Convert to binary image&#x27;&#x27;&#x27;</span>
+<span class="hljs-comment"># Edge detection</span>
+img_canny = cv2.Canny(img_blur, <span class="hljs-number">50</span>, <span class="hljs-number">50</span>)
+
+<span class="hljs-comment"># Copy the original image</span>
+img_contour = img.copy()
+
+<span class="hljs-string">&#x27;&#x27;&#x27;Other steps&#x27;&#x27;&#x27;</span>
+<span class="hljs-comment"># Get contours</span>
+get_contours(img_canny)
+
+<span class="hljs-comment"># Show the image</span>
+img_stack = stackImages(<span class="hljs-number">0.5</span>, [[img, img_blur], [img_canny, img_contour]])
+cv2.imshow(<span class="hljs-string">&quot;Result&quot;</span>, img_stack)
+
+cv2.waitKey(<span class="hljs-number">0</span>)
+cv2.destroyAllWindows()
+cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
+
+<center><img src=https://i.imgur.com/VQgqr71.jpg/></center>
+
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>Find contours can be one of the powerful tools for us. For example, we can use shape as a sign to tell the robot where to go! Also, the bounding box help us to highlight the object we’re interested in. In terms of application, we can use it when we’re doing object detection. We’ll see more example in next article.</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://docs.opencv.org/4.4.0/d4/d73/tutorial_py_contours_begin.html">Contours: Getting started</a></li>
+<li><a target="_blank" rel="noopener" href="https://youtu.be/WQeoO7MI0Bs">LEARN OPENCV in 3 HOURS with Python (2020)</a></li>
+<li><a target="_blank" rel="noopener" href="https://jason-chen-1992.weebly.com/home/-morphology">【影像處理】形態學 Morphology</a></li>
+</ol>
+<!-- flag of hidden posts -->
+    </div>
+     
+    <div class="post-footer__meta"><p>updated at 2020-12-31</p></div> 
+    <div class="post-meta__cats"></div> 
+</article>
+
+
+
+
+    <div class="post__comments content-card" id="comment">
+        
+    <h4>Comments</h4>
+    
+    <div id="disqus_thread">Unable to load Disqus, please make sure your network can access.</div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    </div>
+
+
+
+</main>
+
+            <footer class="footer">
+    
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/viz.js/1.7.1/viz.js'></script>
+        <script>
+          String.prototype.replaceAll = function(search, replacement) {
+            var target = this;
+            return target.split(search).join(replacement);
+          };
+      
+          let vizObjects = document.querySelectorAll('.graphviz')
+      
+          for (let item of vizObjects) {
+            let svg = undefined
+            try {
+              svg = Viz(item.textContent.replaceAll('–', '--'), 'svg')
+            } catch(e) {
+              svg = `<pre class="error">${e}</pre>`
+            }
+            item.outerHTML = svg
+          }
+        </script>
+    
+    
+
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright © 2020 <a href="/">Justin</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+         
+
+ 
+
+ 
+
+ 
+
+  
+
+
+
+ 
+
+
+    
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+    
+    <script>
+        function loadComment() {
+            window.disqus_config = function () {
+                this.page.url = 'justin900429.github.io/posts/251286da/';
+                this.page.identifier = 'posts/251286da/';
+            };
+            (function(){
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + 'https-justin900429-github-io' + '.disqus.com/embed.js';
+                (document.head || document.body).appendChild(dsq);
+            })();
+        }
+    
+        var runningOnBrowser = typeof window !== "undefined";
+        var isBot = runningOnBrowser && !("onscroll" in window) || typeof navigator !== "undefined" && /(gle|ing|ro|msn)bot|crawl|spider|yand|duckgo/i.test(navigator.userAgent);
+        var supportsIntersectionObserver = runningOnBrowser && "IntersectionObserver" in window;
+    
+        setTimeout(function () {
+            if (!isBot && supportsIntersectionObserver) {
+                var comment_observer = new IntersectionObserver(function(entries) {
+                    if (entries[0].isIntersecting) {
+                        loadComment();
+                        comment_observer.disconnect();
+                    }
+                }, { threshold: [0] });
+                comment_observer.observe(document.getElementById('comment'));
+            } else {
+                loadComment();
+            }
+        }, 1);
+    </script>
+
+
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+
+
+
+    </body>
+</html>

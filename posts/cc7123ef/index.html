@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    
+        <link rel="shortcut icon" href="/mylogo.ico">
+    
+    
+    
+    
+    
+
+
+    <!-- meta -->
+
+
+<title>OpenCV - 2 | Justin</title><meta name="robots" content="noindex">
+
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="OpenCV with Python – 2Content README OpenCV with Python – 1 OpenCV with Python – 2 OpenCV with Python – 3 OpenCV with Python – 4 OpenCV with Python – 5  IntroductionThe last article talked about some">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenCV - 2">
+<meta property="og:url" content="justin900429.github.io/posts/cc7123ef/index.html">
+<meta property="og:site_name" content="Justin">
+<meta property="og:description" content="OpenCV with Python – 2Content README OpenCV with Python – 1 OpenCV with Python – 2 OpenCV with Python – 3 OpenCV with Python – 4 OpenCV with Python – 5  IntroductionThe last article talked about some">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/8vtuzXI.jpg">
+<meta property="og:image" content="https://i.imgur.com/reBRvLz.jpg">
+<meta property="og:image" content="https://i.imgur.com/gcQ7eFx.jpg">
+<meta property="og:image" content="https://i.imgur.com/ALCG7In.jpg">
+<meta property="og:image" content="https://i.imgur.com/7SwY0jt.jpg">
+<meta property="article:published_time" content="2020-08-28T13:18:36.000Z">
+<meta property="article:modified_time" content="2020-12-31T01:11:47.193Z">
+<meta property="article:author" content="Justin Ruan">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://i.imgur.com/8vtuzXI.jpg">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+
+
+    
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/atom-one-light.min.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')===-1)this.media='all'">
+        
+    
+
+    
+
+     
+
+    <!-- custom head -->
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+    <body>
+        <div id="app">
+            <header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">Justin&#39;s blog</span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/about/" class="navbar-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="navbar-menu button">CV</a>
+                
+                    <a href="/" class="navbar-menu button">Articles</a>
+                
+                    <a href="/tags/" class="navbar-menu button">Tags</a>
+                
+                    <a href="/archives/" class="navbar-menu button">Archives</a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+
+         
+    <a href="#" class="button" id="b2t" aria-label="Back to Top" title="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="32" height="32">
+            <path d="M233.376 722.752L278.624 768 512 534.624 745.376 768l45.248-45.248L512 444.128zM192 352h640V288H192z" fill="currentColor"></path>
+        </svg>
+    </a>
+
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                
+                    <a href="/about/" class="dropdown-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="dropdown-menu button">CV</a>
+                
+                    <a href="/" class="dropdown-menu button">Articles</a>
+                
+                    <a href="/tags/" class="dropdown-menu button">Tags</a>
+                
+                    <a href="/archives/" class="dropdown-menu button">Archives</a>
+                
+            </div>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+
+<div class="post-title">
+    <h1 class="post-title__text">
+        OpenCV - 2
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2020/08/" class="post-meta__date button">2020-08-28</a>
+        
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <aside class="post-side">
+        <div class="post-side__toc">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Content"><span class="toc-number">1.</span> <span class="toc-text">Content</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">2.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Convolution"><span class="toc-number">3.</span> <span class="toc-text">Convolution</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#What-is-convolution"><span class="toc-number">3.1.</span> <span class="toc-text">What is convolution?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Time-to-try-out"><span class="toc-number">3.2.</span> <span class="toc-text">Time to try out!</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Realize-the-convolution-hands-by-hands"><span class="toc-number">3.3.</span> <span class="toc-text">Realize the convolution hands by hands</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HSV"><span class="toc-number">4.</span> <span class="toc-text">HSV</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Let%E2%80%99s-try-out"><span class="toc-number">4.0.1.</span> <span class="toc-text">Let’s try out</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Basic-function"><span class="toc-number">5.</span> <span class="toc-text">Basic function</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Blurring"><span class="toc-number">5.1.</span> <span class="toc-text">Blurring</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Edge-detection"><span class="toc-number">6.</span> <span class="toc-text">Edge detection</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-number">7.</span> <span class="toc-text">Summary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">8.</span> <span class="toc-text">Reference</span></a></li></ol>
+        </div>
+    </aside>
+    <a class="btn-toc button" id="btn-toc" tabindex="0">
+        <svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path>
+        </svg>
+    </a>
+    <div class="toc-menus" id="toc-menus">
+        <div class="toc-title">Article Directory</div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Content"><span class="toc-number">1.</span> <span class="toc-text">Content</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">2.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Convolution"><span class="toc-number">3.</span> <span class="toc-text">Convolution</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#What-is-convolution"><span class="toc-number">3.1.</span> <span class="toc-text">What is convolution?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Time-to-try-out"><span class="toc-number">3.2.</span> <span class="toc-text">Time to try out!</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Realize-the-convolution-hands-by-hands"><span class="toc-number">3.3.</span> <span class="toc-text">Realize the convolution hands by hands</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HSV"><span class="toc-number">4.</span> <span class="toc-text">HSV</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Let%E2%80%99s-try-out"><span class="toc-number">4.0.1.</span> <span class="toc-text">Let’s try out</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Basic-function"><span class="toc-number">5.</span> <span class="toc-text">Basic function</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Blurring"><span class="toc-number">5.1.</span> <span class="toc-text">Blurring</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Edge-detection"><span class="toc-number">6.</span> <span class="toc-text">Edge detection</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-number">7.</span> <span class="toc-text">Summary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">8.</span> <span class="toc-text">Reference</span></a></li></ol>
+    </div>
+
+
+<article class="post content-card">
+    <div class="post__header"></div>
+    <div class="post__content">
+        <h1 id="OpenCV-with-Python-–-2"><a href="#OpenCV-with-Python-–-2" class="headerlink" title="OpenCV with Python – 2"></a>OpenCV with Python – 2</h1><h2 id="Content"><a href="#Content" class="headerlink" title="Content"></a>Content</h2><ul>
+<li><a href="/2020/08/28/opencv/README/">README</a></li>
+<li><a href="/2020/08/27/opencv/opencv1">OpenCV with Python – 1</a></li>
+<li><a href="/2020/08/28/opencv/opencv2">OpenCV with Python – 2</a></li>
+<li><a href="/2020/08/28/opencv/opencv3">OpenCV with Python – 3</a></li>
+<li><a href="/2020/08/28/opencv/opencv4">OpenCV with Python – 4</a></li>
+<li><a href="/2020/08/28/opencv/opencv5">OpenCV with Python – 5</a></li>
+</ul>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>The last article talked about some fundamental knowledge about the images. To move on to the next level, we’ll introduce what is convolution and also figure out how we can process the image to get the better result.</p>
+<h2 id="Convolution"><a href="#Convolution" class="headerlink" title="Convolution"></a>Convolution</h2><h3 id="What-is-convolution"><a href="#What-is-convolution" class="headerlink" title="What is convolution?"></a>What is convolution?</h3><p>Recall that the image is an array and its type is ==float in [0, 1]== or ==uint8 in [0, 255]==. Therefore, the idea of convolution is to use another small matrix also known as ==kernel== with image to do the <strong>dot product</strong>. See the image below. It’s sound weird but we’ll see how it works later!</br></br></p>
+<center><img src=https://www.researchgate.net/profile/Chaim_Baskin/publication/318849314/figure/fig1/AS:614287726870532@1523469015098/Image-convolution-with-an-input-image-of-size-7-7-and-a-filter-kernel-of-size-3-3.png width=600></img></center></br>
+<center>Image to show convolution</center>
+
+<hr>
+<h3 id="Time-to-try-out"><a href="#Time-to-try-out" class="headerlink" title="Time to try out!"></a>Time to try out!</h3><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/env python3</span>
+<span class="hljs-comment"># -*- coding: utf-8 -*-</span>
+
+<span class="hljs-keyword">import</span> cv2
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+<span class="hljs-comment"># Read in the image</span>
+img = cv2.imread(<span class="hljs-string">&quot;food.jpg&quot;</span>)
+
+<span class="hljs-string">&#x27;&#x27;&#x27;</span>
+<span class="hljs-string">kernel = [[1/9, 1/9, 1/9],</span>
+<span class="hljs-string">          [1/9, 1/9, 1/9],</span>
+<span class="hljs-string">          [1/9, 1/9, 1/9]]</span>
+<span class="hljs-string">&#x27;&#x27;&#x27;</span>
+kernel = np.ones((<span class="hljs-number">3</span>, <span class="hljs-number">3</span>)) / <span class="hljs-number">9</span>
+
+<span class="hljs-comment"># Filter the image</span>
+result = cv2.filter2D(img, <span class="hljs-number">-1</span>, kernel=kernel)
+
+<span class="hljs-comment"># Origin image</span>
+cv2.imshow(<span class="hljs-string">&quot;Origig image&quot;</span>, img)
+<span class="hljs-comment"># New image</span>
+cv2.imshow(<span class="hljs-string">&quot;Filter image&quot;</span>, result)
+
+cv2.waitKey(<span class="hljs-number">0</span>)
+cv2.destroyAllWindows()
+cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
+<p><strong>Note</strong>: Image at the left is the original one and the other one is after filtering. We can observe that the image look blurry then before!</br><br><img src="https://i.imgur.com/8vtuzXI.jpg"></p>
+<hr>
+<h3 id="Realize-the-convolution-hands-by-hands"><a href="#Realize-the-convolution-hands-by-hands" class="headerlink" title="Realize the convolution hands by hands"></a><strong>Realize the convolution hands by hands</strong></h3><p>Let’s make our own simple convolution function! Before we make our image, we should first know what is <strong>padding</strong>. Observe that the convolution image we show <a target="_blank" rel="noopener" href="https://hackmd.io/_9KDIbpySLid-pIEQW7DAA?both#What-is-convolution">above</a>, the image become smaller then before. Therefore, we need additional block around the original matrix to deal with the problems. Here, the behaviour of adding additional block is called ==padding==.</p>
+<p>After knowing what is padding, we come across another problem - “How much additional blocks we need”. First, the new values of each pixels is decided by the very middle values of the kernel when doing convolution. Hence, we should consider to make every pixel in origin image can be placed in the middle of the kernel. Namely, we should pad $\frac{n - 1}{2}$ row and col to each side.</p>
+<pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/env python3</span>
+<span class="hljs-comment"># -*- coding: utf-8 -*-</span>
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">simple_convolution</span>(<span class="hljs-params">img, kernel</span>):</span>
+    <span class="hljs-string">&#x27;&#x27;&#x27;</span>
+<span class="hljs-string">    Function to do the simple convolution</span>
+<span class="hljs-string">    </span>
+<span class="hljs-string">    img: Input image</span>
+<span class="hljs-string">    kernel: Kernel matrix, the size of kernel matrix should be odd</span>
+<span class="hljs-string">    &#x27;&#x27;&#x27;</span>
+    
+    <span class="hljs-comment"># Size for padding (same as int((kernel - 1) / 2))</span>
+    pad_size = kernel.shape[<span class="hljs-number">0</span>] // <span class="hljs-number">2</span>
+    
+    <span class="hljs-comment"># Use np.pad() to pad the img</span>
+    padding_img = np.pad(img, ((pad_size, pad_size), (pad_size, pad_size), (<span class="hljs-number">0</span>, <span class="hljs-number">0</span>)), 
+                         <span class="hljs-string">&#x27;constant&#x27;</span>, 
+                         constant_values=(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>))
+    
+    <span class="hljs-comment"># Set the start and end point of the image</span>
+    start_x, start_y = pad_size, pad_size
+    end_x, end_y = img.shape[<span class="hljs-number">0</span>] - pad_size, img.shape[<span class="hljs-number">1</span>] - pad_size
+
+    <span class="hljs-comment"># Result image</span>
+    result = np.ones((img.shape[<span class="hljs-number">0</span>], img.shape[<span class="hljs-number">1</span>], <span class="hljs-number">3</span>))
+    
+    <span class="hljs-comment"># Start convolution</span>
+    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> range(start_x, end_x + <span class="hljs-number">1</span>):
+        <span class="hljs-keyword">for</span> y <span class="hljs-keyword">in</span> range(start_y, end_y + <span class="hljs-number">1</span>):
+            <span class="hljs-string">&#x27;&#x27;&#x27;</span>
+<span class="hljs-string">            Suppose kernel size is 5:</span>
+<span class="hljs-string">            </span>
+<span class="hljs-string">            # Kernel shape: (5, 5)</span>
+<span class="hljs-string">            If the cannel of img is 2, no broadcasting</span>
+<span class="hljs-string">            else broadcast to (3, 3, 3)</span>
+<span class="hljs-string">            </span>
+<span class="hljs-string">            # paddimg_img[..., ...] shape: (5, 5, 3)</span>
+<span class="hljs-string">            &#x27;&#x27;&#x27;</span>
+            <span class="hljs-comment"># Sum the new result with its first and second axis (remain the channel axis)</span>
+            result[x - pad_size, y - pad_size] = np.multiply(padding_img[x - pad_size: x + pad_size + <span class="hljs-number">1</span>, y - pad_size: y + pad_size + <span class="hljs-number">1</span>],
+                                                             kernel).sum(axis=(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>))
+    
+    print(<span class="hljs-string">&quot;Origin shape: &#123;&#125;\nNew shape: &#123;&#125;&quot;</span>.format(img.shape, result.shape))
+    
+    <span class="hljs-comment"># Ensure that the result is in type uint8</span>
+    <span class="hljs-keyword">return</span> result.astype(np.uint8)
+</code></pre>
+<h2 id="HSV"><a href="#HSV" class="headerlink" title="HSV"></a>HSV</h2><p>So far, we have introduced <strong>RGB</strong> and <strong>Gray scale</strong> image. There are another format to represent <strong>RGB</strong> image, that is <strong>HSV</strong>. <strong>HSV</strong> stands for three different metrics - ==Hue, Saturation, Value==. Below is the picture of the palette in Keynote. We change the color in both PPT or Keynote by <strong>HSV</strong> instead of RGB. The direction of arrow show what will be changed. When we move the position along the circle, we are going to change the the <strong>Hue</strong> and <strong>Saturation</strong> along the direction of radius. <strong>Value</strong> is changed by the bar below.</p>
+<center><img src=https://i.imgur.com/4DR8FVa.png width=500></center>
+
+<p>Let’s go deeper about what is hue, saturation and value.</p>
+<ul>
+<li><strong>Hue</strong><br>  Hue is the <strong>color portion</strong> of the model.</li>
+<li><strong>Saturation</strong><br>  Saturation describes the <strong>amount of gray</strong> in a particular color.</li>
+<li><strong>Value</strong><br>  Value works in conjunction with saturation and describes the <strong>brightness or intensity of the color</strong>.</li>
+</ul>
+<p>In OpenCV, <strong>hue</strong> range is [0,179], <strong>saturation</strong> range is [0,255], and <strong>value</strong> range is [0,255]. Below is how we convert <strong>RGB</strong> to <strong>HSV</strong> in OpenCV.<br>$$<br>V = max(R, G, B)<br>$$<br>$$<br>S =<br>\begin{cases}<br>    \frac{V - min(R, G, B)}{V}  &amp; \quad \text{if} \ V \neq 0 \\<br>    0  &amp; \quad \text{otherwise}<br>\end{cases} \\<br>$$<br>$$<br>H =<br>\begin{cases}<br>    60(G−B)/(V−min(R,G,B))  &amp; \quad \text{if} \ V = R \\<br>    120+60(B−R)/(V−min(R,G,B))  &amp; \quad \text{if} \ V = G \\<br>    240+60(R−G)/(V−min(R,G,B)) &amp; \quad \text{if} \ V = B<br>\end{cases} \\<br>$$<br>If $H&lt;0$ then $H=H+360$. On output $0≤V≤1$, $0≤S≤1$, $0≤H≤360$. </br><br>Output should be $V = 255<em>V$, $S=255</em>S$, $H = H/2$ (to fit to [0, 255]) .</p>
+<p><strong>Note</strong>: <strong>R, G, B</strong> here is the channel of each pixel. Therefore, when we writing our own <strong>HSV</strong>, we should consider each pixels. Below is how we compute it.</p>
+<p><img src="https://i.imgur.com/reBRvLz.jpg"></p>
+<center><p>
+How to get V
+</p></center>
+
+
+<h4 id="Let’s-try-out"><a href="#Let’s-try-out" class="headerlink" title="Let’s try out"></a>Let’s try out</h4><ul>
+<li><p><strong>Built-in function</strong></p>
+<pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/env python3</span>
+<span class="hljs-comment"># -*- coding: utf-8 -*-</span>
+
+<span class="hljs-keyword">import</span> cv2
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+img = cv2.imread(<span class="hljs-string">&quot;car.jpg&quot;</span>)
+
+<span class="hljs-comment"># Convert RGB to HSV using cv2.cvtColor()</span>
+img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+
+<span class="hljs-comment"># Show the image</span>
+cv2.imshow(<span class="hljs-string">&quot;Original image&quot;</span>, img)
+cv2.imshow(<span class="hljs-string">&quot;HSV image&quot;</span>, img_hsv)
+
+cv2.waitKey(<span class="hljs-number">0</span>)
+cv2.destroyAllWindows()
+cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
+<center><img src=https://i.imgur.com/m1V00Gr.jpg width=600></center>
+<center><p>Output</p></center>
+</li>
+<li><p><strong>Hands by hands</strong> (Just for reference)</p>
+<pre><code class="hljs python"><span class="hljs-comment"># Assistive function</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">convert_channels</span>(<span class="hljs-params">channels</span>):</span>
+    <span class="hljs-comment"># Convert to (0, 1)</span>
+    channels = channels / <span class="hljs-number">255</span>
+    
+    <span class="hljs-comment"># Find extreme value</span>
+    max_value = np.max(channels)
+    min_value = np.min(channels)
+    
+    <span class="hljs-comment">### Calculate V</span>
+    V = max_value
+    
+    <span class="hljs-comment">### Calculate S</span>
+    <span class="hljs-keyword">if</span> (V != <span class="hljs-number">0</span>) :
+        S = (V - min_value) / V
+    <span class="hljs-keyword">else</span>:
+        S = <span class="hljs-number">0</span>
+   
+    <span class="hljs-comment">### Calculate H</span>
+    <span class="hljs-keyword">if</span> V == channels[<span class="hljs-number">2</span>]:
+        H = <span class="hljs-number">60</span> * (channels[<span class="hljs-number">1</span>] - channels[<span class="hljs-number">0</span>]) / (V - min_value)
+    <span class="hljs-keyword">elif</span> V == channels[<span class="hljs-number">1</span>]:
+        H = <span class="hljs-number">120</span> + <span class="hljs-number">60</span> * (channels[<span class="hljs-number">0</span>] - channels[<span class="hljs-number">2</span>]) / (V - min_value)
+    <span class="hljs-keyword">else</span>:
+        H = <span class="hljs-number">240</span> + <span class="hljs-number">60</span> * (channels[<span class="hljs-number">2</span>] - channels[<span class="hljs-number">1</span>]) / (V - min_value)
+            
+    <span class="hljs-keyword">if</span> (H &lt; <span class="hljs-number">0</span>):
+        H += <span class="hljs-number">360</span>
+    
+    <span class="hljs-comment"># Stack the result and return</span>
+    result = np.hstack([np.round(H / <span class="hljs-number">2</span>), np.round(S * <span class="hljs-number">255</span>), np.round(V * <span class="hljs-number">255</span>)])
+    <span class="hljs-keyword">return</span> result.astype(np.uint8)
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">rgb_to_hsv</span>(<span class="hljs-params">img</span>):</span>
+    <span class="hljs-comment"># Copy the original image</span>
+    result = img.copy()
+    
+    <span class="hljs-comment"># Go through each pixel</span>
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(img.shape[<span class="hljs-number">0</span>]):
+        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(img.shape[<span class="hljs-number">1</span>]):
+            result[i, j] = convert_channels(result[i, j])
+            
+    <span class="hljs-keyword">return</span> result</code></pre>
+
+</li>
+</ul>
+<p>You may wonder why we have to convert image to <strong>HSV</strong>. The output looks wierd! However, we will see its amazing power in color filtering in no soon!</p>
+<h2 id="Basic-function"><a href="#Basic-function" class="headerlink" title="Basic function"></a>Basic function</h2><h3 id="Blurring"><a href="#Blurring" class="headerlink" title="Blurring"></a>Blurring</h3><p>In order to recognize the shapes or the lines in image processing, we hope to retain import items and drop the noise. Therefore, blurring the image cany help us to smooth the color and made the image processing more easier. There are lots of method to blur the image. However, I’ll only introduce three ways. <strong>Average blurring</strong>, <strong>Median blurring</strong> and <strong>Gaussian blurring</strong>.</p>
+<ul>
+<li><strong>Average filter</strong><br>  Average blurring use a indentity matrix and devided by its size. The intuitive idea is to share the information with its neighbor and send the important information to others.<br>  $$<br>  \text{3 x 3 Average blur}<br>  \begin{bmatrix}<br>  \frac{1}{9} &amp; \frac{1}{9} &amp; \frac{1}{9}  \\<br>  \frac{1}{9} &amp; \frac{1}{9} &amp; \frac{1}{9} \\<br>  \frac{1}{9} &amp; \frac{1}{9} &amp; \frac{1}{9}<br>  \end{bmatrix}<br>  $$</li>
+</ul>
+<ul>
+<li><strong>Median filter</strong><br>  By calculating the median value of the matrix and get the result. The matrix can be all 1 because we don’t focus on the matrix but the image itself.</li>
+</ul>
+<ul>
+<li><p><strong>Gaussian filter</strong><br>  Gaussian blur offer different weight for each entries which control by the sigma of <strong>Gaussian function</strong>. The advantage of using <strong>Gaussian filter</strong> is that the edge information was remained and make the photo looked true to life. </p>
+<p>  In normal event, the weight in the middle of the matrix is the most heighest one. Therefore, the result will be closer to the original one.<br>  $$<br>  \text{3 x 3 Gaussian blur with} \ \sigma_{x} = \sigma_{y} = 0  \ \ \ \ \frac{1}{16}<br>  \begin{bmatrix}<br>  1 &amp; 2 &amp; 1 \\<br>  2 &amp; 4 &amp; 2 \\<br>  1 &amp; 2 &amp; 1<br>  \end{bmatrix}<br>  $$</p>
+</li>
+</ul>
+<ul>
+<li><strong>Function in OpenCV</strong></li>
+</ul>
+<pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> cv2
+
+img = cv2.imread(<span class="hljs-string">&quot;resources/food.jpg&quot;</span>)
+
+<span class="hljs-comment"># Add noise to the image to see how blurring works</span>
+gaussian = np.random.normal(<span class="hljs-number">0</span>, <span class="hljs-number">0.3</span>, img.shape) * <span class="hljs-number">255</span>
+img_noisy = img + gaussian
+img_noisy = np.clip(img_noisy, <span class="hljs-number">0</span>, <span class="hljs-number">255</span>).astype(np.uint8)
+
+<span class="hljs-comment"># Convert the image to gray scale</span>
+img_noisy_gray = cv2.cvtColor(img_noisy, cv2.COLOR_BGR2GRAY)
+
+<span class="hljs-string">&#x27;&#x27;&#x27;</span>
+<span class="hljs-string">Blur the image</span>
+<span class="hljs-string">&#x27;&#x27;&#x27;</span>
+<span class="hljs-comment"># Average blur</span>
+img_average = cv2.blur(img_noisy_gray, (<span class="hljs-number">3</span>, <span class="hljs-number">3</span>))
+
+<span class="hljs-comment"># Median blur</span>
+img_median = cv2.medianBlur(img_noisy_gray, <span class="hljs-number">3</span>)
+
+<span class="hljs-comment"># Gaussian blur</span>
+img_gaussian = cv2.GaussianBlur(img_noisy_gray, (<span class="hljs-number">3</span>, <span class="hljs-number">3</span>), <span class="hljs-number">0</span>)
+
+<span class="hljs-comment"># Stack all images (Will introduce later, the user-defined function)</span>
+result = stackImages(<span class="hljs-number">0.5</span>, [[img, img_noisy, img_noisy_gray], /
+                           [img_average, img_median, img_gaussian]])
+
+cv2.imshow(<span class="hljs-string">&quot;result&quot;</span>, result)
+
+cv2.waitKey(<span class="hljs-number">0</span>)
+cv2.destroyAllWindows()
+cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
+
+<p><img src="https://i.imgur.com/gcQ7eFx.jpg"></p>
+<p>The top-right corner is the noise image. The images at the second row are <strong>average filter</strong>, <strong>mean filter</strong> and <strong>Gaussian filter</strong> from left to right.</p>
+<h2 id="Edge-detection"><a href="#Edge-detection" class="headerlink" title="Edge detection"></a>Edge detection</h2><p>In image processing, we often have to recognize the contour of the image to differentiate the shape. Therefore, we need to do the edge detection before we start find the contour. Therefore, we have to edge detection in advance to find the contour. We’re going to introduce two way to do the edge detection. <strong>Canny</strong> and <strong>Laplacian</strong>.</p>
+<p>Before we start to know what is edge detection, let’s see the result first.</p>
+<p><img src="https://i.imgur.com/ALCG7In.jpg"></p>
+<p>From image above, we know that the <strong>edges</strong> are the ==differences of two colors==.</p>
+<ul>
+<li><p><strong>Canny</strong><br>The Canny edge detector is based on the <strong>first order derivitative</strong> of the image. We won’t get any further to find out the math behind it but here is <strong>Sofiane Sahir</strong> <a target="_blank" rel="noopener" href="https://towardsdatascience.com/canny-edge-detection-step-by-step-in-python-computer-vision-b49c3a2d8123">article</a> about how to implement Canny detector. I higly recommend that you guys can read it.</p>
+</li>
+<li><p><strong>Laplacian</strong><br>The Laplacian edge dectector is based on the <strong>second order derivative</strong> of the image. Here is <strong>Alan Saberi’s</strong> <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=1b3Sr2MGLFg">viedo</a> about LoG filter.</p>
+</li>
+<li><p><strong>Function in OpenCV</strong><br>Documentation for <a target="_blank" rel="noopener" href="https://docs.opencv.org/2.4/modules/imgproc/doc/feature_detection.html?highlight=canny#canny">Canny</a> and <a target="_blank" rel="noopener" href="https://docs.opencv.org/2.4/modules/imgproc/doc/filtering.html?highlight=laplacian#laplacian">Laplacian</a>.</p>
+<pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+img = cv2.imread(<span class="hljs-string">&quot;resources/car.jpg&quot;</span>)
+
+<span class="hljs-comment"># Change the image to gray scale</span>
+img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+<span class="hljs-comment"># Blur the image to reduce noise</span>
+img_blur = cv2.GaussianBlur(img_gray, (<span class="hljs-number">3</span>, <span class="hljs-number">3</span>), <span class="hljs-number">0</span>)
+
+<span class="hljs-string">&#x27;&#x27;&#x27;</span>
+<span class="hljs-string"># Edge detection</span>
+<span class="hljs-string">&#x27;&#x27;&#x27;</span>
+<span class="hljs-comment"># Canny detector</span>
+img_canny = cv2.Canny(img_blur, <span class="hljs-number">100</span>, <span class="hljs-number">100</span>)
+
+<span class="hljs-comment"># LoG detector (Use img_gray, because img_blur is not apparent)</span>
+<span class="hljs-string">&#x27;&#x27;&#x27;</span>
+<span class="hljs-string">Using cv2.CV_16s to prevent overflow</span>
+<span class="hljs-string">&#x27;&#x27;&#x27;</span>
+img_log = cv2.Laplacian(img_gray, <span class="hljs-number">-1</span>, cv2.CV_16S)
+
+<span class="hljs-comment"># Stack the image</span>
+result = stackImages(<span class="hljs-number">0.5</span>, [img, img_canny, img_log])
+
+cv2.imshow(<span class="hljs-string">&quot;Result&quot;</span>, result)
+
+cv2.waitKey(<span class="hljs-number">0</span>)
+cv2.destroyAllWindows()
+cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
+<p><img src="https://i.imgur.com/7SwY0jt.jpg"></p>
+</li>
+</ul>
+<p>The images above are <strong>origin</strong>, <strong>Canny</strong> and <strong>LoG</strong>.</p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>In today’s article, we learned <strong>HSV</strong> format and the importance for both <strong>blurring and edge detection</strong>. In next tutorial, we’re going to see how to crop the image and also change the perspective to get the different result.</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://youtu.be/WQeoO7MI0Bs">LEARN OPENCV in 3 HOURS with Python (2020)</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.lifewire.com/what-is-hsv-in-design-1078068">The HSV Color Model in Graphic Design</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.opencv.org/3.4/de/d25/imgproc_color_conversions.html">OpenCV documentation of Color Conversion</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tutorialspoint.com/dip/concept_of_blurring.htm">Concept of Blurring</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/43699326/how-to-add-gaussian-noise-in-an-image-in-python-using-pymorph">How to add gaussian noise in an image in Python using PyMorph</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/13429134/canny-edge-detection-and-log-difference">Canny Edge Detection and LoG difference</a></li>
+</ol>
+<!-- flag of hidden posts -->
+    </div>
+     
+    <div class="post-footer__meta"><p>updated at 2020-12-31</p></div> 
+    <div class="post-meta__cats"></div> 
+</article>
+
+
+
+
+    <div class="post__comments content-card" id="comment">
+        
+    <h4>Comments</h4>
+    
+    <div id="disqus_thread">Unable to load Disqus, please make sure your network can access.</div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    </div>
+
+
+
+</main>
+
+            <footer class="footer">
+    
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/viz.js/1.7.1/viz.js'></script>
+        <script>
+          String.prototype.replaceAll = function(search, replacement) {
+            var target = this;
+            return target.split(search).join(replacement);
+          };
+      
+          let vizObjects = document.querySelectorAll('.graphviz')
+      
+          for (let item of vizObjects) {
+            let svg = undefined
+            try {
+              svg = Viz(item.textContent.replaceAll('–', '--'), 'svg')
+            } catch(e) {
+              svg = `<pre class="error">${e}</pre>`
+            }
+            item.outerHTML = svg
+          }
+        </script>
+    
+    
+
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright © 2020 <a href="/">Justin</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+         
+
+ 
+
+ 
+
+ 
+
+  
+
+
+
+ 
+
+
+    
+ 
+
+ 
+
+
+    <script>
+        if (typeof MathJax === 'undefined') {
+            window.MathJax = {
+                loader: {
+                    source: {
+                        '[tex]/amsCd': '[tex]/amscd',
+                        '[tex]/AMScd': '[tex]/amscd'
+                    }
+                },
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                },
+                options: {
+                    renderActions: {
+                        findScript: [10, doc => {
+                            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                                const display = !!node.type.match(/; *mode=display/);
+                                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                                const text = document.createTextNode('');
+                                node.parentNode.replaceChild(text, node);
+                                math.start = {node: text, delim: '', n: 0};
+                                math.end = {node: text, delim: '', n: 0};
+                                doc.math.push(math);
+                            });
+                        }, '', false],
+                        insertedScript: [200, () => {
+                            document.querySelectorAll('mjx-container').forEach(node => {
+                                let target = node.parentNode;
+                                if (target.nodeName.toLowerCase() === 'li') {
+                                    target.parentNode.classList.add('has-jax');
+                                }
+                            });
+                        }, '', false]
+                    }
+                }
+            };
+            (function () {
+                var script = document.createElement('script');
+                script.src = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js";
+                script.defer = true;
+                document.head.appendChild(script);
+            })();
+        } else {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+        }
+    </script>
+ 
+
+ 
+
+ 
+
+
+    
+    <script>
+        function loadComment() {
+            window.disqus_config = function () {
+                this.page.url = 'justin900429.github.io/posts/cc7123ef/';
+                this.page.identifier = 'posts/cc7123ef/';
+            };
+            (function(){
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + 'https-justin900429-github-io' + '.disqus.com/embed.js';
+                (document.head || document.body).appendChild(dsq);
+            })();
+        }
+    
+        var runningOnBrowser = typeof window !== "undefined";
+        var isBot = runningOnBrowser && !("onscroll" in window) || typeof navigator !== "undefined" && /(gle|ing|ro|msn)bot|crawl|spider|yand|duckgo/i.test(navigator.userAgent);
+        var supportsIntersectionObserver = runningOnBrowser && "IntersectionObserver" in window;
+    
+        setTimeout(function () {
+            if (!isBot && supportsIntersectionObserver) {
+                var comment_observer = new IntersectionObserver(function(entries) {
+                    if (entries[0].isIntersecting) {
+                        loadComment();
+                        comment_observer.disconnect();
+                    }
+                }, { threshold: [0] });
+                comment_observer.observe(document.getElementById('comment'));
+            } else {
+                loadComment();
+            }
+        }, 1);
+    </script>
+
+
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+
+
+
+    </body>
+</html>
