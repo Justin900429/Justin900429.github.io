@@ -30,7 +30,7 @@
 <title>[Series - 19] Classification - SVM - 2 | Justin</title><meta name="robots" content="noindex">
 
 
-    <meta name="keywords" content="OpenCV,Machine-Learning,Android,AI,Algorithm,DataStructure">
+    <meta name="keywords" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
 
 
 
@@ -47,7 +47,7 @@
 <meta property="article:published_time" content="2020-09-08T07:22:26.000Z">
 <meta property="article:modified_time" content="2020-12-31T01:11:47.152Z">
 <meta property="article:author" content="Justin Ruan">
-<meta property="article:tag" content="OpenCV,Machine-Learning,Android,AI,Algorithm,DataStructure">
+<meta property="article:tag" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
 <meta name="twitter:card" content="summary_large_image">
 
 
@@ -180,7 +180,7 @@
 </div></blockquote>
 
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天我們要來說明一下如何利用最佳化理論來找 <strong>SVM</strong> 的解並利用一些方法拓展到高維度。</p>
-<h2 id="Notebook"><a href="#Notebook" class="headerlink" title="Notebook"></a>Notebook</h2><p><a target="_blank" rel="noopener" href="https://colab.research.google.com/github/Justin900429/IT-used/blob/master/SVM.ipynb">Notebook</a></p>
+<h2 id="Notebook"><a href="#Notebook" class="headerlink" title="Notebook"></a>Notebook</h2><p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://colab.research.google.com/github/Justin900429/IT-used/blob/master/SVM.ipynb">Notebook</a></p>
 <h2 id="最佳化"><a href="#最佳化" class="headerlink" title="最佳化"></a>最佳化</h2><p>昨天我們說到我們的最佳化式子是：</p>
 <p>$$<br>\begin{align}<br>max_{\gamma,w,b} \ \ \ \  &amp;\gamma \\<br>s.t.  \ \ \ \ &amp;y^{(i)}(w^Tx^{(i)} + b) \geq \gamma, \ i= 1,…m \\<br>&amp; \lVert w \rVert = 1<br>\end{align}<br>$$</p>
 <p>這邊我們留有 $\lVert w \rVert = 1$ 造成我們很難解這個式子。因此我們將原本的距離 $\gamma$ 乘上$\lVert w \rVert$，使得 $\lVert w \rVert$ 不在重要。記得我們的 $\gamma$ 變成 $\hat\gamma = \lVert w \rVert \gamma$。將原本的 $\gamma$帶回去就變成 $\frac{\hat\gamma}{\lVert w \rVert}$ 。而原本的 $\lVert w \rVert$ 是1，則是因為 $w = \frac{\hat w}{\lVert \hat w \rVert}$。整理一下變成 (將 $\hat w$ 變成 $w$ 維持統一性):</p>
@@ -250,11 +250,11 @@
 <p>$$<br>\begin{align}<br>optimal \ \alpha &amp;\rightarrow \ w = \sum_{i=1}^n \alpha_i y^{(i)} x^{(i)} \\<br>optimal \ \alpha &amp;\rightarrow \ \text{if any} \ \alpha_i \gt 0 \Rightarrow \ b = y^{(i)} - w^Tx^{(i)}<br>\end{align}<br>$$</p>
 <p>另外還有一個更有趣的特性，對於所有的 $\alpha_i \gt 0$，$(x^{(i)}, y^{(i)})$ 會落在 <strong>support vector line</strong> 上，而這些 $(x^{(i)}, y^{(i)})$ 正是我們的 <strong>support vector</strong>。也由這個特性，我們可以知道真正決定邊界的不是其他的點，正是我們的 <strong>support vector</strong>！</p>
 <p>講到這裡，我們一直沒有提到這跟我們的 <strong>Improvment SVM</strong> 有什麼關係，還有 <strong>d</strong> 指的維度到底是什麼。因為我們還需要明天會介紹的 <strong>feature mapping</strong> 才能更好解釋這邊的問題。</p>
-<h2 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h2><p>程式碼我都放在 <a href="">notebook</a> 了，做法是參考<a target="_blank" rel="noopener" href="https://xavierbourretsicotte.github.io/SVM_implementation.html">這裡</a></p>
+<h2 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h2><p>程式碼我都放在 <a href="">notebook</a> 了，做法是參考<a target="_blank" rel="noopener external nofollow noreferrer" href="https://xavierbourretsicotte.github.io/SVM_implementation.html">這裡</a></p>
 <h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>今天講的東西真的是滿滿的數學，希望大家不要被嚇跑了ＸＤ 雖說如此，明天一樣還是滿滿的數學啦！</p>
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
-<li><a target="_blank" rel="noopener" href="http://cs229.stanford.edu/">CS 229 from Standford</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PLXVfgk9fNX2IQOYPmqjqWsNUFl2kpk1U2">機器學習技法 林軒田教授</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="http://cs229.stanford.edu/">CS 229 from Standford</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.youtube.com/playlist?list=PLXVfgk9fNX2IQOYPmqjqWsNUFl2kpk1U2">機器學習技法 林軒田教授</a></li>
 </ol>
 <br/>
 <br/>
@@ -328,7 +328,7 @@
         </p>
     
     
-    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
+    <p>Powered by <a href="https://hexo.io" rel="external nofollow noreferrer" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" rel="external nofollow noreferrer" target="_blank">Cards</a></p>
 </footer>
 
         </div>

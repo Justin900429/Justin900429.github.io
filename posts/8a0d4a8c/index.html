@@ -30,7 +30,7 @@
 <title>[Series - 21] Decision tree | Justin</title><meta name="robots" content="noindex">
 
 
-    <meta name="keywords" content="OpenCV,Machine-Learning,Android,AI,Algorithm,DataStructure">
+    <meta name="keywords" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
 
 
 
@@ -51,7 +51,7 @@
 <meta property="article:published_time" content="2020-09-10T09:09:03.000Z">
 <meta property="article:modified_time" content="2020-12-31T01:11:47.154Z">
 <meta property="article:author" content="Justin Ruan">
-<meta property="article:tag" content="OpenCV,Machine-Learning,Android,AI,Algorithm,DataStructure">
+<meta property="article:tag" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://image.fundebug.com/2019-08-12-tree.png">
 
@@ -185,7 +185,7 @@
 </div></blockquote>
 
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天要介紹的是 <strong>Decision tree</strong>，這個演算法不但能做到<strong>Classification</strong>，也能做到<strong>Regression</strong>！今天的內容會比較輕鬆一點，我們不說太多背後的數學，因為 <strong>Decision tree</strong> 的理論也比較沒有那麼強制，因此我們今天就來看比較直觀的想法。</p>
-<h2 id="Notebook"><a href="#Notebook" class="headerlink" title="Notebook"></a>Notebook</h2><p><a target="_blank" rel="noopener" href="https://colab.research.google.com/github/Justin900429/IT-used/blob/master/Decision%20Tree.ipynb">Notebook</a></p>
+<h2 id="Notebook"><a href="#Notebook" class="headerlink" title="Notebook"></a>Notebook</h2><p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://colab.research.google.com/github/Justin900429/IT-used/blob/master/Decision%20Tree.ipynb">Notebook</a></p>
 <h2 id="Tree"><a href="#Tree" class="headerlink" title="Tree"></a>Tree</h2><p>不知道大家還記不記得資料結構裡的 <strong>Tree</strong>，我們這邊重新複習一下。</p>
 <ul>
 <li><strong>Tree</strong> 是由很多 <strong>nodes</strong> 所組成。</li>
@@ -241,7 +241,7 @@ c [label=&quot;(0, 25)&quot;];</code></pre>
 <p>}</div></div></p>
 <ul>
 <li><p><strong>ID3</strong></p>
-<p>  <strong>ID3</strong> 所使用的指標是 <strong>information entropy</strong>，這邊我就不多講了，可以<a target="_blank" rel="noopener" href="https://machinelearningmastery.com/what-is-information-entropy/">參考這邊</a>，定義為下：<br>  $$<br>  I_E(t) = -\sum_{i=1}^{n}p(i \mid t) \log_2p (i\mid t)<br>  $$<br>  其中 $t$ 代表的是每個的節點，而 $i$ 代表的分類後的 <strong>class</strong>。因此 $p(i \mid t)$ 代表的是在現在這個節點裡面每個 <strong>class</strong> $i$ 的比例是什麼。</p>
+<p>  <strong>ID3</strong> 所使用的指標是 <strong>information entropy</strong>，這邊我就不多講了，可以<a target="_blank" rel="noopener external nofollow noreferrer" href="https://machinelearningmastery.com/what-is-information-entropy/">參考這邊</a>，定義為下：<br>  $$<br>  I_E(t) = -\sum_{i=1}^{n}p(i \mid t) \log_2p (i\mid t)<br>  $$<br>  其中 $t$ 代表的是每個的節點，而 $i$ 代表的分類後的 <strong>class</strong>。因此 $p(i \mid t)$ 代表的是在現在這個節點裡面每個 <strong>class</strong> $i$ 的比例是什麼。</p>
 <p>  而判斷分類後的資訊量則是用 $I_{Gain}$ 代表：</p>
 <p>  $$<br>  I_{Gain} = I(D_{p}) - \sum_{i=1}^n p(i \mid D_p) I_E(D_{children})<br>  $$</p>
 <p>  因此我們會去計算各種不同的分類法並取得 <strong>IG</strong> 最大值。</p>
@@ -265,8 +265,8 @@ c [label=&quot;(0, 25)&quot;];</code></pre>
 <p><img src="https://i.imgur.com/8tCRtHT.png"></p>
 <p>可以觀察到第二張的 <strong>boundry</strong> 其實是對每段間隔當一個值，因此會有類似階梯的形狀出現。</p>
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
-<li><a target="_blank" rel="noopener" href="https://medium.com/jameslearningnote/%E8%B3%87%E6%96%99%E5%88%86%E6%9E%90-%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92-%E7%AC%AC3-5%E8%AC%9B-%E6%B1%BA%E7%AD%96%E6%A8%B9-decision-tree-%E4%BB%A5%E5%8F%8A%E9%9A%A8%E6%A9%9F%E6%A3%AE%E6%9E%97-random-forest-%E4%BB%8B%E7%B4%B9-7079b0ddfbda">[資料分析&amp;機器學習] 第3.5講 : 決策樹(Decision Tree)以及隨機森林(Random Forest)介紹</a></li>
-<li><a target="_blank" rel="noopener" href="https://towardsdatascience.com/visualizing-decision-trees-with-python-scikit-learn-graphviz-matplotlib-1c50b4aa68dc">Visualizing Decision Trees with Python (Scikit-learn, Graphviz, Matplotlib)</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://medium.com/jameslearningnote/%E8%B3%87%E6%96%99%E5%88%86%E6%9E%90-%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92-%E7%AC%AC3-5%E8%AC%9B-%E6%B1%BA%E7%AD%96%E6%A8%B9-decision-tree-%E4%BB%A5%E5%8F%8A%E9%9A%A8%E6%A9%9F%E6%A3%AE%E6%9E%97-random-forest-%E4%BB%8B%E7%B4%B9-7079b0ddfbda">[資料分析&amp;機器學習] 第3.5講 : 決策樹(Decision Tree)以及隨機森林(Random Forest)介紹</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://towardsdatascience.com/visualizing-decision-trees-with-python-scikit-learn-graphviz-matplotlib-1c50b4aa68dc">Visualizing Decision Trees with Python (Scikit-learn, Graphviz, Matplotlib)</a></li>
 </ol>
 <br/>
 <br/>
@@ -340,7 +340,7 @@ c [label=&quot;(0, 25)&quot;];</code></pre>
         </p>
     
     
-    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
+    <p>Powered by <a href="https://hexo.io" rel="external nofollow noreferrer" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" rel="external nofollow noreferrer" target="_blank">Cards</a></p>
 </footer>
 
         </div>

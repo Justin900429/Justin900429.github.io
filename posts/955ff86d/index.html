@@ -30,7 +30,7 @@
 <title>[Series - 23] Boosting - 1 - Adaboost | Justin</title><meta name="robots" content="noindex">
 
 
-    <meta name="keywords" content="OpenCV,Machine-Learning,Android,AI,Algorithm,DataStructure">
+    <meta name="keywords" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
 
 
 
@@ -51,7 +51,7 @@
 <meta property="article:published_time" content="2020-09-12T06:05:37.000Z">
 <meta property="article:modified_time" content="2020-12-31T01:11:47.156Z">
 <meta property="article:author" content="Justin Ruan">
-<meta property="article:tag" content="OpenCV,Machine-Learning,Android,AI,Algorithm,DataStructure">
+<meta property="article:tag" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://i.imgur.com/RZoFhvz.jpg">
 
@@ -185,7 +185,7 @@
 </div></blockquote>
 
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天要介紹另一個 <strong>ensembling</strong> 的方法，那就是 <strong>boosting</strong>。</p>
-<h2 id="Notebook"><a href="#Notebook" class="headerlink" title="Notebook"></a>Notebook</h2><p><a target="_blank" rel="noopener" href="https://colab.research.google.com/github/Justin900429/IT-used/blob/master/Boosting.ipynb">Notebook</a></p>
+<h2 id="Notebook"><a href="#Notebook" class="headerlink" title="Notebook"></a>Notebook</h2><p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://colab.research.google.com/github/Justin900429/IT-used/blob/master/Boosting.ipynb">Notebook</a></p>
 <h2 id="Boosting"><a href="#Boosting" class="headerlink" title="Boosting"></a>Boosting</h2><p>我們先來想像一個例子，當我們今天想要辨識不同類別的物體的時候，我們會先專注在他的大方向，在看他跟我們分類錯誤的物體有什麼不一樣，再進一步尋找新的特徵。同時，我們會把分類錯誤的放大檢視，進而修正錯誤。</p>
 <p><img src="https://i.imgur.com/RZoFhvz.jpg"></p>
 <p>利用上面這張圖，我們想找出正方形的特徵，當我們第一次說出<strong>四個邊的時候</strong>，我們就會就會發現，坐上方的不規則四邊形會被分類錯誤，因此我們希望下一次能修正這個錯誤。但是在修正的過程中，我們可能也會發現新的錯誤，因此我們必須不斷去修修改改我們的條件。另外上圖我沒有將分類正確的物體縮小，事實上分類正確的物體應該要<strong>變小一些</strong>。</p>
@@ -194,7 +194,7 @@
 <h2 id="Adaboost"><a href="#Adaboost" class="headerlink" title="Adaboost"></a>Adaboost</h2><h3 id="個別模型"><a href="#個別模型" class="headerlink" title="個別模型"></a>個別模型</h3><p>有了 <strong>boosting</strong> 的概念後，我們來看一看 <strong>Adaboost</strong> 的演算法，這是一個用在二元分類的演算法。我們先對每個個別的小 <strong>model</strong> 研究。假設我們有 $N$ 個點。首先我們先將我們每個點的權重設為 $\frac{1}{N}$，我們計算分類錯誤的方式是利用加權平均：</p>
 <p>$$<br>error = \epsilon_t = \frac{\sum_{n=1}^N u_n^{(t)}1 { y_n \neq g_t(x_n) } }{\sum_{n=1}^N u_n^{(t)}}<br>$$</p>
 <p>而這也正是我上面說的<strong>改變權重</strong>，當我們 $u_t$ 愈大，他導致的錯誤也愈多，因此我們的 <strong>model</strong> 就會試著將這筆資料做更好的分類。另外我們的 $\epsilon_t$ 的範圍是 $0 \leq \epsilon_t \leq \frac{1}{2}$，因為當大於 $\frac{1}{2}$ 的時候代表我們只要將我們預測的東西做調換，就又可以得到小於 $\frac{1}{2}$ 的預測率了。</p>
-<p>另外，我們也要有改變權重的方式，因此我們定義一個 <strong>scaling factor</strong> 用作改變權重的乘數，對 <strong>scaling factor</strong> 的推導可以看<a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PLXVfgk9fNX2IQOYPmqjqWsNUFl2kpk1U2">參考資料[2]</a>。</p>
+<p>另外，我們也要有改變權重的方式，因此我們定義一個 <strong>scaling factor</strong> 用作改變權重的乘數，對 <strong>scaling factor</strong> 的推導可以看<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.youtube.com/playlist?list=PLXVfgk9fNX2IQOYPmqjqWsNUFl2kpk1U2">參考資料[2]</a>。</p>
 <p>$$<br>\text{Scaling factor} = f_t = \sqrt{\frac{1- \epsilon_t}{\epsilon_t}}<br>$$</p>
 <ul>
 <li><p>當我們<strong>model</strong>將某筆資料 $n$ 分類正確，則其權重 $u_n^{t}$ 就會變成:<br>  $$<br>  u_n^{t+1} = \frac{u_n^t}{f_t}<br>  $$</p>
@@ -218,8 +218,8 @@
 <p>可以觀察到經過愈多次，我們的模型得適應能力愈強，對於一些雜訊的處理能力也愈好！</p>
 <h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>今天介紹完的 <strong>Adaboost</strong>，了解到他就是利用 <strong>boosting</strong> 加上 <strong>Decision tree (with weak classifier)</strong> 。明天接著要來介紹 <strong>Gradient boost</strong>！</p>
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
-<li><a target="_blank" rel="noopener" href="http://cs229.stanford.edu/">CS 229 from Standford</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PLXVfgk9fNX2IQOYPmqjqWsNUFl2kpk1U2">機器學習技法 林軒田教授</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="http://cs229.stanford.edu/">CS 229 from Standford</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.youtube.com/playlist?list=PLXVfgk9fNX2IQOYPmqjqWsNUFl2kpk1U2">機器學習技法 林軒田教授</a></li>
 </ol>
 <br/>
 <br/>
@@ -293,7 +293,7 @@
         </p>
     
     
-    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
+    <p>Powered by <a href="https://hexo.io" rel="external nofollow noreferrer" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" rel="external nofollow noreferrer" target="_blank">Cards</a></p>
 </footer>
 
         </div>

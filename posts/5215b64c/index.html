@@ -30,7 +30,7 @@
 <title>OpenCV - 5 | Justin</title><meta name="robots" content="noindex">
 
 
-    <meta name="keywords" content="OpenCV,Machine-Learning,Android,AI,Algorithm,DataStructure">
+    <meta name="keywords" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
 
 
 
@@ -51,7 +51,7 @@
 <meta property="article:published_time" content="2020-08-28T14:00:05.000Z">
 <meta property="article:modified_time" content="2020-12-31T02:13:17.691Z">
 <meta property="article:author" content="Justin Ruan">
-<meta property="article:tag" content="OpenCV,Machine-Learning,Android,AI,Algorithm,DataStructure">
+<meta property="article:tag" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://i.imgur.com/SbPHgvl.png">
 
@@ -197,7 +197,7 @@
 <ul>
 <li><code>cv2.namedWindow(name, flags)</code>  <ul>
 <li>name: Window’s name.  </li>
-<li>flags: Flags of the window. See the <a target="_blank" rel="noopener" href="https://docs.opencv.org/2.4/modules/highgui/doc/user_interface.html?highlight=namedwindow#namedwindow">documentation</a> for more detail.</li>
+<li>flags: Flags of the window. See the <a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.opencv.org/2.4/modules/highgui/doc/user_interface.html?highlight=namedwindow#namedwindow">documentation</a> for more detail.</li>
 </ul>
 </li>
 </ul>
@@ -386,17 +386,17 @@ print(h_upper, s_upper, v_upper)
 cv2.destroyAllWindows()
 cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
 
-<h2 id="Cascade-classifier"><a href="#Cascade-classifier" class="headerlink" title="Cascade classifier"></a>Cascade classifier</h2><p><strong>Cascade classifier</strong> is an object detection technique that used in <strong>OpenCV</strong>. You can learn more about it in this <a target="_blank" rel="noopener" href="http://www.willberger.org/cascade-haar-explained/">article</a> written by <strong>Will Berger</strong>. We’re only focus on how to use the <strong>OpenCV</strong> function to get the result on the pretrained model (You can use your model as well!). We’re going to download the pretrained model for face recognition.</p>
-<p>The pretrained model is in <a target="_blank" rel="noopener" href="https://github.com/opencv/opencv/tree/master/data/haarcascades">this</a> github repo. We choose  <strong>haarcascade_frontalface_default.xml</strong> to do the demonstation. You should prepare a image with face in it!</p>
+<h2 id="Cascade-classifier"><a href="#Cascade-classifier" class="headerlink" title="Cascade classifier"></a>Cascade classifier</h2><p><strong>Cascade classifier</strong> is an object detection technique that used in <strong>OpenCV</strong>. You can learn more about it in this <a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.willberger.org/cascade-haar-explained/">article</a> written by <strong>Will Berger</strong>. We’re only focus on how to use the <strong>OpenCV</strong> function to get the result on the pretrained model (You can use your model as well!). We’re going to download the pretrained model for face recognition.</p>
+<p>The pretrained model is in <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/opencv/opencv/tree/master/data/haarcascades">this</a> github repo. We choose  <strong>haarcascade_frontalface_default.xml</strong> to do the demonstation. You should prepare a image with face in it!</p>
 <ul>
-<li><code>cv2.CascadeClassifier.detectMultiScale(img, scaleFactor, minNeighbors)</code> <a target="_blank" rel="noopener" href="https://docs.opencv.org/2.4/modules/objdetect/doc/cascade_classification.html#cascadeclassifier-detectmultiscale">Documentation</a>  <ul>
+<li><code>cv2.CascadeClassifier.detectMultiScale(img, scaleFactor, minNeighbors)</code> <a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.opencv.org/2.4/modules/objdetect/doc/cascade_classification.html#cascadeclassifier-detectmultiscale">Documentation</a>  <ul>
 <li>img: Image to detect.</li>
 <li>scaleFactor: Specifying how much the image size is reduced at each image scale.  </li>
 <li>minNeighbors: Specifying how many neighbors each candidate rectangle should have to retain it.</li>
 </ul>
 </li>
 </ul>
-<p>The param <code>minNeighbor</code> is implict in the documentation. I stronly recommend to see <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/22249579/opencv-detectmultiscale-minneighbors-parameter">this</a> explanation from <strong>stack overflow</strong>.</p>
+<p>The param <code>minNeighbor</code> is implict in the documentation. I stronly recommend to see <a target="_blank" rel="noopener external nofollow noreferrer" href="https://stackoverflow.com/questions/22249579/opencv-detectmultiscale-minneighbors-parameter">this</a> explanation from <strong>stack overflow</strong>.</p>
 <p>The param <code>scalerFactor</code> help you to detect different shape of faces. Because the model have fixed size during training, therefore, we should resize the image to match the detection size to. If the value is <strong>1.05</strong>, it will decrease <strong>0.05%</strong> every iteration.<br><img src="https://i.imgur.com/1bFqp8w.jpg"></p>
 <p><strong>Demonstration</strong></p>
 <pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
@@ -427,8 +427,8 @@ cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
 
 <h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>We have finished introducting the basic knowledge of image preprocessing and the use of <strong>OpenCV</strong>. From convolution, resizing, color detection and so on. I hope you guys can really learn a lot from the articles and use it in your next project! Thanks for reading and see you in next series!</p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
-<li><a target="_blank" rel="noopener" href="https://www.bogotobogo.com/python/OpenCV_Python/python_opencv3_Image_Object_Detection_Face_Detection_Haar_Cascade_Classifiers.php">OBJECT DETECTION : FACE DETECTION USING HAAR CASCADE CLASSFIERS</a></li>
-<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/22249579/opencv-detectmultiscale-minneighbors-parameter">OpenCV detectMultiScale() minNeighbors parameter</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.bogotobogo.com/python/OpenCV_Python/python_opencv3_Image_Object_Detection_Face_Detection_Haar_Cascade_Classifiers.php">OBJECT DETECTION : FACE DETECTION USING HAAR CASCADE CLASSFIERS</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://stackoverflow.com/questions/22249579/opencv-detectmultiscale-minneighbors-parameter">OpenCV detectMultiScale() minNeighbors parameter</a></li>
 </ol>
 <!-- flag of hidden posts -->
     </div>
@@ -500,7 +500,7 @@ cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
         </p>
     
     
-    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
+    <p>Powered by <a href="https://hexo.io" rel="external nofollow noreferrer" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" rel="external nofollow noreferrer" target="_blank">Cards</a></p>
 </footer>
 
         </div>

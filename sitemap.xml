@@ -74,13 +74,6 @@
 
   
   <url>
-    <loc>justin900429.github.io/tags/Data-structure-and-algorithm/</loc>
-    <lastmod>2020-12-31</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>justin900429.github.io/tags/Android/</loc>
     <lastmod>2020-12-31</lastmod>
     <changefreq>daily</changefreq>
@@ -88,7 +81,7 @@
   </url>
   
   <url>
-    <loc>justin900429.github.io/tags/OpenCV/</loc>
+    <loc>justin900429.github.io/tags/Data-structure-and-algorithm/</loc>
     <lastmod>2020-12-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -96,6 +89,13 @@
   
   <url>
     <loc>justin900429.github.io/tags/AI/</loc>
+    <lastmod>2020-12-31</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>justin900429.github.io/tags/OpenCV/</loc>
     <lastmod>2020-12-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
