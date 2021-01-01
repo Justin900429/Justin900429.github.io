@@ -27,7 +27,7 @@
     <!-- meta -->
 
 
-<title>[Series - 3] Matplotlib | Justin</title><meta name="robots" content="noindex">
+<title>[Series - 3] Matplotlib | Justin</title>
 
 
     <meta name="keywords" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
@@ -37,12 +37,12 @@
 
     <!-- OpenGraph -->
  
-    <meta name="description" content="[Series - 3] MatplotlibAcknowledge This article was written by Joyce.    See moreBack to the series page   前言這篇跟下篇都會介紹繪圖工具。這篇會介紹 Matplotlib。  實作連結 colab - Matplotlib   Matplotlib Matplotlib是NumPy可視覺化的">
+    <meta name="description" content="[Series - 3] MatplotlibAcknowledge This article was written by Joyce.    See moreBack to the series page   前言這篇跟下篇都會介紹繪圖工具。這篇會介紹 Matplotlib。 實作連結 colab - Matplotlib  Matplotlib Matplotlib是NumPy可視覺化的操作">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Series - 3] Matplotlib">
 <meta property="og:url" content="justin900429.github.io/posts/32514a01/index.html">
 <meta property="og:site_name" content="Justin">
-<meta property="og:description" content="[Series - 3] MatplotlibAcknowledge This article was written by Joyce.    See moreBack to the series page   前言這篇跟下篇都會介紹繪圖工具。這篇會介紹 Matplotlib。  實作連結 colab - Matplotlib   Matplotlib Matplotlib是NumPy可視覺化的">
+<meta property="og:description" content="[Series - 3] MatplotlibAcknowledge This article was written by Joyce.    See moreBack to the series page   前言這篇跟下篇都會介紹繪圖工具。這篇會介紹 Matplotlib。 實作連結 colab - Matplotlib  Matplotlib Matplotlib是NumPy可視覺化的操作">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://i.imgur.com/dizdFTF.png">
 <meta property="og:image" content="https://i.imgur.com/gX9B0ME.png">
@@ -61,7 +61,7 @@
 <meta property="og:image" content="https://i.imgur.com/DQx283F.png">
 <meta property="og:image" content="https://i.imgur.com/AId0jTj.png">
 <meta property="article:published_time" content="2020-09-04T14:25:27.000Z">
-<meta property="article:modified_time" content="2020-12-31T01:11:47.165Z">
+<meta property="article:modified_time" content="2021-01-01T02:47:41.055Z">
 <meta property="article:author" content="Justin Ruan">
 <meta property="article:tag" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
 <meta name="twitter:card" content="summary_large_image">
@@ -176,7 +176,7 @@
 
     <aside class="post-side">
         <div class="post-side__toc">
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C%E9%80%A3%E7%B5%90"><span class="toc-number">2.</span> <span class="toc-text">實作連結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Matplotlib"><span class="toc-number">3.</span> <span class="toc-text">Matplotlib</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%92%B0%E5%A2%83%E6%BA%96%E5%82%99"><span class="toc-number">3.1.</span> <span class="toc-text">環境準備</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E8%A9%A6%E8%BA%AB%E6%89%8B"><span class="toc-number">3.2.</span> <span class="toc-text">小試身手</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C"><span class="toc-number">3.2.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B7%9A%E7%9A%84%E6%A8%A3%E5%BC%8F"><span class="toc-number">3.3.</span> <span class="toc-text">線的樣式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-1"><span class="toc-number">3.3.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B7%9A%E6%A2%9D%E7%B2%97%E7%B4%B0"><span class="toc-number">3.4.</span> <span class="toc-text">線條粗細</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-2"><span class="toc-number">3.4.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%8F%E8%89%B2%E6%94%B9%E8%AE%8A"><span class="toc-number">3.5.</span> <span class="toc-text">顏色改變</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-3"><span class="toc-number">3.5.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E4%B8%8A%E5%9C%96%E4%BE%8B"><span class="toc-number">3.6.</span> <span class="toc-text">加上圖例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-4"><span class="toc-number">3.6.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%A7%E6%A8%99%E5%9C%96"><span class="toc-number">3.7.</span> <span class="toc-text">座標圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-5"><span class="toc-number">3.7.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%A3%E4%BD%88%E5%9C%96"><span class="toc-number">3.8.</span> <span class="toc-text">散佈圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-6"><span class="toc-number">3.8.1.</span> <span class="toc-text">實作</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B4%E6%96%B9%E5%9C%96"><span class="toc-number">4.1.</span> <span class="toc-text">直方圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-7"><span class="toc-number">4.1.1.</span> <span class="toc-text">實作</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-1"><span class="toc-number">5.</span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%95%B7%E6%A2%9D%E5%9C%96"><span class="toc-number">5.1.</span> <span class="toc-text">長條圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-8"><span class="toc-number">5.1.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%98%E7%B7%9A%E5%9C%96"><span class="toc-number">5.2.</span> <span class="toc-text">折線圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-9"><span class="toc-number">5.2.1.</span> <span class="toc-text">實作</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-2"><span class="toc-number">6.</span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%93%E9%A4%85%E5%9C%96"><span class="toc-number">6.1.</span> <span class="toc-text">圓餅圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-10"><span class="toc-number">6.1.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%90%E5%9C%96"><span class="toc-number">6.2.</span> <span class="toc-text">子圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-11"><span class="toc-number">6.2.1.</span> <span class="toc-text">實作</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">7.</span> <span class="toc-text">結語</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">8.</span> <span class="toc-text">參考資料</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C%E9%80%A3%E7%B5%90"><span class="toc-number">2.</span> <span class="toc-text">實作連結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Matplotlib"><span class="toc-number">3.</span> <span class="toc-text">Matplotlib</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%92%B0%E5%A2%83%E6%BA%96%E5%82%99"><span class="toc-number">3.1.</span> <span class="toc-text">環境準備</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E8%A9%A6%E8%BA%AB%E6%89%8B"><span class="toc-number">3.2.</span> <span class="toc-text">小試身手</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C"><span class="toc-number">3.2.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B7%9A%E7%9A%84%E6%A8%A3%E5%BC%8F"><span class="toc-number">3.3.</span> <span class="toc-text">線的樣式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-1"><span class="toc-number">3.3.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B7%9A%E6%A2%9D%E7%B2%97%E7%B4%B0"><span class="toc-number">3.4.</span> <span class="toc-text">線條粗細</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-2"><span class="toc-number">3.4.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%8F%E8%89%B2%E6%94%B9%E8%AE%8A"><span class="toc-number">3.5.</span> <span class="toc-text">顏色改變</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-3"><span class="toc-number">3.5.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E4%B8%8A%E5%9C%96%E4%BE%8B"><span class="toc-number">3.6.</span> <span class="toc-text">加上圖例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-4"><span class="toc-number">3.6.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%A7%E6%A8%99%E5%9C%96"><span class="toc-number">3.7.</span> <span class="toc-text">座標圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-5"><span class="toc-number">3.7.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%A3%E4%BD%88%E5%9C%96"><span class="toc-number">3.8.</span> <span class="toc-text">散佈圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-6"><span class="toc-number">3.8.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B4%E6%96%B9%E5%9C%96"><span class="toc-number">3.9.</span> <span class="toc-text">直方圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-7"><span class="toc-number">3.9.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%95%B7%E6%A2%9D%E5%9C%96"><span class="toc-number">3.10.</span> <span class="toc-text">長條圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-8"><span class="toc-number">3.10.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%98%E7%B7%9A%E5%9C%96"><span class="toc-number">3.11.</span> <span class="toc-text">折線圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-9"><span class="toc-number">3.11.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%93%E9%A4%85%E5%9C%96"><span class="toc-number">3.12.</span> <span class="toc-text">圓餅圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-10"><span class="toc-number">3.12.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%90%E5%9C%96"><span class="toc-number">3.13.</span> <span class="toc-text">子圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-11"><span class="toc-number">3.13.1.</span> <span class="toc-text">實作</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">4.</span> <span class="toc-text">結語</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">5.</span> <span class="toc-text">參考資料</span></a></li></ol>
         </div>
     </aside>
     <a class="btn-toc button" id="btn-toc" tabindex="0">
@@ -186,7 +186,7 @@
     </a>
     <div class="toc-menus" id="toc-menus">
         <div class="toc-title">Article Directory</div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C%E9%80%A3%E7%B5%90"><span class="toc-number">2.</span> <span class="toc-text">實作連結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Matplotlib"><span class="toc-number">3.</span> <span class="toc-text">Matplotlib</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%92%B0%E5%A2%83%E6%BA%96%E5%82%99"><span class="toc-number">3.1.</span> <span class="toc-text">環境準備</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E8%A9%A6%E8%BA%AB%E6%89%8B"><span class="toc-number">3.2.</span> <span class="toc-text">小試身手</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C"><span class="toc-number">3.2.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B7%9A%E7%9A%84%E6%A8%A3%E5%BC%8F"><span class="toc-number">3.3.</span> <span class="toc-text">線的樣式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-1"><span class="toc-number">3.3.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B7%9A%E6%A2%9D%E7%B2%97%E7%B4%B0"><span class="toc-number">3.4.</span> <span class="toc-text">線條粗細</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-2"><span class="toc-number">3.4.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%8F%E8%89%B2%E6%94%B9%E8%AE%8A"><span class="toc-number">3.5.</span> <span class="toc-text">顏色改變</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-3"><span class="toc-number">3.5.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E4%B8%8A%E5%9C%96%E4%BE%8B"><span class="toc-number">3.6.</span> <span class="toc-text">加上圖例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-4"><span class="toc-number">3.6.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%A7%E6%A8%99%E5%9C%96"><span class="toc-number">3.7.</span> <span class="toc-text">座標圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-5"><span class="toc-number">3.7.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%A3%E4%BD%88%E5%9C%96"><span class="toc-number">3.8.</span> <span class="toc-text">散佈圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-6"><span class="toc-number">3.8.1.</span> <span class="toc-text">實作</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B4%E6%96%B9%E5%9C%96"><span class="toc-number">4.1.</span> <span class="toc-text">直方圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-7"><span class="toc-number">4.1.1.</span> <span class="toc-text">實作</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-1"><span class="toc-number">5.</span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%95%B7%E6%A2%9D%E5%9C%96"><span class="toc-number">5.1.</span> <span class="toc-text">長條圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-8"><span class="toc-number">5.1.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%98%E7%B7%9A%E5%9C%96"><span class="toc-number">5.2.</span> <span class="toc-text">折線圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-9"><span class="toc-number">5.2.1.</span> <span class="toc-text">實作</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-2"><span class="toc-number">6.</span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%93%E9%A4%85%E5%9C%96"><span class="toc-number">6.1.</span> <span class="toc-text">圓餅圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-10"><span class="toc-number">6.1.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%90%E5%9C%96"><span class="toc-number">6.2.</span> <span class="toc-text">子圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-11"><span class="toc-number">6.2.1.</span> <span class="toc-text">實作</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">7.</span> <span class="toc-text">結語</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">8.</span> <span class="toc-text">參考資料</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C%E9%80%A3%E7%B5%90"><span class="toc-number">2.</span> <span class="toc-text">實作連結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Matplotlib"><span class="toc-number">3.</span> <span class="toc-text">Matplotlib</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%92%B0%E5%A2%83%E6%BA%96%E5%82%99"><span class="toc-number">3.1.</span> <span class="toc-text">環境準備</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E8%A9%A6%E8%BA%AB%E6%89%8B"><span class="toc-number">3.2.</span> <span class="toc-text">小試身手</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C"><span class="toc-number">3.2.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B7%9A%E7%9A%84%E6%A8%A3%E5%BC%8F"><span class="toc-number">3.3.</span> <span class="toc-text">線的樣式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-1"><span class="toc-number">3.3.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B7%9A%E6%A2%9D%E7%B2%97%E7%B4%B0"><span class="toc-number">3.4.</span> <span class="toc-text">線條粗細</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-2"><span class="toc-number">3.4.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%8F%E8%89%B2%E6%94%B9%E8%AE%8A"><span class="toc-number">3.5.</span> <span class="toc-text">顏色改變</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-3"><span class="toc-number">3.5.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E4%B8%8A%E5%9C%96%E4%BE%8B"><span class="toc-number">3.6.</span> <span class="toc-text">加上圖例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-4"><span class="toc-number">3.6.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%A7%E6%A8%99%E5%9C%96"><span class="toc-number">3.7.</span> <span class="toc-text">座標圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-5"><span class="toc-number">3.7.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%A3%E4%BD%88%E5%9C%96"><span class="toc-number">3.8.</span> <span class="toc-text">散佈圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-6"><span class="toc-number">3.8.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B4%E6%96%B9%E5%9C%96"><span class="toc-number">3.9.</span> <span class="toc-text">直方圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-7"><span class="toc-number">3.9.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%95%B7%E6%A2%9D%E5%9C%96"><span class="toc-number">3.10.</span> <span class="toc-text">長條圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-8"><span class="toc-number">3.10.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%98%E7%B7%9A%E5%9C%96"><span class="toc-number">3.11.</span> <span class="toc-text">折線圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-9"><span class="toc-number">3.11.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%93%E9%A4%85%E5%9C%96"><span class="toc-number">3.12.</span> <span class="toc-text">圓餅圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-10"><span class="toc-number">3.12.1.</span> <span class="toc-text">實作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%90%E5%9C%96"><span class="toc-number">3.13.</span> <span class="toc-text">子圖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-11"><span class="toc-number">3.13.1.</span> <span class="toc-text">實作</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">4.</span> <span class="toc-text">結語</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">5.</span> <span class="toc-text">參考資料</span></a></li></ol>
     </div>
 
 
@@ -198,28 +198,25 @@
 </blockquote>
 </div></blockquote>
 
-<blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/2020/08/29/it/it-series/">Back to the series page</a></p>
+<blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/posts/f9a1d882/">Back to the series page</a></p>
 </div></blockquote>
 
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>這篇跟下篇都會介紹繪圖工具。這篇會介紹 <strong>Matplotlib</strong>。</p>
-<hr>
 <h2 id="實作連結"><a href="#實作連結" class="headerlink" title="實作連結"></a>實作連結</h2><ul>
 <li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://colab.research.google.com/drive/1QVpY1hHgf4uWU5pelDFCxoCuGPDTjEZ5">colab - Matplotlib</a></li>
 </ul>
-<hr>
 <h2 id="Matplotlib"><a href="#Matplotlib" class="headerlink" title="Matplotlib"></a>Matplotlib</h2><ul>
 <li>Matplotlib是NumPy可視覺化的操作介面，也是Python最常見的繪圖軟件</li>
 <li>它是一種圖像處理工具，與Matlab相似，最大的不同點是它可以結合Python的其他函數，及Matplotlib是免費的</li>
 <li>Matplotlib的預設參數是可以進行更改的，像是<strong>顏色</strong>、<strong>大小</strong>、<strong>字體</strong>等</li>
 </ul>
-<hr>
 <h3 id="環境準備"><a href="#環境準備" class="headerlink" title="環境準備"></a>環境準備</h3><p>如果想用自己的電腦來跑的話需要安裝 Package</p>
 <pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> For anoconda (recommend)</span>
 <span class="hljs-meta">$</span><span class="bash"> conda install matplotlib</span>
 
 <span class="hljs-meta">#</span><span class="bash"> For pip</span>
 <span class="hljs-meta">$</span><span class="bash"> pip install matplotlib</span></code></pre>
-<hr>
+
 <h3 id="小試身手"><a href="#小試身手" class="headerlink" title="小試身手"></a>小試身手</h3><p>在正式開始介紹之前，先來個小小的練習，前面說到Matplotlib是NumPy的圖形介面，因此我們引入NumPy，做個簡單的介紹。</p>
 <h4 id="實作"><a href="#實作" class="headerlink" title="實作"></a>實作</h4><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np <span class="hljs-comment"># 引入NumPy</span>
 <span class="hljs-keyword">from</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt <span class="hljs-comment"># 引入matplotlib的函數</span>
@@ -244,7 +241,6 @@ plt.show() <span class="hljs-comment"># 顯現圖形</span></code></pre>
 </blockquote>
 </li>
 </ul>
-<hr>
 <h3 id="線的樣式"><a href="#線的樣式" class="headerlink" title="線的樣式"></a>線的樣式</h3><p>進行座標圖形的繪製時，預設線的樣式是實線，可用以下的參數進行修改，參數的關鍵字是linestyle，也可以用簡寫ls，</p>
 <ul>
 <li>$-$ 實線</li>
@@ -262,7 +258,6 @@ plt.plot(x,y,ls = <span class="hljs-string">&quot;--&quot;</span>) <span class="
 plt.show() <span class="hljs-comment"># 顯現圖形</span></code></pre>
 <img src="https://i.imgur.com/gX9B0ME.png"></li>
 </ul>
-<hr>
 <h3 id="線條粗細"><a href="#線條粗細" class="headerlink" title="線條粗細"></a>線條粗細</h3><p>可以利用參數linewidth，將線條的粗細進行改變，預設值是1，數值越大越粗，愈小則越細</p>
 <h4 id="實作-2"><a href="#實作-2" class="headerlink" title="實作"></a>實作</h4><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np <span class="hljs-comment"># 引入NumPy</span>
 <span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt <span class="hljs-comment"># 引入matplotlib的函數</span>
@@ -276,7 +271,6 @@ plt.ylabel(<span class="hljs-string">&quot;y axis&quot;</span>) <span class="hlj
 plt.plot(x,y,linewidth = <span class="hljs-number">5</span>) <span class="hljs-comment"># 繪製x,y軸的圖</span>
 plt.show() <span class="hljs-comment"># 顯現圖形</span></code></pre>
 <p><img src="https://i.imgur.com/Km6HslF.png"></p>
-<hr>
 <h3 id="顏色改變"><a href="#顏色改變" class="headerlink" title="顏色改變"></a>顏色改變</h3><p>在繪製圖形時，預設的線條顏色是藍色，想要改變顏色的話，只需要把參數加上去即可。常見的方法有兩種</p>
 <ol>
 <li>color = “某顏色”，例如 : color = “藍色”</li>
@@ -362,7 +356,11 @@ height='300'></p>
 <li>medium</li>
 <li>large</li>
 <li>x-large</li>
-<li>xx-large<h4 id="實作-4"><a href="#實作-4" class="headerlink" title="實作"></a>實作</h4><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np <span class="hljs-comment"># 引入NumPy</span>
+<li>xx-large</li>
+</ul>
+</li>
+</ol>
+<h4 id="實作-4"><a href="#實作-4" class="headerlink" title="實作"></a>實作</h4><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np <span class="hljs-comment"># 引入NumPy</span>
 <span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt <span class="hljs-comment"># 引入matplotlib的函數</span>
 
 x = np.arange(<span class="hljs-number">20</span>) <span class="hljs-comment"># x軸的值</span>
@@ -376,11 +374,7 @@ plt.plot(x,y1, color = <span class="hljs-string">&quot;red&quot;</span>, label =
 plt.plot(x,y2, ls = <span class="hljs-string">&quot;--&quot;</span>, label = <span class="hljs-string">&quot;y2&quot;</span>) <span class="hljs-comment"># 繪製x,y2的圖</span>
 plt.legend(loc = <span class="hljs-number">0</span>, prop=&#123;<span class="hljs-string">&#x27;size&#x27;</span>: <span class="hljs-string">&quot;x-large&quot;</span>&#125;)
 plt.show() <span class="hljs-comment"># 顯現圖形</span></code></pre>
-<img src="https://i.imgur.com/i4jg0FG.png"></li>
-</ul>
-</li>
-</ol>
-<hr>
+<p><img src="https://i.imgur.com/i4jg0FG.png"></p>
 <h3 id="座標圖"><a href="#座標圖" class="headerlink" title="座標圖"></a>座標圖</h3><p>上面的例子全部都是座標圖的舉例，下面換一個sin的函數作呈現。</p>
 <h4 id="實作-5"><a href="#實作-5" class="headerlink" title="實作"></a>實作</h4><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np <span class="hljs-comment"># 引入NumPy</span>
 <span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt <span class="hljs-comment"># 引入matplotlib的函數</span>
@@ -394,7 +388,6 @@ plt.ylabel(<span class="hljs-string">&quot;y axis&quot;</span>) <span class="hlj
 plt.plot(x, y) <span class="hljs-comment"># 繪製x,y軸的圖</span>
 plt.show() <span class="hljs-comment"># 顯現圖形</span></code></pre>
 <p><img src="https://i.imgur.com/2eX1IEI.png"></p>
-<hr>
 <h3 id="散佈圖"><a href="#散佈圖" class="headerlink" title="散佈圖"></a>散佈圖</h3><p>散佈圖即點圖，在平面上分布，常應用於相關的分析上，繪製散佈圖需用<strong>scatter</strong>這個函數。</p>
 <h4 id="實作-6"><a href="#實作-6" class="headerlink" title="實作"></a>實作</h4><pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt <span class="hljs-comment"># 引入matplotlib的函數</span>
 
@@ -406,7 +399,8 @@ plt.xlabel(<span class="hljs-string">&quot;x axis&quot;</span>) <span class="hlj
 plt.ylabel(<span class="hljs-string">&quot;y axis&quot;</span>) <span class="hljs-comment"># y軸的名稱</span>
 plt.scatter(x, y) <span class="hljs-comment"># 繪製散佈圖</span>
 plt.show() <span class="hljs-comment"># 顯現圖形                       </span></code></pre>
-<h2 id=""><a href="#" class="headerlink" title=""></a><img src="https://i.imgur.com/pKbFt9u.png"></h2><h3 id="直方圖"><a href="#直方圖" class="headerlink" title="直方圖"></a>直方圖</h3><p>直方圖是用來呈現一維的資料，要繪製時，需使用<strong>hist</strong>這個函數。經常直方圖會用來表示累積的資料，此時需將參數cumulative設定為True，預設為False。</p>
+<p><img src="https://i.imgur.com/pKbFt9u.png"></p>
+<h3 id="直方圖"><a href="#直方圖" class="headerlink" title="直方圖"></a>直方圖</h3><p>直方圖是用來呈現一維的資料，要繪製時，需使用<strong>hist</strong>這個函數。經常直方圖會用來表示累積的資料，此時需將參數cumulative設定為True，預設為False。</p>
 <h4 id="實作-7"><a href="#實作-7" class="headerlink" title="實作"></a>實作</h4><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np <span class="hljs-comment"># 引入NumPy</span>
 <span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt <span class="hljs-comment"># 引入matplotlib的函數</span>
 
@@ -426,7 +420,8 @@ plt.xlabel(<span class="hljs-string">&quot;x axis&quot;</span>) <span class="hlj
 plt.ylabel(<span class="hljs-string">&quot;y axis&quot;</span>) <span class="hljs-comment"># y軸的名稱</span>
 plt.hist(data,cumulative=<span class="hljs-literal">True</span>)<span class="hljs-comment"># 繪製直方圖</span>
 plt.show() <span class="hljs-comment"># 顯現圖形 </span></code></pre>
-<h2 id="-1"><a href="#-1" class="headerlink" title=""></a><img src="https://i.imgur.com/8ythsSN.png"></h2><h3 id="長條圖"><a href="#長條圖" class="headerlink" title="長條圖"></a>長條圖</h3><p>長條圖是用來呈現二維的資料，繪製時，需使用<strong>bar</strong>這個函數。<strong>bar</strong>是直的顯示，若想要橫向顯示，需使用<strong>barh</strong>。</p>
+<p><img src="https://i.imgur.com/8ythsSN.png"></p>
+<h3 id="長條圖"><a href="#長條圖" class="headerlink" title="長條圖"></a>長條圖</h3><p>長條圖是用來呈現二維的資料，繪製時，需使用<strong>bar</strong>這個函數。<strong>bar</strong>是直的顯示，若想要橫向顯示，需使用<strong>barh</strong>。</p>
 <h4 id="實作-8"><a href="#實作-8" class="headerlink" title="實作"></a>實作</h4><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np <span class="hljs-comment"># 引入NumPy</span>
 <span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt <span class="hljs-comment"># 引入matplotlib的函數</span>
 
@@ -451,7 +446,6 @@ plt.ylabel(<span class="hljs-string">&quot;y axis&quot;</span>) <span class="hlj
 plt.barh(x, y) <span class="hljs-comment"># 繪製長條圖</span>
 plt.show() <span class="hljs-comment"># 顯現圖形 </span></code></pre>
 <p><img src="https://i.imgur.com/vyjeE6H.png"></p>
-<hr>
 <h3 id="折線圖"><a href="#折線圖" class="headerlink" title="折線圖"></a>折線圖</h3><p>折線圖在Matplotlib裡跟座標圖的寫法一樣，利用<strong>plot</strong>的函數繪製。</p>
 <h4 id="實作-9"><a href="#實作-9" class="headerlink" title="實作"></a>實作</h4><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np <span class="hljs-comment"># 引入NumPy</span>
 <span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt <span class="hljs-comment"># 引入matplotlib的函數</span>
@@ -464,7 +458,8 @@ plt.xlabel(<span class="hljs-string">&quot;x axis&quot;</span>) <span class="hlj
 plt.ylabel(<span class="hljs-string">&quot;y axis&quot;</span>) <span class="hljs-comment"># y軸的名稱</span>
 plt.plot(x, y) <span class="hljs-comment"># 繪製折線圖</span>
 plt.show() <span class="hljs-comment"># 顯現圖形        </span></code></pre>
-<h2 id="-2"><a href="#-2" class="headerlink" title=""></a><img src="https://i.imgur.com/ERYsRtg.png"></h2><h3 id="圓餅圖"><a href="#圓餅圖" class="headerlink" title="圓餅圖"></a>圓餅圖</h3><p>有時，資料比較適合用圓餅圖呈現，可以用pie這個函數繪製出圓餅圖。</p>
+<p><img src="https://i.imgur.com/ERYsRtg.png"></p>
+<h3 id="圓餅圖"><a href="#圓餅圖" class="headerlink" title="圓餅圖"></a>圓餅圖</h3><p>有時，資料比較適合用圓餅圖呈現，可以用pie這個函數繪製出圓餅圖。</p>
 <h4 id="實作-10"><a href="#實作-10" class="headerlink" title="實作"></a>實作</h4><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np <span class="hljs-comment"># 引入NumPy</span>
 <span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt <span class="hljs-comment"># 引入matplotlib的函數</span>
 
@@ -478,15 +473,13 @@ plt.ylabel(<span class="hljs-string">&quot;y axis&quot;</span>) <span class="hlj
 plt.pie(expand, label = category, color = color) <span class="hljs-comment"># 繪製圓餅圖</span>
 plt.show() <span class="hljs-comment"># 顯現圖形 </span></code></pre>
 <p><img src="https://i.imgur.com/BUFwSdK.png"></p>
-<hr>
 <h3 id="子圖"><a href="#子圖" class="headerlink" title="子圖"></a>子圖</h3><p>有時候，會將圖表放在一起比較，這時候使用子圖(subplot)就會很方便，它可以將圖形進行切割，並在各個位置擺上子圖。繪製子圖需要三個重要的參數</p>
 <ol>
 <li>nrows : 切割的列數</li>
 <li>ncols : 切割的行數</li>
 <li>index : 放在哪個格子裡</li>
 </ol>
-<p>例如:<br><img src='https://i.imgur.com/DQx283F.png'
-height='300'></p>
+<p>例如:<br><img src='https://i.imgur.com/DQx283F.png' height='300'></p>
 <h4 id="實作-11"><a href="#實作-11" class="headerlink" title="實作"></a>實作</h4><pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt <span class="hljs-comment"># 引入matplotlib的函數</span>
 
 fig = plt.figure()    <span class="hljs-comment">#創建圖表</span>
@@ -501,19 +494,19 @@ sub3.plot(np.arange(<span class="hljs-number">5</span>), [<span class="hljs-numb
 sub4.plot(np.arange(<span class="hljs-number">5</span>), [<span class="hljs-number">8</span>,<span class="hljs-number">2</span>,<span class="hljs-number">4</span>,<span class="hljs-number">3</span>,<span class="hljs-number">5</span>]) <span class="hljs-comment"># 繪製子圖4</span>
 
 plt.show() <span class="hljs-comment"># 顯現圖形</span></code></pre>
+
 <p><img src="https://i.imgur.com/AId0jTj.png"></p>
-<hr>
-<h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><hr>
+<h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>今天帶大家認識如何利用 <strong>Matplotlib</strong> 來進行可視化，下篇我們會用另一個套件 <strong>Seaborn</strong> 來做可視化。</p>
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
 <li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://zh.wikipedia.org/wiki/Matplotlib">Matplotlib - 維基百科</a></li>
 <li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.runoob.com/numpy/numpy-matplotlib.html">NumPy Matplotlib</a></li>
 </ul>
 <br/>
 <br/>
-<a href="/2020/09/03/it/it-2" float=left>Last</a> <a href="/2020/09/05/it/it-4" style="float: right;">Next</a><!-- flag of hidden posts -->
+<a href="/posts/956df56a/" float=left>Last</a> <a href="/posts/864f6c60/" style="float: right;">Next</a><!-- flag of hidden posts -->
     </div>
      
-    <div class="post-footer__meta"><p>updated at 2020-12-31</p></div> 
+    <div class="post-footer__meta"><p>updated at 2021-01-01</p></div> 
     <div class="post-meta__cats"></div> 
 </article>
 
@@ -576,7 +569,7 @@ plt.show() <span class="hljs-comment"># 顯現圖形</span></code></pre>
     
         
         <p class="footer-copyright">
-            Copyright © 2020 <a href="/">Justin</a>
+            Copyright © 2021 <a href="/">Justin</a>
         </p>
     
     
