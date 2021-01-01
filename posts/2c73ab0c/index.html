@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    
+    
+    
+        <link rel="icon" type="image/png" sizes="32x32" href="/icon.png">
+    
+    
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple_icon_128.png">
+    
+    
+        <link rel="mask-icon" href="/apple_icon_128.png">
+    
+
+
+    <!-- meta -->
+
+
+<title>Graph -- Spanning Tree | Justin website for sharing knowledge and getting idea.</title>
+
+
+    <meta name="keywords" content="graph, spanning-tree, algorithm">
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="Graph – Spanning TreeSee moreBack to the series page  Relative articles  Graph – Basic concept Graph – Shortest path algorithm Graph – Spanning Tree (You’re reading now!)     After reading, you&#39;ll lea">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Graph -- Spanning Tree">
+<meta property="og:url" content="justin900429.github.io/posts/2c73ab0c/index.html">
+<meta property="og:site_name" content="Justin website for sharing knowledge and getting idea.">
+<meta property="og:description" content="Graph – Spanning TreeSee moreBack to the series page  Relative articles  Graph – Basic concept Graph – Shortest path algorithm Graph – Spanning Tree (You’re reading now!)     After reading, you&#39;ll lea">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-12-27T14:16:28.000Z">
+<meta property="article:modified_time" content="2020-12-31T01:57:41.789Z">
+<meta property="article:author" content="Justin Ruan">
+<meta property="article:tag" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
+<meta name="twitter:card" content="summary_large_image">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+
+
+    
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/atom-one-light.min.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')===-1)this.media='all'">
+        
+    
+
+    
+
+     
+
+    <!-- custom head -->
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+    <body>
+        <div id="app">
+            <script>
+window.onscroll = () => {
+    const nav = document.querySelector('.header');
+    if(this.scrollY <= 10) {
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0)"
+    } else {
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+    }
+};
+</script>
+
+<header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">Justin&#39;s blog</span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/about/" class="navbar-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="navbar-menu button">CV</a>
+                
+                    <a href="/" class="navbar-menu button">Articles</a>
+                
+                    <a href="/tags/" class="navbar-menu button">Tags</a>
+                
+                    <a href="/archives/" class="navbar-menu button">Archives</a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+
+         
+    <a href="#" class="button" id="b2t" aria-label="Back to Top" title="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="32" height="32">
+            <path d="M233.376 722.752L278.624 768 512 534.624 745.376 768l45.248-45.248L512 444.128zM192 352h640V288H192z" fill="currentColor"></path>
+        </svg>
+    </a>
+
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                
+                    <a href="/about/" class="dropdown-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="dropdown-menu button">CV</a>
+                
+                    <a href="/" class="dropdown-menu button">Articles</a>
+                
+                    <a href="/tags/" class="dropdown-menu button">Tags</a>
+                
+                    <a href="/archives/" class="dropdown-menu button">Archives</a>
+                
+            </div>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+
+<div class="post-title">
+    <h1 class="post-title__text">
+        Graph -- Spanning Tree
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2020/12/" class="post-meta__date button">2020-12-27</a>
+        
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <aside class="post-side">
+        <div class="post-side__toc">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spanning-Tree"><span class="toc-number">2.</span> <span class="toc-text">Spanning Tree</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Minimum-spanning-tree-MST"><span class="toc-number">3.</span> <span class="toc-text">Minimum spanning tree (MST)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Algorithm-for-finding-the-MST"><span class="toc-number">4.</span> <span class="toc-text">Algorithm for finding the MST</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-number">5.</span> <span class="toc-text">Summary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">6.</span> <span class="toc-text">Reference</span></a></li></ol>
+        </div>
+    </aside>
+    <a class="btn-toc button" id="btn-toc" tabindex="0">
+        <svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path>
+        </svg>
+    </a>
+    <div class="toc-menus" id="toc-menus">
+        <div class="toc-title">Article Directory</div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spanning-Tree"><span class="toc-number">2.</span> <span class="toc-text">Spanning Tree</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Minimum-spanning-tree-MST"><span class="toc-number">3.</span> <span class="toc-text">Minimum spanning tree (MST)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Algorithm-for-finding-the-MST"><span class="toc-number">4.</span> <span class="toc-text">Algorithm for finding the MST</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-number">5.</span> <span class="toc-text">Summary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">6.</span> <span class="toc-text">Reference</span></a></li></ol>
+    </div>
+
+
+<article class="post content-card">
+    <div class="post__header"></div>
+    <div class="post__content">
+        <h1 id="Graph-–-Spanning-Tree"><a href="#Graph-–-Spanning-Tree" class="headerlink" title="Graph – Spanning Tree"></a>Graph – Spanning Tree</h1><blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/posts/5fb65b1b">Back to the series page</a></p>
+<blockquote>
+<p>Relative articles</p>
+<ol>
+<li><a href="/posts/42539bac/">Graph – Basic concept</a></li>
+<li><a href="/posts/40dd449e/">Graph – Shortest path algorithm</a></li>
+<li><a href="/posts/2c73ab0c/">Graph – Spanning Tree</a> (You’re reading now!)</li>
+</ol>
+</blockquote>
+</div></blockquote>
+
+<blockquote class="blockquote-note blockquote-note__important"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></div>After reading, you'll learn：</div><div class="blockquote-note__content"><ol>
+<li>What is spanning tree?</li>
+<li>Algorithm to find the minimum spanning tree</li>
+</ol>
+</div></blockquote>
+
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Last time, we talked about how to find shortest path. Today, we’re going to discuss a similar issue – find the minimun spanning tree.</p>
+<h2 id="Spanning-Tree"><a href="#Spanning-Tree" class="headerlink" title="Spanning Tree"></a>Spanning Tree</h2><p>Given an undirected graph and using <strong>|V| - 1 edges</strong> to connect all the vertex, the result graph is spanning tree. ==Tree is a graph without loop inside==. Therefore, the spanning tree is a graph connect all the vertex without any loop in it.</p>
+<center>
+<div><div class="graphviz">graph test {
+    // title
+    labelloc="t";
+    label = "Original graph\n\n";
+
+<pre><code>rankdir=LR;
+A -- B [label = &quot;2&quot;]
+B -- C [label = &quot;5&quot;]
+A -- C [label = &quot;3&quot;]
+C -- D [label = &quot;9&quot;]
+B -- D [label = &quot;1&quot;]
+B -- E [label = &quot;10&quot;]
+D -- E [label = &quot;3&quot;]</code></pre>
+<p>}</div></div></p>
+<div><div class="graphviz">graph test {
+    // title
+    labelloc="t";
+    label = "Spanning tree\n\n";
+
+<pre><code>rankdir=LR;
+A -- B [label = &quot;2&quot;]
+B -- C [label = &quot;5&quot;]
+C -- D [label = &quot;9&quot;]
+D -- E [label = &quot;3&quot;]</code></pre>
+<p>}</div></div></p>
+</center>
+
+<h2 id="Minimum-spanning-tree-MST"><a href="#Minimum-spanning-tree-MST" class="headerlink" title="Minimum spanning tree (MST)"></a>Minimum spanning tree (MST)</h2><p>If the graph possesses different weights, there exists at least <strong>minimun spanning tree</strong>. Here is some application of minimun spanning tree.</p>
+<ul>
+<li><p><strong>Connect all villages</strong><br>  Suppose we have <strong>A</strong>, <strong>B</strong>, <strong>C</strong>, <strong>D</strong> and <strong>E</strong> villages. We want to find minimum cost to build the road from one village to another and each village should has a path to go to other village.</p>
+  <center>
+  <div><div class="graphviz">    graph test {
+      // title
+      labelloc="t";
+      label = "Cost for building the roads\n\n";
+
+<pre><code>  rankdir=LR;
+  A -- B [label = &quot;2&quot;]
+  B -- C [label = &quot;5&quot;]
+  A -- C [label = &quot;3&quot;]
+  C -- D [label = &quot;9&quot;]
+  B -- D [label = &quot;1&quot;]
+  B -- E [label = &quot;10&quot;]
+  D -- E [label = &quot;3&quot;]</code></pre>
+<p>  }</div></div></p>
+  </center>
+
+<p>  Within the graph above, we know the minimun spanning tree is:</p>
+  <center>
+  <div><div class="graphviz">    graph test {
+      // title
+      labelloc="t";
+      label = "Minimum cost for building the roads\n\n";
+
+<pre><code>  rankdir=LR;
+  A -- B [label = &quot;2&quot;]
+  B -- D [label = &quot;1&quot;]
+  D -- E [label = &quot;3&quot;]
+  A -- C [label= &quot;3&quot;]</code></pre>
+<p>  }</div></div></p>
+  </center>
+
+<p>  Here is the constraints for finding MST:</p>
+<ol>
+<li>We must use only edges <strong>within the graph</strong>.</li>
+<li>We must use exactly <strong>|V| - 1</strong> edges.</li>
+<li>We may <strong>not use edges that produce a cycle</strong>.</li>
+</ol>
+</li>
+</ul>
+<h2 id="Algorithm-for-finding-the-MST"><a href="#Algorithm-for-finding-the-MST" class="headerlink" title="Algorithm for finding the MST"></a>Algorithm for finding the MST</h2><ul>
+<li><p><strong>Prim</strong><br>  The idea in <strong>Prim algorithm</strong> is to use the <strong>minimum the weight</strong> to connect two <strong>MST</strong>. This seems to be too abstract to image. Let’s see an example.</p>
+  <center>
+  <div><div class="graphviz">    graph test {
+      // title
+      labelloc="t";
+      label = "Two MST\n\n";
+
+<pre><code>  rankdir=LR;
+  B -- D [label = &quot;1&quot;]
+  D -- E [label = &quot;3&quot;]
+  A -- C [label = &quot;3&quot;]</code></pre>
+<p>  }</div></div></p>
+  </center>
+
+<p>  If we want to find the MST of these nodes, we only have to connect the <strong>minimum edge</strong> from MST1 to MST2, namely, the edge from <strong>A to B</strong>. Therefore, the whole BST will be</p>
+  <center>
+  <div><div class="graphviz">    graph test {
+      // title
+      labelloc="t";
+      label = "MST for whole tree\n\n";
+
+<pre><code>  rankdir=LR;
+  A -- C [label = &quot;3&quot;]
+  B -- D [label = &quot;1&quot;]
+  D -- E [label = &quot;3&quot;]
+  A -- B [label = &quot;2&quot;]</code></pre>
+<p>  }</div></div></p>
+  </center>
+
+<p>  Let’s define <strong>$V$</strong> to be the set of all the vertex, <strong>$X$</strong> to be the set of all the MST we have now, <strong>$V - X$</strong> be the set of all the vertex not in <strong>$X$</strong>. Now, we only have to start from one node, A, and we can find the MST of the whole graph.</p>
+<p>  A is now the only element in set <strong>$X$</strong> and all the other vertex is in $V-X$.</p>
+  <center>
+  <div><div class="graphviz">    graph test {
+      // title
+      labelloc="t";
+      label = "Step 1\n\n";
+
+<pre><code>  rankdir=LR;
+  B -- C [label = &quot;5&quot;]
+  C -- D [label = &quot;9&quot;]
+  B -- D [label = &quot;1&quot;]
+  B -- E [label = &quot;10&quot;]
+  D -- E [label = &quot;3&quot;]
+  A [color=&quot;red&quot;]</code></pre>
+<p>  }</div></div></p>
+  </center>
+
+<p>  The min edges from <strong>$X$</strong> to <strong>$V - X$</strong> is 2, then connect it and put <strong>$B$</strong> into <strong>$X$</strong> and remove <strong>$B$</strong> from <strong>$V - X$</strong>.</p>
+  <center>
+  <div><div class="graphviz">    graph test {
+      // title
+      labelloc="t";
+      label = "Step 2\n\n";
+
+<pre><code>  rankdir=LR;
+  A -- B [label = &quot;2&quot;]
+  C -- D [label = &quot;9&quot;]
+  D -- E [label = &quot;3&quot;]
+  A, B [color = &quot;red&quot;]</code></pre>
+<p>  }</div></div></p>
+  </center>
+  The min edges from **$X$** to **$V - X$** is **$1$**, then connect it and put **D** into $X$ and remove **D** from **$V - X$**.
+
+  <center>
+  <div><div class="graphviz">    graph test {
+      // title
+      labelloc="t";
+      label = "Step 3\n\n";
+
+<pre><code>  rankdir=LR;
+  E
+  A -- B [label = &quot;2&quot;]
+  B -- D [label = &quot;1&quot;]
+  C
+  A, B, D[color = &quot;red&quot;]</code></pre>
+<p>  }</div></div></p>
+  </center>
+
+<p>  $weight(A, C)$ and $weight(D, E)$ are both the minimum edges from <strong>$X$</strong> to <strong>$V - X$</strong>, then pick whichever we want.</p>
+  <center>
+  <div><div class="graphviz">    graph test {
+      // title
+      labelloc="t";
+      label = "Step 4\n\n";
+
+<pre><code>  rankdir=LR;
+  E
+  A -- B [label = &quot;2&quot;]
+  B -- D [label = &quot;1&quot;]
+  A -- C [label = &quot;3&quot;]
+  A, B, C, D[color = &quot;red&quot;]</code></pre>
+<p>  }</div></div></p>
+  </center>
+
+<p>  Final step.</p>
+  <center>
+  <div><div class="graphviz">    graph test {
+      // title
+      labelloc="t";
+      label = "Step 5\n\n";
+
+<pre><code>  rankdir=LR;
+  D -- E [label = &quot;3&quot;]
+  A -- B [label = &quot;2&quot;]
+  B -- D [label = &quot;1&quot;]
+  A -- C [label = &quot;3&quot;]
+  A, B, C, D, E[color = &quot;red&quot;]</code></pre>
+<p>  }</div></div></p>
+  </center>
+
+<p>  Now, we find the MST of the graph.</p>
+  <pre><code class="hljs cpp"><span class="hljs-comment">// Adjacent matrix</span>
+<span class="hljs-keyword">int</span> cost[number_of_vertex][number_of_vertex];
+
+<span class="hljs-comment">// The minimun weight in set X</span>
+<span class="hljs-keyword">int</span> mincost[number_of_vertex];
+
+<span class="hljs-comment">// Check whether vertex is in tree</span>
+<span class="hljs-keyword">bool</span> used[number_of_vertex]
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">prim</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-comment">// Init the distance and flag</span>
+    fill(mincost, mincost + number_of_vertex, INF_MAX);
+    fill(used, used + number_of_vertex, <span class="hljs-literal">false</span>);
+    
+    <span class="hljs-comment">// Set the first cost to 0</span>
+    mincost[<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;
+    
+    <span class="hljs-comment">// Result for the MST</span>
+    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;
+    
+    <span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>) &#123;
+        <span class="hljs-comment">// The vertex going to check</span>
+        <span class="hljs-keyword">int</span> start = <span class="hljs-number">-1</span>;
+        
+        <span class="hljs-comment">// Get the node from set V - X</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; number_of_vertex; ++i) &#123;
+            <span class="hljs-keyword">if</span> (!used[i] &amp;&amp;
+                (start == <span class="hljs-number">-1</span> || mincost[i] &lt; mincost[start])) &#123;
+                    start = i;
+            &#125;
+        &#125;
+        
+        <span class="hljs-comment">// Finish building MST</span>
+        <span class="hljs-keyword">if</span> (start == <span class="hljs-number">-1</span>) <span class="hljs-keyword">break</span>;
+        
+        <span class="hljs-comment">// Add start to set X and add the cost to res</span>
+        used[start] = <span class="hljs-literal">true</span>;
+        res += mincost[start];
+        
+        <span class="hljs-comment">// Update the mincost to set V - X</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; number_of_vertex; ++i) &#123;
+            mincost[i] = min(mincost[i], cost[start][i]);
+        &#125;
+    &#125;
+    
+    <span class="hljs-keyword">return</span> res;
+&#125;</code></pre>
+
+</li>
+</ul>
+<hr>
+<ul>
+<li><p><strong>Kruskal</strong><br>  The approach that Kruskal adopted was:</p>
+<ol>
+<li><p>Everytime find the <strong>minimum edges</strong> in the tree.</p>
+</li>
+<li><p>Check whether new edge will form the loop</p>
+</li>
+<li><p>If it does, drop it. Otherwise, <strong>add it to set $X$</strong>. Remove the edge from the container.</p>
+</li>
+<li><p>Back to step 1 </br><br>For example:</p>
+<div><div class="graphviz">    graph test {
+ // title
+ labelloc="t";
+ label = "Example\n\n";
+
+<p> rankdir=LR;<br> A – B [label = “2”]<br> B – C [label = “5”]<br> A – C [label = “3”]<br> C – D [label = “9”]<br> B – D [label = “1”]<br> B – E [label = “10”]<br> D – E [label = “3”]<br>}</div></div></p>
+</center>
+
+<p>So the edge container should be:</p>
+<center>
+<div><div class="graphviz">    graph g {
+ node[shape = record fontsize=15];
+ rankdir=LR;
+ a [label = "1\nB\-D"];
+ b [label = "2\nA\-B"];
+ c [label = "3\nA\-C"];
+ d [label = "3\nD\-E"];
+ e [label = "5\nB\-C"];
+ f [label = "9\nC\-D"];
+ g [label = "10\nB\-E"];
+
+<p> a – b;<br> b – c;<br> c – d;<br> d – e;<br> e – f;<br> f – g;<br>}</div></div></p>
+</center>
+
+<p>First pick up $edge(B, D)$.</p>
+<center>
+<div><div class="graphviz">    graph test {
+ // title
+ labelloc="t";
+ label = "Step 1\n\n";
+
+<p> rankdir=LR;<br> B – D [label = “1”];</p>
+<p>}</div></div></p>
+<div><div class="graphviz">    graph g {  
+ node[shape = record fontsize=15];
+ rankdir=LR;
+ b [label = "2\nA\-B"];
+ c [label = "3\nA\-C"];
+ d [label = "3\nD\-E"];
+ e [label = "5\nB\-C"];
+ f [label = "9\nC\-D"];
+ g [label = "10\nB\-E"];        
+ b -- c;
+ c -- d;
+ d -- e;
+ e -- f;
+ f -- g;
+}</div></div>
+</center>
+
+<p>Pick $edge(A, B)$.</p>
+</center>
+<div><div class="graphviz">    graph test {
+ // title
+ labelloc="t";
+ label = "Step 2\n\n";
+ rankdir=LR;
+ A -- B [label = "2"];
+ B -- D [label = "1"];
+
+<p>}</div></div></p>
+<div><div class="graphviz">    graph g {
+ node[shape = record fontsize=15];
+ rankdir=LR;
+ c [label = "3\nA\-C"];
+ d [label = "3\nD\-E"];
+ e [label = "5\nB\-C"];
+ f [label = "9\nC\-D"];
+ g [label = "10\nB\-E"];
+
+<p> c – d<br> d – e<br> e – f<br> f – g<br>}</div></div></p>
+</center>
+
+<p>Pick $edge(A, C)$.</p>
+<center>
+<div><div class="graphviz">    graph test {
+ // title
+ labelloc="t";
+ label = "Step 3\n\n";
+ rankdir=LR;
+ A -- B [label = "2"];
+ A -- C [label = "3"];
+ B -- D [label = "1"];
+}</div></div>
+
+<div><div class="graphviz">    graph g {    
+ node[shape = record fontsize=15];
+ rankdir=LR;
+ d [label = "3\nD\-E"];
+ e [label = "5\nB\-C"];
+ f [label = "9\nC\-D"];
+ g [label = "10\nB\-E"];
+ d -- e;
+ e -- f;
+ f -- g;
+}</div></div>
+</center>
+
+<p>Pick $edge(D, E)$</p>
+<center>
+<div><div class="graphviz">    graph test {
+ // title
+ labelloc="t";
+ label = "Step 4\n\n";
+ rankdir=LR;
+ A -- B [label = "2"];
+ A -- C [label = "3"];
+ B -- D [label = "1"];
+ D -- E [label = "3"];
+}</div></div>
+
+<div><div class="graphviz">    graph g {
+ node[shape = record fontsize=15];
+ rankdir=LR;
+ e [label = "5\nB\-C"];
+ f [label = "9\nC\-D"];
+ g [label = "10\nB\-E"];
+
+<p> e – f;<br> f – g;<br>}</div></div></p>
+</center>
+
+<p>Pick $edge(B, C)$, but it will form the loop, then drop it.</p>
+<center>
+<div><div class="graphviz">    graph test {
+ // title
+ labelloc="t";
+ label = "Step 5\n\n";
+ rankdir=LR;
+ A -- B [label = "2"];
+ A -- C [label = "3"];
+ B -- D [label = "1"];
+ D -- E [label = "3"];
+}</div></div>
+
+<div><div class="graphviz">    graph g {
+ node[shape = record fontsize=15];
+ rankdir=LR;
+ f [label = "9\nC\-D"];
+ g [label = "10\nB\-E"];
+ f -- g;
+}</div></div>
+</center>
+
+<p>For both $edge(C, D)$ and $edge(B, E)$ form the loop, then drop them both. The tree here is MST.</p>
+<center>
+<div><div class="graphviz">    graph test {
+ // title
+ labelloc="t";
+ label = "MST\n\n";
+ rankdir=LR;
+ A -- B [label = "2"];
+ A -- C [label = "3"];
+ B -- D [label = "1"];
+ D -- E [label = "3"];
+}</div></div>
+</center>
+
+<pre><code class="hljs cpp"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Union</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+    Union(<span class="hljs-keyword">int</span> number_of_vertices) &#123;
+        parent = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[number_of_vertices];
+        rank = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[number_of_vertices];
+        
+        <span class="hljs-comment">// Init the structure</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; number_of_vertices; ++i) &#123;
+            parent[i] = <span class="hljs-number">-1</span>;
+            rank[i] = <span class="hljs-number">0</span>;
+        &#125;
+    &#125;
+    
+    ~Union() &#123;
+        <span class="hljs-keyword">delete</span>[] parent;
+        <span class="hljs-keyword">delete</span>[] rank;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">find</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123;
+        <span class="hljs-comment">// If parent equal itself, then return it</span>
+        <span class="hljs-keyword">if</span> (parent[x] &lt; <span class="hljs-number">0</span>) &#123;
+            <span class="hljs-keyword">return</span> x;
+        &#125; 
+        <span class="hljs-keyword">else</span> &#123; <span class="hljs-comment">// return the find(parent[x])</span>
+            <span class="hljs-keyword">return</span> find(parent[x])
+        &#125;
+    &#125;
+
+    <span class="hljs-keyword">void</span> unite(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y) &#123;
+        <span class="hljs-comment">// First find the tree root</span>
+        x = find(x);
+        y = find(y);
+
+        <span class="hljs-keyword">if</span> (x == y) &#123; <span class="hljs-comment">// No need to update</span>
+            <span class="hljs-keyword">return</span> ;
+        &#125;
+
+        <span class="hljs-keyword">if</span> (rank[x] &lt; rank[y]) &#123; <span class="hljs-comment">// Add small rank to big rank</span>
+            parent[x] = y;
+        &#125;
+        <span class="hljs-keyword">else</span> &#123;
+            parent[y] = x;
+
+            <span class="hljs-comment">// increase 1 if rank are the same</span>
+            <span class="hljs-keyword">if</span> (rank[x] == rank[y]) &#123;
+                rank[x]++;
+            &#125;
+        &#125;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">same</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span> </span>&#123;
+        <span class="hljs-comment">// If the parent are the same return true, else return false</span>
+        <span class="hljs-keyword">return</span> find(x) == find(y);
+    &#125;
+    
+<span class="hljs-keyword">private</span>:
+    <span class="hljs-keyword">int</span>* parent;
+    <span class="hljs-keyword">int</span>* rank;
+&#125;</code></pre>
+
+<pre><code class="hljs cpp"><span class="hljs-comment">// Struct for the edges</span>
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">edge</span> &#123;</span>
+    <span class="hljs-keyword">int</span> u, v cost;
+&#125;
+
+<span class="hljs-comment">// For finding the parent</span>
+<span class="hljs-keyword">int</span> parent[number_of_vertices];
+
+<span class="hljs-comment">// For finding the rank of the tree</span>
+<span class="hljs-keyword">int</span> rank[number_of_vertices];
+
+
+<span class="hljs-comment">// Container for saving the edges</span>
+edge es[number_of_edges];
+
+<span class="hljs-comment">// Key function for sorting</span>
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">comp</span><span class="hljs-params">(<span class="hljs-keyword">const</span> edge&amp; e1, <span class="hljs-keyword">const</span> edge&amp; e2)</span> </span>&#123;
+    <span class="hljs-keyword">return</span> e1.cost &lt; e2.cost;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">Kruskal</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-comment">// First sort the edges by their weights</span>
+    sort(es, es + number_of_edges, comp);
+    
+    <span class="hljs-comment">// Form the union find</span>
+    uni = Union(number_of_vertices);
+    
+    <span class="hljs-comment">// Init the result to 0</span>
+    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;
+    
+    <span class="hljs-comment">// Start find the edges</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; number_of_edges; ++i) &#123;
+    
+        <span class="hljs-comment">// Pop out the first edges</span>
+        edge e = es[i];
+        
+        <span class="hljs-comment">// If won&#x27;t form the circle</span>
+        <span class="hljs-keyword">if</span> (!uni.same(e.u, e.v)) &#123;           
+            <span class="hljs-comment">// then unite them</span>
+            uni.unite(e.u, e.v);
+            res += e.cost;
+        &#125;
+    &#125;
+    
+    <span class="hljs-comment">// return the result</span>
+    <span class="hljs-keyword">return</span> res;
+&#125;</code></pre>
+
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>In this session, we discuss what is spanning tree and how to find the minumum spanning tree. These three articles are all about graph. Thanks for reading!</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.books.com.tw/products/0010616945?gclid=Cj0KCQjwoub3BRC6ARIsABGhnyamNtOnA0U1z3yzZeFonqM2HT7jnj1WZcRX8ArR1_KwV3YEgkkkPlIaAlCZEALw_wcB">培養與鍛鍊程式設計的邏輯腦 第二版</a></li>
+</ol>
+<!-- flag of hidden posts -->
+    </div>
+     
+    <div class="post-footer__meta"><p>updated at 2020-12-31</p></div> 
+    <div class="post-meta__cats"></div> 
+</article>
+
+
+
+
+    <div class="post__comments content-card" id="comment">
+        
+    <h4>Comments</h4>
+    
+    <div id="disqus_thread">Unable to load Disqus, please make sure your network can access.</div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    </div>
+
+
+
+</main>
+
+            <footer class="footer">
+    
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/viz.js/1.7.1/viz.js'></script>
+        <script>
+          String.prototype.replaceAll = function(search, replacement) {
+            var target = this;
+            return target.split(search).join(replacement);
+          };
+      
+          let vizObjects = document.querySelectorAll('.graphviz')
+      
+          for (let item of vizObjects) {
+            let svg = undefined
+            try {
+              svg = Viz(item.textContent.replaceAll('–', '--'), 'svg')
+            } catch(e) {
+              svg = `<pre class="error">${e}</pre>`
+            }
+            item.outerHTML = svg
+          }
+        </script>
+    
+    
+
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright © 2021 <a href="/">Justin website for sharing knowledge and getting idea.</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" rel="external nofollow noreferrer" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" rel="external nofollow noreferrer" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+         
+
+ 
+
+ 
+
+ 
+
+  
+
+
+
+ 
+
+
+    
+ 
+
+ 
+
+
+    <script>
+        if (typeof MathJax === 'undefined') {
+            window.MathJax = {
+                loader: {
+                    source: {
+                        '[tex]/amsCd': '[tex]/amscd',
+                        '[tex]/AMScd': '[tex]/amscd'
+                    }
+                },
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                },
+                options: {
+                    renderActions: {
+                        findScript: [10, doc => {
+                            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                                const display = !!node.type.match(/; *mode=display/);
+                                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                                const text = document.createTextNode('');
+                                node.parentNode.replaceChild(text, node);
+                                math.start = {node: text, delim: '', n: 0};
+                                math.end = {node: text, delim: '', n: 0};
+                                doc.math.push(math);
+                            });
+                        }, '', false],
+                        insertedScript: [200, () => {
+                            document.querySelectorAll('mjx-container').forEach(node => {
+                                let target = node.parentNode;
+                                if (target.nodeName.toLowerCase() === 'li') {
+                                    target.parentNode.classList.add('has-jax');
+                                }
+                            });
+                        }, '', false]
+                    }
+                }
+            };
+            (function () {
+                var script = document.createElement('script');
+                script.src = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js";
+                script.defer = true;
+                document.head.appendChild(script);
+            })();
+        } else {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+        }
+    </script>
+ 
+
+ 
+
+ 
+
+
+    
+    <script>
+        function loadComment() {
+            window.disqus_config = function () {
+                this.page.url = 'justin900429.github.io/posts/2c73ab0c/';
+                this.page.identifier = 'posts/2c73ab0c/';
+            };
+            (function(){
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + 'https-justin900429-github-io' + '.disqus.com/embed.js';
+                (document.head || document.body).appendChild(dsq);
+            })();
+        }
+    
+        var runningOnBrowser = typeof window !== "undefined";
+        var isBot = runningOnBrowser && !("onscroll" in window) || typeof navigator !== "undefined" && /(gle|ing|ro|msn)bot|crawl|spider|yand|duckgo/i.test(navigator.userAgent);
+        var supportsIntersectionObserver = runningOnBrowser && "IntersectionObserver" in window;
+    
+        setTimeout(function () {
+            if (!isBot && supportsIntersectionObserver) {
+                var comment_observer = new IntersectionObserver(function(entries) {
+                    if (entries[0].isIntersecting) {
+                        loadComment();
+                        comment_observer.disconnect();
+                    }
+                }, { threshold: [0] });
+                comment_observer.observe(document.getElementById('comment'));
+            } else {
+                loadComment();
+            }
+        }, 1);
+    </script>
+
+
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+
+
+
+    </body>
+</html>

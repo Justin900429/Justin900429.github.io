@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    
+    
+    
+        <link rel="icon" type="image/png" sizes="32x32" href="/icon.png">
+    
+    
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple_icon_128.png">
+    
+    
+        <link rel="mask-icon" href="/apple_icon_128.png">
+    
+
+
+    <!-- meta -->
+
+
+<title>[Series - 17] Classification - Naive Bayes | Justin website for sharing knowledge and getting idea.</title>
+
+
+    <meta name="keywords" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="[Series - 17] Classification - Naive BayesSee moreBack to the series page   前言今天的部分會比較輕鬆，雖然也可以講一些數學，但我認為這部分用理解的更能理解其背後的意義，因此這篇章只會花一篇的時間！ NotebookNotebook Bayes’s Theorem在講今天的主題之前，我們先來介紹在機率裡面非常有名的定理 -">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Series - 17] Classification - Naive Bayes">
+<meta property="og:url" content="justin900429.github.io/posts/70cacaf9/index.html">
+<meta property="og:site_name" content="Justin website for sharing knowledge and getting idea.">
+<meta property="og:description" content="[Series - 17] Classification - Naive BayesSee moreBack to the series page   前言今天的部分會比較輕鬆，雖然也可以講一些數學，但我認為這部分用理解的更能理解其背後的意義，因此這篇章只會花一篇的時間！ NotebookNotebook Bayes’s Theorem在講今天的主題之前，我們先來介紹在機率裡面非常有名的定理 -">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/gnZg7p0.jpg">
+<meta property="article:published_time" content="2020-09-05T09:36:50.000Z">
+<meta property="article:modified_time" content="2021-01-01T02:33:32.030Z">
+<meta property="article:author" content="Justin Ruan">
+<meta property="article:tag" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://i.imgur.com/gnZg7p0.jpg">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+
+
+    
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/atom-one-light.min.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')===-1)this.media='all'">
+        
+    
+
+    
+
+     
+
+    <!-- custom head -->
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+    <body>
+        <div id="app">
+            <script>
+window.onscroll = () => {
+    const nav = document.querySelector('.header');
+    if(this.scrollY <= 10) {
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0)"
+    } else {
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+    }
+};
+</script>
+
+<header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">Justin&#39;s blog</span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/about/" class="navbar-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="navbar-menu button">CV</a>
+                
+                    <a href="/" class="navbar-menu button">Articles</a>
+                
+                    <a href="/tags/" class="navbar-menu button">Tags</a>
+                
+                    <a href="/archives/" class="navbar-menu button">Archives</a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+
+         
+    <a href="#" class="button" id="b2t" aria-label="Back to Top" title="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="32" height="32">
+            <path d="M233.376 722.752L278.624 768 512 534.624 745.376 768l45.248-45.248L512 444.128zM192 352h640V288H192z" fill="currentColor"></path>
+        </svg>
+    </a>
+
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                
+                    <a href="/about/" class="dropdown-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="dropdown-menu button">CV</a>
+                
+                    <a href="/" class="dropdown-menu button">Articles</a>
+                
+                    <a href="/tags/" class="dropdown-menu button">Tags</a>
+                
+                    <a href="/archives/" class="dropdown-menu button">Archives</a>
+                
+            </div>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+
+<div class="post-title">
+    <h1 class="post-title__text">
+        [Series - 17] Classification - Naive Bayes
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2020/09/" class="post-meta__date button">2020-09-05</a>
+        
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <aside class="post-side">
+        <div class="post-side__toc">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Notebook"><span class="toc-number">2.</span> <span class="toc-text">Notebook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bayes%E2%80%99s-Theorem"><span class="toc-number">3.</span> <span class="toc-text">Bayes’s Theorem</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#x-%E6%98%AF%E4%BB%80%E9%BA%BC%EF%BC%9F"><span class="toc-number">4.</span> <span class="toc-text">$x$ 是什麼？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#x-%E7%9A%84%E8%A7%92%E8%89%B2"><span class="toc-number">4.1.</span> <span class="toc-text">$x$ 的角色</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#x-i-%E4%BD%95%E5%8E%BB%E4%BD%95%E5%BE%9E"><span class="toc-number">4.2.</span> <span class="toc-text">$x_i$ 何去何從</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A2%9D%E4%BB%B6%E6%A9%9F%E7%8E%87%E7%9A%84%E7%AE%97%E6%B3%95"><span class="toc-number">5.</span> <span class="toc-text">條件機率的算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B1%BA%E5%AE%9A%E9%A1%9E%E5%88%A5"><span class="toc-number">6.</span> <span class="toc-text">決定類別</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Laplace-smoothing"><span class="toc-number">7.</span> <span class="toc-text">Laplace smoothing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">8.</span> <span class="toc-text">程式碼</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">9.</span> <span class="toc-text">結語</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">10.</span> <span class="toc-text">參考資料</span></a></li></ol>
+        </div>
+    </aside>
+    <a class="btn-toc button" id="btn-toc" tabindex="0">
+        <svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path>
+        </svg>
+    </a>
+    <div class="toc-menus" id="toc-menus">
+        <div class="toc-title">Article Directory</div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Notebook"><span class="toc-number">2.</span> <span class="toc-text">Notebook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bayes%E2%80%99s-Theorem"><span class="toc-number">3.</span> <span class="toc-text">Bayes’s Theorem</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#x-%E6%98%AF%E4%BB%80%E9%BA%BC%EF%BC%9F"><span class="toc-number">4.</span> <span class="toc-text">$x$ 是什麼？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#x-%E7%9A%84%E8%A7%92%E8%89%B2"><span class="toc-number">4.1.</span> <span class="toc-text">$x$ 的角色</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#x-i-%E4%BD%95%E5%8E%BB%E4%BD%95%E5%BE%9E"><span class="toc-number">4.2.</span> <span class="toc-text">$x_i$ 何去何從</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A2%9D%E4%BB%B6%E6%A9%9F%E7%8E%87%E7%9A%84%E7%AE%97%E6%B3%95"><span class="toc-number">5.</span> <span class="toc-text">條件機率的算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B1%BA%E5%AE%9A%E9%A1%9E%E5%88%A5"><span class="toc-number">6.</span> <span class="toc-text">決定類別</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Laplace-smoothing"><span class="toc-number">7.</span> <span class="toc-text">Laplace smoothing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">8.</span> <span class="toc-text">程式碼</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">9.</span> <span class="toc-text">結語</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">10.</span> <span class="toc-text">參考資料</span></a></li></ol>
+    </div>
+
+
+<article class="post content-card">
+    <div class="post__header"></div>
+    <div class="post__content">
+        <h1 id="Series-17-Classification-Naive-Bayes"><a href="#Series-17-Classification-Naive-Bayes" class="headerlink" title="[Series - 17] Classification - Naive Bayes"></a>[Series - 17] Classification - Naive Bayes</h1><blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/posts/f9a1d882/">Back to the series page</a></p>
+</div></blockquote>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天的部分會比較輕鬆，雖然也可以講一些數學，但我認為這部分用理解的更能理解其背後的意義，因此這篇章只會花一篇的時間！</p>
+<h2 id="Notebook"><a href="#Notebook" class="headerlink" title="Notebook"></a>Notebook</h2><p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://colab.research.google.com/github/Justin900429/IT-used/blob/master/Naive%20Bayes.ipynb">Notebook</a></p>
+<h2 id="Bayes’s-Theorem"><a href="#Bayes’s-Theorem" class="headerlink" title="Bayes’s Theorem"></a>Bayes’s Theorem</h2><p>在講今天的主題之前，我們先來介紹在機率裡面非常有名的定理 - <strong>Bayes’s Theorem</strong>。他數學定理是長這樣的：</p>
+<p>$$<br>\begin{align}<br>    p(y_i \mid x) &amp;= \frac{p(y_i, x)}{p(x)} \\\\<br>    &amp;= \frac{p(x \mid y_i)p(y_i)}{\sum_{i=1}^{n} p(y_i)p(x \mid y_i)}<br>\end{align}<br>$$</p>
+<p>因為我們的目標不是專注在數學，所以我邊就不深入探討 <strong>Naive’s Bayes</strong> 的圖像解釋。但是這條定理給予我們很大的幫助，因為當我們想算出<strong>給定 $x$ 求出 $y$ 是類別 $i$ 的機率</strong>，可以利用我們目前所有的 <strong>data</strong> 來做出比較。這邊我們來深入研究一下：</p>
+<ul>
+<li>$p(y_i)$ 即為我們有的資料裡面，類別是 $i$ 的機率</li>
+<li>$p(x \mid y_i)$ 即為在類別 $i$ 中，$x$ 出現的機率</li>
+</ul>
+<p>這些東西都是我們早就可以從資料裡面取得的，因此我們可以很快就建立好我們的 <strong>model</strong>。</p>
+<h2 id="x-是什麼？"><a href="#x-是什麼？" class="headerlink" title="$x$ 是什麼？"></a>$x$ 是什麼？</h2><h3 id="x-的角色"><a href="#x-的角色" class="headerlink" title="$x$ 的角色"></a>$x$ 的角色</h3><p>剛剛我們上面說到，”<strong>類別 $j$ 中，$x$ 出現的機率</strong>“ 這句話，這邊我們沒有很仔細的定義何為 $x$，因此我們就來說明一下 $x$ 到底是什麼。</p>
+<p>其實這邊 $x$ 就是我們的 <strong>features</strong>，代表他是一個向量，因此我們真正要討探的是：</p>
+<p>$$<br>\begin{align}<br>p(x \mid y_i) &amp;= p(x_1, x_2, …, x_n \mid y_i) \\\\<br>&amp;= p(x_1 \mid y_i)p(x_2 \mid x_1, y_i) \cdots p(x_n | y_i, x_1, x_2, …x_{n-1})<br>\end{align}<br>$$</p>
+<p>看到這裡肯定搞瘋阿！那麼多條件機率，我們要怎麼找到，因此還有一個條件我們沒有用上就是 $x_1, x_2, … x_n$ 是<strong>條件獨立</strong>的，這邊條件獨立跟一般的獨立不太一樣，下面的是比較:</p>
+<p>$$<br>\begin{align}<br>\text{Conditional independence}&amp;: p(A, B \mid y) = p(A \mid y)p(B \mid y)  \\\\<br>&amp;v.s. \\\\<br>\text{Normal independence}&amp;: p(A, B) = p(A)p(B)<br>\end{align}<br>$$</p>
+<p>因此我們可以把 $p(x \mid y)$ 寫成：</p>
+<p>$$<br>\begin{align}<br>    p(x\mid y_i)&amp;= p(x_1 \mid y_i)p(x_2 \mid y_i)\cdots p(x_n \mid y_i) \\\\<br>    &amp;= \prod_{i=1}^n p(x_i \mid y_i)<br>\end{align}<br>$$</p>
+<p>現在我們在把$p(y_i \mid x)$ 的式子改寫一下變成(假設有 $m$ 資料)：</p>
+<p>$$<br>\begin{align}<br>    p(y_i \mid x) &amp;= \frac{p(x \mid y_i)p(y_i)}{\sum_{i=1}^{m}p(y_j)p(x \mid y_j)} \\\\<br>    &amp;= \frac{p(x \mid y_i)p(y_i)}{\sum_{i=1}^{m}p(y_i)\prod_{j=1}^n p(x_j \mid y_i)}<br>\end{align}<br>$$</p>
+<h3 id="x-i-何去何從"><a href="#x-i-何去何從" class="headerlink" title="$x_i$ 何去何從"></a>$x_i$ 何去何從</h3><p>$x_i$ 如果是連續的值的話該怎麼辦? 這樣 $x_i$ 不就沒有太多功能了嗎？因此我們可以試著把連續的空間轉成離散的空間，那麼我們就可以再次使用啦！而轉換的方式就是使用區間！例如下表:</p>
+<table>
+<thead>
+<tr>
+<th align="center">區間</th>
+<th align="center">&lt;101</th>
+<th align="center">101~200</th>
+<th align="center">201~300</th>
+<th align="center">301~400</th>
+<th align="center">&gt;400</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">標籤</td>
+<td align="center">1</td>
+<td align="center">2</td>
+<td align="center">3</td>
+<td align="center">4</td>
+<td align="center">5</td>
+</tr>
+</tbody></table>
+<h2 id="條件機率的算法"><a href="#條件機率的算法" class="headerlink" title="條件機率的算法"></a>條件機率的算法</h2><p>這邊我們定義一下符號 - $1 \{ condition \}$，這代表如果 $condition$ 成立的話值為 1 否則為 0。舉例來說 $1 \{ 3=4 \} = 0$ 而 $1 \{ 8=8 \} = 1$。</p>
+<p>我們現在來說說 $p(y)$,$p(x \mid y)$ 怎麼算吧！ $p(y_i)$ 其實還蠻直接的就是所有資料分之那個類別，因此是:</p>
+<p>$$<br>p(y_i) = \frac{\sum_{j=1}^m 1 \{ y^{(j)} = i \} }{m}<br>$$</p>
+<p>而 $p(x_j = l \mid y_i)$ 則是使用條件機率來算：</p>
+<p>$$<br>p(x_j = l \mid y_i) = \frac{\sum_{k=1}^m 1 \{ {x_j^{(k)}} = l \wedge y^{(k)} = i \}}{\sum_{k=1}^m1 \{ y^{(k)} = i \}}<br>$$</p>
+<p>其實這些東西也可以使用 <strong>MLE</strong> 來證明，不過我認為這些東西可以用理解的來實現，因此這邊我就不另外說明了。不過如果要使用 <strong>MLE</strong> 的話記得要變成:</p>
+<p>$$<br>\begin{align}<br>    L(p(y_i), p(x_j\mid y_i)) &amp;= \prod_{i=1}^{n}p(x^{(i)}, y^{(i)}) \\\\<br>    &amp;= \prod_{i=1}^{n}p(x^{(i)} \mid y^{(i)})p(y^{(i)})<br>\end{align}<br>$$</p>
+<p>因爲 $p(y_j)$ 也變成要決定的目標，因此不能只使用條件機率。</p>
+<h2 id="決定類別"><a href="#決定類別" class="headerlink" title="決定類別"></a>決定類別</h2><p>我們說明完如何使用<strong>Naives bayes</strong>後，我們要來決定我們的最終類別了！而決定類別的方式很簡單就是找到 $max \ p(y_i|x)$ 是誰，如果是 $p(y_1|x)$ 最大，則是類別 1，如果是 $p(y_2|x)$ 最大，則是類別 2。</p>
+<h2 id="Laplace-smoothing"><a href="#Laplace-smoothing" class="headerlink" title="Laplace smoothing"></a>Laplace smoothing</h2><p>這會是程式碼前最後的一小部分啦！上述我們都是利用資料點出現的 <strong>features</strong> 來決定我們的類別，那假設我們今天要預設的 $x_j$ 裡有我們第一次出現的標籤，則會出現：</p>
+<p>$$<br>p(x_j | y_i) = 0<br>$$</p>
+<p>這其實是有問題的，我們不能因為我們沒看過這種標籤就預測說這不可能發生，只能說這標籤發生的機率比較低，應此我們會在 $p(x_j|y_i)$ 加上 $n$ ，分子加上 1，而 $n$ 表示的是類別的總數。因此此時 $p(x_j | y_i)$ 會變成：</p>
+<p>$$<br>\begin{align}<br>p(x_j = l | y_i) = \frac{\sum_{k=1}^m 1 \{ {x_j^{(k)}} = l \wedge y^{(k)} = i \} + 1}{\sum_{k=1}^m1 \{ y^{(k)} = i \} + n}<br>\end{align}<br>$$</p>
+<h2 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h2><p>終於進到程式碼啦，這邊我們就不實作了，直接使用 <strong>sklearn</strong> 裡的套件。這邊我們使用的資料是製作資料集的函式。</p>
+<pre><code class="hljs python"><span class="hljs-comment"># Make classification</span>
+X, y = make_multilabel_classification(n_samples=<span class="hljs-number">500</span>, n_features=<span class="hljs-number">30</span>, n_classes=<span class="hljs-number">2</span>)
+
+<span class="hljs-comment"># Original y is the categorical matrix</span>
+<span class="hljs-comment"># Change it to the label matrix</span>
+y_label = np.sum(y, axis=<span class="hljs-number">-1</span>)
+
+<span class="hljs-comment"># Split it into train and test dataset</span>
+train_data = X[:<span class="hljs-number">400</span>]
+train_target = y_label[:<span class="hljs-number">400</span>]
+
+test_data = X[<span class="hljs-number">400</span>:<span class="hljs-number">500</span>]
+test_target = y_label[<span class="hljs-number">400</span>:<span class="hljs-number">500</span>]
+
+<span class="hljs-comment"># Shape(400, 30)</span>
+<span class="hljs-comment"># 30 is the feature</span>
+<span class="hljs-comment"># 400 is the data</span>
+print(train_data)
+
+model = MultinomialNB().fit(train_data, train_target)
+
+<span class="hljs-comment"># Test our model</span>
+print(model.score(test_data, test_target))
+
+<span class="hljs-comment"># Plot the heatmap</span>
+plt.figure(figsize=(<span class="hljs-number">6</span>, <span class="hljs-number">6</span>))
+mat = confusion_matrix(test_target, model.predict(test_data))
+sns.heatmap(mat.T, square=<span class="hljs-literal">True</span>, annot=<span class="hljs-literal">True</span>, fmt=<span class="hljs-string">&#x27;d&#x27;</span>, cbar=<span class="hljs-literal">False</span>)</code></pre>
+
+<p><img src="https://i.imgur.com/gnZg7p0.jpg"></p>
+<h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>今天介紹完關於 <strong>Naive Bayes</strong> 的知識，其實他也可以搭配 <strong>Gaussian</strong> 來做不一樣的變化，不過這裡我就先不提到了。下篇我們會介紹 <strong>SVM</strong>，同樣是用作分類的工具，那我們下篇見！</p>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.cs.columbia.edu/~mcollins/em.pdf">The Naive Bayes Model, Maximum-Likelihood Estimation, and the EM Algorithm</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="http://cs229.stanford.edu/">CS 229 from Standford</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://ithelp.ithome.com.tw/articles/10205582?sc=iThelpR">Day12-Scikit-learn介紹(4)_ Bayes Classification</a></li>
+</ol>
+<br/>
+<br/>
+<a href="/posts/552aa397/" float=left>Last</a> <a href="/posts/d71e06b1/" style="float: right;">Next</a><!-- flag of hidden posts -->
+    </div>
+     
+    <div class="post-footer__meta"><p>updated at 2021-01-01</p></div> 
+    <div class="post-meta__cats"></div> 
+</article>
+
+
+
+
+    <div class="post__comments content-card" id="comment">
+        
+    <h4>Comments</h4>
+    
+    <div id="disqus_thread">Unable to load Disqus, please make sure your network can access.</div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    </div>
+
+
+
+</main>
+
+            <footer class="footer">
+    
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/viz.js/1.7.1/viz.js'></script>
+        <script>
+          String.prototype.replaceAll = function(search, replacement) {
+            var target = this;
+            return target.split(search).join(replacement);
+          };
+      
+          let vizObjects = document.querySelectorAll('.graphviz')
+      
+          for (let item of vizObjects) {
+            let svg = undefined
+            try {
+              svg = Viz(item.textContent.replaceAll('–', '--'), 'svg')
+            } catch(e) {
+              svg = `<pre class="error">${e}</pre>`
+            }
+            item.outerHTML = svg
+          }
+        </script>
+    
+    
+
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright © 2021 <a href="/">Justin website for sharing knowledge and getting idea.</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" rel="external nofollow noreferrer" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" rel="external nofollow noreferrer" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+         
+
+ 
+
+ 
+
+ 
+
+  
+
+
+
+ 
+
+
+    
+ 
+
+ 
+
+
+    <script>
+        if (typeof MathJax === 'undefined') {
+            window.MathJax = {
+                loader: {
+                    source: {
+                        '[tex]/amsCd': '[tex]/amscd',
+                        '[tex]/AMScd': '[tex]/amscd'
+                    }
+                },
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                },
+                options: {
+                    renderActions: {
+                        findScript: [10, doc => {
+                            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                                const display = !!node.type.match(/; *mode=display/);
+                                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                                const text = document.createTextNode('');
+                                node.parentNode.replaceChild(text, node);
+                                math.start = {node: text, delim: '', n: 0};
+                                math.end = {node: text, delim: '', n: 0};
+                                doc.math.push(math);
+                            });
+                        }, '', false],
+                        insertedScript: [200, () => {
+                            document.querySelectorAll('mjx-container').forEach(node => {
+                                let target = node.parentNode;
+                                if (target.nodeName.toLowerCase() === 'li') {
+                                    target.parentNode.classList.add('has-jax');
+                                }
+                            });
+                        }, '', false]
+                    }
+                }
+            };
+            (function () {
+                var script = document.createElement('script');
+                script.src = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js";
+                script.defer = true;
+                document.head.appendChild(script);
+            })();
+        } else {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+        }
+    </script>
+ 
+
+ 
+
+ 
+
+
+    
+    <script>
+        function loadComment() {
+            window.disqus_config = function () {
+                this.page.url = 'justin900429.github.io/posts/70cacaf9/';
+                this.page.identifier = 'posts/70cacaf9/';
+            };
+            (function(){
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + 'https-justin900429-github-io' + '.disqus.com/embed.js';
+                (document.head || document.body).appendChild(dsq);
+            })();
+        }
+    
+        var runningOnBrowser = typeof window !== "undefined";
+        var isBot = runningOnBrowser && !("onscroll" in window) || typeof navigator !== "undefined" && /(gle|ing|ro|msn)bot|crawl|spider|yand|duckgo/i.test(navigator.userAgent);
+        var supportsIntersectionObserver = runningOnBrowser && "IntersectionObserver" in window;
+    
+        setTimeout(function () {
+            if (!isBot && supportsIntersectionObserver) {
+                var comment_observer = new IntersectionObserver(function(entries) {
+                    if (entries[0].isIntersecting) {
+                        loadComment();
+                        comment_observer.disconnect();
+                    }
+                }, { threshold: [0] });
+                comment_observer.observe(document.getElementById('comment'));
+            } else {
+                loadComment();
+            }
+        }, 1);
+    </script>
+
+
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+
+
+
+    </body>
+</html>

@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    
+    
+    
+        <link rel="icon" type="image/png" sizes="32x32" href="/icon.png">
+    
+    
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple_icon_128.png">
+    
+    
+        <link rel="mask-icon" href="/apple_icon_128.png">
+    
+
+
+    <!-- meta -->
+
+
+<title>Android Fragment and Life Cycle | Justin website for sharing knowledge and getting idea.</title>
+
+
+    <meta name="keywords" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="Android Fragment and Life CycleSee moreBack to the series page   FragmentFragment 是 Activity 中的 interface。可以想像中 Activity 中的 子Activity。 其 lifecycle 是伴隨著 Activity 的，我們等等會有更深入的介紹。 從下圖我們可以看到在同一個 Activity">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Fragment and Life Cycle">
+<meta property="og:url" content="justin900429.github.io/posts/dfd426ae/index.html">
+<meta property="og:site_name" content="Justin website for sharing knowledge and getting idea.">
+<meta property="og:description" content="Android Fragment and Life CycleSee moreBack to the series page   FragmentFragment 是 Activity 中的 interface。可以想像中 Activity 中的 子Activity。 其 lifecycle 是伴隨著 Activity 的，我們等等會有更深入的介紹。 從下圖我們可以看到在同一個 Activity">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/BrwrpVf.png">
+<meta property="og:image" content="https://miro.medium.com/max/694/1*ALMDBkuAAZ28BJ2abmvniA.png">
+<meta property="og:image" content="https://i.imgur.com/XAysmM6.png">
+<meta property="og:image" content="https://i.imgur.com/KnSXevA.png">
+<meta property="og:image" content="https://i.imgur.com/ULsbqE9.png">
+<meta property="og:image" content="https://i.imgur.com/SIndq5F.png">
+<meta property="og:image" content="https://i.imgur.com/TeLcb7t.png">
+<meta property="og:image" content="https://i.imgur.com/oGojc06.png">
+<meta property="og:image" content="https://i.imgur.com/ALNnRYa.png">
+<meta property="og:image" content="https://i.imgur.com/SggSWWC.png">
+<meta property="og:image" content="https://i.imgur.com/23wuEpG.png">
+<meta property="article:published_time" content="2020-09-30T09:01:08.000Z">
+<meta property="article:modified_time" content="2020-12-31T13:15:19.909Z">
+<meta property="article:author" content="Justin Ruan">
+<meta property="article:tag" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://i.imgur.com/BrwrpVf.png">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+
+
+    
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/atom-one-light.min.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')===-1)this.media='all'">
+        
+    
+
+    
+
+     
+
+    <!-- custom head -->
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+    <body>
+        <div id="app">
+            <script>
+window.onscroll = () => {
+    const nav = document.querySelector('.header');
+    if(this.scrollY <= 10) {
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0)"
+    } else {
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+    }
+};
+</script>
+
+<header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">Justin&#39;s blog</span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/about/" class="navbar-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="navbar-menu button">CV</a>
+                
+                    <a href="/" class="navbar-menu button">Articles</a>
+                
+                    <a href="/tags/" class="navbar-menu button">Tags</a>
+                
+                    <a href="/archives/" class="navbar-menu button">Archives</a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+
+         
+    <a href="#" class="button" id="b2t" aria-label="Back to Top" title="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="32" height="32">
+            <path d="M233.376 722.752L278.624 768 512 534.624 745.376 768l45.248-45.248L512 444.128zM192 352h640V288H192z" fill="currentColor"></path>
+        </svg>
+    </a>
+
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                
+                    <a href="/about/" class="dropdown-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="dropdown-menu button">CV</a>
+                
+                    <a href="/" class="dropdown-menu button">Articles</a>
+                
+                    <a href="/tags/" class="dropdown-menu button">Tags</a>
+                
+                    <a href="/archives/" class="dropdown-menu button">Archives</a>
+                
+            </div>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+
+<div class="post-title">
+    <h1 class="post-title__text">
+        Android Fragment and Life Cycle
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2020/09/" class="post-meta__date button">2020-09-30</a>
+        
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <aside class="post-side">
+        <div class="post-side__toc">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Fragment"><span class="toc-number">1.</span> <span class="toc-text">Fragment</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Life-Cycle"><span class="toc-number">2.</span> <span class="toc-text">Life Cycle</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%80%E5%AF%9F-Life-Cycle"><span class="toc-number">3.</span> <span class="toc-text">觀察 Life Cycle</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Log"><span class="toc-number">3.1.</span> <span class="toc-text">Log</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">3.2.</span> <span class="toc-text">程式碼</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Fragment-1"><span class="toc-number">4.</span> <span class="toc-text">Fragment</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-number">5.</span> <span class="toc-text">References</span></a></li></ol>
+        </div>
+    </aside>
+    <a class="btn-toc button" id="btn-toc" tabindex="0">
+        <svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path>
+        </svg>
+    </a>
+    <div class="toc-menus" id="toc-menus">
+        <div class="toc-title">Article Directory</div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Fragment"><span class="toc-number">1.</span> <span class="toc-text">Fragment</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Life-Cycle"><span class="toc-number">2.</span> <span class="toc-text">Life Cycle</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%80%E5%AF%9F-Life-Cycle"><span class="toc-number">3.</span> <span class="toc-text">觀察 Life Cycle</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Log"><span class="toc-number">3.1.</span> <span class="toc-text">Log</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">3.2.</span> <span class="toc-text">程式碼</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Fragment-1"><span class="toc-number">4.</span> <span class="toc-text">Fragment</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-number">5.</span> <span class="toc-text">References</span></a></li></ol>
+    </div>
+
+
+<article class="post content-card">
+    <div class="post__header"></div>
+    <div class="post__content">
+        <h1 id="Android-Fragment-and-Life-Cycle"><a href="#Android-Fragment-and-Life-Cycle" class="headerlink" title="Android Fragment and Life Cycle"></a>Android Fragment and Life Cycle</h1><blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/2020/09/21/android/and-series/">Back to the series page</a></p>
+</div></blockquote>
+
+<h2 id="Fragment"><a href="#Fragment" class="headerlink" title="Fragment"></a>Fragment</h2><p><strong>Fragment</strong> 是 <strong>Activity</strong> 中的 <strong>interface</strong>。可以想像中 <strong>Activity</strong> 中的 <strong>子Activity</strong>。 其 <strong>lifecycle</strong> 是伴隨著 <strong>Activity</strong> 的，我們等等會有更深入的介紹。</p>
+<p>從下圖我們可以看到在同一個 <strong>Activity</strong> 中，我們可以有不同的 <strong>fragement</strong>，每一個 <strong>fragment</strong> 都有自己獨立的 <strong>views</strong> 跟 <strong>listener</strong>。</p>
+<br>
+<center><img src="https://i.imgur.com/BrwrpVf.png" width=450/></center>
+<br>
+
+<h2 id="Life-Cycle"><a href="#Life-Cycle" class="headerlink" title="Life Cycle"></a>Life Cycle</h2><p>我們之前有提過如何用 <strong>Life Cycle</strong>。因為現在的手機都支援多工執行，常常放音樂開始玩遊戲。而要執行這些程式時，手機都會耗費一些記憶體來處理這些功能。如果手機記憶體愈小，能同時做的事情就會愈少。因此對於資源的分配以及釋放就要有很好的方式來處理，因此才有了 <strong>Life Cycle</strong> 來做處理。附上更詳細的圖同時也跟 <strong>fragment</strong> 的週期連上。</p>
+<center><img src="https://miro.medium.com/max/694/1*ALMDBkuAAZ28BJ2abmvniA.png" width=500/></center>
+
+<p>程式最一開始會執行 <strong>onCreate</strong>，如果有 <strong>fragment</strong>，就會為<strong>fragment</strong> 執行創建 <strong>onAttach</strong>, <strong>onCreate</strong>, <strong>onCreateView</strong>。，<strong>onActivtyCreated</strong>。接著來到 <strong>onStart</strong>，此時程式才是正式開啟。在使用過程中都會處於 <strong>onResume</strong> 的階段。</p>
+<p>如果現在的 <strong>Activity</strong> 被切換掉後，會進入到 <strong>onPause</strong>，並接著到 <strong>onStop</strong>，此時畫面已經切換完成。如果又會到此 <strong>Activity</strong>，會呼叫 <strong>onRestart</strong>，並執行 <strong>onStart</strong>，重新開始一個循環。</p>
+<p>如果此 <strong>Activity</strong> 被銷毀，會經過 <strong>onDestroy</strong>，此時如果有 <strong>Fragement</strong>，會分別呼叫 <strong>onDestroyView</strong>，<strong>onDestroy</strong>，<strong>onDetach</strong>。</p>
+<h2 id="觀察-Life-Cycle"><a href="#觀察-Life-Cycle" class="headerlink" title="觀察 Life Cycle"></a>觀察 Life Cycle</h2><p>上述說明生命週期並不需要特別記住，但是要有些概念。我們這邊要來覆寫上述的所有函式，並在利用 <strong>Log</strong> 的方式印出。</p>
+<h3 id="Log"><a href="#Log" class="headerlink" title="Log"></a>Log</h3><p><strong>Log</strong> 是可以用來記錄程式執行狀況的方式，類似將東西印出來，但是不會印到程式上面，而是在 <strong>Android studio</strong> 的底下 <strong>Verbose</strong> 裡。<strong>Log</strong> 可以提示的方式有很多種，例如說我們可以利用 <strong>Log.e()</strong> 來在 <strong>error message</strong> 裡看到我們的訊息。</p>
+<p>更多的功能可以參考 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://developer.android.com/studio/debug/am-logcat"><strong>Android documentation</strong></a>。這邊我就說明 <strong>Log.i()</strong> ，其餘的使用方式相同，但是顯示區域不一樣。</p>
+<p><strong>Log</strong> 有兩個參數，第一個是 <strong>tag</strong>，第二個就是想要輸入的訊息，可以使用變數。使用 <strong>tag</strong> 的原因可以加快查詢 <strong>log</strong> 的速度。</p>
+<pre><code class="hljs kotlin">Log.i(<span class="hljs-string">&quot;MainActivity&quot;</span>, <span class="hljs-string">&quot;hello&quot;</span>)</code></pre>
+
+<p>我們可以在底下的狀態欄裡面選擇 <strong>Logcat</strong>。</p>
+<p><img src="https://i.imgur.com/XAysmM6.png"></p>
+<br>
+
+<p>並在選單裡面選擇需要的類型，這邊我選擇是 <strong>info</strong>。</p>
+<br>
+<center><img src="https://i.imgur.com/KnSXevA.png" width=150/></center>
+<br>
+
+<p>旁邊的搜尋欄可以搜尋想要的訊息或 <strong>tag</strong>，例如我這邊搜尋 <strong>MainActivity</strong> 這個 <strong>tag</strong>。</p>
+<p><img src="https://i.imgur.com/ULsbqE9.png"></p>
+<h3 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h3><p>這邊我開啟一個空的 <strong>project</strong>，不需要改動任何 <strong>layout</strong>，我們只需要去覆寫剛剛上面提到的函示，讓他能顯示到我們的 <strong>Logcat</strong> 裡面。</p>
+<pre><code class="hljs kotlin"><span class="hljs-keyword">package</span> com.example.fragement
+
+<span class="hljs-keyword">import</span> androidx.appcompat.app.AppCompatActivity
+<span class="hljs-keyword">import</span> android.os.Bundle
+<span class="hljs-keyword">import</span> android.util.Log
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MainActivity</span> : <span class="hljs-type">AppCompatActivity</span></span>() &#123;
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onCreate</span><span class="hljs-params">(savedInstanceState: <span class="hljs-type">Bundle</span>?)</span></span> &#123;
+        <span class="hljs-keyword">super</span>.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+            
+        <span class="hljs-comment">// Message printed in log</span>
+        Log.i(<span class="hljs-string">&quot;MainActivity&quot;</span>, <span class="hljs-string">&quot;onCreate&quot;</span>)
+    &#125;
+
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onStart</span><span class="hljs-params">()</span></span> &#123;
+        <span class="hljs-keyword">super</span>.onStart()
+        <span class="hljs-comment">// Message printed in log</span>
+        Log.i(<span class="hljs-string">&quot;MainActivity&quot;</span>, <span class="hljs-string">&quot;onStart&quot;</span>)
+    &#125;
+
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onRestart</span><span class="hljs-params">()</span></span> &#123;
+        <span class="hljs-keyword">super</span>.onRestart()
+        <span class="hljs-comment">// Message printed in log</span>
+        Log.i(<span class="hljs-string">&quot;MainActivity&quot;</span>, <span class="hljs-string">&quot;onRestart&quot;</span>)
+    &#125;
+
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onResume</span><span class="hljs-params">()</span></span> &#123;
+        <span class="hljs-keyword">super</span>.onResume()
+        <span class="hljs-comment">// Message printed in log</span>
+        Log.i(<span class="hljs-string">&quot;MainActivity&quot;</span>, <span class="hljs-string">&quot;onResume&quot;</span>)
+    &#125;
+
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onPause</span><span class="hljs-params">()</span></span> &#123;
+        <span class="hljs-keyword">super</span>.onPause()
+        <span class="hljs-comment">// Message printed in log</span>
+        Log.i(<span class="hljs-string">&quot;MainActivity&quot;</span>, <span class="hljs-string">&quot;onPause&quot;</span>)
+    &#125;
+
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onStop</span><span class="hljs-params">()</span></span> &#123;
+        <span class="hljs-keyword">super</span>.onStop()
+        <span class="hljs-comment">// Message printed in log</span>
+        Log.i(<span class="hljs-string">&quot;MainActivity&quot;</span>, <span class="hljs-string">&quot;onStop&quot;</span>)
+    &#125;
+
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onDestroy</span><span class="hljs-params">()</span></span> &#123;
+        <span class="hljs-keyword">super</span>.onDestroy()
+        <span class="hljs-comment">// Message printed in log</span>
+        Log.i(<span class="hljs-string">&quot;MainActivity&quot;</span>, <span class="hljs-string">&quot;onDestroy&quot;</span>)
+    &#125;
+&#125;</code></pre>
+
+<br>
+
+<p>此時打開應用程式，應該可以看到</p>
+<br>
+<center><img src="https://i.imgur.com/SIndq5F.png" width=300/></center>
+<br>
+
+<p>退回桌面會看到：</p>
+<br>
+<center><img src="https://i.imgur.com/TeLcb7t.png" width=300/></center>
+<br>
+
+
+<p>再進入程式會看到：</p>
+<br>
+<center><img src="https://i.imgur.com/oGojc06.png" width=300/></center>
+<br>
+
+<p>將程式滑掉後會看到：</p>
+<br>
+<center><img src="https://i.imgur.com/ALNnRYa.png" width=300/></center>
+<br>
+
+<h2 id="Fragment-1"><a href="#Fragment-1" class="headerlink" title="Fragment"></a>Fragment</h2><p>我們今天 <strong>fragment</strong> 的部分只著重 <strong>Life Cycle</strong>，之後會在跟大家說明如何在同一個 <strong>Activity</strong> 利用滑頁或是狀態欄的方式切換 <strong>Fragment</strong>。</p>
+<p>這邊需要創立一個 <strong>class</strong></p>
+<br>
+<center><img src="https://i.imgur.com/SggSWWC.png" width=550/></center>
+<br>
+
+<p>命名可以取自己喜歡的</p>
+<br>
+<center><img src="https://i.imgur.com/23wuEpG.png" width=450/></center>
+<br>
+
+<p>此外我們還需要建立一個 <strong>layout</strong>。</p>
+<p>我們先來看看 <strong>activity_main.xml</strong>，這裡我們是用 <code>Fragment</code>，其中 <strong>class</strong> 需要輸入是要哪一個 <strong>Fragment</strong>。</p>
+<pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">fragment</span> <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">xmlns:tools</span>=<span class="hljs-string">&quot;http://schemas.android.com/tools&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">android:id</span>=<span class="hljs-string">&quot;@+id/fragment&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;com.example.fragement.Fragment&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;match_parent&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;match_parent&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">tools:context</span>=<span class="hljs-string">&quot;.MainActivity&quot;</span>&gt;</span>
+
+<span class="hljs-tag">&lt;/<span class="hljs-name">fragment</span>&gt;</span></code></pre>
+
+
+<p>接著我們來看看 <strong>Fragment</strong> 的 <strong>layout</strong>，跟一般的 <strong>xml</strong> 沒有不一樣。</p>
+<pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">androidx.constraintlayout.widget.ConstraintLayout</span> <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">xmlns:app</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res-auto&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">xmlns:tools</span>=<span class="hljs-string">&quot;http://schemas.android.com/tools&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;match_parent&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;match_parent&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">tools:context</span>=<span class="hljs-string">&quot;.MainActivity&quot;</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextView</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:text</span>=<span class="hljs-string">&quot;Hello World&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintBottom_toBottomOf</span>=<span class="hljs-string">&quot;parent&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintLeft_toLeftOf</span>=<span class="hljs-string">&quot;parent&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintRight_toRightOf</span>=<span class="hljs-string">&quot;parent&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintTop_toTopOf</span>=<span class="hljs-string">&quot;parent&quot;</span> /&gt;</span>
+
+<span class="hljs-tag">&lt;/<span class="hljs-name">androidx.constraintlayout.widget.ConstraintLayout</span>&gt;</span></code></pre>
+
+<p><strong>MainActivity</strong> 的跟上面一樣，我們來看一下 <strong>Fragment</strong>。 我們需要在 <strong>onCreateView</strong> 的時候回傳一個 <strong>layout</strong>，回傳 <strong>layout</strong> 的方式是用 <strong>inflater.inflate</strong>。剩下的都是利用 <strong>Log</strong>。</p>
+<pre><code class="hljs kotlin"><span class="hljs-keyword">package</span> com.example.fragement
+
+<span class="hljs-keyword">import</span> android.content.Context
+<span class="hljs-keyword">import</span> android.os.Bundle
+<span class="hljs-keyword">import</span> android.util.Log
+<span class="hljs-keyword">import</span> android.view.LayoutInflater
+<span class="hljs-keyword">import</span> android.view.View
+<span class="hljs-keyword">import</span> android.view.ViewGroup
+<span class="hljs-keyword">import</span> androidx.fragment.app.Fragment
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Fragment</span>: <span class="hljs-type">Fragment</span></span>() &#123;
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onAttach</span><span class="hljs-params">(context: <span class="hljs-type">Context</span>)</span></span> &#123;
+        <span class="hljs-keyword">super</span>.onAttach(context)
+        <span class="hljs-comment">// Message printed in log</span>
+        Log.i(<span class="hljs-string">&quot;Fragment&quot;</span>, <span class="hljs-string">&quot;onAttach&quot;</span>)
+    &#125;
+
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onCreate</span><span class="hljs-params">(savedInstanceState: <span class="hljs-type">Bundle</span>?)</span></span> &#123;
+        <span class="hljs-keyword">super</span>.onCreate(savedInstanceState)
+        <span class="hljs-comment">// Message printed in log</span>
+        Log.i(<span class="hljs-string">&quot;Fragment&quot;</span>, <span class="hljs-string">&quot;onCreate&quot;</span>)
+    &#125;
+
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onCreateView</span><span class="hljs-params">(</span></span>
+<span class="hljs-function"><span class="hljs-params">        inflater: <span class="hljs-type">LayoutInflater</span>,</span></span>
+<span class="hljs-function"><span class="hljs-params">        container: <span class="hljs-type">ViewGroup</span>?,</span></span>
+<span class="hljs-function"><span class="hljs-params">        savedInstanceState: <span class="hljs-type">Bundle</span>?</span></span>
+<span class="hljs-function"><span class="hljs-params">    )</span></span>: View? &#123;
+        <span class="hljs-keyword">return</span> inflater.inflate(R.layout.fragment_layout, container, <span class="hljs-literal">false</span>)
+
+        <span class="hljs-comment">// Message printed in log</span>
+        Log.i(<span class="hljs-string">&quot;Fragment&quot;</span>, <span class="hljs-string">&quot;onCreateView&quot;</span>)
+    &#125;
+
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onActivityCreated</span><span class="hljs-params">(savedInstanceState: <span class="hljs-type">Bundle</span>?)</span></span> &#123;
+        <span class="hljs-keyword">super</span>.onActivityCreated(savedInstanceState)
+        <span class="hljs-comment">// Message printed in log</span>
+        Log.i(<span class="hljs-string">&quot;Fragment&quot;</span>, <span class="hljs-string">&quot;onActivityCreated&quot;</span>)
+    &#125;
+
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onStart</span><span class="hljs-params">()</span></span> &#123;
+        <span class="hljs-keyword">super</span>.onStart()
+        <span class="hljs-comment">// Message printed in log</span>
+        Log.i(<span class="hljs-string">&quot;Fragment&quot;</span>, <span class="hljs-string">&quot;onStart&quot;</span>)
+    &#125;
+
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onResume</span><span class="hljs-params">()</span></span> &#123;
+        <span class="hljs-keyword">super</span>.onResume()
+        <span class="hljs-comment">// Message printed in log</span>
+        Log.i(<span class="hljs-string">&quot;Fragment&quot;</span>, <span class="hljs-string">&quot;onResume&quot;</span>)
+    &#125;
+
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onPause</span><span class="hljs-params">()</span></span> &#123;
+        <span class="hljs-keyword">super</span>.onPause()
+        <span class="hljs-comment">// Message printed in log</span>
+        Log.i(<span class="hljs-string">&quot;Fragment&quot;</span>, <span class="hljs-string">&quot;onPause&quot;</span>)
+    &#125;
+
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onStop</span><span class="hljs-params">()</span></span> &#123;
+        <span class="hljs-keyword">super</span>.onStop()
+        <span class="hljs-comment">// Message printed in log</span>
+        Log.i(<span class="hljs-string">&quot;Fragment&quot;</span>, <span class="hljs-string">&quot;onStop&quot;</span>)
+    &#125;
+
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onDestroyView</span><span class="hljs-params">()</span></span> &#123;
+        <span class="hljs-keyword">super</span>.onDestroyView()
+        <span class="hljs-comment">// Message printed in log</span>
+        Log.i(<span class="hljs-string">&quot;Fragment&quot;</span>, <span class="hljs-string">&quot;onDestroyView&quot;</span>)
+    &#125;
+
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onDestroy</span><span class="hljs-params">()</span></span> &#123;
+        <span class="hljs-keyword">super</span>.onDestroy()
+        <span class="hljs-comment">// Message printed in log</span>
+        Log.i(<span class="hljs-string">&quot;Fragment&quot;</span>, <span class="hljs-string">&quot;onDestroy&quot;</span>)
+    &#125;
+
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onDetach</span><span class="hljs-params">()</span></span> &#123;
+        <span class="hljs-keyword">super</span>.onDetach()
+        <span class="hljs-comment">// Message printed in log</span>
+        Log.i(<span class="hljs-string">&quot;Fragment&quot;</span>, <span class="hljs-string">&quot;onDetach&quot;</span>)
+    &#125;
+&#125;</code></pre>
+
+<p>最後的結果我就不試給大家看了，大家可以嘗試一下！</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.books.com.tw/products/0010815422">輕鬆學會Android Kotlin實作開發：精心設計16個Lab讓你快速上手</a></li>
+</ol>
+<br/>
+<br/>
+<a href="/posts/35853059/" float=left>Last</a> <a href="/posts/f31b2683/" style="float: right;">Next</a><!-- flag of hidden posts -->
+    </div>
+     
+    <div class="post-footer__meta"><p>updated at 2020-12-31</p></div> 
+    <div class="post-meta__cats"></div> 
+</article>
+
+
+
+
+    <div class="post__comments content-card" id="comment">
+        
+    <h4>Comments</h4>
+    
+    <div id="disqus_thread">Unable to load Disqus, please make sure your network can access.</div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    </div>
+
+
+
+</main>
+
+            <footer class="footer">
+    
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/viz.js/1.7.1/viz.js'></script>
+        <script>
+          String.prototype.replaceAll = function(search, replacement) {
+            var target = this;
+            return target.split(search).join(replacement);
+          };
+      
+          let vizObjects = document.querySelectorAll('.graphviz')
+      
+          for (let item of vizObjects) {
+            let svg = undefined
+            try {
+              svg = Viz(item.textContent.replaceAll('–', '--'), 'svg')
+            } catch(e) {
+              svg = `<pre class="error">${e}</pre>`
+            }
+            item.outerHTML = svg
+          }
+        </script>
+    
+    
+
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright © 2021 <a href="/">Justin website for sharing knowledge and getting idea.</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" rel="external nofollow noreferrer" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" rel="external nofollow noreferrer" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+         
+
+ 
+
+ 
+
+ 
+
+  
+
+
+
+ 
+
+
+    
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+    
+    <script>
+        function loadComment() {
+            window.disqus_config = function () {
+                this.page.url = 'justin900429.github.io/posts/dfd426ae/';
+                this.page.identifier = 'posts/dfd426ae/';
+            };
+            (function(){
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + 'https-justin900429-github-io' + '.disqus.com/embed.js';
+                (document.head || document.body).appendChild(dsq);
+            })();
+        }
+    
+        var runningOnBrowser = typeof window !== "undefined";
+        var isBot = runningOnBrowser && !("onscroll" in window) || typeof navigator !== "undefined" && /(gle|ing|ro|msn)bot|crawl|spider|yand|duckgo/i.test(navigator.userAgent);
+        var supportsIntersectionObserver = runningOnBrowser && "IntersectionObserver" in window;
+    
+        setTimeout(function () {
+            if (!isBot && supportsIntersectionObserver) {
+                var comment_observer = new IntersectionObserver(function(entries) {
+                    if (entries[0].isIntersecting) {
+                        loadComment();
+                        comment_observer.disconnect();
+                    }
+                }, { threshold: [0] });
+                comment_observer.observe(document.getElementById('comment'));
+            } else {
+                loadComment();
+            }
+        }, 1);
+    </script>
+
+
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+
+
+
+    </body>
+</html>

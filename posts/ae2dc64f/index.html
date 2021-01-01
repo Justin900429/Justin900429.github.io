@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    
+    
+    
+        <link rel="icon" type="image/png" sizes="32x32" href="/icon.png">
+    
+    
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple_icon_128.png">
+    
+    
+        <link rel="mask-icon" href="/apple_icon_128.png">
+    
+
+
+    <!-- meta -->
+
+
+<title>[Series - 26] Expectation maximization - 1 | Justin website for sharing knowledge and getting idea.</title>
+
+
+    <meta name="keywords" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="[Series - 26] Expectation maximization - 1See moreBack to the series page   前言今天要講的東西比較特別，這是用來分析我們的 Unsupervised 的資料。今天我們會稍微看一下這個演算法，明天會看看這個演算法的例子。 EM 的想法在 Unsupervised learning 的世界裡，我們沒有所謂的指摽可以學習，這意味">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Series - 26] Expectation maximization - 1">
+<meta property="og:url" content="justin900429.github.io/posts/ae2dc64f/index.html">
+<meta property="og:site_name" content="Justin website for sharing knowledge and getting idea.">
+<meta property="og:description" content="[Series - 26] Expectation maximization - 1See moreBack to the series page   前言今天要講的東西比較特別，這是用來分析我們的 Unsupervised 的資料。今天我們會稍微看一下這個演算法，明天會看看這個演算法的例子。 EM 的想法在 Unsupervised learning 的世界裡，我們沒有所謂的指摽可以學習，這意味">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://jason-chen-1992.weebly.com/uploads/1/0/8/5/108557741/k-means_1_orig.png">
+<meta property="og:image" content="https://www.researchgate.net/profile/Junjian_Qi/publication/320407284/figure/fig3/AS:667869792722944@1536243975025/Illustration-of-the-convergence-of-EM-algorithm-32.png">
+<meta property="og:image" content="https://i.stack.imgur.com/GNBZ4.png">
+<meta property="og:image" content="https://www.medcalc.org/manual/_help/functions/log.png">
+<meta property="og:image" content="https://jakevdp.github.io/PythonDataScienceHandbook/figures/05.11-expectation-maximization.png">
+<meta property="article:published_time" content="2020-09-14T02:53:22.000Z">
+<meta property="article:modified_time" content="2021-01-01T02:39:25.590Z">
+<meta property="article:author" content="Justin Ruan">
+<meta property="article:tag" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://jason-chen-1992.weebly.com/uploads/1/0/8/5/108557741/k-means_1_orig.png">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+
+
+    
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/atom-one-light.min.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')===-1)this.media='all'">
+        
+    
+
+    
+
+     
+
+    <!-- custom head -->
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+    <body>
+        <div id="app">
+            <script>
+window.onscroll = () => {
+    const nav = document.querySelector('.header');
+    if(this.scrollY <= 10) {
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0)"
+    } else {
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+    }
+};
+</script>
+
+<header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">Justin&#39;s blog</span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/about/" class="navbar-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="navbar-menu button">CV</a>
+                
+                    <a href="/" class="navbar-menu button">Articles</a>
+                
+                    <a href="/tags/" class="navbar-menu button">Tags</a>
+                
+                    <a href="/archives/" class="navbar-menu button">Archives</a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+
+         
+    <a href="#" class="button" id="b2t" aria-label="Back to Top" title="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="32" height="32">
+            <path d="M233.376 722.752L278.624 768 512 534.624 745.376 768l45.248-45.248L512 444.128zM192 352h640V288H192z" fill="currentColor"></path>
+        </svg>
+    </a>
+
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                
+                    <a href="/about/" class="dropdown-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="dropdown-menu button">CV</a>
+                
+                    <a href="/" class="dropdown-menu button">Articles</a>
+                
+                    <a href="/tags/" class="dropdown-menu button">Tags</a>
+                
+                    <a href="/archives/" class="dropdown-menu button">Archives</a>
+                
+            </div>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+
+<div class="post-title">
+    <h1 class="post-title__text">
+        [Series - 26] Expectation maximization - 1
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2020/09/" class="post-meta__date button">2020-09-14</a>
+        
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <aside class="post-side">
+        <div class="post-side__toc">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EM-%E7%9A%84%E6%83%B3%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">EM 的想法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Jensen-inequality"><span class="toc-number">3.</span> <span class="toc-text">Jensen inequality</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EM-algorithm"><span class="toc-number">4.</span> <span class="toc-text">EM algorithm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9E%E9%A1%A7-KMeans"><span class="toc-number">5.</span> <span class="toc-text">回顧 KMeans</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">6.</span> <span class="toc-text">結語</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">7.</span> <span class="toc-text">參考資料</span></a></li></ol>
+        </div>
+    </aside>
+    <a class="btn-toc button" id="btn-toc" tabindex="0">
+        <svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path>
+        </svg>
+    </a>
+    <div class="toc-menus" id="toc-menus">
+        <div class="toc-title">Article Directory</div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EM-%E7%9A%84%E6%83%B3%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">EM 的想法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Jensen-inequality"><span class="toc-number">3.</span> <span class="toc-text">Jensen inequality</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EM-algorithm"><span class="toc-number">4.</span> <span class="toc-text">EM algorithm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9E%E9%A1%A7-KMeans"><span class="toc-number">5.</span> <span class="toc-text">回顧 KMeans</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">6.</span> <span class="toc-text">結語</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">7.</span> <span class="toc-text">參考資料</span></a></li></ol>
+    </div>
+
+
+<article class="post content-card">
+    <div class="post__header"></div>
+    <div class="post__content">
+        <h1 id="Series-26-Expectation-maximization-1"><a href="#Series-26-Expectation-maximization-1" class="headerlink" title="[Series - 26] Expectation maximization - 1"></a>[Series - 26] Expectation maximization - 1</h1><blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/posts/f9a1d882/">Back to the series page</a></p>
+</div></blockquote>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天要講的東西比較特別，這是用來分析我們的 <strong>Unsupervised</strong> 的資料。今天我們會稍微看一下這個演算法，明天會看看這個演算法的例子。</p>
+<h2 id="EM-的想法"><a href="#EM-的想法" class="headerlink" title="EM 的想法"></a>EM 的想法</h2><p>在 <strong>Unsupervised learning</strong> 的世界裡，我們沒有所謂的指摽可以學習，這意味著我們的模型有一個<strong>隱藏</strong>的變數我們不知道，而這個隱藏的變數 $z$ 是用來表示某個資料點為某類別的機率。</p>
+<p>$$<br>z^{(i)} \sim Multinomial(\phi)<br>$$</p>
+<p>$$<br>where \ \phi_j \geq 0, \ \sum_{j=1}^k \phi_j = 1<br>$$</p>
+<p><img src="https://jason-chen-1992.weebly.com/uploads/1/0/8/5/108557741/k-means_1_orig.png"></p>
+<br>
+
+<p>其實這有點類似先有雞還是先有蛋的問題。如果說我們可以知道這個 <strong>z</strong> 那我們就可以很輕鬆找出我們各點的機率，並且透過 $x$ 的分佈，確認我們的類別可能會長什麼樣子。然而我們現在卻是不知道 $z$，因此大大限制我們能做到的事。</p>
+<p>舉個例子，假設我們有 $n$ 個袋子，我們從任意袋子抽出一顆球，那這顆球是從第 $k$ 個袋子抽出來的機率是 $z_k$。但是我們無法得知ㄉ $z_k$ 是多少，甚至所以的 $z$ 我們也都不清楚。</p>
+<p>而 <strong>EM</strong> 正幫助我們解決這個困難。比起我們一次找到最正確的方向，<strong>EM</strong> 利用現階段的最佳解做更新，再找到下次的最佳解，利用這種方式收斂。</p>
+<center><img src="https://www.researchgate.net/profile/Junjian_Qi/publication/320407284/figure/fig3/AS:667869792722944@1536243975025/Illustration-of-the-convergence-of-EM-algorithm-32.png"/></center>
+
+<p>假如藍色是我們無法預測得目標，而綠色是我們現階段 <strong>EM</strong> 找到的分佈。<strong>EM</strong>做的事就是慢慢更新綠色的線，使得慢慢接近藍色的最大值。</p>
+<h2 id="Jensen-inequality"><a href="#Jensen-inequality" class="headerlink" title="Jensen inequality"></a>Jensen inequality</h2><p>在開始之前我們先來認識一下 <strong>Jesen equality</strong>。</p>
+<center><img src="https://i.stack.imgur.com/GNBZ4.png" width=500/></center>
+
+<p>上面有兩個圖形分別是 <strong>Convex</strong> 跟 <strong>Concave</strong>，差別就在於開口的方向，如果用數學的方式來表達的話，就是在某個區間 $[a, b]$，存在一個數 $k \in [a, b]$，使得所有數都 $\leq f(k)$ 則為 <strong>Concave</strong>，反之 $\geq f(k)$ 則為 <strong>Convex</strong>。</p>
+<p><strong>Jensen inequality</strong> 為：</p>
+<ul>
+<li><strong>Convex</strong><br>  $$<br>  f(E(x)) \leq E(f(x))<br>  $$</li>
+<li><strong>Concave</strong><br>  $$<br>  E(f(x)) \leq f(E(x))<br>  $$</li>
+</ul>
+<p>其實這些不等式都不太需要記，因為 $E(x)$ 描述的就是 $x$ 的平均，而$f(E(x))$ 描述的就是 $x$ 平均的函式值，而 $E(f(x))$ 描述的就是 $y$ 的平均值。因此誰高誰低只要把圖形畫出來就能知道不等式的方向！</p>
+<h2 id="EM-algorithm"><a href="#EM-algorithm" class="headerlink" title="EM algorithm"></a>EM algorithm</h2><p>我們相要得到最好的結果不外乎是利用 <strong>MLE</strong>，因此我們這邊就寫出我們的 <strong>MLE</strong> 吧！假設我們有 $(x^{(1)}, x^{(2)}, …, x^{(m)})$ 的資料，而 $z^{(i)} \sim Multinomial(\phi)$:</p>
+<p>$$<br>\begin{align}<br>l(\theta) &amp;= \sum_{i=1}^m\log p(x;\theta) \\<br>&amp;= \sum_{i=1}^{m}\log (\sum_{z}p(x, z; \theta))<br>\end{align}<br>$$</p>
+<p>這邊我們利用了以下的等式：</p>
+<p>$$<br>p(x) = \sum_{z}p(x, z)<br>$$</p>
+<p>我們假設有一個 $Q_i(z^{(i)})$，是用來表示 $z^{(i)}$ 的分佈的，我們將我們的式子改寫成：</p>
+<p>$$<br>\begin{align}<br>l(\theta) &amp;= \sum_{i=1}^{m}\log (\sum_{z}p(x^{(i)}, z^{(i)}; \theta)) \\<br>&amp;= \sum_{i=1}^{m}\log (\sum_{z}Q(z^{(i)}) \frac{p(x^{(i)}, z^{(i)}; \theta)}{Q(z^{(i)})})  \\<br>\end{align}<br>$$</p>
+<p>我們知道我們的 $\log$ 是 <strong>Concave</strong></p>
+<center><img src="https://www.medcalc.org/manual/_help/functions/log.png"></center>
+
+<p>而$\sum_{z}Q(z^{(i)}) \frac{p(x^{(i)}, z^{(i)}; \theta)}{Q(z^{(i)})}$ 可以看成是 $E(x)$，取 $\log$，則變成 $f(E(x))$ 因此我們可以利用，<strong>Concave</strong> 版的 <strong>Jensen inequality</strong>，寫成：</p>
+<p>$$<br>\begin{align}<br>l(\theta) &amp;= \sum_{i=1}^{m}\log (\sum_{z}Q(z^{(i)}) \frac{p(x^{(i)}, z^{(i)}; \theta)}{Q(z^{(i)})}) \\<br>&amp;\geq \sum_{i=1}^{m}\sum_{z}Q(z^{(i)}) \log(\frac{p(x^{(i)}, z^{(i)}; \theta)}{Q(z^{(i)})})<br>\end{align}<br>$$</p>
+<p>我們希望我們可以使<strong>等號成立</strong>，而要使 <strong>Jensen inequality</strong> 的等號成立的條件是 $f(x)$ 是一個常數：</p>
+<p>$$<br>f(x) = c<br>$$</p>
+<p>因此我們希望：</p>
+<p>$$<br>\frac{p(x^{(i)}, z^{(i)}; \theta)}{Q(z^{(i)})} ＝c<br>$$</p>
+<p>而我們又知道 $\sum_{z}Q(z_i) = 1$，因此我們可以得到：</p>
+<p>$$<br>\frac{1}{c}\sum_{z}p(x^{(i)}, z^{(i)}; \theta) = \sum_{z}Q(z_i) = 1<br>$$</p>
+<p>因此 $c$ 就是 $\sum_{z}p(x^{(i)}, z^{(i)}; \theta)$，帶回原本的式子我們可以解得：</p>
+<p>$$<br>\begin{align}<br>    Q(z^{(i)}) &amp;= \frac{p(x^{(i)}, z^{(i)}; \theta)}{\sum_{z}p(x^{(i)}, z^{(i)}; \theta)} \\<br>    &amp;=  \frac{p(x^{(i)}, z^{(i)}; \theta)}{p(x^{(i)})}  \\<br>    &amp;= p(z^{(i)}\mid x^{(i)};\theta)<br>\end{align}<br>$$</p>
+<p>因此我們的演算法流程就是：</p>
+<br>
+
+<p>Repeat until convergence {<br><br></p>
+<ul>
+<li>(<strong>E step</strong>), For each i set:<br>  $$<br>  Q_i(z^{(i)}) := p(z^{(i)}\mid x^{(i)}; \theta)<br>  $$</li>
+<li>(<strong>M step</strong>), Set:<br>  $$<br>  \theta := \underset{\theta}{argmax} \sum_{i=1}^{m}\sum_{z}Q(z^{(i)}) \log(\frac{p(x^{(i)}, z^{(i)}; \theta)}{Q(z^{(i)})})<br>  $$</li>
+</ul>
+<p>}</p>
+<h2 id="回顧-KMeans"><a href="#回顧-KMeans" class="headerlink" title="回顧 KMeans"></a>回顧 <strong>KMeans</strong></h2><p>其實我們上篇講的也是蘊含 <strong>EM</strong> 在裡面，雖然說我們不需要用到複雜的數學模型，但是精神是一樣的。我們的<strong>標準點</strong>就是 <strong>EM</strong> 裡的 $\theta$：</p>
+<ul>
+<li><strong>E step</strong>: 找到每個點距離哪個標準點最近</li>
+<li><strong>M step</strong>: 利用現在各點來更新新的標準點</li>
+</ul>
+<p>下圖會更清楚：</p>
+<p><img src="https://jakevdp.github.io/PythonDataScienceHandbook/figures/05.11-expectation-maximization.png"></p>
+<h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>這篇是介紹 <strong>EM</strong> 的一些概念，我們下篇就會講到 <strong>EM</strong> 的實例 <strong>Mixture Gaussian</strong>。</p>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="http://cs229.stanford.edu/">cs229 from Standford</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjd0IS_0ufrAhULyIsBHfJ2BvIQFjASegQIAxAC&url=https://people.eecs.berkeley.edu/~pabbeel/cs287-fa13/slides/Likelihood_EM_HMM_Kalman.pdf&usg=AOvVaw2ETJ7-NqXLzDuOwIbM5CI-">Maximum Likelihood (ML), Expectation Maximization (EM)</a></li>
+</ol>
+<br/>
+<br/>
+<a href="/posts/4b193f43/" float=left>Last</a> <a href="/posts/84e9c09b/" style="float: right;">Next</a><!-- flag of hidden posts -->
+    </div>
+     
+    <div class="post-footer__meta"><p>updated at 2021-01-01</p></div> 
+    <div class="post-meta__cats"></div> 
+</article>
+
+
+
+
+    <div class="post__comments content-card" id="comment">
+        
+    <h4>Comments</h4>
+    
+    <div id="disqus_thread">Unable to load Disqus, please make sure your network can access.</div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    </div>
+
+
+
+</main>
+
+            <footer class="footer">
+    
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/viz.js/1.7.1/viz.js'></script>
+        <script>
+          String.prototype.replaceAll = function(search, replacement) {
+            var target = this;
+            return target.split(search).join(replacement);
+          };
+      
+          let vizObjects = document.querySelectorAll('.graphviz')
+      
+          for (let item of vizObjects) {
+            let svg = undefined
+            try {
+              svg = Viz(item.textContent.replaceAll('–', '--'), 'svg')
+            } catch(e) {
+              svg = `<pre class="error">${e}</pre>`
+            }
+            item.outerHTML = svg
+          }
+        </script>
+    
+    
+
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright © 2021 <a href="/">Justin website for sharing knowledge and getting idea.</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" rel="external nofollow noreferrer" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" rel="external nofollow noreferrer" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+         
+
+ 
+
+ 
+
+ 
+
+  
+
+
+
+ 
+
+
+    
+ 
+
+ 
+
+
+    <script>
+        if (typeof MathJax === 'undefined') {
+            window.MathJax = {
+                loader: {
+                    source: {
+                        '[tex]/amsCd': '[tex]/amscd',
+                        '[tex]/AMScd': '[tex]/amscd'
+                    }
+                },
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                },
+                options: {
+                    renderActions: {
+                        findScript: [10, doc => {
+                            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                                const display = !!node.type.match(/; *mode=display/);
+                                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                                const text = document.createTextNode('');
+                                node.parentNode.replaceChild(text, node);
+                                math.start = {node: text, delim: '', n: 0};
+                                math.end = {node: text, delim: '', n: 0};
+                                doc.math.push(math);
+                            });
+                        }, '', false],
+                        insertedScript: [200, () => {
+                            document.querySelectorAll('mjx-container').forEach(node => {
+                                let target = node.parentNode;
+                                if (target.nodeName.toLowerCase() === 'li') {
+                                    target.parentNode.classList.add('has-jax');
+                                }
+                            });
+                        }, '', false]
+                    }
+                }
+            };
+            (function () {
+                var script = document.createElement('script');
+                script.src = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js";
+                script.defer = true;
+                document.head.appendChild(script);
+            })();
+        } else {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+        }
+    </script>
+ 
+
+ 
+
+ 
+
+
+    
+    <script>
+        function loadComment() {
+            window.disqus_config = function () {
+                this.page.url = 'justin900429.github.io/posts/ae2dc64f/';
+                this.page.identifier = 'posts/ae2dc64f/';
+            };
+            (function(){
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + 'https-justin900429-github-io' + '.disqus.com/embed.js';
+                (document.head || document.body).appendChild(dsq);
+            })();
+        }
+    
+        var runningOnBrowser = typeof window !== "undefined";
+        var isBot = runningOnBrowser && !("onscroll" in window) || typeof navigator !== "undefined" && /(gle|ing|ro|msn)bot|crawl|spider|yand|duckgo/i.test(navigator.userAgent);
+        var supportsIntersectionObserver = runningOnBrowser && "IntersectionObserver" in window;
+    
+        setTimeout(function () {
+            if (!isBot && supportsIntersectionObserver) {
+                var comment_observer = new IntersectionObserver(function(entries) {
+                    if (entries[0].isIntersecting) {
+                        loadComment();
+                        comment_observer.disconnect();
+                    }
+                }, { threshold: [0] });
+                comment_observer.observe(document.getElementById('comment'));
+            } else {
+                loadComment();
+            }
+        }, 1);
+    </script>
+
+
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+
+
+
+    </body>
+</html>

@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    
+    
+    
+        <link rel="icon" type="image/png" sizes="32x32" href="/icon.png">
+    
+    
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple_icon_128.png">
+    
+    
+        <link rel="mask-icon" href="/apple_icon_128.png">
+    
+
+
+    <!-- meta -->
+
+
+<title>[Series 11] 機器怎麼學習？ | Justin website for sharing knowledge and getting idea.</title>
+
+
+    <meta name="keywords" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="[Series 11] 機器怎麼學習？See moreBack to the series page   什麼是機器學習？機器學習其實沒有想像中的那麼玄，他只是利用一個簡單或複雜的數學模型來模擬實際的情況。簡單來說，當我們看到下面這張左圖時，我們就會想我們該用什麼樣的方式來預測未來趨勢呢？如果說，我們決定用直線來模擬，那這條直線該有什麼限制呢？如果有了限制，我們需要怎麼讓機器學習？  機器究竟在學">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Series 11] 機器怎麼學習？">
+<meta property="og:url" content="justin900429.github.io/posts/df7aa4ac/index.html">
+<meta property="og:site_name" content="Justin website for sharing knowledge and getting idea.">
+<meta property="og:description" content="[Series 11] 機器怎麼學習？See moreBack to the series page   什麼是機器學習？機器學習其實沒有想像中的那麼玄，他只是利用一個簡單或複雜的數學模型來模擬實際的情況。簡單來說，當我們看到下面這張左圖時，我們就會想我們該用什麼樣的方式來預測未來趨勢呢？如果說，我們決定用直線來模擬，那這條直線該有什麼限制呢？如果有了限制，我們需要怎麼讓機器學習？  機器究竟在學">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20200820/20129593nvw4ljRuLB.jpg">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20200820/20129593JGHyxrx5wR.png">
+<meta property="article:published_time" content="2020-08-29T13:41:47.000Z">
+<meta property="article:modified_time" content="2021-01-01T02:29:01.817Z">
+<meta property="article:author" content="Justin Ruan">
+<meta property="article:tag" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ithelp.ithome.com.tw/upload/images/20200820/20129593nvw4ljRuLB.jpg">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+
+
+    
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/atom-one-light.min.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')===-1)this.media='all'">
+        
+    
+
+    
+
+     
+
+    <!-- custom head -->
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+    <body>
+        <div id="app">
+            <script>
+window.onscroll = () => {
+    const nav = document.querySelector('.header');
+    if(this.scrollY <= 10) {
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0)"
+    } else {
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+    }
+};
+</script>
+
+<header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">Justin&#39;s blog</span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/about/" class="navbar-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="navbar-menu button">CV</a>
+                
+                    <a href="/" class="navbar-menu button">Articles</a>
+                
+                    <a href="/tags/" class="navbar-menu button">Tags</a>
+                
+                    <a href="/archives/" class="navbar-menu button">Archives</a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+
+         
+    <a href="#" class="button" id="b2t" aria-label="Back to Top" title="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="32" height="32">
+            <path d="M233.376 722.752L278.624 768 512 534.624 745.376 768l45.248-45.248L512 444.128zM192 352h640V288H192z" fill="currentColor"></path>
+        </svg>
+    </a>
+
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                
+                    <a href="/about/" class="dropdown-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="dropdown-menu button">CV</a>
+                
+                    <a href="/" class="dropdown-menu button">Articles</a>
+                
+                    <a href="/tags/" class="dropdown-menu button">Tags</a>
+                
+                    <a href="/archives/" class="dropdown-menu button">Archives</a>
+                
+            </div>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+
+<div class="post-title">
+    <h1 class="post-title__text">
+        [Series 11] 機器怎麼學習？
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2020/08/" class="post-meta__date button">2020-08-29</a>
+        
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <aside class="post-side">
+        <div class="post-side__toc">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AF%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">什麼是機器學習？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A9%9F%E5%99%A8%E7%A9%B6%E7%AB%9F%E5%9C%A8%E5%AD%B8%E4%BB%80%E9%BA%BC%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">機器究竟在學什麼？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%9D%E5%A5%97%E4%BB%B6"><span class="toc-number">3.</span> <span class="toc-text">安裝套件</span></a></li></ol>
+        </div>
+    </aside>
+    <a class="btn-toc button" id="btn-toc" tabindex="0">
+        <svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path>
+        </svg>
+    </a>
+    <div class="toc-menus" id="toc-menus">
+        <div class="toc-title">Article Directory</div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AF%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">什麼是機器學習？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A9%9F%E5%99%A8%E7%A9%B6%E7%AB%9F%E5%9C%A8%E5%AD%B8%E4%BB%80%E9%BA%BC%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">機器究竟在學什麼？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%9D%E5%A5%97%E4%BB%B6"><span class="toc-number">3.</span> <span class="toc-text">安裝套件</span></a></li></ol>
+    </div>
+
+
+<article class="post content-card">
+    <div class="post__header"></div>
+    <div class="post__content">
+        <h1 id="Series-11-機器怎麼學習？"><a href="#Series-11-機器怎麼學習？" class="headerlink" title="[Series 11] 機器怎麼學習？"></a>[Series 11] 機器怎麼學習？</h1><blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/posts/f9a1d882/">Back to the series page</a></p>
+</div></blockquote>
+
+<h2 id="什麼是機器學習？"><a href="#什麼是機器學習？" class="headerlink" title="什麼是機器學習？"></a>什麼是機器學習？</h2><p>機器學習其實沒有想像中的那麼玄，他只是利用一個<strong>簡單或複雜的數學模型</strong>來模擬實際的情況。簡單來說，當我們看到下面這張左圖時，我們就會想我們該用什麼樣的方式來預測未來趨勢呢？如果說，我們決定用直線來模擬，那這條直線該有什麼限制呢？如果有了限制，我們需要怎麼讓機器學習？</p>
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20200820/20129593nvw4ljRuLB.jpg" alt="https://ithelp.ithome.com.tw/upload/images/20200820/20129593nvw4ljRuLB.jpg"></p>
+<h2 id="機器究竟在學什麼？"><a href="#機器究竟在學什麼？" class="headerlink" title="機器究竟在學什麼？"></a>機器究竟在學什麼？</h2><p>之前我們有提到資料科學家大部分花很多心思在<strong>Feature engineering</strong>，最主要的是因為機器學習的推力就是資料的品質與多寡。我們回到上面的例子，我們在說要套用什麼模型的時候，完全沒有提到是由機器決定的，因為模型是由工程師經過分析來決定的。而機器學習的便是<strong>這個模型的參數</strong>！例如<strong>Linear Regression是由w和b來決定的</strong>:</p>
+<p>$$<br>y = f(x) = mx + b<br>$$</p>
+<p>學習完之後，我們便需要一個<strong>指摽</strong>來告訴我們這個模型該往什麼方向改進，這便是<strong>Loss function</strong>的任務。既然是function，那就會有輸入跟輸出，輸入便是我現在訓練出來的模型，輸出就是我跟現實的誤差。舉例來說，Linear Regression可以利用<strong>平方誤差</strong>或是<strong>絕對誤差</strong>當作<strong>Loss function</strong>，之後會有更詳細的介紹。</p>
+<p>$$<br>Mean \ Square \ error \ :<br> \frac{1}{n}\sum_{k=1}^{n}(\hat{y} - y_{k})^{2}<br>$$</p>
+<p>$$<br>註：\hat{y}是預測的y, \ y_{k}是實際的label值<br>$$</p>
+<p>這邊附上我製作的ML的關係圖:<br><img src="https://ithelp.ithome.com.tw/upload/images/20200820/20129593JGHyxrx5wR.png" alt="https://ithelp.ithome.com.tw/upload/images/20200820/20129593JGHyxrx5wR.png"></p>
+<blockquote>
+<p>註: Hypothesis是指我們決定的模型，Real World是指真實世界</p>
+</blockquote>
+<h2 id="安裝套件"><a href="#安裝套件" class="headerlink" title="安裝套件"></a>安裝套件</h2><p>基本上我們都會用<strong>Colab</strong>來帶大家跑一次，但如果想在自己電腦做的話需要安裝Package：</p>
+<pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> conda activate &lt;your-environment&gt;</span>
+<span class="hljs-meta">$</span><span class="bash"> conda install -c anaconda scikit-learn </span></code></pre>
+
+<br/>
+<br/>
+<a href="/posts/508432e1/" float=left>Last</a> <a href="/posts/75d5101b/" style="float: right;">Next</a>
+<!-- flag of hidden posts -->
+    </div>
+     
+    <div class="post-footer__meta"><p>updated at 2021-01-01</p></div> 
+    <div class="post-meta__cats"></div> 
+</article>
+
+
+
+
+    <div class="post__comments content-card" id="comment">
+        
+    <h4>Comments</h4>
+    
+    <div id="disqus_thread">Unable to load Disqus, please make sure your network can access.</div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    </div>
+
+
+
+</main>
+
+            <footer class="footer">
+    
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/viz.js/1.7.1/viz.js'></script>
+        <script>
+          String.prototype.replaceAll = function(search, replacement) {
+            var target = this;
+            return target.split(search).join(replacement);
+          };
+      
+          let vizObjects = document.querySelectorAll('.graphviz')
+      
+          for (let item of vizObjects) {
+            let svg = undefined
+            try {
+              svg = Viz(item.textContent.replaceAll('–', '--'), 'svg')
+            } catch(e) {
+              svg = `<pre class="error">${e}</pre>`
+            }
+            item.outerHTML = svg
+          }
+        </script>
+    
+    
+
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright © 2021 <a href="/">Justin website for sharing knowledge and getting idea.</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" rel="external nofollow noreferrer" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" rel="external nofollow noreferrer" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+         
+
+ 
+
+ 
+
+ 
+
+  
+
+
+
+ 
+
+
+    
+ 
+
+ 
+
+
+    <script>
+        if (typeof MathJax === 'undefined') {
+            window.MathJax = {
+                loader: {
+                    source: {
+                        '[tex]/amsCd': '[tex]/amscd',
+                        '[tex]/AMScd': '[tex]/amscd'
+                    }
+                },
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                },
+                options: {
+                    renderActions: {
+                        findScript: [10, doc => {
+                            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                                const display = !!node.type.match(/; *mode=display/);
+                                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                                const text = document.createTextNode('');
+                                node.parentNode.replaceChild(text, node);
+                                math.start = {node: text, delim: '', n: 0};
+                                math.end = {node: text, delim: '', n: 0};
+                                doc.math.push(math);
+                            });
+                        }, '', false],
+                        insertedScript: [200, () => {
+                            document.querySelectorAll('mjx-container').forEach(node => {
+                                let target = node.parentNode;
+                                if (target.nodeName.toLowerCase() === 'li') {
+                                    target.parentNode.classList.add('has-jax');
+                                }
+                            });
+                        }, '', false]
+                    }
+                }
+            };
+            (function () {
+                var script = document.createElement('script');
+                script.src = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js";
+                script.defer = true;
+                document.head.appendChild(script);
+            })();
+        } else {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+        }
+    </script>
+ 
+
+ 
+
+ 
+
+
+    
+    <script>
+        function loadComment() {
+            window.disqus_config = function () {
+                this.page.url = 'justin900429.github.io/posts/df7aa4ac/';
+                this.page.identifier = 'posts/df7aa4ac/';
+            };
+            (function(){
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + 'https-justin900429-github-io' + '.disqus.com/embed.js';
+                (document.head || document.body).appendChild(dsq);
+            })();
+        }
+    
+        var runningOnBrowser = typeof window !== "undefined";
+        var isBot = runningOnBrowser && !("onscroll" in window) || typeof navigator !== "undefined" && /(gle|ing|ro|msn)bot|crawl|spider|yand|duckgo/i.test(navigator.userAgent);
+        var supportsIntersectionObserver = runningOnBrowser && "IntersectionObserver" in window;
+    
+        setTimeout(function () {
+            if (!isBot && supportsIntersectionObserver) {
+                var comment_observer = new IntersectionObserver(function(entries) {
+                    if (entries[0].isIntersecting) {
+                        loadComment();
+                        comment_observer.disconnect();
+                    }
+                }, { threshold: [0] });
+                comment_observer.observe(document.getElementById('comment'));
+            } else {
+                loadComment();
+            }
+        }, 1);
+    </script>
+
+
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+
+
+
+    </body>
+</html>

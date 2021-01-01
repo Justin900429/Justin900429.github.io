@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    
+    
+    
+        <link rel="icon" type="image/png" sizes="32x32" href="/icon.png">
+    
+    
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple_icon_128.png">
+    
+    
+        <link rel="mask-icon" href="/apple_icon_128.png">
+    
+
+
+    <!-- meta -->
+
+
+<title>Android Activity | Justin website for sharing knowledge and getting idea.</title>
+
+
+    <meta name="keywords" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="Android ActivitySee moreBack to the series page   前言今天我們要開始寫我們的第一個 Activity。我們要來認識一下什麼是 Activity。  什麼是 Activity Activity 的架構 綁定設計  什麼是 ActivityActivity 就是我們每一個 app 的頁面，每個頁面都會自己Activity，我們可以透過撰寫不同 Acti">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Activity">
+<meta property="og:url" content="justin900429.github.io/posts/97bb715d/index.html">
+<meta property="og:site_name" content="Justin website for sharing knowledge and getting idea.">
+<meta property="og:description" content="Android ActivitySee moreBack to the series page   前言今天我們要開始寫我們的第一個 Activity。我們要來認識一下什麼是 Activity。  什麼是 Activity Activity 的架構 綁定設計  什麼是 ActivityActivity 就是我們每一個 app 的頁面，每個頁面都會自己Activity，我們可以透過撰寫不同 Acti">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/XHlI7q9.jpg">
+<meta property="og:image" content="https://i.imgur.com/gCJpkGu.png">
+<meta property="og:image" content="https://i.imgur.com/Hlz1f2d.png">
+<meta property="og:image" content="https://i.imgur.com/x9LYT44.png">
+<meta property="og:image" content="https://i.imgur.com/geY0Ye9.jpg">
+<meta property="article:published_time" content="2020-09-24T06:19:58.000Z">
+<meta property="article:modified_time" content="2020-12-31T01:28:16.967Z">
+<meta property="article:author" content="Justin Ruan">
+<meta property="article:tag" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://i.imgur.com/XHlI7q9.jpg">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+
+
+    
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/atom-one-light.min.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')===-1)this.media='all'">
+        
+    
+
+    
+
+     
+
+    <!-- custom head -->
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+    <body>
+        <div id="app">
+            <script>
+window.onscroll = () => {
+    const nav = document.querySelector('.header');
+    if(this.scrollY <= 10) {
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0)"
+    } else {
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+    }
+};
+</script>
+
+<header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">Justin&#39;s blog</span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/about/" class="navbar-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="navbar-menu button">CV</a>
+                
+                    <a href="/" class="navbar-menu button">Articles</a>
+                
+                    <a href="/tags/" class="navbar-menu button">Tags</a>
+                
+                    <a href="/archives/" class="navbar-menu button">Archives</a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+
+         
+    <a href="#" class="button" id="b2t" aria-label="Back to Top" title="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="32" height="32">
+            <path d="M233.376 722.752L278.624 768 512 534.624 745.376 768l45.248-45.248L512 444.128zM192 352h640V288H192z" fill="currentColor"></path>
+        </svg>
+    </a>
+
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                
+                    <a href="/about/" class="dropdown-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="dropdown-menu button">CV</a>
+                
+                    <a href="/" class="dropdown-menu button">Articles</a>
+                
+                    <a href="/tags/" class="dropdown-menu button">Tags</a>
+                
+                    <a href="/archives/" class="dropdown-menu button">Archives</a>
+                
+            </div>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+
+<div class="post-title">
+    <h1 class="post-title__text">
+        Android Activity
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2020/09/" class="post-meta__date button">2020-09-24</a>
+        
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <aside class="post-side">
+        <div class="post-side__toc">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AF-Activity"><span class="toc-number">2.</span> <span class="toc-text">什麼是 Activity</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Activity-%E7%9A%84%E6%9E%B6%E6%A7%8B"><span class="toc-number">3.</span> <span class="toc-text">Activity 的架構</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#onCreate"><span class="toc-number">3.1.</span> <span class="toc-text">onCreate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B6%81%E5%AE%9A%E8%A8%AD%E8%A8%88"><span class="toc-number">3.2.</span> <span class="toc-text">綁定設計</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-number">4.</span> <span class="toc-text">References</span></a></li></ol>
+        </div>
+    </aside>
+    <a class="btn-toc button" id="btn-toc" tabindex="0">
+        <svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path>
+        </svg>
+    </a>
+    <div class="toc-menus" id="toc-menus">
+        <div class="toc-title">Article Directory</div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AF-Activity"><span class="toc-number">2.</span> <span class="toc-text">什麼是 Activity</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Activity-%E7%9A%84%E6%9E%B6%E6%A7%8B"><span class="toc-number">3.</span> <span class="toc-text">Activity 的架構</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#onCreate"><span class="toc-number">3.1.</span> <span class="toc-text">onCreate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B6%81%E5%AE%9A%E8%A8%AD%E8%A8%88"><span class="toc-number">3.2.</span> <span class="toc-text">綁定設計</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-number">4.</span> <span class="toc-text">References</span></a></li></ol>
+    </div>
+
+
+<article class="post content-card">
+    <div class="post__header"></div>
+    <div class="post__content">
+        <h1 id="Android-Activity"><a href="#Android-Activity" class="headerlink" title="Android Activity"></a>Android Activity</h1><blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/posts/b34c5f8c/">Back to the series page</a></p>
+</div></blockquote>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天我們要開始寫我們的第一個 <strong>Activity</strong>。我們要來認識一下什麼是 <strong>Activity</strong>。</p>
+<ul>
+<li><a href="#%E4%BB%80%E9%BA%BC%E6%98%AF-Activity">什麼是 Activity</a></li>
+<li><a href="#Activity-%E7%9A%84%E6%9E%B6%E6%A7%8B">Activity 的架構</a></li>
+<li><a href="#%E7%B6%81%E5%AE%9A%E8%A8%AD%E8%A8%88">綁定設計</a></li>
+</ul>
+<h2 id="什麼是-Activity"><a href="#什麼是-Activity" class="headerlink" title="什麼是 Activity"></a>什麼是 Activity</h2><p><strong>Activity</strong> 就是我們每一個 <strong>app</strong> 的頁面，每個頁面都會自己<strong>Activity</strong>，我們可以透過撰寫不同 <strong>Activity</strong> 來展現不同的功能，同時每個 <strong>Activity</strong> 之間也能透過 <strong>Intent</strong> 相互溝通。</p>
+<center><img src="https://i.imgur.com/XHlI7q9.jpg" width=500/></center>
+
+<p>我們會利用 <strong>java</strong> 或是 <strong>kotlin</strong> 來撰寫我們的 <strong>Activity</strong>。我們的 <strong>Activity</strong> 會放在 <code>java</code> 資料夾下(<code>kotlin</code> 也是)。</p>
+<center><img src="https://i.imgur.com/gCJpkGu.png" width=350/></center>
+<br>
+
+<hr>
+<h2 id="Activity-的架構"><a href="#Activity-的架構" class="headerlink" title="Activity 的架構"></a>Activity 的架構</h2><p>我們在一開始創立 <strong>project</strong> 的時候會出現下面這些，其實我們可以觀察到，我們的 <strong>MainActivity</strong> 是繼承自 <strong>AppCompatActivity</strong>。</p>
+<pre><code class="hljs kotlin"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MainActivity</span> : <span class="hljs-type">AppCompatActivity</span></span>() &#123;
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onCreate</span><span class="hljs-params">(savedInstanceState: <span class="hljs-type">Bundle</span>?)</span></span> &#123;
+        <span class="hljs-keyword">super</span>.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+    &#125;
+&#125;</code></pre>
+
+<p>如果我們到 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://developer.android.com/reference/android/app/Activity"><strong>Android documentation</strong></a> 裡面，我們可以看到 <strong>Activity</strong> 的階層關係:</p>
+<br>
+<center><img src="https://i.imgur.com/Hlz1f2d.png" width=700/></center>
+<br>
+
+<h3 id="onCreate"><a href="#onCreate" class="headerlink" title="onCreate"></a>onCreate</h3><p><strong>onCreate</strong> 是在我們 <strong>Activity</strong> 剛創建時要做的事情。我們需要去<mark>覆寫</mark> <code>onCreate</code>。例如我們需要將變數跟我們的外觀設計綁定或是我們有一些屬性就需要在最一開始處理，例如我們看到：</p>
+<pre><code class="hljs kotlin">setContentView(R.layout.activity_main)</code></pre>
+
+<p>這行的用意就在將我們的 <strong>Activity</strong> 與某個 <strong>layout</strong> 綁定。這邊我們是綁定 <code>activity_main.xml</code>，假如我們今天有另一個 <strong>layout</strong> 叫做 <code>hello_main.xml</code>，則我們也可以改成：</p>
+<pre><code class="hljs kotlin">setContentView(R.layout.hello_main)</code></pre>
+
+<p>事實上，我們 <strong>onCreate</strong> 跟我們 <strong>Activity</strong> 的生命週期有關，但是我們這邊就先不說明，我們留待之後做介紹，這邊我先把關係圖放出來讓大家有個印象。</p>
+<center><img src="https://i.imgur.com/x9LYT44.png" width=600/></center>
+<br>
+
+<hr>
+<h3 id="綁定設計"><a href="#綁定設計" class="headerlink" title="綁定設計"></a>綁定設計</h3><p>我們剛剛在講 <strong>onCreate</strong> 時，提到過我們需要綁定物件。綁定物件的用意式在之後能讓程式知道我們在使用哪個物件。因此我們需要在 <strong>layout</strong> 設定 <strong>ID</strong>，這個 <strong>ID</strong> 需要是唯一（對<strong>同一個 layout file</strong>）。 這邊我們創立一個 <strong>EditText</strong>，<strong>xml</strong> 程式為：</p>
+<pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">androidx.constraintlayout.widget.ConstraintLayout</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">xmlns:app</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res-auto&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">xmlns:tools</span>=<span class="hljs-string">&quot;http://schemas.android.com/tools&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;match_parent&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;match_parent&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">tools:context</span>=<span class="hljs-string">&quot;.MainActivity&quot;</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">EditText</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:id</span>=<span class="hljs-string">&quot;@+id/edt_name&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:ems</span>=<span class="hljs-string">&quot;10&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:inputType</span>=<span class="hljs-string">&quot;textPersonName&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:text</span>=<span class="hljs-string">&quot;Name&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintBottom_toBottomOf</span>=<span class="hljs-string">&quot;parent&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintEnd_toEndOf</span>=<span class="hljs-string">&quot;parent&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintStart_toStartOf</span>=<span class="hljs-string">&quot;parent&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintTop_toTopOf</span>=<span class="hljs-string">&quot;parent&quot;</span> /&gt;</span>
+        
+<span class="hljs-tag">&lt;/<span class="hljs-name">androidx.constraintlayout.widget.ConstraintLayout</span>&gt;</span></code></pre>
+
+<p>注意我們在 <strong>EditText</strong> 裡加入一行</p>
+<pre><code class="hljs xml">android:id=&quot;@+id/edt_name&quot;</code></pre>
+<p>這行就是在為我們的 <strong>EditText</strong> 加入 <strong>ID</strong>，前面的 <code>@+id</code> 是固定的，後面的才是我們真正的名字。一般我們命名的規則就是 <code>&lt;views_name&gt;_&lt;usage&gt;</code>，例如我們是 <strong>EditText</strong> 並且用來輸入名字，所以就叫做 <code>edt_name</code>。</p>
+<p>在我們 <strong>onCreate</strong> 時我們想要綁定這個物件時我們需要輸入：</p>
+<pre><code class="hljs kotlin"><span class="hljs-keyword">val</span> edt_name = findViewById&lt;EditText&gt;(R.id.edt_name)</code></pre>
+
+<p><code>R</code> 就是在編譯應用程式後所產生的 <strong>R</strong> 類別。此類別內含 <strong>res/</strong> 目錄中所有資源的 <strong>ID</strong>。因此我們可以利用 <code>R.id</code> 來存取我們的 <strong>ID</strong>。</p>
+<p>此時我們直接讓 <strong>edt_name</strong> 的文字顯示成 <strong>Hello World</strong>，我們可以這樣做：</p>
+<pre><code class="hljs kotlin">edt_name.setText(<span class="hljs-string">&quot;Hello Wrold&quot;</span>)</code></pre>
+
+<p>完整的程式碼會是：</p>
+<pre><code class="hljs kotlin"><span class="hljs-keyword">package</span> com.example.myapplication
+
+<span class="hljs-keyword">import</span> androidx.appcompat.app.AppCompatActivity
+<span class="hljs-keyword">import</span> android.os.Bundle
+<span class="hljs-keyword">import</span> android.widget.EditText
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MainActivity</span> : <span class="hljs-type">AppCompatActivity</span></span>() &#123;
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onCreate</span><span class="hljs-params">(savedInstanceState: <span class="hljs-type">Bundle</span>?)</span></span> &#123;
+        <span class="hljs-keyword">super</span>.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        <span class="hljs-keyword">val</span> edtName = findViewById&lt;EditText&gt;(R.id.edt_name)
+        edtName.setText(<span class="hljs-string">&quot;Hello World&quot;</span>)
+    &#125;
+&#125;</code></pre>
+
+<p>當我們一打開我們的手機他就會顯示 <strong>Hello World</strong> !</p>
+<center><img src="https://i.imgur.com/geY0Ye9.jpg" width=250/></center>
+
+<p>其實我們在 <strong>Kotlin</strong> 不需要去綁定我們的物件就可以使用了！也就是我們可以單純用物件的 <strong>ID</strong> 來執行</p>
+<pre><code class="hljs kotlin">edt_name.setText(<span class="hljs-string">&quot;Hello World&quot;</span>)</code></pre>
+
+<p>至於為什麼可以這樣做是因為在我們的 <strong>build.gradle</strong> 裡有三行程式碼：</p>
+<pre><code class="hljs groovy">apply <span class="hljs-attr">plugin:</span> <span class="hljs-string">&#x27;com.android.application&#x27;</span>
+apply <span class="hljs-attr">plugin:</span> <span class="hljs-string">&#x27;kotlin-android&#x27;</span>
+apply <span class="hljs-attr">plugin:</span> <span class="hljs-string">&#x27;kotlin-android-extensions&#x27;</span></code></pre>
+
+<p>這三行的意思是用來加入 <strong>plugin</strong> ，來讓我們寫程式的時候能更方便。 可以參考<a target="_blank" rel="noopener external nofollow noreferrer" href="https://antonioleiva.com/kotlin-android-extensions/">這篇</a>。</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://litotom.com/product/android-ebook-kotlin-1/">Android 實作這樣學: Kotlin 電子書 (上冊)</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://google-developer-training.github.io/android-developer-fundamentals-course-concepts-v2/unit-1-get-started/lesson-2-activities-and-intents/2-1-c-activities-and-intents/2-1-c-activities-and-intents.html#chapterstart">2.1: Activities and intents</a></li>
+</ol>
+<br/>
+<br/>
+<a href="/posts/b3663543/" float=left>Last</a> <a href="/posts/ae534c25/" style="float: right;">Next</a><!-- flag of hidden posts -->
+    </div>
+     
+    <div class="post-footer__meta"><p>updated at 2020-12-31</p></div> 
+    <div class="post-meta__cats"></div> 
+</article>
+
+
+
+
+    <div class="post__comments content-card" id="comment">
+        
+    <h4>Comments</h4>
+    
+    <div id="disqus_thread">Unable to load Disqus, please make sure your network can access.</div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    </div>
+
+
+
+</main>
+
+            <footer class="footer">
+    
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/viz.js/1.7.1/viz.js'></script>
+        <script>
+          String.prototype.replaceAll = function(search, replacement) {
+            var target = this;
+            return target.split(search).join(replacement);
+          };
+      
+          let vizObjects = document.querySelectorAll('.graphviz')
+      
+          for (let item of vizObjects) {
+            let svg = undefined
+            try {
+              svg = Viz(item.textContent.replaceAll('–', '--'), 'svg')
+            } catch(e) {
+              svg = `<pre class="error">${e}</pre>`
+            }
+            item.outerHTML = svg
+          }
+        </script>
+    
+    
+
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright © 2021 <a href="/">Justin website for sharing knowledge and getting idea.</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" rel="external nofollow noreferrer" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" rel="external nofollow noreferrer" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+         
+
+ 
+
+ 
+
+ 
+
+  
+
+
+
+ 
+
+
+    
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+    
+    <script>
+        function loadComment() {
+            window.disqus_config = function () {
+                this.page.url = 'justin900429.github.io/posts/97bb715d/';
+                this.page.identifier = 'posts/97bb715d/';
+            };
+            (function(){
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + 'https-justin900429-github-io' + '.disqus.com/embed.js';
+                (document.head || document.body).appendChild(dsq);
+            })();
+        }
+    
+        var runningOnBrowser = typeof window !== "undefined";
+        var isBot = runningOnBrowser && !("onscroll" in window) || typeof navigator !== "undefined" && /(gle|ing|ro|msn)bot|crawl|spider|yand|duckgo/i.test(navigator.userAgent);
+        var supportsIntersectionObserver = runningOnBrowser && "IntersectionObserver" in window;
+    
+        setTimeout(function () {
+            if (!isBot && supportsIntersectionObserver) {
+                var comment_observer = new IntersectionObserver(function(entries) {
+                    if (entries[0].isIntersecting) {
+                        loadComment();
+                        comment_observer.disconnect();
+                    }
+                }, { threshold: [0] });
+                comment_observer.observe(document.getElementById('comment'));
+            } else {
+                loadComment();
+            }
+        }, 1);
+    </script>
+
+
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+
+
+
+    </body>
+</html>

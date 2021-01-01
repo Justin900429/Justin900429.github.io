@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    
+    
+    
+        <link rel="icon" type="image/png" sizes="32x32" href="/icon.png">
+    
+    
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple_icon_128.png">
+    
+    
+        <link rel="mask-icon" href="/apple_icon_128.png">
+    
+
+
+    <!-- meta -->
+
+
+<title>[Series - 22] Random Forest | Justin website for sharing knowledge and getting idea.</title>
+
+
+    <meta name="keywords" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="[Series - 22] Random ForestSee moreBack to the series page   前言上篇介紹 Decision tree，而這篇要分享的 Random forest 就是建構在 Decision tree 上的演算法。 NotebookNotebook Random Forest當我們看到 Forest 的時候，肯定會想到有很多 Tree，而這正是 Ran">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Series - 22] Random Forest">
+<meta property="og:url" content="justin900429.github.io/posts/8dc0f771/index.html">
+<meta property="og:site_name" content="Justin website for sharing knowledge and getting idea.">
+<meta property="og:description" content="[Series - 22] Random ForestSee moreBack to the series page   前言上篇介紹 Decision tree，而這篇要分享的 Random forest 就是建構在 Decision tree 上的演算法。 NotebookNotebook Random Forest當我們看到 Forest 的時候，肯定會想到有很多 Tree，而這正是 Ran">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://miro.medium.com/max/1170/1*58f1CZ8M4il0OZYg2oRN4w.png">
+<meta property="og:image" content="https://i.imgur.com/LwTMYrR.jpg">
+<meta property="og:image" content="https://i.imgur.com/HJ6lu5T.jpg">
+<meta property="og:image" content="https://i.imgur.com/jzTkb1B.png">
+<meta property="article:published_time" content="2020-09-11T09:35:47.000Z">
+<meta property="article:modified_time" content="2021-01-01T02:36:43.954Z">
+<meta property="article:author" content="Justin Ruan">
+<meta property="article:tag" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://miro.medium.com/max/1170/1*58f1CZ8M4il0OZYg2oRN4w.png">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+
+
+    
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/atom-one-light.min.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')===-1)this.media='all'">
+        
+    
+
+    
+
+     
+
+    <!-- custom head -->
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+    <body>
+        <div id="app">
+            <script>
+window.onscroll = () => {
+    const nav = document.querySelector('.header');
+    if(this.scrollY <= 10) {
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0)"
+    } else {
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+    }
+};
+</script>
+
+<header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">Justin&#39;s blog</span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/about/" class="navbar-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="navbar-menu button">CV</a>
+                
+                    <a href="/" class="navbar-menu button">Articles</a>
+                
+                    <a href="/tags/" class="navbar-menu button">Tags</a>
+                
+                    <a href="/archives/" class="navbar-menu button">Archives</a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+
+         
+    <a href="#" class="button" id="b2t" aria-label="Back to Top" title="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="32" height="32">
+            <path d="M233.376 722.752L278.624 768 512 534.624 745.376 768l45.248-45.248L512 444.128zM192 352h640V288H192z" fill="currentColor"></path>
+        </svg>
+    </a>
+
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                
+                    <a href="/about/" class="dropdown-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="dropdown-menu button">CV</a>
+                
+                    <a href="/" class="dropdown-menu button">Articles</a>
+                
+                    <a href="/tags/" class="dropdown-menu button">Tags</a>
+                
+                    <a href="/archives/" class="dropdown-menu button">Archives</a>
+                
+            </div>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+
+<div class="post-title">
+    <h1 class="post-title__text">
+        [Series - 22] Random Forest
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2020/09/" class="post-meta__date button">2020-09-11</a>
+        
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <aside class="post-side">
+        <div class="post-side__toc">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Notebook"><span class="toc-number">2.</span> <span class="toc-text">Notebook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Random-Forest"><span class="toc-number">3.</span> <span class="toc-text">Random Forest</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ensemble-Bagging"><span class="toc-number">4.</span> <span class="toc-text">Ensemble - Bagging</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Feature-selection"><span class="toc-number">5.</span> <span class="toc-text">Feature selection</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ensembling-%E8%83%8C%E5%BE%8C%E7%9A%84%E5%8E%9F%E7%90%86"><span class="toc-number">6.</span> <span class="toc-text">Ensembling 背後的原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">7.</span> <span class="toc-text">程式碼</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">8.</span> <span class="toc-text">結語</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">9.</span> <span class="toc-text">參考資料</span></a></li></ol>
+        </div>
+    </aside>
+    <a class="btn-toc button" id="btn-toc" tabindex="0">
+        <svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path>
+        </svg>
+    </a>
+    <div class="toc-menus" id="toc-menus">
+        <div class="toc-title">Article Directory</div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Notebook"><span class="toc-number">2.</span> <span class="toc-text">Notebook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Random-Forest"><span class="toc-number">3.</span> <span class="toc-text">Random Forest</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ensemble-Bagging"><span class="toc-number">4.</span> <span class="toc-text">Ensemble - Bagging</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Feature-selection"><span class="toc-number">5.</span> <span class="toc-text">Feature selection</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ensembling-%E8%83%8C%E5%BE%8C%E7%9A%84%E5%8E%9F%E7%90%86"><span class="toc-number">6.</span> <span class="toc-text">Ensembling 背後的原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">7.</span> <span class="toc-text">程式碼</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">8.</span> <span class="toc-text">結語</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">9.</span> <span class="toc-text">參考資料</span></a></li></ol>
+    </div>
+
+
+<article class="post content-card">
+    <div class="post__header"></div>
+    <div class="post__content">
+        <h1 id="Series-22-Random-Forest"><a href="#Series-22-Random-Forest" class="headerlink" title="[Series - 22] Random Forest"></a>[Series - 22] Random Forest</h1><blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/posts/f9a1d882/">Back to the series page</a></p>
+</div></blockquote>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>上篇介紹 <strong>Decision tree</strong>，而這篇要分享的 <strong>Random forest</strong> 就是建構在 <strong>Decision tree</strong> 上的演算法。</p>
+<h2 id="Notebook"><a href="#Notebook" class="headerlink" title="Notebook"></a>Notebook</h2><p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://colab.research.google.com/github/Justin900429/IT-used/blob/master/Random%20Forest.ipynb">Notebook</a></p>
+<h2 id="Random-Forest"><a href="#Random-Forest" class="headerlink" title="Random Forest"></a>Random Forest</h2><p>當我們看到 <strong>Forest</strong> 的時候，肯定會想到有很多 <strong>Tree</strong>，而這正是 <strong>Random forest</strong> 的核心精神 - 利用很多 <strong>Decision Tree</strong> 來做決策。</p>
+<p><img src="https://miro.medium.com/max/1170/1*58f1CZ8M4il0OZYg2oRN4w.png"></p>
+<p>這張圖很清楚的說明，當我們把眾多資料丟進去 <strong>Random Forest</strong> 做預測的時候，事實上就是利用眾多的樹做投票，並決定最終的種類。</p>
+<h2 id="Ensemble-Bagging"><a href="#Ensemble-Bagging" class="headerlink" title="Ensemble - Bagging"></a>Ensemble - Bagging</h2><p>一般利用很多樹集合成一個演算法的方式我們會叫 <strong>Ensemble</strong>，而又因不同的方式有不同的類別，而 <strong>Random Forest</strong> 所使用的方式叫做 <strong>Bagging</strong> 也就是 <strong>Bootstrap aggregation</strong>。<strong>Boostrap</strong> 指的是我們在建立每一顆樹的取樣方式，因為我們的樹是透過資料點來建立的。<strong>Aggregation</strong> 指的是我們將每一顆樹建立成森林做預測。</p>
+<ul>
+<li><p><strong>Boostrap</strong><br>  這裡我們有一個假設，就是我們的訓練資料集合 $S$，跟我們真實產出的資料的集合 $P$ 是一樣的。（當我們資料量非常大的時候才會接近）。接著對 $S$ 做取樣，得到集合 $Z$，這邊的取樣是有放回去的，因此我們可能會重複選取，而取樣的數目可以根源資料一樣多，也可以比較少。做多次取樣，我們可以得到 $Z_1, Z_2, …, Z_m$，並將這些取樣的集合拿去產生 $m$ 個樹。如下圖：</p>
+  <center><img src="https://i.imgur.com/LwTMYrR.jpg" width=450/></center>
+</li>
+<li><p><strong>Aggregation</strong><br>  <strong>Aggregation</strong> 就是將我們學習完後的樹<strong>聚合</strong>在一起，形成更強力的分類模型。假設我們每個取樣 $Z_m$ 可以產生一個 <strong>model</strong> $G_m$，則我們的最終分類器：</p>
+<p>  $$<br>  G(X) = \sum_{m}\frac{G_m(x)}{M}<br>  $$</p>
+</li>
+</ul>
+<p>其實大家稍微觀察一下，可能會發現，有些資料點在某些 <strong>sample</strong> 可能沒有被選取到。如果我們換個想法，將同樣沒選取到這筆資料的樹集合在一起，並將這筆資料當作驗證資料，我們就可以達到自我驗證的功效！而那些沒被選到的資料點就稱為 **out-of-bag samples（oob)**，等等我們會介紹怎麼觀察這個分數。</p>
+<h2 id="Feature-selection"><a href="#Feature-selection" class="headerlink" title="Feature selection"></a>Feature selection</h2><p>我們來說明一下 <strong>Random forest</strong> 在取樣的時候會做的一些改變。首先，我們來想像一個問題，如果今天有某個 <strong>feature</strong> 的分類能力特別強，利用這個 <strong>feature</strong> 可以將我們百分之 <strong>85</strong> 的資料做到很好的分類。因此我們每顆樹都會傾向用這個 <strong>feature</strong> 做當作分類的條件。</p>
+<p>但是這樣的模型是沒有普遍性的，因為最後聚合的時候還是用這個 <strong>feature</strong> 做為我們的指標。這樣跟我們用 <strong>Decision tree</strong> 的結果是一樣的，無法更好描述其他 <strong>feature</strong> 的重要性而丟失掉我們百分之 <strong>15%</strong> 的準確率。</p>
+<p>為了解決這樣的問題， <strong>Random forest</strong> 會限制樹在做分類的時候只會取部分的 <strong>features</strong> 而更能顧及到其他的分類指標。因此當我們將樹聚合起來時能更好的展現普偏性！</p>
+<p><img src="https://i.imgur.com/HJ6lu5T.jpg"></p>
+<h2 id="Ensembling-背後的原理"><a href="#Ensembling-背後的原理" class="headerlink" title="Ensembling 背後的原理"></a>Ensembling 背後的原理</h2><p>我們這邊稍微來證明一下為什麼利用這個方式可以提高我們模型的普遍性。假設我們所有樹的 <strong>Variance</strong> 是 $Var(G)$，並假設我們各個模型並非完全獨立，因此我們可以得到：</p>
+<p>$$<br>\begin{align}<br>Var(G) &amp;= Var(\frac{1}{n} \sum_i G_i) \\<br>&amp;= \frac{1}{n^2}\sum_{i, j} Cov(G_i, G_j) \\<br>&amp;= \frac{1}{n^2}\sum_iVar(G_i) + \frac{1}{n^2}\sum_{i \neq j}Cov(G_i, G_j) \\<br>&amp;= \frac{n\sigma^2}{n^2} +  \frac{n(n - 1)\rho\sigma^2}{n^2} \\<br>&amp;= \rho \sigma^2 + \frac{1 - \rho}{n}\sigma^2<br>\end{align}<br>$$</p>
+<p>其中 $\rho$ 是我們相關係數，與 $Cov(x, y)$ 的關係是：</p>
+<p>$$<br>\rho_{x, y} = \frac{Cov(x, y)}{\rho_x \rho_y}<br>$$</p>
+<p>因此當我們利用 <strong>Bootstrap</strong> 取得 <strong>samples</strong> 時，就是在降低各樹之間的相關性，使讀我們整體樹之間的 <strong>variance</strong> 能降低，因此對沒看過的資料更具有普遍性。</p>
+<h2 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h2><p>我一樣把所有東西放在 <strong>Notebook</strong> 裡。這邊是我們用不同數量的樹的結果：</p>
+<p>大家可以注意到，當我們的樹愈多得時候，模型對被那些雜訊的影響就愈小（藍色區域裡的棕色區域，後面的幾張沒有太多差別）：</p>
+<p><img src="https://i.imgur.com/jzTkb1B.png"></p>
+<h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>今天也介紹完我們的 <strong>Bagging</strong> 了，下篇自然要來說明另一個有名的方法 <strong>Boosting</strong> 了！</p>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="http://cs229.stanford.edu/">CS 229 from Standford</a></li>
+</ol>
+<br/>
+<br/>
+<a href="/posts/8a0d4a8c/" float=left>Last</a> <a href="/posts/955ff86d/" style="float: right;">Next</a><!-- flag of hidden posts -->
+    </div>
+     
+    <div class="post-footer__meta"><p>updated at 2021-01-01</p></div> 
+    <div class="post-meta__cats"></div> 
+</article>
+
+
+
+
+    <div class="post__comments content-card" id="comment">
+        
+    <h4>Comments</h4>
+    
+    <div id="disqus_thread">Unable to load Disqus, please make sure your network can access.</div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    </div>
+
+
+
+</main>
+
+            <footer class="footer">
+    
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/viz.js/1.7.1/viz.js'></script>
+        <script>
+          String.prototype.replaceAll = function(search, replacement) {
+            var target = this;
+            return target.split(search).join(replacement);
+          };
+      
+          let vizObjects = document.querySelectorAll('.graphviz')
+      
+          for (let item of vizObjects) {
+            let svg = undefined
+            try {
+              svg = Viz(item.textContent.replaceAll('–', '--'), 'svg')
+            } catch(e) {
+              svg = `<pre class="error">${e}</pre>`
+            }
+            item.outerHTML = svg
+          }
+        </script>
+    
+    
+
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright © 2021 <a href="/">Justin website for sharing knowledge and getting idea.</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" rel="external nofollow noreferrer" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" rel="external nofollow noreferrer" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+         
+
+ 
+
+ 
+
+ 
+
+  
+
+
+
+ 
+
+
+    
+ 
+
+ 
+
+
+    <script>
+        if (typeof MathJax === 'undefined') {
+            window.MathJax = {
+                loader: {
+                    source: {
+                        '[tex]/amsCd': '[tex]/amscd',
+                        '[tex]/AMScd': '[tex]/amscd'
+                    }
+                },
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                },
+                options: {
+                    renderActions: {
+                        findScript: [10, doc => {
+                            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                                const display = !!node.type.match(/; *mode=display/);
+                                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                                const text = document.createTextNode('');
+                                node.parentNode.replaceChild(text, node);
+                                math.start = {node: text, delim: '', n: 0};
+                                math.end = {node: text, delim: '', n: 0};
+                                doc.math.push(math);
+                            });
+                        }, '', false],
+                        insertedScript: [200, () => {
+                            document.querySelectorAll('mjx-container').forEach(node => {
+                                let target = node.parentNode;
+                                if (target.nodeName.toLowerCase() === 'li') {
+                                    target.parentNode.classList.add('has-jax');
+                                }
+                            });
+                        }, '', false]
+                    }
+                }
+            };
+            (function () {
+                var script = document.createElement('script');
+                script.src = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js";
+                script.defer = true;
+                document.head.appendChild(script);
+            })();
+        } else {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+        }
+    </script>
+ 
+
+ 
+
+ 
+
+
+    
+    <script>
+        function loadComment() {
+            window.disqus_config = function () {
+                this.page.url = 'justin900429.github.io/posts/8dc0f771/';
+                this.page.identifier = 'posts/8dc0f771/';
+            };
+            (function(){
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + 'https-justin900429-github-io' + '.disqus.com/embed.js';
+                (document.head || document.body).appendChild(dsq);
+            })();
+        }
+    
+        var runningOnBrowser = typeof window !== "undefined";
+        var isBot = runningOnBrowser && !("onscroll" in window) || typeof navigator !== "undefined" && /(gle|ing|ro|msn)bot|crawl|spider|yand|duckgo/i.test(navigator.userAgent);
+        var supportsIntersectionObserver = runningOnBrowser && "IntersectionObserver" in window;
+    
+        setTimeout(function () {
+            if (!isBot && supportsIntersectionObserver) {
+                var comment_observer = new IntersectionObserver(function(entries) {
+                    if (entries[0].isIntersecting) {
+                        loadComment();
+                        comment_observer.disconnect();
+                    }
+                }, { threshold: [0] });
+                comment_observer.observe(document.getElementById('comment'));
+            } else {
+                loadComment();
+            }
+        }, 1);
+    </script>
+
+
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+
+
+
+    </body>
+</html>

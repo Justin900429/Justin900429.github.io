@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    
+    
+    
+        <link rel="icon" type="image/png" sizes="32x32" href="/icon.png">
+    
+    
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple_icon_128.png">
+    
+    
+        <link rel="mask-icon" href="/apple_icon_128.png">
+    
+
+
+    <!-- meta -->
+
+
+<title>Android Adapter and ViewHolder | Justin website for sharing knowledge and getting idea.</title>
+
+
+    <meta name="keywords" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="Android Adapter and ViewHolderSee moreBack to the series page   前言這篇之後我們會介紹如何建立清單列表，因此今天我們就跟大家說明什麼是 Adapater 跟 ViewHoler。但是今天沒有程式碼的部分，只有這些東西的觀念。下篇我們將會利用這些東西實作 RecyclerView。 這篇看完後會了解到： 什麼是 adapter，可以用在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Adapter and ViewHolder">
+<meta property="og:url" content="justin900429.github.io/posts/5aa39150/index.html">
+<meta property="og:site_name" content="Justin website for sharing knowledge and getting idea.">
+<meta property="og:description" content="Android Adapter and ViewHolderSee moreBack to the series page   前言這篇之後我們會介紹如何建立清單列表，因此今天我們就跟大家說明什麼是 Adapater 跟 ViewHoler。但是今天沒有程式碼的部分，只有這些東西的觀念。下篇我們將會利用這些東西實作 RecyclerView。 這篇看完後會了解到： 什麼是 adapter，可以用在">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/RWmzUCt.jpg">
+<meta property="article:published_time" content="2020-10-04T12:38:37.000Z">
+<meta property="article:modified_time" content="2020-12-31T13:16:21.370Z">
+<meta property="article:author" content="Justin Ruan">
+<meta property="article:tag" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://i.imgur.com/RWmzUCt.jpg">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+
+
+    
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/atom-one-light.min.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')===-1)this.media='all'">
+        
+    
+
+    
+
+     
+
+    <!-- custom head -->
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+    <body>
+        <div id="app">
+            <script>
+window.onscroll = () => {
+    const nav = document.querySelector('.header');
+    if(this.scrollY <= 10) {
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0)"
+    } else {
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+    }
+};
+</script>
+
+<header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">Justin&#39;s blog</span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/about/" class="navbar-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="navbar-menu button">CV</a>
+                
+                    <a href="/" class="navbar-menu button">Articles</a>
+                
+                    <a href="/tags/" class="navbar-menu button">Tags</a>
+                
+                    <a href="/archives/" class="navbar-menu button">Archives</a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+
+         
+    <a href="#" class="button" id="b2t" aria-label="Back to Top" title="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="32" height="32">
+            <path d="M233.376 722.752L278.624 768 512 534.624 745.376 768l45.248-45.248L512 444.128zM192 352h640V288H192z" fill="currentColor"></path>
+        </svg>
+    </a>
+
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                
+                    <a href="/about/" class="dropdown-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="dropdown-menu button">CV</a>
+                
+                    <a href="/" class="dropdown-menu button">Articles</a>
+                
+                    <a href="/tags/" class="dropdown-menu button">Tags</a>
+                
+                    <a href="/archives/" class="dropdown-menu button">Archives</a>
+                
+            </div>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+
+<div class="post-title">
+    <h1 class="post-title__text">
+        Android Adapter and ViewHolder
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2020/10/" class="post-meta__date button">2020-10-04</a>
+        
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <aside class="post-side">
+        <div class="post-side__toc">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Adapter"><span class="toc-number">2.</span> <span class="toc-text">Adapter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ViewHolder"><span class="toc-number">3.</span> <span class="toc-text">ViewHolder</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-number">4.</span> <span class="toc-text">References</span></a></li></ol>
+        </div>
+    </aside>
+    <a class="btn-toc button" id="btn-toc" tabindex="0">
+        <svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path>
+        </svg>
+    </a>
+    <div class="toc-menus" id="toc-menus">
+        <div class="toc-title">Article Directory</div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Adapter"><span class="toc-number">2.</span> <span class="toc-text">Adapter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ViewHolder"><span class="toc-number">3.</span> <span class="toc-text">ViewHolder</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-number">4.</span> <span class="toc-text">References</span></a></li></ol>
+    </div>
+
+
+<article class="post content-card">
+    <div class="post__header"></div>
+    <div class="post__content">
+        <h1 id="Android-Adapter-and-ViewHolder"><a href="#Android-Adapter-and-ViewHolder" class="headerlink" title="Android Adapter and ViewHolder"></a>Android Adapter and ViewHolder</h1><blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/2020/09/21/android/and-series/">Back to the series page</a></p>
+</div></blockquote>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>這篇之後我們會介紹如何建立清單列表，因此今天我們就跟大家說明什麼是 <strong>Adapater</strong> 跟 <strong>ViewHoler</strong>。但是今天沒有程式碼的部分，只有這些東西的觀念。下篇我們將會利用這些東西實作 <strong>RecyclerView</strong>。</p>
+<blockquote class="blockquote-note blockquote-note__important"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></div>這篇看完後會了解到：</div><div class="blockquote-note__content"><ol>
+<li>什麼是 <strong>adapter</strong>，可以用在哪裡</li>
+<li><strong>ViewHolder</strong> 的妙處。</li>
+</ol>
+</div></blockquote>
+
+
+<h2 id="Adapter"><a href="#Adapter" class="headerlink" title="Adapter"></a>Adapter</h2><p>假設我們有一個遠端的資料庫，我們希望可以將資料庫裡的資料與我們的 <strong>UI</strong> 做連結，此時我們需要做到幾件事：</p>
+<ol>
+<li>取得資料</li>
+<li>將資料與外觀綁定</li>
+<li>更新頁面</li>
+</ol>
+<p>而我們的 <strong>Adapter</strong> 在做的就是第二個部分，他將我們資料庫裡的東西與我們的 <strong>UI</strong> 做連結。 <strong>Apdater</strong> 的意思就是轉接器，因此我們也可以用轉接器的想法來想 <strong>Adapter</strong>。<mark>每一個 <strong>Data</strong> 所產生的 <strong>UI</strong> 就是一個 <strong>View</strong>。</mark></p>
+<center><img src="https://i.imgur.com/RWmzUCt.jpg" width=600/></center>
+<br>
+
+
+<p>之後我們會介紹 <strong>RecyclerView</strong>。當我們想創造我們自己的 <strong>adapter</strong>，我們需要創立一個 <strong>Adapter class</strong> 並完成:</p>
+<ol>
+<li>傳入資料陣列，可以創立一個 <strong>Data class</strong>。</li>
+<li>繼承 <strong>RecyclerView.Adapter</strong>。</li>
+<li>建立我們自己的 <strong>ViewHolder</strong>。</li>
+<li>改寫 <code>onCreateViewHolder()</code>, <code>onBindViewHolder()</code>, <code>getItemCount()</code></li>
+</ol>
+<pre><code class="hljs kotlin"><span class="hljs-comment">/*</span>
+<span class="hljs-comment"> Our own Adapter</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OurAdapter</span></span>(
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">var</span> <span class="hljs-keyword">data</span>: MutableList&lt;CustomData&gt; <span class="hljs-comment">// Data list</span>
+): RecyclerView.Adapter&lt;OurAdpater.OurViewHolder&gt;() &#123; <span class="hljs-comment">// Inherit</span>
+    <span class="hljs-comment">// Our ViewHolder</span>
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OurViewHolder</span></span>(itemView: View): RecyclerView.ViewHolder(itemView)
+
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onCreateViewHolder</span><span class="hljs-params">(parent: <span class="hljs-type">ViewGroup</span>, viewType: <span class="hljs-type">Int</span>)</span></span>
+    : OurViewHolder &#123;
+        <span class="hljs-comment">// TODO</span>
+    &#125;
+
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onBindViewHolder</span><span class="hljs-params">(holder: <span class="hljs-type">OurViewHolder</span>, position: <span class="hljs-type">Int</span>)</span></span> &#123;
+        <span class="hljs-comment">// TODO</span>
+    &#125;
+
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">getItemCount</span><span class="hljs-params">()</span></span>: <span class="hljs-built_in">Int</span> &#123;
+        <span class="hljs-comment">// TODO</span>
+    &#125;
+&#125;</code></pre>
+
+<ul>
+<li><strong>onCreateViewHolder()</strong><br>  在這個函式裡，我們會將我們從 <strong>onBindViewHolder</strong> 知道如何綁定物件的方式實作出來。也就是這個函式是<mark>實作</mark>。<br><br></li>
+<li><strong>onBindViewHolder()</strong><br>  在這個函式裡，我們需要綁定我們 <strong>layout file</strong> 裡的元件要對應到我們資料裡面哪一個種類。這個函式是<mark>方法</mark>。<br><br></li>
+<li><strong>getItemCount()</strong><br>  這個函式我們需要回傳資料的大小。</li>
+</ul>
+<p>這部分的介紹就到這邊，明天會實際帶大家完成！</p>
+<h2 id="ViewHolder"><a href="#ViewHolder" class="headerlink" title="ViewHolder"></a>ViewHolder</h2><p>ViewHolder 可以想像是我們 <strong>View</strong> 的集中地，上述的 <strong>Class</strong> 裡頭我們建立</p>
+<pre><code class="hljs kotlin"><span class="hljs-comment">// Our ViewHolder</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OurViewHolder</span></span>(itemView: View): RecyclerView.ViewHolder(itemView)</code></pre>
+
+<p>這是我們自己的 <strong>ViewHolder</strong>，我們必須在 <code>onBindViewHolder()</code> 使用到 <strong>ViewHolder</strong> 來綁定我們的 <strong>Data</strong> 跟 <strong>View</strong>。</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.books.com.tw/products/0010815422">輕鬆學會Android Kotlin實作開發：精心設計16個Lab讓你快速上手</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://ithelp.ithome.com.tw/articles/10220196">[Android 十全大補] RecyclerView</a></li>
+</ol>
+<br/>
+<br/>
+<a href="/posts/f31b2683/" float=left>Last</a> <a href="/posts/cddcd94e/" style="float: right;">Next</a><!-- flag of hidden posts -->
+    </div>
+     
+    <div class="post-footer__meta"><p>updated at 2020-12-31</p></div> 
+    <div class="post-meta__cats"></div> 
+</article>
+
+
+
+
+    <div class="post__comments content-card" id="comment">
+        
+    <h4>Comments</h4>
+    
+    <div id="disqus_thread">Unable to load Disqus, please make sure your network can access.</div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    </div>
+
+
+
+</main>
+
+            <footer class="footer">
+    
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/viz.js/1.7.1/viz.js'></script>
+        <script>
+          String.prototype.replaceAll = function(search, replacement) {
+            var target = this;
+            return target.split(search).join(replacement);
+          };
+      
+          let vizObjects = document.querySelectorAll('.graphviz')
+      
+          for (let item of vizObjects) {
+            let svg = undefined
+            try {
+              svg = Viz(item.textContent.replaceAll('–', '--'), 'svg')
+            } catch(e) {
+              svg = `<pre class="error">${e}</pre>`
+            }
+            item.outerHTML = svg
+          }
+        </script>
+    
+    
+
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright © 2021 <a href="/">Justin website for sharing knowledge and getting idea.</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" rel="external nofollow noreferrer" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" rel="external nofollow noreferrer" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+         
+
+ 
+
+ 
+
+ 
+
+  
+
+
+
+ 
+
+
+    
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+    
+    <script>
+        function loadComment() {
+            window.disqus_config = function () {
+                this.page.url = 'justin900429.github.io/posts/5aa39150/';
+                this.page.identifier = 'posts/5aa39150/';
+            };
+            (function(){
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + 'https-justin900429-github-io' + '.disqus.com/embed.js';
+                (document.head || document.body).appendChild(dsq);
+            })();
+        }
+    
+        var runningOnBrowser = typeof window !== "undefined";
+        var isBot = runningOnBrowser && !("onscroll" in window) || typeof navigator !== "undefined" && /(gle|ing|ro|msn)bot|crawl|spider|yand|duckgo/i.test(navigator.userAgent);
+        var supportsIntersectionObserver = runningOnBrowser && "IntersectionObserver" in window;
+    
+        setTimeout(function () {
+            if (!isBot && supportsIntersectionObserver) {
+                var comment_observer = new IntersectionObserver(function(entries) {
+                    if (entries[0].isIntersecting) {
+                        loadComment();
+                        comment_observer.disconnect();
+                    }
+                }, { threshold: [0] });
+                comment_observer.observe(document.getElementById('comment'));
+            } else {
+                loadComment();
+            }
+        }, 1);
+    </script>
+
+
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+
+
+
+    </body>
+</html>

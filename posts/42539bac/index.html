@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    
+    
+    
+        <link rel="icon" type="image/png" sizes="32x32" href="/icon.png">
+    
+    
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple_icon_128.png">
+    
+    
+        <link rel="mask-icon" href="/apple_icon_128.png">
+    
+
+
+    <!-- meta -->
+
+
+<title>Graph -- Basic concept | Justin website for sharing knowledge and getting idea.</title>
+
+
+    <meta name="keywords" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="Graph – Basic conceptSee moreBack to the series page  Relative articles  Graph – Basic concept (You’re reading now!) Graph – Shortest path algorithm Graph – Spanning Tree     After reading, you&#39;ll lea">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Graph -- Basic concept">
+<meta property="og:url" content="justin900429.github.io/posts/42539bac/index.html">
+<meta property="og:site_name" content="Justin website for sharing knowledge and getting idea.">
+<meta property="og:description" content="Graph – Basic conceptSee moreBack to the series page  Relative articles  Graph – Basic concept (You’re reading now!) Graph – Shortest path algorithm Graph – Spanning Tree     After reading, you&#39;ll lea">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-12-26T15:35:07.000Z">
+<meta property="article:modified_time" content="2020-12-31T01:31:12.972Z">
+<meta property="article:author" content="Justin Ruan">
+<meta property="article:tag" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
+<meta name="twitter:card" content="summary_large_image">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+
+
+    
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/atom-one-light.min.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')===-1)this.media='all'">
+        
+    
+
+    
+
+     
+
+    <!-- custom head -->
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+    <body>
+        <div id="app">
+            <script>
+window.onscroll = () => {
+    const nav = document.querySelector('.header');
+    if(this.scrollY <= 10) {
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0)"
+    } else {
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+    }
+};
+</script>
+
+<header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">Justin&#39;s blog</span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/about/" class="navbar-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="navbar-menu button">CV</a>
+                
+                    <a href="/" class="navbar-menu button">Articles</a>
+                
+                    <a href="/tags/" class="navbar-menu button">Tags</a>
+                
+                    <a href="/archives/" class="navbar-menu button">Archives</a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+
+         
+    <a href="#" class="button" id="b2t" aria-label="Back to Top" title="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="32" height="32">
+            <path d="M233.376 722.752L278.624 768 512 534.624 745.376 768l45.248-45.248L512 444.128zM192 352h640V288H192z" fill="currentColor"></path>
+        </svg>
+    </a>
+
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                
+                    <a href="/about/" class="dropdown-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="dropdown-menu button">CV</a>
+                
+                    <a href="/" class="dropdown-menu button">Articles</a>
+                
+                    <a href="/tags/" class="dropdown-menu button">Tags</a>
+                
+                    <a href="/archives/" class="dropdown-menu button">Archives</a>
+                
+            </div>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+
+<div class="post-title">
+    <h1 class="post-title__text">
+        Graph -- Basic concept
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2020/12/" class="post-meta__date button">2020-12-26</a>
+        
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <aside class="post-side">
+        <div class="post-side__toc">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#What-is-graph"><span class="toc-number">1.</span> <span class="toc-text">What is graph?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Why-graph-is-so-important"><span class="toc-number">2.</span> <span class="toc-text">Why graph is so important?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Types-of-graph"><span class="toc-number">3.</span> <span class="toc-text">Types of graph</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Approaches-to-represent-the-graph"><span class="toc-number">4.</span> <span class="toc-text">Approaches to represent the graph</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Walking-through-the-graph"><span class="toc-number">5.</span> <span class="toc-text">Walking through the graph</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-number">6.</span> <span class="toc-text">Summary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">7.</span> <span class="toc-text">Reference</span></a></li></ol>
+        </div>
+    </aside>
+    <a class="btn-toc button" id="btn-toc" tabindex="0">
+        <svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path>
+        </svg>
+    </a>
+    <div class="toc-menus" id="toc-menus">
+        <div class="toc-title">Article Directory</div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#What-is-graph"><span class="toc-number">1.</span> <span class="toc-text">What is graph?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Why-graph-is-so-important"><span class="toc-number">2.</span> <span class="toc-text">Why graph is so important?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Types-of-graph"><span class="toc-number">3.</span> <span class="toc-text">Types of graph</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Approaches-to-represent-the-graph"><span class="toc-number">4.</span> <span class="toc-text">Approaches to represent the graph</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Walking-through-the-graph"><span class="toc-number">5.</span> <span class="toc-text">Walking through the graph</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-number">6.</span> <span class="toc-text">Summary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">7.</span> <span class="toc-text">Reference</span></a></li></ol>
+    </div>
+
+
+<article class="post content-card">
+    <div class="post__header"></div>
+    <div class="post__content">
+        <h1 id="Graph-–-Basic-concept"><a href="#Graph-–-Basic-concept" class="headerlink" title="Graph – Basic concept"></a>Graph – Basic concept</h1><blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/posts/5fb65b1b">Back to the series page</a></p>
+<blockquote>
+<p>Relative articles</p>
+<ol>
+<li><a href="/posts/42539bac/">Graph – Basic concept</a> (You’re reading now!)</li>
+<li><a href="/posts/40dd449e/">Graph – Shortest path algorithm</a></li>
+<li><a href="/posts/2c73ab0c/">Graph – Spanning Tree</a></li>
+</ol>
+</blockquote>
+</div></blockquote>
+
+<blockquote class="blockquote-note blockquote-note__important"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></div>After reading, you'll learn：</div><div class="blockquote-note__content"><ol>
+<li>What is graph?</li>
+<li>Traversal with DFS and BFS</li>
+</ol>
+</div></blockquote>
+
+
+
+<h2 id="What-is-graph"><a href="#What-is-graph" class="headerlink" title="What is graph?"></a>What is graph?</h2><p>Graph is the relationship between each nodes. For example:</p>
+<center>
+<div><div class="graphviz">graph test { 
+    // title
+    labelloc="t";
+    label = "Facebook Social Network\n\n";
+
+<pre><code>rankdir=LR;
+Justin -- Katie;
+Justin -- Joyce;
+Justin -- Alex;
+Joyce -- Katie
+Joyce -- Alex;
+Katie -- Alex;</code></pre>
+<p>}</div></div></p>
+</center>
+
+<p>On Facebook which indicated by the lines between us. So all of us is the <strong>vertexs</strong> in graph and the lines are <strong>edges</strong>. <mark>To be more precisely, <strong>Graph</strong> is a <strong>Data Structure</strong> form by the set of <strong>vertexs</strong> and <strong>edges</strong>.</mark></p>
+<h2 id="Why-graph-is-so-important"><a href="#Why-graph-is-so-important" class="headerlink" title="Why graph is so important?"></a>Why graph is so important?</h2><p>Let’s discuss the following problems:</p>
+<hr>
+<ol>
+<li>++Friends Suggestion++<br>Suppose FB wants to recommend Justin’s Friends to Alex, then the number of edges should be crossed equals to 2. One of the edges is <strong>connenct Justin and Alex</strong> and the other one is that <strong>connect Justin and his friends</strong>.</li>
+</ol>
+<hr>
+<ol start="2">
+<li>++Products Suggestion++<br>Once Justin browse a product on Shopee, <strong>Shopee will make an edge from that product to Justin</strong>. Therefore, the suggestion that Justin will notice next time should be the prouducts that <strong>connect to the last product Justin saw before</strong>.</li>
+</ol>
+<hr>
+<ol start="3">
+<li>++Network Connection++<br>Given the specific IP address, Justin wanted to access some special Japan websites. However, Justin didn’t directly connect to that server. Therefore, there should be a path (a set of edges) that formed a method to connect to that website.</li>
+</ol>
+<hr>
+<p><mark>With the real life examples above, we can deal with plenty of problems through graph theory(algorithm).</mark></p>
+<h2 id="Types-of-graph"><a href="#Types-of-graph" class="headerlink" title="Types of graph"></a>Types of graph</h2><ul>
+<li><p>Undirected graph</p>
+<blockquote>
+<p>There are no direction for each edges.</p>
+</blockquote>
+<center>
+<div><div class="graphviz">graph test { 
+  // title
+  labelloc="t";
+  label = "Undirected graph\n\n";
+
+<p>  rankdir=LR;<br>  a – b;<br>  b – c;<br>  b – d;<br>  d – a;<br>  e – a;<br>  e – d;<br>}</div></div></p>
+</center>
+</li>
+<li><p>Directed graph (digraph)</p>
+<blockquote>
+<p>Each edges has specific direction</p>
+</blockquote>
+<center>
+<div><div class="graphviz">digraph test { 
+  // title
+  labelloc="t";
+  label = "Directed graph";
+
+<p>  rankdir=LR;<br>  a -&gt; b;<br>  b -&gt; c;<br>  b -&gt; d;<br>  d -&gt; a;<br>  a -&gt; e;<br>  e -&gt; d;<br>}</div></div></p>
+</center>
+</li>
+<li><p>Weighted graph</p>
+<blockquote>
+<p>Each edge has its own weight </p>
+</blockquote>
+</li>
+</ul>
+<center>
+<div><div class="graphviz">graph test { 
+    // title
+    labelloc="t";
+    label = "Weighted graph\n\n";
+
+<pre><code>rankdir=LR;
+a -- b [ label = &quot;2&quot; ]
+b -- c [ label = &quot;5&quot; ]
+b -- d [ label = &quot;1&quot; ]
+d -- a [ label = &quot;3&quot; ]
+e -- a [ label = &quot;6&quot; ]
+e -- d [ label = &quot;4&quot; ]</code></pre>
+<p>}</div></div></p>
+</center>
+
+<ul>
+<li>cycle graph<blockquote>
+<p>There exist at least a cycle in digraph or undirected graph</p>
+</blockquote>
+</li>
+</ul>
+<center>
+<div><div class="graphviz">digraph test { 
+    // title
+    labelloc="t";
+    label = "Directed cyclic graph\n\n";
+
+<pre><code>rankdir=LR;
+a -&gt; b;
+b -&gt; c;
+c -&gt; a</code></pre>
+<p>}</div></div></p>
+</center>
+
+<p><strong><center>a$\rightarrow$b$\rightarrow$c form a cycle, but c$\rightarrow$b$\rightarrow$a doesn’t.</center></strong></p>
+<center>
+<div><div class="graphviz">graph test { 
+    // title
+    labelloc="t";
+    label = "Undirected cyclic graph\n\n";
+
+<pre><code>rankdir=LR;
+a -- b;
+b -- c;
+c -- a</code></pre>
+<p>}</div></div></p>
+</center>
+
+<p><strong><center>Both a-b-c or c-b-a form cycles.</center></strong></p>
+<ul>
+<li><p>DAG (Directed Acyclic graph)</p>
+<center>
+<div><div class="graphviz">digraph test { 
+  // title
+  labelloc="t";
+  label = "DAG\n\n";
+
+<p>  rankdir=LR;<br>  a -&gt; b;<br>  a -&gt; d;<br>  a -&gt; c;<br>  b -&gt; c;<br>  b -&gt; d;<br>  c -&gt; d;<br>}</div></div></p>
+</center>
+
+</li>
+</ul>
+<h2 id="Approaches-to-represent-the-graph"><a href="#Approaches-to-represent-the-graph" class="headerlink" title="Approaches to represent the graph"></a>Approaches to represent the graph</h2><ol>
+<li><strong>Adjancency matrix</strong><br>Using 2 dimension matrix to show the graph. If two vertex are connected, the value in matrix is 1, otherwise, 0.</li>
+</ol>
+<ul>
+<li>Undirected graph<center>
+<div><div class="graphviz">graph test { 
+  rankdir=LR;
+  b -- c;
+  c -- a;
+  d -- a;
+  d -- c;
+}</div></div>
+<center>
+
+</li>
+</ul>
+<p>$$Matrix=<br>\begin{pmatrix}<br>   0 &amp; 0 &amp; 1 &amp; 1 \\<br>   0 &amp; 0 &amp; 1 &amp; 0 \\<br>   1 &amp; 1 &amp; 0 &amp; 1 \\<br>   1 &amp; 0 &amp; 1 &amp; 0 \\<br>\end{pmatrix}<br>$$</p>
+<ul>
+<li><p>Digraph</p>
+<center>
+<div><div class="graphviz">digraph test { 
+
+<p>  rankdir=LR;<br>  b -&gt; c;<br>  c -&gt;  a;<br>  d -&gt; a;<br>  d -&gt;  c;<br>}</div></div></p>
+</center>
+
+</li>
+</ul>
+<p>$$Matrix=<br>\begin{pmatrix}<br>   0 &amp; 0 &amp; 0 &amp; 0 \\<br>   0 &amp; 0 &amp; 1 &amp; 0 \\<br>   1 &amp; 0 &amp; 0 &amp; 0 \\<br>   1 &amp; 0 &amp; 1 &amp; 0 \\<br>\end{pmatrix}<br>$$</p>
+<hr>
+<ol start="2">
+<li><strong>Adjancency linked list</strong><br>Using a 1D matrix to store the vertex and using Linked list to show the connection with other vertex.</li>
+</ol>
+<ul>
+<li><strong>Undirected graph</strong></li>
+</ul>
+<center>
+
+<div><div class="graphviz">graph test { 
+    rankdir=LR;
+    b -- c;
+    c -- a;
+    d -- a;
+    d -- c;
+}</div></div>
+<div><div class="graphviz">digraph g {
+    rankdir=LR;
+    edge[arrowsize=1.0, arrowhead=vee];
+    node[shape=record, fontsize=20];
+
+<pre><code>list [label=&quot;&lt;a&gt; a | &lt;b&gt; b | &lt;c&gt; c | &lt;d&gt; d&quot;, height=3];
+nodea [label=&quot;&#123;c | d&#125;&quot;];
+nodeb [label=&quot;&#123;c&#125;&quot;];
+nodec [label=&quot;&#123;a | b | d&#125;&quot;];
+noded [label= &quot;&#123;a | c&#125;&quot;];
+
+list:a-&gt;nodea;
+list:b-&gt;nodeb;
+list:c-&gt;nodec;
+list:d-&gt;noded;</code></pre>
+<p>}</div></div></p>
+</center>
+
+
+<ul>
+<li><strong>Digraph</strong></li>
+</ul>
+<center>
+<div><div class="graphviz">digraph test { 
+    rankdir=LR;
+    b -> c;
+    c -> a;
+    d -> a;
+    d -> c;
+}</div></div>
+
+<div><div class="graphviz">digraph g {
+    rankdir=LR
+    edge[arrowsize=1.0, arrowhead=vee];
+    node[shape = record, fontsize=20];
+
+<pre><code>list [label = &quot;&lt;a&gt; a | &lt;b&gt; b | &lt;c&gt; c | &lt;d&gt; d&quot;, height=3];
+nodeb [label = &quot;&#123;c&#125;&quot;]
+nodec [label = &quot;&#123;a&#125;&quot;]
+noded [label = &quot;&#123;a | c&#125;&quot;]
+
+list:b -&gt; nodeb
+list:c -&gt; nodec
+list:d -&gt; noded</code></pre>
+<p>}</div></div></p>
+</center>
+
+<hr>
+<ol start="3">
+<li><strong>Edges container</strong></li>
+</ol>
+<blockquote>
+<p>Using container to store both vertexs and edges</p>
+</blockquote>
+<pre><code class="hljs cpp"><span class="hljs-comment">// Class for edges</span>
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt;
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">edge</span> &#123;</span>
+  <span class="hljs-comment">// Start node and end node</span>
+  T start, end;
+  
+  <span class="hljs-comment">// Add weight for weighted graph</span>
+  <span class="hljs-keyword">int</span> weight
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
+  <span class="hljs-comment">// Container to store both edges and vertex</span>
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;edge&lt;T&gt; &gt; edges;
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; vertexs;
+  ...
+&#125;
+</code></pre>
+
+<center>
+<div><div class="graphviz">digraph g {
+    node[shape=record, fontsize=20];
+    label = "\nContainer for vertexs"
+
+
+<pre><code>list_vertexs [label = &quot;vertex1 | vertex2 | vertex3 | ...&quot;]</code></pre>
+<p>}</div></div></p>
+<div><div class="graphviz">digraph g {
+    node[shape=record, fontsize=20];
+    label = "\nContainer for edges"
+
+
+<pre><code>list_edges [label = &quot;edges1 | edges2 | edges3 | ...&quot;];</code></pre>
+<p>}</div></div></p>
+</center>
+
+<h2 id="Walking-through-the-graph"><a href="#Walking-through-the-graph" class="headerlink" title="Walking through the graph"></a>Walking through the graph</h2><center>
+<div><div class="graphviz">graph test { 
+    labelloc = "t"
+    label = "Example graph\n\n"
+
+<pre><code>rankdir=LR;
+b -- c;
+c -- a;
+d -- a;
+d -- c;</code></pre>
+<p>}</div></div></p>
+</center>
+
+<p>In this example, I will use adjacency matrix to represent the graph</p>
+<pre><code class="hljs cpp"><span class="hljs-keyword">int</span> graph = [[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>],
+             [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>],
+             [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>],
+             [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>]];</code></pre>
+<hr>
+<ul>
+<li><strong>DFS</strong></li>
+</ul>
+<blockquote>
+<p>Go as deep as one node can! </p>
+</blockquote>
+<p>For example, we start from node <strong>a</strong>.</p>
+<center>
+<div><div class="graphviz">graph test { 
+    labelloc = "t"
+    label = "First step\n\n"
+
+<pre><code>rankdir=LR;
+a [ color=&quot;red&quot; ]</code></pre>
+<p>}</div></div></p>
+</center>
+
+<p>We then explore other node connected to node <strong>a</strong>. Next node is <strong>c</strong>. Change our position from <strong>a</strong> to <strong>c</strong>.</p>
+<center>
+<div><div class="graphviz">graph test { 
+    labelloc = "t"
+    label = "Second step\n\n"
+
+<pre><code>rankdir=LR;
+c [ color=&quot;red&quot; ]
+a -- c;</code></pre>
+<p>}</div></div></p>
+</center>
+
+<p>Check the node connected to <strong>c</strong>. The first node we would encounter was <strong>a</strong>, however, <strong>a</strong> had already been visited. Therefore, we move next to <strong>b</strong>.</p>
+<center>
+<div><div class="graphviz">graph test { 
+    labelloc = "t"
+    label = "Third step\n\n"
+
+<pre><code>rankdir=LR;
+b [ color=&quot;red&quot; ]
+a -- c;
+c -- b;</code></pre>
+<p>}</div></div></p>
+</center>
+
+<p>Check the node connected to <strong>b</strong>. There are no avaliable nodes for <strong>b</strong> because <strong>a</strong> had been already visited. Move back to <strong>c</strong></p>
+<center>
+<div><div class="graphviz">graph test { 
+    labelloc = "t"
+    label = "Fourth step\n\n"
+
+<pre><code>rankdir=LR;
+c [ color=&quot;red&quot; ]
+a -- c;
+c -- b;</code></pre>
+<p>}</div></div></p>
+</center>
+
+<p>Visit node <strong>d</strong>.</p>
+<center>
+<div><div class="graphviz">graph test { 
+    labelloc = "t"
+    label = "Fifth step\n\n"
+
+<pre><code>rankdir=LR;
+d [ color=&quot;red&quot; ]
+a -- c;
+c -- b;
+c -- d;</code></pre>
+<p>}</div></div></p>
+</center>
+
+<p>Alredy visited <strong>c</strong> and <strong>a</strong>. No node to visit from <strong>d</strong>. Move back to <strong>c</strong>.</p>
+<center>
+<div><div class="graphviz">graph test { 
+    labelloc = "t"
+    label = "Sixth step\n\n"
+
+<pre><code>rankdir=LR;
+c [ color=&quot;red&quot; ]
+a -- c;
+c -- b;
+c -- d;</code></pre>
+<p>}</div></div></p>
+</center>
+
+<p>No more node to visit from <strong>c</strong>. Move back to <strong>a</strong>.</p>
+<center>
+<div><div class="graphviz">graph test { 
+    labelloc = "t"
+    label = "Seventh step\n\n"
+
+<pre><code>rankdir=LR;
+a [ color=&quot;red&quot; ]
+a -- c;
+c -- b;
+c -- d;</code></pre>
+<p>}</div></div></p>
+</center>
+
+<p>No more node to visit from <strong>a</strong>. Stop program. The order is:</p>
+<pre><code class="hljs cpp">a c b d</code></pre>
+
+<p><mark>Notice that we were passing through the graph not drawing the graph. We don’t have to show every edges in the graph.</mark></p>
+<p>Code:</p>
+<pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DFS</span><span class="hljs-params">(<span class="hljs-keyword">int</span> graph[][<span class="hljs-number">4</span>], <span class="hljs-keyword">int</span> start)</span> </span>&#123;
+  <span class="hljs-comment">// Array to check visited</span>
+  <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> visited[<span class="hljs-number">4</span>] = &#123;<span class="hljs-number">0</span>&#125;;
+  
+  <span class="hljs-comment">// Set visited and print out</span>
+  visited[start] = <span class="hljs-number">1</span>;
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; start &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;
+  
+  <span class="hljs-comment">// Check for connected edges</span>
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">4</span>; ++i) &#123;
+  
+    <span class="hljs-comment">// if not visited and has the connection then move to that node</span>
+    <span class="hljs-keyword">if</span> (graph[start][i] == <span class="hljs-number">1</span> &amp;&amp; !visited[i]) &#123;
+      DFS(graph, graph[start][i]);
+    &#125;
+    
+  &#125;
+&#125;</code></pre>
+
+<hr>
+<ul>
+<li>BFS<blockquote>
+<p>See as much as one node can!</p>
+</blockquote>
+For example, we start from node <strong>a</strong>.</li>
+</ul>
+<center>
+<div><div class="graphviz">graph test { 
+    labelloc = "t";
+    label = "First step\n\n";
+
+<pre><code>rankdir=LR;
+a [ color=&quot;red&quot; ]</code></pre>
+<p>}</div></div></p>
+</center>
+
+<p>Next, check all the connected edges from <strong>a</strong>. Node <strong>c</strong> will be encountered first. Instead of moving to node <strong>c</strong>, we save it in queue and still stay at node <strong>a</strong>.</p>
+<center>
+<div><div class="graphviz">digraph g {
+    node[shape=record, fontsize=20];
+    labelloc = "t";
+    label = "Queue for saving visited node\n";
+
+<pre><code>list_vertexs [label = &quot;c&quot;];</code></pre>
+<p>}</div></div></p>
+<div><div class="graphviz">graph test { 
+    labelloc = "t";
+    label = "Second step\n\n";
+
+<pre><code>rankdir=LR;
+a [ color=&quot;red&quot; ]
+a -- c</code></pre>
+<p>}</div></div></p>
+</center>
+
+<p>Visit node <strong>d</strong> and save it into queue.</p>
+<center>
+<div><div class="graphviz">digraph g {
+    node[shape=record, fontsize=20];
+    labelloc = "t";
+    label = "Queue for saving visited node\n\n";
+
+
+<pre><code>list_vertexs [label = &quot;c | d&quot;]</code></pre>
+<p>}</div></div></p>
+<div><div class="graphviz">graph test { 
+    labelloc = "t";
+    label = "Third step\n\n";
+
+<pre><code>rankdir=LR;
+a [ color=&quot;red&quot; ]
+a -- c
+a -- d</code></pre>
+<p>}</div></div></p>
+</center>
+
+<p>The nodes connected to <strong>a</strong> had already been visited. Pop out <strong>c</strong> from queue.</p>
+<center>
+<div><div class="graphviz">digraph g {
+    node[shape=record, fontsize=20];
+    labelloc = "t";
+    label = "Queue for saving visited node\n\n";
+
+
+<pre><code>list_vertexs [label = &quot;d&quot;]</code></pre>
+<p>}</div></div></p>
+<div><div class="graphviz">graph test { 
+    labelloc = "t";
+    label = "Fourth step\n\n";
+
+<pre><code>rankdir=LR;
+c [ color=&quot;red&quot; ]
+a -- c
+a -- d</code></pre>
+<p>}</div></div></p>
+</center>
+
+<p>Continue visiting other nodes connect to <strong>c</strong>.</p>
+<center>
+<div><div class="graphviz">digraph g {
+    node[shape=record, fontsize=20];
+    labelloc = "t";
+    label = "Queue for saving visited node\n\n";
+
+
+<pre><code>list_vertexs [label = &quot;d | b&quot;]</code></pre>
+<p>}</div></div></p>
+<div><div class="graphviz">graph test { 
+    labelloc = "t";
+    label = "Fifth step\n\n";
+
+<pre><code>rankdir=LR;
+c [ color=&quot;red&quot; ]
+a -- c;
+a -- d;
+c -- b;</code></pre>
+<p>}</div></div></p>
+</center>
+
+<p>Finish node <strong>c</strong>. Pop out <strong>d</strong></p>
+<center>
+<div><div class="graphviz">digraph g {
+    node[shape=record, fontsize=20];
+    labelloc = "t";
+    label = "Queue for saving visited node\n\n";
+
+
+<pre><code>list_vertexs [label = &quot;b&quot;]</code></pre>
+<p>}</div></div></p>
+<div><div class="graphviz">graph test { 
+    labelloc = "t";
+    label = "Sixth step\n\n";
+
+<pre><code>rankdir=LR;
+
+a -- c;
+a -- d;
+d [ color=&quot;red&quot; ]
+c -- b;</code></pre>
+<p>}</div></div></p>
+</center>
+
+<p>Finish node <strong>d</strong>. Pop out <strong>b</strong>.</p>
+<center>
+<div><div class="graphviz">digraph g {
+    node[shape=record, fontsize=20];
+    labelloc = "t";
+    label = "Queue for saving visited node\n\n"
+
+
+<pre><code>list_vertexs [label = &quot;&quot;]</code></pre>
+<p>}</div></div></p>
+<div><div class="graphviz">graph test { 
+    labelloc = "t";
+    label = "Seventh step\n\n";
+
+<pre><code>rankdir=LR;
+a -- c;
+a -- d;
+c -- b;
+b [ color=&quot;red&quot; ]</code></pre>
+<p>}</div></div></p>
+</center>
+
+<p>Finish node <strong>b</strong>. Also, queue is empty. Stop program. The order is:</p>
+<pre><code class="hljs cpp">a c d b</code></pre>
+
+<p>Code:</p>
+<pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">BFS</span><span class="hljs-params">(<span class="hljs-keyword">int</span> graph[][<span class="hljs-number">4</span>], <span class="hljs-keyword">int</span> start)</span> </span>&#123;
+  <span class="hljs-comment">// queue for saving the visited node </span>
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">queue</span>&lt;<span class="hljs-keyword">int</span>&gt; node;
+  
+  <span class="hljs-comment">// Array for checking visited</span>
+  <span class="hljs-keyword">int</span> visited[<span class="hljs-number">4</span>] = &#123;<span class="hljs-number">0</span>&#125;;
+  
+  <span class="hljs-comment">// Push the start node into queue</span>
+  node.push(start);
+  
+  <span class="hljs-comment">// Start passing through the graph</span>
+  <span class="hljs-keyword">while</span> (!node.empty()) &#123;
+  
+    <span class="hljs-comment">// Get the node from queue</span>
+    <span class="hljs-keyword">int</span> current_node = node.front(); node.pop();
+    
+    <span class="hljs-comment">// Print out the node</span>
+    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; current_node &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;
+    
+    <span class="hljs-comment">// Check the connected edges</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">4</span>; ++i) &#123;
+    
+      <span class="hljs-comment">// if not visited and has the connection then push to queue</span>
+      <span class="hljs-keyword">if</span> (graph[current_node][i] == <span class="hljs-number">1</span> &amp;&amp; !visited[i]) &#123;
+        node.push(graph[current_node][i]);
+      &#125;
+      
+    &#125;
+    
+  &#125;
+  
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;
+&#125;</code></pre>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>So far, we have introduced the basic concept of graph. We introduced the types of graph, how can we express the graph using different structures and how to pass through the graph. In next article, we’re going to discuss how can we find the shortest path.</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.books.com.tw/products/0010616945?gclid=Cj0KCQjwoub3BRC6ARIsABGhnyamNtOnA0U1z3yzZeFonqM2HT7jnj1WZcRX8ArR1_KwV3YEgkkkPlIaAlCZEALw_wcB">培養與鍛鍊程式設計的邏輯腦 第二版</a></li>
+</ol>
+<!-- flag of hidden posts -->
+    </div>
+     
+    <div class="post-footer__meta"><p>updated at 2020-12-31</p></div> 
+    <div class="post-meta__cats"></div> 
+</article>
+
+
+
+
+    <div class="post__comments content-card" id="comment">
+        
+    <h4>Comments</h4>
+    
+    <div id="disqus_thread">Unable to load Disqus, please make sure your network can access.</div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    </div>
+
+
+
+</main>
+
+            <footer class="footer">
+    
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/viz.js/1.7.1/viz.js'></script>
+        <script>
+          String.prototype.replaceAll = function(search, replacement) {
+            var target = this;
+            return target.split(search).join(replacement);
+          };
+      
+          let vizObjects = document.querySelectorAll('.graphviz')
+      
+          for (let item of vizObjects) {
+            let svg = undefined
+            try {
+              svg = Viz(item.textContent.replaceAll('–', '--'), 'svg')
+            } catch(e) {
+              svg = `<pre class="error">${e}</pre>`
+            }
+            item.outerHTML = svg
+          }
+        </script>
+    
+    
+
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright © 2021 <a href="/">Justin website for sharing knowledge and getting idea.</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" rel="external nofollow noreferrer" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" rel="external nofollow noreferrer" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+         
+
+ 
+
+ 
+
+ 
+
+  
+
+
+
+ 
+
+
+    
+ 
+
+ 
+
+
+    <script>
+        if (typeof MathJax === 'undefined') {
+            window.MathJax = {
+                loader: {
+                    source: {
+                        '[tex]/amsCd': '[tex]/amscd',
+                        '[tex]/AMScd': '[tex]/amscd'
+                    }
+                },
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                },
+                options: {
+                    renderActions: {
+                        findScript: [10, doc => {
+                            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                                const display = !!node.type.match(/; *mode=display/);
+                                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                                const text = document.createTextNode('');
+                                node.parentNode.replaceChild(text, node);
+                                math.start = {node: text, delim: '', n: 0};
+                                math.end = {node: text, delim: '', n: 0};
+                                doc.math.push(math);
+                            });
+                        }, '', false],
+                        insertedScript: [200, () => {
+                            document.querySelectorAll('mjx-container').forEach(node => {
+                                let target = node.parentNode;
+                                if (target.nodeName.toLowerCase() === 'li') {
+                                    target.parentNode.classList.add('has-jax');
+                                }
+                            });
+                        }, '', false]
+                    }
+                }
+            };
+            (function () {
+                var script = document.createElement('script');
+                script.src = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js";
+                script.defer = true;
+                document.head.appendChild(script);
+            })();
+        } else {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+        }
+    </script>
+ 
+
+ 
+
+ 
+
+
+    
+    <script>
+        function loadComment() {
+            window.disqus_config = function () {
+                this.page.url = 'justin900429.github.io/posts/42539bac/';
+                this.page.identifier = 'posts/42539bac/';
+            };
+            (function(){
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + 'https-justin900429-github-io' + '.disqus.com/embed.js';
+                (document.head || document.body).appendChild(dsq);
+            })();
+        }
+    
+        var runningOnBrowser = typeof window !== "undefined";
+        var isBot = runningOnBrowser && !("onscroll" in window) || typeof navigator !== "undefined" && /(gle|ing|ro|msn)bot|crawl|spider|yand|duckgo/i.test(navigator.userAgent);
+        var supportsIntersectionObserver = runningOnBrowser && "IntersectionObserver" in window;
+    
+        setTimeout(function () {
+            if (!isBot && supportsIntersectionObserver) {
+                var comment_observer = new IntersectionObserver(function(entries) {
+                    if (entries[0].isIntersecting) {
+                        loadComment();
+                        comment_observer.disconnect();
+                    }
+                }, { threshold: [0] });
+                comment_observer.observe(document.getElementById('comment'));
+            } else {
+                loadComment();
+            }
+        }, 1);
+    </script>
+
+
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+
+
+
+    </body>
+</html>

@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    
+    
+    
+        <link rel="icon" type="image/png" sizes="32x32" href="/icon.png">
+    
+    
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple_icon_128.png">
+    
+    
+        <link rel="mask-icon" href="/apple_icon_128.png">
+    
+
+
+    <!-- meta -->
+
+
+<title>[Series - 6] EDA介紹 | Justin website for sharing knowledge and getting idea.</title>
+
+
+    <meta name="keywords" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="[Series - 6] EDA介紹Acknowledge This article was written by Joyce.    See moreBack to the series page   前言今天的內容是做資料處理前一個很好的工具，它可以幫助我們認識資料的內容以及走向。  EDA(Exploratory data analysis)EDA翻譯成中文是探索式資料分析，是在對資料進行前">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Series - 6] EDA介紹">
+<meta property="og:url" content="justin900429.github.io/posts/3aa21bbe/index.html">
+<meta property="og:site_name" content="Justin website for sharing knowledge and getting idea.">
+<meta property="og:description" content="[Series - 6] EDA介紹Acknowledge This article was written by Joyce.    See moreBack to the series page   前言今天的內容是做資料處理前一個很好的工具，它可以幫助我們認識資料的內容以及走向。  EDA(Exploratory data analysis)EDA翻譯成中文是探索式資料分析，是在對資料進行前">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/3oNXAh9.jpg">
+<meta property="og:image" content="https://i.imgur.com/wSfAYja.png">
+<meta property="og:image" content="https://i.imgur.com/FsjGZoQ.png">
+<meta property="og:image" content="https://i.imgur.com/jaEUmnn.png">
+<meta property="og:image" content="https://i.imgur.com/t5VSMVp.png">
+<meta property="og:image" content="https://i.imgur.com/skd55J6.png">
+<meta property="og:image" content="https://i.imgur.com/LEOjkJk.png">
+<meta property="og:image" content="https://i.imgur.com/06PSPTr.png">
+<meta property="og:image" content="https://i.imgur.com/8cAq8zu.png">
+<meta property="og:image" content="https://i.imgur.com/gy0VXsf.png">
+<meta property="article:published_time" content="2020-09-07T11:46:04.000Z">
+<meta property="article:modified_time" content="2021-01-01T02:26:29.021Z">
+<meta property="article:author" content="Justin Ruan">
+<meta property="article:tag" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://i.imgur.com/3oNXAh9.jpg">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+
+
+    
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/atom-one-light.min.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')===-1)this.media='all'">
+        
+    
+
+    
+
+     
+
+    <!-- custom head -->
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+    <body>
+        <div id="app">
+            <script>
+window.onscroll = () => {
+    const nav = document.querySelector('.header');
+    if(this.scrollY <= 10) {
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0)"
+    } else {
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+    }
+};
+</script>
+
+<header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">Justin&#39;s blog</span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/about/" class="navbar-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="navbar-menu button">CV</a>
+                
+                    <a href="/" class="navbar-menu button">Articles</a>
+                
+                    <a href="/tags/" class="navbar-menu button">Tags</a>
+                
+                    <a href="/archives/" class="navbar-menu button">Archives</a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+
+         
+    <a href="#" class="button" id="b2t" aria-label="Back to Top" title="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="32" height="32">
+            <path d="M233.376 722.752L278.624 768 512 534.624 745.376 768l45.248-45.248L512 444.128zM192 352h640V288H192z" fill="currentColor"></path>
+        </svg>
+    </a>
+
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                
+                    <a href="/about/" class="dropdown-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="dropdown-menu button">CV</a>
+                
+                    <a href="/" class="dropdown-menu button">Articles</a>
+                
+                    <a href="/tags/" class="dropdown-menu button">Tags</a>
+                
+                    <a href="/archives/" class="dropdown-menu button">Archives</a>
+                
+            </div>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+
+<div class="post-title">
+    <h1 class="post-title__text">
+        [Series - 6] EDA介紹
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2020/09/" class="post-meta__date button">2020-09-07</a>
+        
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <aside class="post-side">
+        <div class="post-side__toc">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EDA-Exploratory-data-analysis"><span class="toc-number">2.</span> <span class="toc-text">EDA(Exploratory data analysis)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%8F%E8%BF%B0%E6%80%A7%E7%B5%B1%E8%A8%88"><span class="toc-number">3.</span> <span class="toc-text">描述性統計</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%86%E4%B8%AD%E9%87%8F%E6%95%B8"><span class="toc-number">3.1.</span> <span class="toc-text">集中量數</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%A2%E6%95%A3%E9%87%8F%E6%95%B8"><span class="toc-number">3.2.</span> <span class="toc-text">離散量數</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%96%E8%A1%A8%E8%A7%80%E5%AF%9F"><span class="toc-number">4.</span> <span class="toc-text">圖表觀察</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B6%A8%E5%8B%A2%E5%9C%96"><span class="toc-number">4.1.</span> <span class="toc-text">趨勢圖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B4%AF%E7%A9%8D%E5%9C%96"><span class="toc-number">4.2.</span> <span class="toc-text">累積圖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%A3%E4%BD%88%E5%9C%96"><span class="toc-number">4.3.</span> <span class="toc-text">散佈圖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B4%E6%96%B9%E5%9C%96"><span class="toc-number">4.4.</span> <span class="toc-text">直方圖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%92%E6%96%B9%E5%9C%96"><span class="toc-number">4.5.</span> <span class="toc-text">盒方圖</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%B2%E9%9A%8E%E5%88%86%E6%9E%90"><span class="toc-number">5.</span> <span class="toc-text">進階分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%A6%E9%9A%9B%E8%88%89%E4%BE%8B"><span class="toc-number">6.</span> <span class="toc-text">實際舉例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C%E9%80%A3%E7%B5%90"><span class="toc-number">6.1.</span> <span class="toc-text">實作連結</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B3%87%E6%96%99%E5%8F%96%E5%BE%97"><span class="toc-number">6.2.</span> <span class="toc-text">資料取得</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B8%E6%93%9A%E8%A7%A3%E9%87%8B"><span class="toc-number">6.3.</span> <span class="toc-text">數據解釋</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EDA%E5%88%86%E6%9E%90"><span class="toc-number">6.4.</span> <span class="toc-text">EDA分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E8%A8%AD%E5%AE%9A%E6%AA%A2%E6%9F%A5"><span class="toc-number">6.4.1.</span> <span class="toc-text">基本設定檢查</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%95%B0%E5%B8%B8%E5%80%BC"><span class="toc-number">6.4.2.</span> <span class="toc-text">異常值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B8%E6%93%9A%E5%88%86%E5%B8%83"><span class="toc-number">6.4.3.</span> <span class="toc-text">數據分布</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%9D%E8%80%83"><span class="toc-number">6.4.4.</span> <span class="toc-text">思考</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">7.</span> <span class="toc-text">結語</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">8.</span> <span class="toc-text">參考資料</span></a></li></ol>
+        </div>
+    </aside>
+    <a class="btn-toc button" id="btn-toc" tabindex="0">
+        <svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path>
+        </svg>
+    </a>
+    <div class="toc-menus" id="toc-menus">
+        <div class="toc-title">Article Directory</div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EDA-Exploratory-data-analysis"><span class="toc-number">2.</span> <span class="toc-text">EDA(Exploratory data analysis)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%8F%E8%BF%B0%E6%80%A7%E7%B5%B1%E8%A8%88"><span class="toc-number">3.</span> <span class="toc-text">描述性統計</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%86%E4%B8%AD%E9%87%8F%E6%95%B8"><span class="toc-number">3.1.</span> <span class="toc-text">集中量數</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%A2%E6%95%A3%E9%87%8F%E6%95%B8"><span class="toc-number">3.2.</span> <span class="toc-text">離散量數</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%96%E8%A1%A8%E8%A7%80%E5%AF%9F"><span class="toc-number">4.</span> <span class="toc-text">圖表觀察</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B6%A8%E5%8B%A2%E5%9C%96"><span class="toc-number">4.1.</span> <span class="toc-text">趨勢圖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B4%AF%E7%A9%8D%E5%9C%96"><span class="toc-number">4.2.</span> <span class="toc-text">累積圖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%A3%E4%BD%88%E5%9C%96"><span class="toc-number">4.3.</span> <span class="toc-text">散佈圖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B4%E6%96%B9%E5%9C%96"><span class="toc-number">4.4.</span> <span class="toc-text">直方圖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%92%E6%96%B9%E5%9C%96"><span class="toc-number">4.5.</span> <span class="toc-text">盒方圖</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%B2%E9%9A%8E%E5%88%86%E6%9E%90"><span class="toc-number">5.</span> <span class="toc-text">進階分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%A6%E9%9A%9B%E8%88%89%E4%BE%8B"><span class="toc-number">6.</span> <span class="toc-text">實際舉例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C%E9%80%A3%E7%B5%90"><span class="toc-number">6.1.</span> <span class="toc-text">實作連結</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B3%87%E6%96%99%E5%8F%96%E5%BE%97"><span class="toc-number">6.2.</span> <span class="toc-text">資料取得</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B8%E6%93%9A%E8%A7%A3%E9%87%8B"><span class="toc-number">6.3.</span> <span class="toc-text">數據解釋</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EDA%E5%88%86%E6%9E%90"><span class="toc-number">6.4.</span> <span class="toc-text">EDA分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E8%A8%AD%E5%AE%9A%E6%AA%A2%E6%9F%A5"><span class="toc-number">6.4.1.</span> <span class="toc-text">基本設定檢查</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%95%B0%E5%B8%B8%E5%80%BC"><span class="toc-number">6.4.2.</span> <span class="toc-text">異常值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B8%E6%93%9A%E5%88%86%E5%B8%83"><span class="toc-number">6.4.3.</span> <span class="toc-text">數據分布</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%9D%E8%80%83"><span class="toc-number">6.4.4.</span> <span class="toc-text">思考</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">7.</span> <span class="toc-text">結語</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">8.</span> <span class="toc-text">參考資料</span></a></li></ol>
+    </div>
+
+
+<article class="post content-card">
+    <div class="post__header"></div>
+    <div class="post__content">
+        <h1 id="Series-6-EDA介紹"><a href="#Series-6-EDA介紹" class="headerlink" title="[Series - 6] EDA介紹"></a>[Series - 6] EDA介紹</h1><blockquote class="blockquote-note blockquote-note__info"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></div>Acknowledge</div><div class="blockquote-note__content"><blockquote>
+<p>This article was written by Joyce.</p>
+</blockquote>
+</div></blockquote>
+
+<blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/posts/f9a1d882/">Back to the series page</a></p>
+</div></blockquote>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天的內容是做資料處理前一個很好的工具，它可以幫助我們認識資料的內容以及走向。</p>
+<hr>
+<h2 id="EDA-Exploratory-data-analysis"><a href="#EDA-Exploratory-data-analysis" class="headerlink" title="EDA(Exploratory data analysis)"></a>EDA(Exploratory data analysis)</h2><p>EDA翻譯成中文是<strong>探索式資料分析</strong>，是在對資料進行前處理，<br>主要的功能分成兩種，第一種是<strong>描述性統計</strong>，第二種是透過<strong>圖表觀察</strong>。不管是哪一種，它背後的數學技巧都是很基礎的，操作起來也很簡單，但是千萬不要因此小看EDA的威力，它可以讓我們在分析數據前，先對資料的分布、型態，有無離群值，有個大概的了解。</p>
+<ul>
+<li>數據的趨勢</li>
+<li>數據的分布</li>
+<li>異常值的出現</li>
+<li>重要參數的挑選</li>
+<li>基本假設的檢查</li>
+<li>評估分析方向</li>
+</ul>
+<hr>
+<h2 id="描述性統計"><a href="#描述性統計" class="headerlink" title="描述性統計"></a>描述性統計</h2><p>描述性統計的資料分為兩種，一種是集中量數，用來描述數據的集中程度，另一種是離散量數，則是用來描述離散程度，可以透過這些統計值，對資料的分佈有初步的認識。</p>
+<ol>
+<li>了解離散程度</li>
+<li>特徵值的選取</li>
+<li>缺失值的發現<h3 id="集中量數"><a href="#集中量數" class="headerlink" title="集中量數"></a>集中量數</h3>常見的集中量數為眾數、中位數、平均數，用來觀察資料是否集中，而除此之外，我們也常常用這三個數討論為常態分佈還是偏態分布。可以透過三個述職的大小加上圖形分析決定為哪一種分布。</li>
+<li>眾數 : 數據中出現次數最多的數值。</li>
+<li>中位數 : 數據中排序最中間的數值。</li>
+<li>平均數 : 數據加總除以總個數的數值。</li>
+</ol>
+<p><img src="https://i.imgur.com/3oNXAh9.jpg"></p>
+<ul>
+<li>負偏態 : 左右不對稱，眾數偏右，眾數&gt;中位數&gt;平均數。</li>
+<li>常態 : 左右對稱，眾數在中間，眾數=中位數=平均數。</li>
+<li>正偏態 : 左右不對稱，眾數偏左，眾數&lt;中位數&lt;平均數。</li>
+</ul>
+<h3 id="離散量數"><a href="#離散量數" class="headerlink" title="離散量數"></a>離散量數</h3><p>常見的離散量數有最大(小)值、四分位差、標準差，可以透過這些數值，查看資料的分散性。</p>
+<ol>
+<li>最大(小)值 : 數據中最大(小)的數值。</li>
+<li>範圍 : 數據中最大值與最小值的差。</li>
+<li>四分位差 : 數據中第三個四分位數和第一個四分位數的差值。</li>
+<li>標準差 :公式 $SD=\sqrt{\frac{1}{N}\sum_{i=1}^{N}(x_i-\mu)^2}$，其中 $\mu$ 是指平均值。</li>
+</ol>
+<hr>
+<h2 id="圖表觀察"><a href="#圖表觀察" class="headerlink" title="圖表觀察"></a>圖表觀察</h2><p>除了透過數值的觀察，最直接的方式是透過視覺化的圖形，像是趨勢圖、散佈圖，讓數據的走向、型態一目了然。</p>
+<ol>
+<li>了解資料分布</li>
+<li>檢視基本假設</li>
+<li>延伸新的研究方向<h3 id="趨勢圖"><a href="#趨勢圖" class="headerlink" title="趨勢圖"></a>趨勢圖</h3>將數據用趨勢圖的方式呈現，為了方便分析，常常我們會加入迴歸線，並附上迴歸函數，調整參數讓迴歸線貼近趨勢圖。觀察下面這張圖，我們可以推測當x軸越大，對應的y值也會越大，呈正相關。<br><img src="https://i.imgur.com/wSfAYja.png"></li>
+</ol>
+<h3 id="累積圖"><a href="#累積圖" class="headerlink" title="累積圖"></a>累積圖</h3><p>觀察累積圖的分布可以一眼看出集中區域，像是此圖size2就特別的多，因為他的斜率最大，這樣一來，我們就知道size2是我們需要特別注意觀察的對象。<br><img src="https://i.imgur.com/FsjGZoQ.png"></p>
+<h3 id="散佈圖"><a href="#散佈圖" class="headerlink" title="散佈圖"></a>散佈圖</h3><p>將數據用散佈圖的方式呈現，可以一眼看出是否有數據是異常值、極端值，數據是否能有一區一區的分類。<br><img src="https://i.imgur.com/jaEUmnn.png"></p>
+<h3 id="直方圖"><a href="#直方圖" class="headerlink" title="直方圖"></a>直方圖</h3><p>透過直方圖的觀察，可以看出是否呈現常態分佈，也可以一眼看出眾數、最大(小)值落在哪個區間。<br><img src="https://i.imgur.com/t5VSMVp.png"></p>
+<h3 id="盒方圖"><a href="#盒方圖" class="headerlink" title="盒方圖"></a>盒方圖</h3><p>繪製盒方圖可以看出數據的離散程度，且也可以看出最大(小)值，及四分位差。<br><img src="https://i.imgur.com/skd55J6.png"></p>
+<hr>
+<h2 id="進階分析"><a href="#進階分析" class="headerlink" title="進階分析"></a>進階分析</h2><p>透過選擇適當的EDA分析，會對數據有一定的了解。那麼接下來就要就要更深入地去思考數據背後的意義。舉些小例子，</p>
+<ol>
+<li>身為一個衣服批發商，隻身前往歐洲，手上有一萬比歐洲人的衣服尺碼，他可以先透過眾數，盒方圖…的分析，決定衣服S、M、L需要多大，因為眾數就代表群眾的身材型態。</li>
+<li>利用值方圖查看歷年來的死亡人數，發現1900(舉例)年的死亡人數特別的高，可以去思考是否那年發生了什麼重大的天災人禍。</li>
+</ol>
+<p>如果數據沒有錯誤，那麼每一筆數據都有其背後值得分析的意義，像是<strong>特徵值</strong>的選取，<strong>異常值</strong>分析，<strong>分布情形</strong>，分析完後，要怎麼去解釋，就要看分析者的功力了。</p>
+<hr>
+<h2 id="實際舉例"><a href="#實際舉例" class="headerlink" title="實際舉例"></a>實際舉例</h2><h3 id="實作連結"><a href="#實作連結" class="headerlink" title="實作連結"></a>實作連結</h3><p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://colab.research.google.com/drive/1swpAsikOM4aaLVpa4zBWkmYHL4vkXxCp#scrollTo=Jnn_VDqXWT3Ahttps://">colab連結</a></p>
+<h3 id="資料取得"><a href="#資料取得" class="headerlink" title="資料取得"></a>資料取得</h3><p>我們用<a target="_blank" rel="noopener external nofollow noreferrer" href="http://istem.info/ueditor/php/upload/file/20181116/1542381035696882.pdf"><strong>IMMC 2019 中華賽 秋季賽 B 題</strong></a>的題目進行舉例，先將csv檔下載下來。</p>
+<pre><code class="hljs python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd <span class="hljs-comment"># 引入pandas</span>
+data = pd.read_csv(<span class="hljs-string">&quot;weboggle_immc_selected.csv&quot;</span>) <span class="hljs-comment"># 讀取資料</span></code></pre>
+<p><strong><center>原始數據形式</center></strong><br><img src="https://i.imgur.com/LEOjkJk.png"></p>
+<h3 id="數據解釋"><a href="#數據解釋" class="headerlink" title="數據解釋"></a>數據解釋</h3><ol>
+<li>實驗數據提供以下資訊: <ul>
+<li>玩家代號: num_id </li>
+<li>伺服器記錄之時間: time_stamp </li>
+<li>該玩家所在時區與伺服器時間之時差 : zone(單位: 分鐘) </li>
+<li>該輪遊戲之答對題數(correct)、共猜測題數(guess)、得分(score) </li>
+<li>該輪遊戲之時間編號:session(因此編號相同的遊戲之      time_stamp 必定間隔 3 分 45 秒，並可由”有幾個連續的相同編號”得知該節遊戲共玩幾輪) </li>
+<li>承諾機制類型:commit_type (1 表示該節遊戲前之承諾，2 表示該節遊戲中之承諾， 1.5 表示該節遊戲前且遊戲中均承諾設限) </li>
+<li>承諾輪數:commit_limit (若 commit_type=1，則此數字表示該節遊戲前承諾要玩幾輪； 若 commit_type=2，由於遊戲中之承諾輪數永遠為 1，故此數字必為 1；若 commit_type=1.5，則此數字表示該節遊戲前承諾要玩幾輪) </li>
+<li>該節遊戲是否出現設限對話框:treat_dummy(0 表示不會遇到詢問設限的對話框；1 表示會遇到詢問設限的對話框)</li>
+</ul>
+</li>
+<li>實驗數據橫跨 84 個月，前 30 個月沒有設承諾機制，後 54 個月有設定承諾機制。</li>
+<li>實驗對象共 10000 人<ul>
+<li>對照組有 5000 人，從未遇過詢問設限的對話框(故 treat_dummy 總是為 0)。 </li>
+<li>實驗組有 5000 人，將經歷未設承諾機制時期到設承諾機制時期(故有些人 treat_dummy 從 0 到 1 都有，有些人 treat_dummy 則始終為 1)。<h3 id="EDA分析"><a href="#EDA分析" class="headerlink" title="EDA分析"></a>EDA分析</h3><h4 id="基本設定檢查"><a href="#基本設定檢查" class="headerlink" title="基本設定檢查"></a>基本設定檢查</h4></li>
+</ul>
+</li>
+<li>ID : 題目提及人數為10000人，因此我們先檢查是否真的為10000人。由輸出結果可知是10000人沒錯。<pre><code class="hljs python">len(data[<span class="hljs-string">&quot;num_id&quot;</span>].unique())</code></pre>
+output<pre><code class="hljs plain">10000</code></pre>
+<h4 id="異常值"><a href="#異常值" class="headerlink" title="異常值"></a>異常值</h4></li>
+<li>commit_type : 依照數據解釋，commit_type只會有<strong>沒有值</strong>、<strong>1</strong>、<strong>1.5</strong>、<strong>2</strong>，四種可能值。使用unique()的函數檢查所有可能值，由輸出結果可知commit_type的值可知不合理數字共有 <strong>1.3333…</strong>及 <strong>1.6666…</strong>兩種，可以考慮刪除這些資料。<pre><code class="hljs python">data[<span class="hljs-string">&quot;commit_type&quot;</span>].unique() <span class="hljs-comment"># 查看不重複的元素</span></code></pre>
+output<pre><code class="hljs plain">array([ nan, 1., 2., 1.5, 1.3333334, 1.6666666])</code></pre></li>
+<li>commit_limit : limit是場數限制的意思，亦即輸入的值要可以真的發揮到限制的功用才行。由輸出結果可以看出有極少數玩家輸入的 commit_limit 數值顯然無參考價值，，實際上根本不可能玩這麼多場數，可以考慮以沒有輸入來取代這些值。<pre><code class="hljs python">data[<span class="hljs-string">&quot;commit_limit&quot;</span>].unique()</code></pre>
+output<pre><code class="hljs plain">array([1.000000e+00, 2.000000e+00, 3.000000e+00, 4.000000e+00,
+       5.000000e+00, 6.000000e+00, 7.000000e+00, 8.000000e+00,
+       9.000000e+00, 1.000000e+01, 1.100000e+01, 1.200000e+01,
+       1.300000e+01, 1.400000e+01, 1.500000e+01, 1.600000e+01,
+       1.700000e+01, 1.800000e+01, 1.900000e+01, 2.000000e+01,
+       2.200000e+01, 2.300000e+01, 2.400000e+01, 2.500000e+01,
+       2.700000e+01, 2.900000e+01, 3.000000e+01, 3.100000e+01,
+       3.200000e+01, 3.300000e+01, 3.500000e+01, 4.000000e+01,
+       4.100000e+01, 4.300000e+01, 4.400000e+01, 4.700000e+01,
+       5.000000e+01, 5.100000e+01, 5.400000e+01, 5.500000e+01,
+       6.000000e+01, 6.100000e+01, 6.500000e+01, 7.000000e+01,
+       7.100000e+01, 7.200000e+01, 7.400000e+01, 7.500000e+01,
+       7.700000e+01, 8.000000e+01, 8.100000e+01, 8.200000e+01,
+       8.800000e+01, 9.000000e+01, 9.100000e+01, 9.200000e+01,
+       9.300000e+01, 9.500000e+01, 9.600000e+01, 9.900000e+01,
+       1.000000e+02, 1.110000e+02, 1.400000e+02, 1.990000e+02,
+       2.000000e+02, 2.220000e+02, 2.500000e+02, 3.000000e+02,
+       4.000000e+02, 5.000000e+02, 5.400000e+02, 5.550000e+02,
+       5.670000e+02, 6.000000e+02, 6.570000e+02, 6.660000e+02,
+       6.750000e+02, 6.780000e+02, 7.650000e+02, 7.770000e+02,
+       7.890000e+02, 8.730000e+02, 8.760000e+02, 8.880000e+02,
+       9.000000e+02, 9.830000e+02, 9.870000e+02, 9.990000e+02,
+       1.000000e+03, 1.200000e+03, 1.234000e+03, 4.234000e+03,
+       4.523000e+03, 5.000000e+03, 5.643000e+03, 7.895000e+03,
+       7.898000e+03, 8.888000e+03, 9.876000e+03, 9.999000e+03,
+       1.000000e+04, 1.234500e+04, 2.000000e+04, 5.000000e+04,
+       7.777700e+04, 8.765400e+04, 9.876500e+04, 9.999900e+04,
+       1.000000e+05, 1.111110e+05, 1.234540e+05, 1.234560e+05,
+       7.654320e+05, 7.777770e+05, 8.765430e+05, 8.888880e+05,
+       9.876540e+05, 9.999990e+05, 1.000000e+06, 4.444444e+06,
+       5.000000e+06, 7.777777e+06,          nan])</code></pre>
+<h4 id="數據分布"><a href="#數據分布" class="headerlink" title="數據分布"></a>數據分布</h4></li>
+<li>𝑆i (每個人共玩𝑆i個 session)之分布情形<br>分析每個玩家遊玩過幾個session，並輸出為count.csv<pre><code class="hljs python"><span class="hljs-comment"># count the number of sessions for each ID</span>
+data_reduce = data.drop_duplicates(subset=[<span class="hljs-string">&quot;session&quot;</span>])
+result = data_reduce.groupby(<span class="hljs-string">&quot;num_id&quot;</span>).count()[<span class="hljs-string">&quot;session&quot;</span>]
+
+<span class="hljs-comment"># output count_session to count.csv</span>
+result.to_csv(<span class="hljs-string">&quot;count.csv&quot;</span>, index=<span class="hljs-literal">False</span>)</code></pre>
+繪製成直方圖，由下方的直方圖可知因為局數的範圍太大了，不太好做分析。<pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt <span class="hljs-comment"># 引入matplotlib的函數</span>
+
+result_session = pd.read_csv(<span class="hljs-string">&quot;count.csv&quot;</span>)
+
+plt.title(<span class="hljs-string">&quot;Total session&quot;</span>)
+plt.xlabel(<span class="hljs-string">&quot;Si : sessions&quot;</span>)     
+plt.ylabel(<span class="hljs-string">&quot;numbers of people&quot;</span>)
+plt.hist(result_session[<span class="hljs-string">&quot;session&quot;</span>])<span class="hljs-comment"># 繪製直方圖</span>
+plt.show() <span class="hljs-comment"># 顯現圖形 </span></code></pre>
+<img src="https://i.imgur.com/06PSPTr.png"><br>因此我們把局數縮小到只考慮20局以內。考慮20局以內的玩家，可以由下圖看出玩家的分布大概呈指數下降。<pre><code class="hljs python">list_20 = []
+<span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>,<span class="hljs-number">21</span>):
+    list_20.append(<span class="hljs-number">0</span>)
+
+result_session = pd.read_csv(<span class="hljs-string">&quot;count.csv&quot;</span>)
+
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> result_session[<span class="hljs-string">&quot;session&quot;</span>]:
+  <span class="hljs-keyword">if</span>(i &lt;= <span class="hljs-number">20</span>):
+      list_20[i<span class="hljs-number">-1</span>] += <span class="hljs-number">1</span>
+count = list(range(<span class="hljs-number">1</span>,<span class="hljs-number">21</span>))
+plt.title(<span class="hljs-string">&quot;Distribution (1 ≦ Si ≦ 20)&quot;</span>)
+plt.xlabel(<span class="hljs-string">&quot;Si : sessions&quot;</span>)     
+plt.ylabel(<span class="hljs-string">&quot;numbers of people&quot;</span>)
+plt.plot(count, list_20)<span class="hljs-comment"># 繪製直方圖</span>
+plt.show() <span class="hljs-comment"># 顯現圖形 </span></code></pre>
+<img src="https://i.imgur.com/8cAq8zu.png"></li>
+</ol>
+<ol start="2">
+<li>𝑇i(每個人接觸此遊戲的總歷時)之分布情形<br>分析每個玩家在這個遊戲的總歷時，並輸出為time.csv<pre><code class="hljs python"><span class="hljs-comment"># split each Id</span>
+num_id = data[<span class="hljs-string">&quot;num_id&quot;</span>].unique()
+
+<span class="hljs-comment"># creat an empty dictionary</span>
+time_data = &#123;<span class="hljs-string">&quot;num_id&quot;</span>: [], <span class="hljs-string">&quot;total_time&quot;</span>: []&#125;
+
+<span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> num_id:
+    id_temp = data[data[<span class="hljs-string">&quot;num_id&quot;</span>] == num]
+    length = len(id_temp)
+    
+    <span class="hljs-comment"># get each ID first play time and last play time</span>
+    time_first = id_temp.iloc[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]
+    time_last = id_temp.iloc[length - <span class="hljs-number">1</span>, <span class="hljs-number">1</span>]
+    
+    <span class="hljs-comment"># add blank space to time string</span>
+    time_first = time_first[:<span class="hljs-number">2</span>] + <span class="hljs-string">&#x27; &#x27;</span> + time_first[<span class="hljs-number">2</span>:<span class="hljs-number">5</span>] + <span class="hljs-string">&#x27; &#x27;</span> + time_first[<span class="hljs-number">5</span>:]
+    time_last = time_last[:<span class="hljs-number">2</span>] + <span class="hljs-string">&#x27; &#x27;</span> + time_last[<span class="hljs-number">2</span>:<span class="hljs-number">5</span>] + <span class="hljs-string">&#x27; &#x27;</span> + time_last[<span class="hljs-number">5</span>:]
+    
+    <span class="hljs-comment"># change time string to standard format</span>
+    timeArray_first = time.strptime(time_first, <span class="hljs-string">&quot;%d %b %Y %H:%M:%S&quot;</span>)
+    timeArray_last = time.strptime(time_last, <span class="hljs-string">&quot;%d %b %Y %H:%M:%S&quot;</span>)
+    
+    <span class="hljs-comment"># chage the standard format to seconds</span>
+    first_second = int(time.mktime(timeArray_first))
+    last_second = int(time.mktime(timeArray_last))
+    
+    <span class="hljs-comment"># calculate the difference and convert to year</span>
+    <span class="hljs-comment"># 31536000 seconds = 1 year</span>
+    total = (last_second - first_second)/<span class="hljs-number">31536000</span>
+    
+    <span class="hljs-comment"># save to dictionary</span>
+    time_data[<span class="hljs-string">&quot;num_id&quot;</span>].append(num)
+    time_data[<span class="hljs-string">&quot;total_time&quot;</span>].append(total)
+
+<span class="hljs-comment"># output to the file</span>
+result = pd.DataFrame(time_data)    
+result.to_csv(<span class="hljs-string">&quot;time.csv&quot;</span>, index=<span class="hljs-literal">False</span>)</code></pre>
+繪製成直方圖<pre><code class="hljs python">result_time = pd.read_csv(<span class="hljs-string">&quot;time.csv&quot;</span>)
+
+plt.title(<span class="hljs-string">&quot;Total time&quot;</span>)
+plt.xlabel(<span class="hljs-string">&quot;Si : time&quot;</span>)     
+plt.ylabel(<span class="hljs-string">&quot;numbers of people&quot;</span>)
+plt.hist(result_time[<span class="hljs-string">&quot;total_time&quot;</span>])<span class="hljs-comment"># 繪製直方圖</span>
+plt.show() <span class="hljs-comment"># 顯現圖形 </span></code></pre>
+<img src="https://i.imgur.com/gy0VXsf.png"></li>
+</ol>
+<h4 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h4><p>看到數據的分布情形，我們可以將資料分群，像是分兩群，短期玩家及長期玩家，或是分三群，過客型玩家、短期成癮玩家、長期穩定型玩家，該如何分析就需要自己決定了。還有很多的參數，我們沒有進行檢查或分析，這裡只舉些小小的分析供大家學習。</p>
+<hr>
+<h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>EDA是由有著統計界畢卡索之稱的<strong>John Tukey</strong>提出的，以下是他的經典名言</p>
+<blockquote>
+<p>“An approximate answer to the right question is worth a great deal more than a precise answer to the wrong question.”<br>對正確的問題有個近似的答案，勝過對錯的問題有精確的答案。</p>
+</blockquote>
+<p>利用EDA的分析，讓我們能在處理問題、分析數據上能更加有把握。</p>
+<hr>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://ithelp.ithome.com.tw/articles/10213384">Day02 What is EDA (Exploratory Data Analysis)? 淺談何謂探索式資料分析</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://medium.com/@baubibi/%E9%80%9F%E8%A8%98ai%E8%AA%B2%E7%A8%8B-%E7%B5%B1%E8%A8%88%E8%88%87%E8%B3%87%E6%96%99%E5%88%86%E6%9E%90-%E5%9B%9B-3cf14683b98f">速記AI課程－統計與資料分析（四）</a></li>
+</ul>
+<br/>
+<br/>
+<a href="/posts/f0f09014/" float=left>Last</a> <a href="/posts/35352abb/" style="float: right;">Next</a><!-- flag of hidden posts -->
+    </div>
+     
+    <div class="post-footer__meta"><p>updated at 2021-01-01</p></div> 
+    <div class="post-meta__cats"></div> 
+</article>
+
+
+
+
+    <div class="post__comments content-card" id="comment">
+        
+    <h4>Comments</h4>
+    
+    <div id="disqus_thread">Unable to load Disqus, please make sure your network can access.</div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    </div>
+
+
+
+</main>
+
+            <footer class="footer">
+    
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/viz.js/1.7.1/viz.js'></script>
+        <script>
+          String.prototype.replaceAll = function(search, replacement) {
+            var target = this;
+            return target.split(search).join(replacement);
+          };
+      
+          let vizObjects = document.querySelectorAll('.graphviz')
+      
+          for (let item of vizObjects) {
+            let svg = undefined
+            try {
+              svg = Viz(item.textContent.replaceAll('–', '--'), 'svg')
+            } catch(e) {
+              svg = `<pre class="error">${e}</pre>`
+            }
+            item.outerHTML = svg
+          }
+        </script>
+    
+    
+
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright © 2021 <a href="/">Justin website for sharing knowledge and getting idea.</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" rel="external nofollow noreferrer" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" rel="external nofollow noreferrer" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+         
+
+ 
+
+ 
+
+ 
+
+  
+
+
+
+ 
+
+
+    
+ 
+
+ 
+
+
+    <script>
+        if (typeof MathJax === 'undefined') {
+            window.MathJax = {
+                loader: {
+                    source: {
+                        '[tex]/amsCd': '[tex]/amscd',
+                        '[tex]/AMScd': '[tex]/amscd'
+                    }
+                },
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                },
+                options: {
+                    renderActions: {
+                        findScript: [10, doc => {
+                            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                                const display = !!node.type.match(/; *mode=display/);
+                                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                                const text = document.createTextNode('');
+                                node.parentNode.replaceChild(text, node);
+                                math.start = {node: text, delim: '', n: 0};
+                                math.end = {node: text, delim: '', n: 0};
+                                doc.math.push(math);
+                            });
+                        }, '', false],
+                        insertedScript: [200, () => {
+                            document.querySelectorAll('mjx-container').forEach(node => {
+                                let target = node.parentNode;
+                                if (target.nodeName.toLowerCase() === 'li') {
+                                    target.parentNode.classList.add('has-jax');
+                                }
+                            });
+                        }, '', false]
+                    }
+                }
+            };
+            (function () {
+                var script = document.createElement('script');
+                script.src = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js";
+                script.defer = true;
+                document.head.appendChild(script);
+            })();
+        } else {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+        }
+    </script>
+ 
+
+ 
+
+ 
+
+
+    
+    <script>
+        function loadComment() {
+            window.disqus_config = function () {
+                this.page.url = 'justin900429.github.io/posts/3aa21bbe/';
+                this.page.identifier = 'posts/3aa21bbe/';
+            };
+            (function(){
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + 'https-justin900429-github-io' + '.disqus.com/embed.js';
+                (document.head || document.body).appendChild(dsq);
+            })();
+        }
+    
+        var runningOnBrowser = typeof window !== "undefined";
+        var isBot = runningOnBrowser && !("onscroll" in window) || typeof navigator !== "undefined" && /(gle|ing|ro|msn)bot|crawl|spider|yand|duckgo/i.test(navigator.userAgent);
+        var supportsIntersectionObserver = runningOnBrowser && "IntersectionObserver" in window;
+    
+        setTimeout(function () {
+            if (!isBot && supportsIntersectionObserver) {
+                var comment_observer = new IntersectionObserver(function(entries) {
+                    if (entries[0].isIntersecting) {
+                        loadComment();
+                        comment_observer.disconnect();
+                    }
+                }, { threshold: [0] });
+                comment_observer.observe(document.getElementById('comment'));
+            } else {
+                loadComment();
+            }
+        }, 1);
+    </script>
+
+
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+
+
+
+    </body>
+</html>

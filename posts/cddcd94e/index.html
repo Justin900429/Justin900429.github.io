@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    
+    
+    
+        <link rel="icon" type="image/png" sizes="32x32" href="/icon.png">
+    
+    
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple_icon_128.png">
+    
+    
+        <link rel="mask-icon" href="/apple_icon_128.png">
+    
+
+
+    <!-- meta -->
+
+
+<title>Android RecyclerView - 1 | Justin website for sharing knowledge and getting idea.</title>
+
+
+    <meta name="keywords" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="Android RecyclerView - 1See moreBack to the series page   前言今天我們要結合上篇介紹的觀念，做出 RecyclerView。這邊單純講如何顯示 RecyclerView。下篇會介紹如何加入新的資料。 這篇看完後會了解到： 如何建立 RecyclerView    RecyclerView我們上面有說到我們的 Adapter 會為我們的 Da">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android RecyclerView - 1">
+<meta property="og:url" content="justin900429.github.io/posts/cddcd94e/index.html">
+<meta property="og:site_name" content="Justin website for sharing knowledge and getting idea.">
+<meta property="og:description" content="Android RecyclerView - 1See moreBack to the series page   前言今天我們要結合上篇介紹的觀念，做出 RecyclerView。這邊單純講如何顯示 RecyclerView。下篇會介紹如何加入新的資料。 這篇看完後會了解到： 如何建立 RecyclerView    RecyclerView我們上面有說到我們的 Adapter 會為我們的 Da">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/Z1e9Ufa.jpg">
+<meta property="og:image" content="https://i.imgur.com/vvvFOIr.png">
+<meta property="og:image" content="https://i.imgur.com/MXdCVS7.png">
+<meta property="og:image" content="https://i.imgur.com/eIVoCog.png">
+<meta property="og:image" content="https://i.imgur.com/5ITfrmd.png">
+<meta property="og:image" content="https://i.imgur.com/Go9SKd8.png">
+<meta property="og:image" content="https://i.imgur.com/hIH4oct.jpg">
+<meta property="article:published_time" content="2020-10-06T13:33:00.000Z">
+<meta property="article:modified_time" content="2020-12-31T13:16:53.607Z">
+<meta property="article:author" content="Justin Ruan">
+<meta property="article:tag" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://i.imgur.com/Z1e9Ufa.jpg">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+
+
+    
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/atom-one-light.min.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')===-1)this.media='all'">
+        
+    
+
+    
+
+     
+
+    <!-- custom head -->
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+    <body>
+        <div id="app">
+            <script>
+window.onscroll = () => {
+    const nav = document.querySelector('.header');
+    if(this.scrollY <= 10) {
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0)"
+    } else {
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+    }
+};
+</script>
+
+<header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">Justin&#39;s blog</span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/about/" class="navbar-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="navbar-menu button">CV</a>
+                
+                    <a href="/" class="navbar-menu button">Articles</a>
+                
+                    <a href="/tags/" class="navbar-menu button">Tags</a>
+                
+                    <a href="/archives/" class="navbar-menu button">Archives</a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+
+         
+    <a href="#" class="button" id="b2t" aria-label="Back to Top" title="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="32" height="32">
+            <path d="M233.376 722.752L278.624 768 512 534.624 745.376 768l45.248-45.248L512 444.128zM192 352h640V288H192z" fill="currentColor"></path>
+        </svg>
+    </a>
+
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                
+                    <a href="/about/" class="dropdown-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="dropdown-menu button">CV</a>
+                
+                    <a href="/" class="dropdown-menu button">Articles</a>
+                
+                    <a href="/tags/" class="dropdown-menu button">Tags</a>
+                
+                    <a href="/archives/" class="dropdown-menu button">Archives</a>
+                
+            </div>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+
+<div class="post-title">
+    <h1 class="post-title__text">
+        Android RecyclerView - 1
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2020/10/" class="post-meta__date button">2020-10-06</a>
+        
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <aside class="post-side">
+        <div class="post-side__toc">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RecyclerView"><span class="toc-number">2.</span> <span class="toc-text">RecyclerView</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-RecyclerView"><span class="toc-number">3.</span> <span class="toc-text">實作 RecyclerView</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%8A%A0%E5%85%A5-implement"><span class="toc-number">3.1.</span> <span class="toc-text">1. 加入 implement</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%B3%87%E6%96%99%E6%BA%96%E5%82%99"><span class="toc-number">3.2.</span> <span class="toc-text">2. 資料準備</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-Main-layout"><span class="toc-number">3.3.</span> <span class="toc-text">5. Main layout</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Data-layout"><span class="toc-number">3.4.</span> <span class="toc-text">4. Data layout</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-Adapter"><span class="toc-number">3.5.</span> <span class="toc-text">5. Adapter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MemberAdapter-%E5%AE%8C%E6%95%B4%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">3.6.</span> <span class="toc-text">MemberAdapter 完整程式碼</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-MainActivity"><span class="toc-number">3.7.</span> <span class="toc-text">6. MainActivity</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E6%9E%9C"><span class="toc-number">4.</span> <span class="toc-text">結果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-number">5.</span> <span class="toc-text">References</span></a></li></ol>
+        </div>
+    </aside>
+    <a class="btn-toc button" id="btn-toc" tabindex="0">
+        <svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path>
+        </svg>
+    </a>
+    <div class="toc-menus" id="toc-menus">
+        <div class="toc-title">Article Directory</div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RecyclerView"><span class="toc-number">2.</span> <span class="toc-text">RecyclerView</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C-RecyclerView"><span class="toc-number">3.</span> <span class="toc-text">實作 RecyclerView</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%8A%A0%E5%85%A5-implement"><span class="toc-number">3.1.</span> <span class="toc-text">1. 加入 implement</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%B3%87%E6%96%99%E6%BA%96%E5%82%99"><span class="toc-number">3.2.</span> <span class="toc-text">2. 資料準備</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-Main-layout"><span class="toc-number">3.3.</span> <span class="toc-text">5. Main layout</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Data-layout"><span class="toc-number">3.4.</span> <span class="toc-text">4. Data layout</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-Adapter"><span class="toc-number">3.5.</span> <span class="toc-text">5. Adapter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MemberAdapter-%E5%AE%8C%E6%95%B4%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">3.6.</span> <span class="toc-text">MemberAdapter 完整程式碼</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-MainActivity"><span class="toc-number">3.7.</span> <span class="toc-text">6. MainActivity</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E6%9E%9C"><span class="toc-number">4.</span> <span class="toc-text">結果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-number">5.</span> <span class="toc-text">References</span></a></li></ol>
+    </div>
+
+
+<article class="post content-card">
+    <div class="post__header"></div>
+    <div class="post__content">
+        <h1 id="Android-RecyclerView-1"><a href="#Android-RecyclerView-1" class="headerlink" title="Android RecyclerView - 1"></a>Android RecyclerView - 1</h1><blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/2020/09/21/android/and-series/">Back to the series page</a></p>
+</div></blockquote>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天我們要結合上篇介紹的觀念，做出 <strong>RecyclerView</strong>。這邊單純講如何顯示 <strong>RecyclerView</strong>。下篇會介紹如何加入新的資料。</p>
+<blockquote class="blockquote-note blockquote-note__important"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></div>這篇看完後會了解到：</div><div class="blockquote-note__content"><ol>
+<li>如何建立 <strong>RecyclerView</strong></li>
+</ol>
+</div></blockquote>
+
+<h2 id="RecyclerView"><a href="#RecyclerView" class="headerlink" title="RecyclerView"></a>RecyclerView</h2><p>我們上面有說到我們的 <strong>Adapter</strong> 會為我們的 <strong>Data</strong> 創立一個 <strong>View</strong>。然而當我們物體很多時，我們的螢幕就只會顯示幾個，想要看更多就需要使用者滑動螢幕。但是每當我們滑下我們的螢幕時，上面已經建立好的物件仍存在，我們的 <strong>Adapter</strong> 會繼續為下面的物件建立 <strong>View</strong>。</p>
+<p>既然我們滑掉的時候，我們已經看不到那些物體，我們就可以<strong>重新回收</strong>那些物件，將他改成即將顯示的物件，省去重新建立 <strong>View</strong> 的資源。這也是 <strong>Recycle</strong> 的概念。</p>
+<center><img src="https://i.imgur.com/Z1e9Ufa.jpg" width=600/></center>
+<br>
+
+<h2 id="實作-RecyclerView"><a href="#實作-RecyclerView" class="headerlink" title="實作 RecyclerView"></a>實作 RecyclerView</h2><h3 id="1-加入-implement"><a href="#1-加入-implement" class="headerlink" title="1. 加入 implement"></a>1. 加入 implement</h3><p>首先我們要先在 <strong>build.gradle</strong> 裡加入</p>
+<pre><code class="hljs groovy">implementation <span class="hljs-string">&#x27;androidx.recyclerview:recyclerview:1.1.0&#x27;</span></code></pre>
+
+<br>
+<center><img src="https://i.imgur.com/vvvFOIr.png" width=400/></center>
+<br>
+
+<p>版本更新可以參考<a target="_blank" rel="noopener external nofollow noreferrer" href="https://developer.android.com/jetpack/androidx/releases/recyclerview">這裡</a>。另外我們在<a href="https://justin900429.github.io/2020/09/22/android/and-2/#Gradle-Scripts">這篇</a>有介紹過 <strong>Gradle</strong> 是什麼！</p>
+<h3 id="2-資料準備"><a href="#2-資料準備" class="headerlink" title="2. 資料準備"></a>2. 資料準備</h3><p>因為我們還沒介紹過資料庫的應用，因此我們這邊就手動建立<strong>資料型別</strong>以及<strong>資料</strong>。假設我們每筆 <strong>View</strong> 包含姓名跟歲數，因此我們可以創立一個 <strong>Data Class</strong> 來儲存這個型別的資料。</p>
+<p>我們這邊建立一個 <strong>Data Classs</strong>，放在跟 <strong>MainActivity</strong> 同一個目錄下。這邊我把這個 <strong>Class</strong> 取名為 <strong>MemeberInfo</strong>。</p>
+<blockquote>
+<p>名字取什麼都可以，但是要清楚這個程式是用做什麼的</p>
+</blockquote>
+<br>
+<center><img src="https://i.imgur.com/MXdCVS7.png" width=400/></center>
+<br>
+
+<p><strong>Data Class</strong> 的內容為：</p>
+<pre><code class="hljs kotlin"><span class="hljs-keyword">package</span> com.example.recyclerview
+
+<span class="hljs-keyword">data</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MemberInfo</span></span>(
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">val</span> name:String,
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">val</span> age: <span class="hljs-built_in">Int</span>
+)</code></pre>
+<h3 id="5-Main-layout"><a href="#5-Main-layout" class="headerlink" title="5. Main layout"></a>5. Main layout</h3><p>這邊我們要在我們的 <strong>activity_main.xml</strong> 加入 <strong>RecyclerView</strong> 的元件。</p>
+<pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">androidx.constraintlayout.widget.ConstraintLayout</span> </span>
+<span class="hljs-tag">    <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">xmlns:app</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res-auto&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">xmlns:tools</span>=<span class="hljs-string">&quot;http://schemas.android.com/tools&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;match_parent&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;match_parent&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">tools:context</span>=<span class="hljs-string">&quot;.MainActivity&quot;</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">androidx.recyclerview.widget.RecyclerView</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:id</span>=<span class="hljs-string">&quot;@+id/rv_member&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:layout_margin</span>=<span class="hljs-string">&quot;10dp&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;match_parent&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;0dp&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintBottom_toBottomOf</span>=<span class="hljs-string">&quot;parent&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintEnd_toEndOf</span>=<span class="hljs-string">&quot;parent&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintStart_toStartOf</span>=<span class="hljs-string">&quot;parent&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintTop_toTopOf</span>=<span class="hljs-string">&quot;parent&quot;</span> /&gt;</span>
+
+<span class="hljs-tag">&lt;/<span class="hljs-name">androidx.constraintlayout.widget.ConstraintLayout</span>&gt;</span></code></pre>
+
+<br>
+<center><img src="https://i.imgur.com/eIVoCog.png" width=300/></center>
+<br>
+
+
+
+<h3 id="4-Data-layout"><a href="#4-Data-layout" class="headerlink" title="4. Data layout"></a>4. Data layout</h3><p>我們這邊先為我們的資料創立他的 <strong>UI</strong> 介面吧！首先創立一個 <strong>member_layout.xml</strong>。</p>
+<pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">androidx.constraintlayout.widget.ConstraintLayout</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">xmlns:app</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res-auto&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">xmlns:tools</span>=<span class="hljs-string">&quot;http://schemas.android.com/tools&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;match_parent&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextView</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:id</span>=<span class="hljs-string">&quot;@+id/txt_name&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:layout_marginStart</span>=<span class="hljs-string">&quot;15dp&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:layout_marginTop</span>=<span class="hljs-string">&quot;5dp&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:text</span>=<span class="hljs-string">&quot;TextView&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:textSize</span>=<span class="hljs-string">&quot;20sp&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintStart_toStartOf</span>=<span class="hljs-string">&quot;parent&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintTop_toTopOf</span>=<span class="hljs-string">&quot;parent&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">tools:text</span>=<span class="hljs-string">&quot;Name&quot;</span> /&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextView</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:id</span>=<span class="hljs-string">&quot;@+id/txt_age&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:layout_marginTop</span>=<span class="hljs-string">&quot;5dp&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:text</span>=<span class="hljs-string">&quot;TextView&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:textSize</span>=<span class="hljs-string">&quot;20sp&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintEnd_toEndOf</span>=<span class="hljs-string">&quot;parent&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintStart_toEndOf</span>=<span class="hljs-string">&quot;@+id/txt_name&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintTop_toTopOf</span>=<span class="hljs-string">&quot;parent&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">tools:text</span>=<span class="hljs-string">&quot;Age&quot;</span> /&gt;</span>
+        
+<span class="hljs-tag">&lt;/<span class="hljs-name">androidx.constraintlayout.widget.ConstraintLayout</span>&gt;</span></code></pre>
+
+<p>這邊要注意的是我們的 <strong>ConstraintLayou</strong> 的 <strong>layout_height</strong> 要設置 <strong>wrap_content</strong>。因為每一個 <strong>layout</strong> 都是一個 <strong>View</strong>，如果我們設置錯誤，會導致一個 <strong>View</strong> 就佔了整個 <strong>recyclerView</strong>。</p>
+<br>
+<center><img src="https://i.imgur.com/5ITfrmd.png" width=300/></center>
+<br>
+
+
+
+<h3 id="5-Adapter"><a href="#5-Adapter" class="headerlink" title="5. Adapter"></a>5. Adapter</h3><p>上篇我們有說明過 <strong>Adapter</strong> 的功用，現在我們同樣在跟 <strong>MainActivity</strong> 同一個目錄下創立 <strong>MemberAdapter</strong>。</p>
+<blockquote>
+<p>名字取什麼都可以，但是要清楚這個程式是用做什麼的</p>
+</blockquote>
+<br>
+<center><img src="https://i.imgur.com/Go9SKd8.png" width=400/></center>
+<br>
+
+<p>首先我們上篇說過要改寫 <code>onCreateViewHolder()</code>, <code>onBindViewHolder()</code>, <code>getItemCount()</code>，因此我們這邊寫寫出我們的架構。</p>
+<pre><code class="hljs kotlin"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MemberAdapter</span> </span>(
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">var</span> members: MutableList&lt;MemberInfo&gt;
+) : RecyclerView.Adapter&lt;MemberAdapter.MemberViewHolder&gt;()  &#123;
+    <span class="hljs-comment">// Our ViewHolder</span>
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MemberViewHolder</span></span>(itemView: View): RecyclerView.ViewHolder(itemView)
+
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onCreateViewHolder</span><span class="hljs-params">(parent: <span class="hljs-type">ViewGroup</span>, viewType: <span class="hljs-type">Int</span>)</span></span>
+            : MemberViewHolder &#123;
+        <span class="hljs-comment">// TODO</span>
+    &#125;
+
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onBindViewHolder</span><span class="hljs-params">(holder: <span class="hljs-type">OurViewHolder</span>, position: <span class="hljs-type">Int</span>)</span></span> &#123;
+        <span class="hljs-comment">// TODO</span>
+    &#125;
+
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">getItemCount</span><span class="hljs-params">()</span></span>: <span class="hljs-built_in">Int</span> &#123;
+        <span class="hljs-comment">// TODO</span>
+    &#125;
+&#125;</code></pre>
+
+<ul>
+<li><strong>onCreateViewHolder()</strong><br>  這邊我們要利用 <strong>layoutInflater</strong> 來建立一個 <strong>view</strong> 元件，並傳回 <strong>ViewHolder</strong> 。<br><br>  <pre><code class="hljs kotlin"><span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onCreateViewHolder</span><span class="hljs-params">(parent: <span class="hljs-type">ViewGroup</span>, viewType: <span class="hljs-type">Int</span>)</span></span>
+        : MemberViewHolder &#123;
+    <span class="hljs-comment">// Make our view look like member_layout.xml</span>
+    <span class="hljs-keyword">val</span> view = LayoutInflater.from(parent.context)
+                             .inflate(R.layout.member_layout, parent, <span class="hljs-literal">false</span>)
+                             
+    <span class="hljs-comment">// Return ViewHolder</span>
+    <span class="hljs-keyword">return</span> MemberViewHolder(view)
+&#125;</code></pre></li>
+<li><strong>getCount()</strong><br>  回傳 <strong>members</strong> 的大小。<br><br>  <pre><code class="hljs kotlin"><span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">getItemCount</span><span class="hljs-params">()</span></span>: <span class="hljs-built_in">Int</span> &#123;
+    <span class="hljs-comment">// Return the size of mutablelist</span>
+    <span class="hljs-keyword">return</span> members.size
+&#125;</code></pre></li>
+<li><strong>onBindViewHolder()</strong><br>  這邊我們要來綁定資料跟 <strong>UI</strong>。<strong>position</strong> 代表陣列的第幾筆資料。我們可以這麼做是因為我們的 <strong>ViewHolder</strong> 容納了很多 <strong>Views</strong>，因此我們每個 <strong>Views</strong> 都可以清楚綁定每個資料。<br><br>  <pre><code class="hljs kotlin"><span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onBindViewHolder</span><span class="hljs-params">(holder: <span class="hljs-type">MemberViewHolder</span>, position: <span class="hljs-type">Int</span>)</span></span> &#123;
+    holder.itemView.apply &#123;
+        txt_name.text = members[position].name
+        txt_age.text = members[position].age.toString()
+    &#125;
+&#125;</code></pre>
+
+</li>
+</ul>
+<h3 id="MemberAdapter-完整程式碼"><a href="#MemberAdapter-完整程式碼" class="headerlink" title="MemberAdapter 完整程式碼"></a>MemberAdapter 完整程式碼</h3><p>只展現 <strong>class</strong> 的部分。</p>
+<blockquote>
+<p>如果出現紅線並且需要 <strong>import</strong> 東西來解決，可以按下 <mark>option + Enter</mark> 或是 <mark>Alt + Enter</mark> 來快速修正。</p>
+</blockquote>
+<pre><code class="hljs kotlin"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MemberAdapter</span> </span>(
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">var</span> members: MutableList&lt;MemberInfo&gt;
+) : RecyclerView.Adapter&lt;MemberAdapter.MemberViewHolder&gt;()  &#123;
+    <span class="hljs-comment">// Our ViewHolder</span>
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MemberViewHolder</span></span>(itemView: View): RecyclerView.ViewHolder(itemView)
+
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onCreateViewHolder</span><span class="hljs-params">(parent: <span class="hljs-type">ViewGroup</span>, viewType: <span class="hljs-type">Int</span>)</span></span>
+            : MemberViewHolder &#123;
+        <span class="hljs-comment">// Make our view look like member_layout.xml</span>
+        <span class="hljs-keyword">val</span> view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.member_layout, parent, <span class="hljs-literal">false</span>)
+
+        <span class="hljs-comment">// Return ViewHolder</span>
+        <span class="hljs-keyword">return</span> MemberViewHolder(view)
+    &#125;
+
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onBindViewHolder</span><span class="hljs-params">(holder: <span class="hljs-type">MemberViewHolder</span>, position: <span class="hljs-type">Int</span>)</span></span> &#123;
+        <span class="hljs-comment">// Bind the layout view to the data</span>
+        holder.itemView.apply &#123;
+            <span class="hljs-comment">// Name to name</span>
+            txt_name.text = members[position].name
+            <span class="hljs-comment">// Age to age</span>
+            txt_age.text = members[position].age.toString()
+        &#125;
+    &#125;
+
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">getItemCount</span><span class="hljs-params">()</span></span>: <span class="hljs-built_in">Int</span> &#123;
+        <span class="hljs-comment">// Return the size of mutableList</span>
+        <span class="hljs-keyword">return</span> members.size
+    &#125;
+&#125;</code></pre>
+
+<h3 id="6-MainActivity"><a href="#6-MainActivity" class="headerlink" title="6. MainActivity"></a>6. MainActivity</h3><p>這邊我們的 <strong>memberList</strong> 是在模擬我們的資料庫。而我們的 <strong>rv_member</strong> 則是我們 <strong>recyclerView</strong> 的 <strong>ID</strong>。我們加入我們的 <strong>adapter</strong> 後，設定我們 <strong>RecyclerView</strong> 的顯示格式。<strong>LinearLayoutManager</strong> 則是水平一行一行顯示。</p>
+<pre><code class="hljs kotlin"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MainActivity</span> : <span class="hljs-type">AppCompatActivity</span></span>() &#123;
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onCreate</span><span class="hljs-params">(savedInstanceState: <span class="hljs-type">Bundle</span>?)</span></span> &#123;
+        <span class="hljs-keyword">super</span>.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        
+        <span class="hljs-comment">// Simulate the database</span>
+        <span class="hljs-keyword">var</span> memberList = mutableListOf(
+            MemberInfo(<span class="hljs-string">&quot;Justin&quot;</span>, <span class="hljs-number">20</span>),
+            MemberInfo(<span class="hljs-string">&quot;Joyce&quot;</span>, <span class="hljs-number">20</span>)
+        )
+        
+        <span class="hljs-comment">// Make the adapter object</span>
+        <span class="hljs-comment">// And assign it to recyclerView</span>
+        <span class="hljs-keyword">val</span> adapter = MemberAdapter(memberList)
+        rv_member.adapter = adapter
+        rv_member.layoutManager = LinearLayoutManager(<span class="hljs-keyword">this</span>)
+    &#125;
+&#125;</code></pre>
+<br>
+
+<h2 id="結果"><a href="#結果" class="headerlink" title="結果"></a>結果</h2><br>
+<center><img src="https://i.imgur.com/hIH4oct.jpg" width=300/></center>
+<br>
+
+
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://litotom.com/product/android-ebook-kotlin-2/">Android 實作這樣學: Kotlin 電子書 (下冊)</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://youtu.be/ai9rSGcDhyQ">Creating a RecyclerView that handles Click Events in Android Studio (Kotlin 2020)</a></li>
+</ol>
+<br/>
+<br/>
+<a href="/posts/5aa39150/" float=left>Last</a> <a href="/posts/54d588f4/" style="float: right;">Next</a><!-- flag of hidden posts -->
+    </div>
+     
+    <div class="post-footer__meta"><p>updated at 2020-12-31</p></div> 
+    <div class="post-meta__cats"></div> 
+</article>
+
+
+
+
+    <div class="post__comments content-card" id="comment">
+        
+    <h4>Comments</h4>
+    
+    <div id="disqus_thread">Unable to load Disqus, please make sure your network can access.</div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    </div>
+
+
+
+</main>
+
+            <footer class="footer">
+    
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/viz.js/1.7.1/viz.js'></script>
+        <script>
+          String.prototype.replaceAll = function(search, replacement) {
+            var target = this;
+            return target.split(search).join(replacement);
+          };
+      
+          let vizObjects = document.querySelectorAll('.graphviz')
+      
+          for (let item of vizObjects) {
+            let svg = undefined
+            try {
+              svg = Viz(item.textContent.replaceAll('–', '--'), 'svg')
+            } catch(e) {
+              svg = `<pre class="error">${e}</pre>`
+            }
+            item.outerHTML = svg
+          }
+        </script>
+    
+    
+
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright © 2021 <a href="/">Justin website for sharing knowledge and getting idea.</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" rel="external nofollow noreferrer" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" rel="external nofollow noreferrer" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+         
+
+ 
+
+ 
+
+ 
+
+  
+
+
+
+ 
+
+
+    
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+    
+    <script>
+        function loadComment() {
+            window.disqus_config = function () {
+                this.page.url = 'justin900429.github.io/posts/cddcd94e/';
+                this.page.identifier = 'posts/cddcd94e/';
+            };
+            (function(){
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + 'https-justin900429-github-io' + '.disqus.com/embed.js';
+                (document.head || document.body).appendChild(dsq);
+            })();
+        }
+    
+        var runningOnBrowser = typeof window !== "undefined";
+        var isBot = runningOnBrowser && !("onscroll" in window) || typeof navigator !== "undefined" && /(gle|ing|ro|msn)bot|crawl|spider|yand|duckgo/i.test(navigator.userAgent);
+        var supportsIntersectionObserver = runningOnBrowser && "IntersectionObserver" in window;
+    
+        setTimeout(function () {
+            if (!isBot && supportsIntersectionObserver) {
+                var comment_observer = new IntersectionObserver(function(entries) {
+                    if (entries[0].isIntersecting) {
+                        loadComment();
+                        comment_observer.disconnect();
+                    }
+                }, { threshold: [0] });
+                comment_observer.observe(document.getElementById('comment'));
+            } else {
+                loadComment();
+            }
+        }, 1);
+    </script>
+
+
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+
+
+
+    </body>
+</html>

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    
+    
+    
+        <link rel="icon" type="image/png" sizes="32x32" href="/icon.png">
+    
+    
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple_icon_128.png">
+    
+    
+        <link rel="mask-icon" href="/apple_icon_128.png">
+    
+
+
+    <!-- meta -->
+
+
+<title>Android Layout | Justin website for sharing knowledge and getting idea.</title>
+
+
+    <meta name="keywords" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="Android LayoutSee moreBack to the series page   前言今天會介紹關於 Android Layout，讓大家在製作 layout 能有更多的理解。  Views and ViewGroups 畫面配置 ConstrainLayout LinearLayout  Views and ViewGroupsViewsViews 指的就是 UI 的元件，包括 T">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Layout">
+<meta property="og:url" content="justin900429.github.io/posts/b3663543/index.html">
+<meta property="og:site_name" content="Justin website for sharing knowledge and getting idea.">
+<meta property="og:description" content="Android LayoutSee moreBack to the series page   前言今天會介紹關於 Android Layout，讓大家在製作 layout 能有更多的理解。  Views and ViewGroups 畫面配置 ConstrainLayout LinearLayout  Views and ViewGroupsViewsViews 指的就是 UI 的元件，包括 T">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/KVkBDlJ.png">
+<meta property="og:image" content="https://i.imgur.com/aiIePB3.jpg">
+<meta property="og:image" content="https://i.imgur.com/i5q1O1a.png">
+<meta property="og:image" content="https://i.imgur.com/r1KK43L.png">
+<meta property="og:image" content="https://i.imgur.com/BK8nSDT.png">
+<meta property="og:image" content="https://i.imgur.com/P4aRnua.png">
+<meta property="og:image" content="https://i.imgur.com/AaCQejh.png">
+<meta property="og:image" content="https://i.imgur.com/KezZRfY.png">
+<meta property="og:image" content="https://i.imgur.com/lVEBjMc.png">
+<meta property="og:image" content="https://i.imgur.com/dO7A7lt.png">
+<meta property="article:published_time" content="2020-09-23T12:35:11.000Z">
+<meta property="article:modified_time" content="2020-12-31T01:28:09.481Z">
+<meta property="article:author" content="Justin Ruan">
+<meta property="article:tag" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://i.imgur.com/KVkBDlJ.png">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+
+
+    
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/atom-one-light.min.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')===-1)this.media='all'">
+        
+    
+
+    
+
+     
+
+    <!-- custom head -->
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+    <body>
+        <div id="app">
+            <script>
+window.onscroll = () => {
+    const nav = document.querySelector('.header');
+    if(this.scrollY <= 10) {
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0)"
+    } else {
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+    }
+};
+</script>
+
+<header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">Justin&#39;s blog</span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/about/" class="navbar-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="navbar-menu button">CV</a>
+                
+                    <a href="/" class="navbar-menu button">Articles</a>
+                
+                    <a href="/tags/" class="navbar-menu button">Tags</a>
+                
+                    <a href="/archives/" class="navbar-menu button">Archives</a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+
+         
+    <a href="#" class="button" id="b2t" aria-label="Back to Top" title="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="32" height="32">
+            <path d="M233.376 722.752L278.624 768 512 534.624 745.376 768l45.248-45.248L512 444.128zM192 352h640V288H192z" fill="currentColor"></path>
+        </svg>
+    </a>
+
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                
+                    <a href="/about/" class="dropdown-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="dropdown-menu button">CV</a>
+                
+                    <a href="/" class="dropdown-menu button">Articles</a>
+                
+                    <a href="/tags/" class="dropdown-menu button">Tags</a>
+                
+                    <a href="/archives/" class="dropdown-menu button">Archives</a>
+                
+            </div>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+
+<div class="post-title">
+    <h1 class="post-title__text">
+        Android Layout
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2020/09/" class="post-meta__date button">2020-09-23</a>
+        
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <aside class="post-side">
+        <div class="post-side__toc">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Views-and-ViewGroups"><span class="toc-number">2.</span> <span class="toc-text">Views and ViewGroups</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Views"><span class="toc-number">2.1.</span> <span class="toc-text">Views</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ViewGroups"><span class="toc-number">2.2.</span> <span class="toc-text">ViewGroups</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%B6%E4%BB%B6%E9%96%93%E7%9A%84%E9%97%9C%E4%BF%82"><span class="toc-number">2.3.</span> <span class="toc-text">零件間的關係</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%95%AB%E9%9D%A2%E9%85%8D%E7%BD%AE"><span class="toc-number">3.</span> <span class="toc-text">畫面配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ConstrainLayout"><span class="toc-number">4.</span> <span class="toc-text">ConstrainLayout</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#layout-width-and-layout-height"><span class="toc-number">4.1.</span> <span class="toc-text">layout_width and layout_height</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LinearLayout"><span class="toc-number">5.</span> <span class="toc-text">LinearLayout</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-number">6.</span> <span class="toc-text">References</span></a></li></ol>
+        </div>
+    </aside>
+    <a class="btn-toc button" id="btn-toc" tabindex="0">
+        <svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path>
+        </svg>
+    </a>
+    <div class="toc-menus" id="toc-menus">
+        <div class="toc-title">Article Directory</div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Views-and-ViewGroups"><span class="toc-number">2.</span> <span class="toc-text">Views and ViewGroups</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Views"><span class="toc-number">2.1.</span> <span class="toc-text">Views</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ViewGroups"><span class="toc-number">2.2.</span> <span class="toc-text">ViewGroups</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%B6%E4%BB%B6%E9%96%93%E7%9A%84%E9%97%9C%E4%BF%82"><span class="toc-number">2.3.</span> <span class="toc-text">零件間的關係</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%95%AB%E9%9D%A2%E9%85%8D%E7%BD%AE"><span class="toc-number">3.</span> <span class="toc-text">畫面配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ConstrainLayout"><span class="toc-number">4.</span> <span class="toc-text">ConstrainLayout</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#layout-width-and-layout-height"><span class="toc-number">4.1.</span> <span class="toc-text">layout_width and layout_height</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LinearLayout"><span class="toc-number">5.</span> <span class="toc-text">LinearLayout</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-number">6.</span> <span class="toc-text">References</span></a></li></ol>
+    </div>
+
+
+<article class="post content-card">
+    <div class="post__header"></div>
+    <div class="post__content">
+        <h1 id="Android-Layout"><a href="#Android-Layout" class="headerlink" title="Android Layout"></a>Android Layout</h1><blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/posts/b34c5f8c/">Back to the series page</a></p>
+</div></blockquote>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天會介紹關於 <strong>Android Layout</strong>，讓大家在製作 <strong>layout</strong> 能有更多的理解。</p>
+<ul>
+<li><a href="#Views-and-ViewGroups">Views and ViewGroups</a></li>
+<li><a href="#%E7%95%AB%E9%9D%A2%E9%85%8D%E7%BD%AE">畫面配置</a></li>
+<li><a href="#ConstrainLayout">ConstrainLayout</a></li>
+<li><a href="#LinearLayout">LinearLayout</a></li>
+</ul>
+<h2 id="Views-and-ViewGroups"><a href="#Views-and-ViewGroups" class="headerlink" title="Views and ViewGroups"></a>Views and ViewGroups</h2><h3 id="Views"><a href="#Views" class="headerlink" title="Views"></a>Views</h3><p><strong>Views</strong> 指的就是 <strong>UI</strong> 的元件，包括 <code>TextView</code>, <code>Button</code>, <code>ImageView</code>, <code>EditText</code>, <code>CheckBox</code> 等等零件。</p>
+<center><img src="https://i.imgur.com/KVkBDlJ.png" width=450/></center>
+<br>
+
+
+<h3 id="ViewGroups"><a href="#ViewGroups" class="headerlink" title="ViewGroups"></a>ViewGroups</h3><p><strong>ViewGroups</strong> 指的就是 <strong>Views</strong> 的集合，一般常用的 <strong>ViewGroups</strong> 有三種排版的方式：</p>
+<ol>
+<li><strong>ConstraintLayout</strong></li>
+<li><strong>LinearLayout</strong></li>
+<li><strong>RelativeLayout</strong></li>
+</ol>
+<center><img src="https://i.imgur.com/aiIePB3.jpg" width=500/></center>
+<br>
+
+
+<h3 id="零件間的關係"><a href="#零件間的關係" class="headerlink" title="零件間的關係"></a>零件間的關係</h3><p>在設計我們的 <strong>layout</strong> 時我們會用到很多不同的 <strong>ViewGroups</strong> 或是 <strong>Views</strong>。而 <strong>Views</strong> 是只能有 <strong>parent</strong> 但不能有 <strong>child</strong>。另外 <strong>ViewGroups</strong> 的 <strong>child</strong> 可以為很多的 <strong>Views</strong> 和其他的 <strong>ViewGroups</strong>。</p>
+<center><img src="https://i.imgur.com/i5q1O1a.png" width=500/></center>
+
+<hr>
+<h2 id="畫面配置"><a href="#畫面配置" class="headerlink" title="畫面配置"></a>畫面配置</h2><p>當我們點選 <code>res/layout</code> 裡的任意 <strong>xml</strong> 檔：</p>
+<center><img src="https://i.imgur.com/r1KK43L.png" width=300/></center>
+<br>
+
+<p>我們可以看到以下的配置，大概可以分五個部分：</p>
+<ul>
+<li><strong>物件區</strong><br>  可拖拉 <strong>Views</strong> 到設計畫面設計。</li>
+<li><strong>設計結構</strong><br>  可看到現在 <strong>ViewGroups</strong> 長什麼樣子</li>
+<li><strong>設計畫面</strong><br>  可觀察到現在的設計樣式</li>
+<li><strong>切換畫面</strong><br>  可接換到純程式碼區域</li>
+<li><strong>Attributes</strong><br>  可設定物件的各種屬性</li>
+</ul>
+<br>
+<center><img src="https://i.imgur.com/BK8nSDT.png" width=650/></center>
+<br>
+
+<p>當我們在<strong>切換畫面</strong>換到<strong>code</strong>，我們會看到我們的檔案是用 <strong>xml</strong> 撰寫的：</p>
+<br>
+
+<center><img src="https://i.imgur.com/P4aRnua.png" width=600/></center>
+
+<br>
+
+<p>我們在 <strong>code section</strong> 可以很清楚看到每個物件具有什麼 <strong>attributes</strong>。我們也可以切換到 <strong>split</strong> 模式：</p>
+<center><img src="https://i.imgur.com/AaCQejh.png" width=600></center>
+
+<hr>
+<h2 id="ConstrainLayout"><a href="#ConstrainLayout" class="headerlink" title="ConstrainLayout"></a>ConstrainLayout</h2><p><strong>ConstrainLayout</strong> 會要求物件被<strong>限制</strong>。比起其他的排版方式，利用 <strong>ConstrainLayout</strong> 可以用拖拉的方式來排版，但是要注意的是排版會根據不同手機而有不同效果，因此在用拖拉設計的時候要用<strong>比例</strong>而不是距離。注意在 <strong>xml</strong> 裡最外層是<code>androidx.constraintlayout.widget.ConstraintLayout</code>。</p>
+<pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">androidx.constraintlayout.widget.ConstraintLayout</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">xmlns:app</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res-auto&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">xmlns:tools</span>=<span class="hljs-string">&quot;http://schemas.android.com/tools&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;match_parent&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;match_parent&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">android:orientation</span>=<span class="hljs-string">&quot;horizontal&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">tools:context</span>=<span class="hljs-string">&quot;.MainActivity&quot;</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextView</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:id</span>=<span class="hljs-string">&quot;@+id/textView&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:text</span>=<span class="hljs-string">&quot;Hello World!&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:textSize</span>=<span class="hljs-string">&quot;30sp&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintBottom_toBottomOf</span>=<span class="hljs-string">&quot;parent&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintEnd_toEndOf</span>=<span class="hljs-string">&quot;parent&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintStart_toStartOf</span>=<span class="hljs-string">&quot;parent&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintTop_toTopOf</span>=<span class="hljs-string">&quot;parent&quot;</span> /&gt;</span>
+        
+<span class="hljs-tag">&lt;/<span class="hljs-name">androidx.constraintlayout.widget.ConstraintLayout</span>&gt;</span></code></pre>
+
+<center><img src="https://i.imgur.com/KezZRfY.png" width=250/></center>
+<br>
+
+<p>我們可以注意到我們每個物件都會多出四個點，我們需要拖拉到其他物體來<strong>限制</strong>我們這個物體。一般來說我們只要在<strong>垂直跟水平方向各限制至少一個</strong>就好。</p>
+<h3 id="layout-width-and-layout-height"><a href="#layout-width-and-layout-height" class="headerlink" title="layout_width and layout_height"></a>layout_width and layout_height</h3><p>我們在以後的物件都一定要設定這兩個值，這兩個值代表我們物件的外圍有多大。一般來說我們有:</p>
+<ul>
+<li><strong>wrap_content</strong><br>  長度視物件的大小決定。</li>
+<li><strong>match_parent</strong><br>  跟 <strong>parent</strong> 一樣大。這邊我們設定 <strong>match_parent</strong>。即便拉到四邊，因為我們的外圍大小跟 <strong>parent</strong> 一樣，因此我們不會維持在中間。  <br>
+  <center><img src="https://i.imgur.com/lVEBjMc.png" width=250/></center>
+
+
+</li>
+</ul>
+<h2 id="LinearLayout"><a href="#LinearLayout" class="headerlink" title="LinearLayout"></a>LinearLayout</h2><p><strong>LinearLayout</strong> 簡單說就是利用連續排版的方式，因此有兩種的排版的方向：</p>
+<ul>
+<li><strong>horizontal</strong></li>
+<li><strong>vertical</strong></li>
+</ul>
+<p>我們先來看看 <strong>vertical</strong> 的效果：</p>
+<pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">LinearLayout</span> <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">xmlns:tools</span>=<span class="hljs-string">&quot;http://schemas.android.com/tools&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;match_parent&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;match_parent&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">android:orientation</span>=<span class="hljs-string">&quot;vertical&quot;</span></span>
+<span class="hljs-tag">    <span class="hljs-attr">tools:context</span>=<span class="hljs-string">&quot;.MainActivity&quot;</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextView</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:id</span>=<span class="hljs-string">&quot;@+id/textView&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:text</span>=<span class="hljs-string">&quot;Hello World!&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:textSize</span>=<span class="hljs-string">&quot;30sp&quot;</span> /&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextView</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:text</span>=<span class="hljs-string">&quot;Hello World!&quot;</span></span>
+<span class="hljs-tag">        <span class="hljs-attr">android:textSize</span>=<span class="hljs-string">&quot;30sp&quot;</span> /&gt;</span>
+
+<span class="hljs-tag">&lt;/<span class="hljs-name">LinearLayout</span>&gt;</span></code></pre>
+
+<center><img src="https://i.imgur.com/dO7A7lt.png" width=450/></center>
+<br>
+
+
+<p>如果將上面 <strong>LinearLayout</strong> 的 <strong>orientation</strong> 換成 <code>horizontal</code> 會變成右邊的圖像。</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://litotom.com/product/android-ebook-kotlin-1/">Android 實作這樣學: Kotlin 電子書 (上冊)</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://google-developer-training.github.io/android-developer-fundamentals-course-concepts-v2/unit-1-get-started/lesson-1-build-your-first-app/1-2-c-layouts-and-resources-for-the-ui/1-2-c-layouts-and-resources-for-the-ui.html">1.2: Layouts and resources for the UI</a></li>
+</ol>
+<br/>
+<br/>
+<a href="/posts/d0d2a7bd/" float=left>Last</a> <a href="/posts/97bb715d/" style="float: right;">Next</a><!-- flag of hidden posts -->
+    </div>
+     
+    <div class="post-footer__meta"><p>updated at 2020-12-31</p></div> 
+    <div class="post-meta__cats"></div> 
+</article>
+
+
+
+
+    <div class="post__comments content-card" id="comment">
+        
+    <h4>Comments</h4>
+    
+    <div id="disqus_thread">Unable to load Disqus, please make sure your network can access.</div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    </div>
+
+
+
+</main>
+
+            <footer class="footer">
+    
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/viz.js/1.7.1/viz.js'></script>
+        <script>
+          String.prototype.replaceAll = function(search, replacement) {
+            var target = this;
+            return target.split(search).join(replacement);
+          };
+      
+          let vizObjects = document.querySelectorAll('.graphviz')
+      
+          for (let item of vizObjects) {
+            let svg = undefined
+            try {
+              svg = Viz(item.textContent.replaceAll('–', '--'), 'svg')
+            } catch(e) {
+              svg = `<pre class="error">${e}</pre>`
+            }
+            item.outerHTML = svg
+          }
+        </script>
+    
+    
+
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright © 2021 <a href="/">Justin website for sharing knowledge and getting idea.</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" rel="external nofollow noreferrer" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" rel="external nofollow noreferrer" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+         
+
+ 
+
+ 
+
+ 
+
+  
+
+
+
+ 
+
+
+    
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+    
+    <script>
+        function loadComment() {
+            window.disqus_config = function () {
+                this.page.url = 'justin900429.github.io/posts/b3663543/';
+                this.page.identifier = 'posts/b3663543/';
+            };
+            (function(){
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + 'https-justin900429-github-io' + '.disqus.com/embed.js';
+                (document.head || document.body).appendChild(dsq);
+            })();
+        }
+    
+        var runningOnBrowser = typeof window !== "undefined";
+        var isBot = runningOnBrowser && !("onscroll" in window) || typeof navigator !== "undefined" && /(gle|ing|ro|msn)bot|crawl|spider|yand|duckgo/i.test(navigator.userAgent);
+        var supportsIntersectionObserver = runningOnBrowser && "IntersectionObserver" in window;
+    
+        setTimeout(function () {
+            if (!isBot && supportsIntersectionObserver) {
+                var comment_observer = new IntersectionObserver(function(entries) {
+                    if (entries[0].isIntersecting) {
+                        loadComment();
+                        comment_observer.disconnect();
+                    }
+                }, { threshold: [0] });
+                comment_observer.observe(document.getElementById('comment'));
+            } else {
+                loadComment();
+            }
+        }, 1);
+    </script>
+
+
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+
+
+
+    </body>
+</html>
