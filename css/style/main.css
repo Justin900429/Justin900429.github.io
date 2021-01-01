@@ -921,10 +921,8 @@ overflows table td {
 .header .header__right .dropdown-menus .dropdown-menu {
   padding: 10px;
 }
-@media screen and (min-width: 1080px) {
-  .header {
-    position: sticky;
-  }
+.header {
+  position: sticky;
 }
 @media screen and (max-width: 764px) {
   .navbar__menus {
