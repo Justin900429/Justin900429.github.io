@@ -74,6 +74,20 @@
 
   
   <url>
+    <loc>justin900429.github.io/tags/Data-structure/</loc>
+    <lastmod>2021-01-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>justin900429.github.io/tags/algorithm/</loc>
+    <lastmod>2021-01-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>justin900429.github.io/tags/Android/</loc>
     <lastmod>2021-01-01</lastmod>
     <changefreq>daily</changefreq>
@@ -95,21 +109,7 @@
   </url>
   
   <url>
-    <loc>justin900429.github.io/tags/AI/</loc>
-    <lastmod>2021-01-01</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>justin900429.github.io/tags/ML/</loc>
-    <lastmod>2021-01-01</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>justin900429.github.io/tags/algorithm/</loc>
+    <loc>justin900429.github.io/tags/OpenCV/</loc>
     <lastmod>2021-01-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -123,13 +123,6 @@
   </url>
   
   <url>
-    <loc>justin900429.github.io/tags/OpenCV/</loc>
-    <lastmod>2021-01-01</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>justin900429.github.io/tags/Computer-Vision/</loc>
     <lastmod>2021-01-01</lastmod>
     <changefreq>daily</changefreq>
@@ -137,7 +130,14 @@
   </url>
   
   <url>
-    <loc>justin900429.github.io/tags/Data-structure/</loc>
+    <loc>justin900429.github.io/tags/AI/</loc>
+    <lastmod>2021-01-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>justin900429.github.io/tags/ML/</loc>
     <lastmod>2021-01-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
