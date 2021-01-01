@@ -75,7 +75,18 @@
 
     <body>
         <div id="app">
-            <header class="header">
+            <script>
+window.onscroll = () => {
+    const nav = document.querySelector('.header');
+    if(this.scrollY <= 10) {
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0)"
+    } else {
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0.8)"
+    }
+};
+</script>
+
+<header class="header">
     <div class="header__left">
         <a href="/" class="button">
             <span class="logo__text">Justin&#39;s blog</span>
