@@ -87,7 +87,16 @@
 
     <body>
         <div id="app">
-            <script>
+            <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4FZNQ241GW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4FZNQ241GW');
+</script>
+<script>
 window.onscroll = () => {
     const nav = document.querySelector('.header');
     if(this.scrollY <= 10) {
