@@ -279,10 +279,10 @@ window.onscroll = () => {
         
     <h4>Comments</h4>
     
-    <div id="disqus_thread">Unable to load Disqus, please make sure your network can access.</div>
+    
+    
+    <div id="valine_container" class="valine_thread"></div>
 
-    
-    
     
     
     
@@ -423,19 +423,23 @@ window.onscroll = () => {
 
 
     
+
+    
+    
+    
     <script>
         function loadComment() {
-            window.disqus_config = function () {
-                this.page.url = 'justin900429.github.io/posts/ae2dc64f/';
-                this.page.identifier = 'posts/ae2dc64f/';
+            let e;
+            (e = document.createElement("script")).src = 'https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js',
+            document.body.appendChild(e);
+            e.onload = () => {
+                var valineConfig = {&#34;appId&#34;:&#34;g80X5lbnoaVCAIeFXUjcj12s-MdYXbMMI&#34;,&#34;appKey&#34;:&#34;k5YXyDmxnn9gvRXCVIim6x3f&#34;,&#34;placeholder&#34;:null,&#34;path&#34;:null,&#34;avatar&#34;:null,&#34;meta&#34;:[&#34;nick&#34;,&#34;mail&#34;,&#34;link&#34;],&#34;pageSize&#34;:null,&#34;lang&#34;:null,&#34;visitor&#34;:null,&#34;highlight&#34;:null,&#34;avatarForce&#34;:null,&#34;recordIP&#34;:null,&#34;serverURLs&#34;:null,&#34;enableQQ&#34;:null,&#34;requiredFields&#34;:[&#34;nick&#34;,&#34;mail&#34;],&#34;emojiCDN&#34;:null,&#34;emojiMaps&#34;:null};
+                valineConfig.el = '#valine_container';
+                for (var i in valineConfig) {
+                    if (valineConfig[i] === null) delete valineConfig[i];
+                }
+                new Valine(valineConfig);
             };
-            (function(){
-                var dsq = document.createElement('script');
-                dsq.type = 'text/javascript';
-                dsq.async = true;
-                dsq.src = '//' + 'https-justin900429-github-io' + '.disqus.com/embed.js';
-                (document.head || document.body).appendChild(dsq);
-            })();
         }
     
         var runningOnBrowser = typeof window !== "undefined";
@@ -457,10 +461,6 @@ window.onscroll = () => {
         }, 1);
     </script>
 
-
-    
-    
-    
 
     
     
