@@ -2,63 +2,63 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>justin900429.github.io/about/index.html</loc>
+    <loc>https://justin900429.github.io/about/index.html</loc>
     
     <lastmod>2021-01-01</lastmod>
     
   </url>
   
   <url>
-    <loc>justin900429.github.io/posts/6f57d1c0/</loc>
+    <loc>https://justin900429.github.io/posts/6f57d1c0/</loc>
     
     <lastmod>2021-01-01</lastmod>
     
   </url>
   
   <url>
-    <loc>justin900429.github.io/posts/f9a1d882/</loc>
+    <loc>https://justin900429.github.io/posts/f9a1d882/</loc>
     
     <lastmod>2021-01-01</lastmod>
     
   </url>
   
   <url>
-    <loc>justin900429.github.io/posts/5fb65b1b/</loc>
+    <loc>https://justin900429.github.io/posts/5fb65b1b/</loc>
     
     <lastmod>2021-01-01</lastmod>
     
   </url>
   
   <url>
-    <loc>justin900429.github.io/posts/b34c5f8c/</loc>
+    <loc>https://justin900429.github.io/posts/b34c5f8c/</loc>
     
     <lastmod>2021-01-01</lastmod>
     
   </url>
   
   <url>
-    <loc>justin900429.github.io/posts/5302dd1c/</loc>
+    <loc>https://justin900429.github.io/posts/5302dd1c/</loc>
     
     <lastmod>2021-01-01</lastmod>
     
   </url>
   
   <url>
-    <loc>justin900429.github.io/404.html</loc>
+    <loc>https://justin900429.github.io/404.html</loc>
     
     <lastmod>2020-12-30</lastmod>
     
   </url>
   
   <url>
-    <loc>justin900429.github.io/search/index.html</loc>
+    <loc>https://justin900429.github.io/search/index.html</loc>
     
     <lastmod>2020-09-02</lastmod>
     
   </url>
   
   <url>
-    <loc>justin900429.github.io/tags/index.html</loc>
+    <loc>https://justin900429.github.io/tags/index.html</loc>
     
     <lastmod>2020-08-27</lastmod>
     
@@ -66,86 +66,86 @@
   
 
   <url>
-    <loc>justin900429.github.io</loc>
-    <lastmod>2021-01-01</lastmod>
+    <loc>https://justin900429.github.io</loc>
+    <lastmod>2021-01-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   
   <url>
-    <loc>justin900429.github.io/tags/AI/</loc>
-    <lastmod>2021-01-01</lastmod>
+    <loc>https://justin900429.github.io/tags/Android/</loc>
+    <lastmod>2021-01-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>justin900429.github.io/tags/ML/</loc>
-    <lastmod>2021-01-01</lastmod>
+    <loc>https://justin900429.github.io/tags/Kotlin/</loc>
+    <lastmod>2021-01-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>justin900429.github.io/tags/algorithm/</loc>
-    <lastmod>2021-01-01</lastmod>
+    <loc>https://justin900429.github.io/tags/App/</loc>
+    <lastmod>2021-01-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>justin900429.github.io/tags/Python/</loc>
-    <lastmod>2021-01-01</lastmod>
+    <loc>https://justin900429.github.io/tags/Data-structure/</loc>
+    <lastmod>2021-01-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>justin900429.github.io/tags/OpenCV/</loc>
-    <lastmod>2021-01-01</lastmod>
+    <loc>https://justin900429.github.io/tags/algorithm/</loc>
+    <lastmod>2021-01-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>justin900429.github.io/tags/Computer-Vision/</loc>
-    <lastmod>2021-01-01</lastmod>
+    <loc>https://justin900429.github.io/tags/AI/</loc>
+    <lastmod>2021-01-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>justin900429.github.io/tags/Data-structure/</loc>
-    <lastmod>2021-01-01</lastmod>
+    <loc>https://justin900429.github.io/tags/ML/</loc>
+    <lastmod>2021-01-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>justin900429.github.io/tags/Android/</loc>
-    <lastmod>2021-01-01</lastmod>
+    <loc>https://justin900429.github.io/tags/Python/</loc>
+    <lastmod>2021-01-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>justin900429.github.io/tags/Kotlin/</loc>
-    <lastmod>2021-01-01</lastmod>
+    <loc>https://justin900429.github.io/tags/OpenCV/</loc>
+    <lastmod>2021-01-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>justin900429.github.io/tags/App/</loc>
-    <lastmod>2021-01-01</lastmod>
+    <loc>https://justin900429.github.io/tags/Computer-Vision/</loc>
+    <lastmod>2021-01-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>justin900429.github.io/tags/entrepreneur/</loc>
-    <lastmod>2021-01-01</lastmod>
+    <loc>https://justin900429.github.io/tags/entrepreneur/</loc>
+    <lastmod>2021-01-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>

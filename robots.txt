@@ -2,11 +2,14 @@ User-agent: *
 Allow: /
 Allow: /archives/
 Allow: /categories/
-Allow: /tags/
-Allow: /about/
+Allow: /tags/ 
 
 Disallow: /vendors/
+Disallow: /js/
+Disallow: /css/
 Disallow: /fonts/
+Disallow: /vendors/
 Disallow: /fancybox/
+
 
 Sitemap: https://justin900429.github.io/sitemap.xml
