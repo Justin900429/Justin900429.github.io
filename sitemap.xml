@@ -74,14 +74,42 @@
 
   
   <url>
-    <loc>https://justin900429.github.io/tags/Data-structure/</loc>
+    <loc>https://justin900429.github.io/tags/Android/</loc>
     <lastmod>2021-01-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://justin900429.github.io/tags/algorithm/</loc>
+    <loc>https://justin900429.github.io/tags/Kotlin/</loc>
+    <lastmod>2021-01-02</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://justin900429.github.io/tags/App/</loc>
+    <lastmod>2021-01-02</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://justin900429.github.io/tags/OpenCV/</loc>
+    <lastmod>2021-01-02</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://justin900429.github.io/tags/Python/</loc>
+    <lastmod>2021-01-02</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://justin900429.github.io/tags/Computer-Vision/</loc>
     <lastmod>2021-01-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -102,42 +130,14 @@
   </url>
   
   <url>
-    <loc>https://justin900429.github.io/tags/Python/</loc>
+    <loc>https://justin900429.github.io/tags/algorithm/</loc>
     <lastmod>2021-01-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://justin900429.github.io/tags/OpenCV/</loc>
-    <lastmod>2021-01-02</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://justin900429.github.io/tags/Computer-Vision/</loc>
-    <lastmod>2021-01-02</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://justin900429.github.io/tags/Android/</loc>
-    <lastmod>2021-01-02</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://justin900429.github.io/tags/Kotlin/</loc>
-    <lastmod>2021-01-02</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://justin900429.github.io/tags/App/</loc>
+    <loc>https://justin900429.github.io/tags/Data-structure/</loc>
     <lastmod>2021-01-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
