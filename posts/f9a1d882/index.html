@@ -53,9 +53,9 @@
 <meta property="article:modified_time" content="2021-01-01T12:58:56.783Z">
 <meta property="article:author" content="Justin Ruan">
 <meta property="article:tag" content="algorithm">
+<meta property="article:tag" content="Python">
 <meta property="article:tag" content="AI">
 <meta property="article:tag" content="ML">
-<meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://i.imgur.com/rg52bQb.jpg">
 
@@ -237,7 +237,7 @@ window.onscroll = () => {
     </div>
      
     <div class="post-footer__meta"><p>updated at 2021-01-01</p></div> 
-    <div class="post-meta__cats"><a href="/tags/algorithm/" class="post-tags__link button"># algorithm</a><a href="/tags/AI/" class="post-tags__link button"># AI</a><a href="/tags/ML/" class="post-tags__link button"># ML</a><a href="/tags/Python/" class="post-tags__link button"># Python</a></div> 
+    <div class="post-meta__cats"><a href="/tags/algorithm/" class="post-tags__link button"># algorithm</a><a href="/tags/Python/" class="post-tags__link button"># Python</a><a href="/tags/AI/" class="post-tags__link button"># AI</a><a href="/tags/ML/" class="post-tags__link button"># ML</a></div> 
 </article>
 
 
@@ -284,10 +284,10 @@ window.onscroll = () => {
         
     <h4>Comments</h4>
     
-    
-    
-    <div id="valine_container" class="valine_thread"></div>
+    <div id="disqus_thread">Unable to load Disqus, please make sure your network can access.</div>
 
+    
+    
     
     
     
@@ -380,23 +380,19 @@ window.onscroll = () => {
 
 
     
-
-    
-    
-    
     <script>
         function loadComment() {
-            let e;
-            (e = document.createElement("script")).src = 'https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js',
-            document.body.appendChild(e);
-            e.onload = () => {
-                var valineConfig = {&#34;appId&#34;:&#34;g80X5lbnoaVCAIeFXUjcj12s-MdYXbMMI&#34;,&#34;appKey&#34;:&#34;k5YXyDmxnn9gvRXCVIim6x3f&#34;,&#34;placeholder&#34;:null,&#34;path&#34;:null,&#34;avatar&#34;:null,&#34;meta&#34;:[&#34;nick&#34;,&#34;mail&#34;,&#34;link&#34;],&#34;pageSize&#34;:null,&#34;lang&#34;:null,&#34;visitor&#34;:null,&#34;highlight&#34;:null,&#34;avatarForce&#34;:null,&#34;recordIP&#34;:null,&#34;serverURLs&#34;:null,&#34;enableQQ&#34;:null,&#34;requiredFields&#34;:[&#34;nick&#34;,&#34;mail&#34;],&#34;emojiCDN&#34;:null,&#34;emojiMaps&#34;:null};
-                valineConfig.el = '#vcomment';
-                for (var i in valineConfig) {
-                    if (valineConfig[i] === null) delete valineConfig[i];
-                }
-                new Valine(valineConfig);
+            window.disqus_config = function () {
+                this.page.url = 'https://justin900429.github.io/posts/f9a1d882/';
+                this.page.identifier = 'posts/f9a1d882/';
             };
+            (function(){
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + 'https-justin900429-github-io' + '.disqus.com/embed.js';
+                (document.head || document.body).appendChild(dsq);
+            })();
         }
     
         var runningOnBrowser = typeof window !== "undefined";
@@ -418,6 +414,10 @@ window.onscroll = () => {
         }, 1);
     </script>
 
+
+    
+    
+    
 
     
     
