@@ -92,7 +92,7 @@ window.onscroll = () => {
     }
     else if (this.scrollY <= threshold) {
         let color = ((this.scrollY - 10.0) / (threshold - 10.0)) * 0.9;
-        nav.style.backgroundColor = "rgba(255, 255, 255, " + String(color) + ")";
+        nav.style.backgroundColor = `rgba(255, 255, 255, ${color})`;
     } 
     else {
         nav.style.backgroundColor = "rgba(255, 255, 255, 0.9)";
