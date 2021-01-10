@@ -41,16 +41,16 @@
 
     <!-- OpenGraph -->
  
-    <meta name="description" content="Not existSorry, I didn’t write the related topic. I will send you back to home in 5 second。 Click here to get back quicker.  let countTime &#x3D; 5;  function count() {    document.getElementById(&#39;timeou">
+    <meta name="description" content="Not existI will send you back to home in 5 second。 Click here to get back quicker.  let countTime &#x3D; 5;  function count() {    document.getElementById(&#39;timeout&#39;).textContent &#x3D; countTime;   countTime">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Oops, you should not come here">
 <meta property="og:url" content="justin900429.github.io/404.html">
 <meta property="og:site_name" content="Justin&#39;s sharing place">
-<meta property="og:description" content="Not existSorry, I didn’t write the related topic. I will send you back to home in 5 second。 Click here to get back quicker.  let countTime &#x3D; 5;  function count() {    document.getElementById(&#39;timeou">
+<meta property="og:description" content="Not existI will send you back to home in 5 second。 Click here to get back quicker.  let countTime &#x3D; 5;  function count() {    document.getElementById(&#39;timeout&#39;).textContent &#x3D; countTime;   countTime">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://i.imgur.com/eJsDLql.jpg">
 <meta property="article:published_time" content="2020-09-12T15:01:35.000Z">
-<meta property="article:modified_time" content="2021-01-10T02:15:25.315Z">
+<meta property="article:modified_time" content="2021-01-10T05:52:45.619Z">
 <meta property="article:author" content="Justin Ruan">
 <meta property="article:tag" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
 <meta name="twitter:card" content="summary_large_image">
@@ -83,10 +83,16 @@
             <script>
 window.onscroll = () => {
     const nav = document.querySelector('.header');
+    let threshold = 90.0
     if(this.scrollY <= 10) {
-        nav.style.backgroundColor = "rgba(255, 255, 255, 0)"
-    } else {
-        nav.style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0)";
+    }
+    else if (this.scrollY <= threshold) {
+        let color = ((this.scrollY - 10.0) / (threshold - 10.0)) * 0.9;
+        nav.style.backgroundColor = "rgba(255, 255, 255, " + String(color) + ")";
+    } 
+    else {
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0.9)";
     }
 };
 </script>
@@ -195,8 +201,7 @@ window.onscroll = () => {
     <div class="post__content">
         <!-- markdownlint-disable MD039 MD033 -->
 
-<h2 id="Not-exist"><a href="#Not-exist" class="headerlink" title="Not exist"></a>Not exist</h2><p>Sorry, I didn’t write the related topic.</p>
-<p>I will send you back to home in <b><span id="timeout">5</span><b> second。</p>
+<h2 id="Not-exist"><a href="#Not-exist" class="headerlink" title="Not exist"></a>Not exist</h2><p>I will send you back to home in <b><span id="timeout">5</span><b> second。</p>
 <p><strong><a href="https://justin900429.github.io/">Click here</a></strong> to get back quicker.</p>
 <script>
 let countTime = 5;
@@ -205,8 +210,9 @@ function count() {
 
   document.getElementById('timeout').textContent = countTime;
   countTime -= 1;
-  if(countTime === 0){
-    location.href = 'https://justin900429.github.io/'; // 記得改成自己網址 Url
+  if(countTime <= 0){
+    location.href = 'https://justin900429.github.io/';
+    countTime = 0;
   }
   setTimeout(() => {
     count();

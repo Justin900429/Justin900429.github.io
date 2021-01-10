@@ -87,10 +87,16 @@
             <script>
 window.onscroll = () => {
     const nav = document.querySelector('.header');
+    let threshold = 90.0
     if(this.scrollY <= 10) {
-        nav.style.backgroundColor = "rgba(255, 255, 255, 0)"
-    } else {
-        nav.style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0)";
+    }
+    else if (this.scrollY <= threshold) {
+        let color = ((this.scrollY - 10.0) / (threshold - 10.0)) * 0.9;
+        nav.style.backgroundColor = "rgba(255, 255, 255, " + String(color) + ")";
+    } 
+    else {
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0.9)";
     }
 };
 </script>
