@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    
+    
+    
+        <link rel="icon" type="image/png" sizes="32x32" href="/icon.png">
+    
+    
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple_icon_128.png">
+    
+    
+        <link rel="mask-icon" href="/apple_icon_128.png">
+    
+
+
+    <!-- meta -->
+
+
+<title>drone-1 | Justin&#39;s sharing place</title>
+
+
+    <meta name="keywords" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="Explore drones using Tello EDUIntroductionRecently, drones have become one of very popular vehicle in lots of application, include inspection, suveying, mapping and so on. In this series, we’re going">
+<meta property="og:type" content="article">
+<meta property="og:title" content="drone-1">
+<meta property="og:url" content="justin900429.github.io/posts/5b0c28f0/index.html">
+<meta property="og:site_name" content="Justin&#39;s sharing place">
+<meta property="og:description" content="Explore drones using Tello EDUIntroductionRecently, drones have become one of very popular vehicle in lots of application, include inspection, suveying, mapping and so on. In this series, we’re going">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/YcgW78q.png">
+<meta property="article:published_time" content="2021-01-16T02:43:50.000Z">
+<meta property="article:modified_time" content="2021-01-16T02:44:57.638Z">
+<meta property="article:author" content="Justin Ruan">
+<meta property="article:tag" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://i.imgur.com/YcgW78q.png">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+
+
+    
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/atom-one-light.min.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')===-1)this.media='all'">
+        
+    
+
+    
+
+     
+
+    <!-- custom head -->
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+    <body>
+        <div id="app">
+            <script>
+window.onscroll = () => {
+    const nav = document.querySelector('.header');
+    let threshold = 90.0
+    if(this.scrollY <= 10) {
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0)";
+    }
+    else if (this.scrollY <= threshold) {
+        let color = ((this.scrollY - 10.0) / (threshold - 10.0)) * 0.9;
+        nav.style.backgroundColor = `rgba(255, 255, 255, ${color})`;
+    } 
+    else {
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0.9)";
+    }
+};
+</script>
+
+<header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">Justin&#39;s blog</span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/about/" class="navbar-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="navbar-menu button">CV</a>
+                
+                    <a href="/" class="navbar-menu button">Articles</a>
+                
+                    <a href="/tags/" class="navbar-menu button">Tags</a>
+                
+                    <a href="/archives/" class="navbar-menu button">Archives</a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+
+         
+    <a href="#" class="button" id="b2t" aria-label="Back to Top" title="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="32" height="32">
+            <path d="M233.376 722.752L278.624 768 512 534.624 745.376 768l45.248-45.248L512 444.128zM192 352h640V288H192z" fill="currentColor"></path>
+        </svg>
+    </a>
+
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                
+                    <a href="/about/" class="dropdown-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="dropdown-menu button">CV</a>
+                
+                    <a href="/" class="dropdown-menu button">Articles</a>
+                
+                    <a href="/tags/" class="dropdown-menu button">Tags</a>
+                
+                    <a href="/archives/" class="dropdown-menu button">Archives</a>
+                
+            </div>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+
+<div class="post-title">
+    <h1 class="post-title__text">
+        drone-1
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2021/01/" class="post-meta__date button">2021-01-16</a>
+        
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <aside class="post-side">
+        <div class="post-side__toc">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Drone-and-Quadcopter"><span class="toc-number">2.</span> <span class="toc-text">Drone and Quadcopter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tello-EDU"><span class="toc-number">3.</span> <span class="toc-text">Tello EDU</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Aircraft-diagram"><span class="toc-number">4.</span> <span class="toc-text">Aircraft diagram</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mechanics-in-drone"><span class="toc-number">5.</span> <span class="toc-text">Mechanics in drone</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Attitude"><span class="toc-number">5.1.</span> <span class="toc-text">Attitude</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Yaw"><span class="toc-number">5.2.</span> <span class="toc-text">Yaw</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pitch"><span class="toc-number">5.3.</span> <span class="toc-text">Pitch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Roll"><span class="toc-number">5.4.</span> <span class="toc-text">Roll</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Physics-behind-drones"><span class="toc-number">6.</span> <span class="toc-text">Physics behind drones</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Taking-off"><span class="toc-number">6.1.</span> <span class="toc-text">Taking off</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Yaw-1"><span class="toc-number">6.2.</span> <span class="toc-text">Yaw</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Roll-1"><span class="toc-number">7.</span> <span class="toc-text">Roll</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Pitch-1"><span class="toc-number">7.1.</span> <span class="toc-text">Pitch</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-number">8.</span> <span class="toc-text">Summary</span></a></li></ol>
+        </div>
+    </aside>
+    <a class="btn-toc button" id="btn-toc" tabindex="0">
+        <svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path>
+        </svg>
+    </a>
+    <div class="toc-menus" id="toc-menus">
+        <div class="toc-title">Article Directory</div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Drone-and-Quadcopter"><span class="toc-number">2.</span> <span class="toc-text">Drone and Quadcopter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tello-EDU"><span class="toc-number">3.</span> <span class="toc-text">Tello EDU</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Aircraft-diagram"><span class="toc-number">4.</span> <span class="toc-text">Aircraft diagram</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mechanics-in-drone"><span class="toc-number">5.</span> <span class="toc-text">Mechanics in drone</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Attitude"><span class="toc-number">5.1.</span> <span class="toc-text">Attitude</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Yaw"><span class="toc-number">5.2.</span> <span class="toc-text">Yaw</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pitch"><span class="toc-number">5.3.</span> <span class="toc-text">Pitch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Roll"><span class="toc-number">5.4.</span> <span class="toc-text">Roll</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Physics-behind-drones"><span class="toc-number">6.</span> <span class="toc-text">Physics behind drones</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Taking-off"><span class="toc-number">6.1.</span> <span class="toc-text">Taking off</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Yaw-1"><span class="toc-number">6.2.</span> <span class="toc-text">Yaw</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Roll-1"><span class="toc-number">7.</span> <span class="toc-text">Roll</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Pitch-1"><span class="toc-number">7.1.</span> <span class="toc-text">Pitch</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-number">8.</span> <span class="toc-text">Summary</span></a></li></ol>
+    </div>
+
+
+<article class="post content-card">
+    <div class="post__header"></div>
+    <div class="post__content">
+        <h1 id="Explore-drones-using-Tello-EDU"><a href="#Explore-drones-using-Tello-EDU" class="headerlink" title="Explore drones using Tello EDU"></a>Explore drones using Tello EDU</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Recently, drones have become one of very popular vehicle in lots of application, include <strong>inspection, suveying, mapping</strong> and so on. In this series, we’re going to discuss and introduce how drones work and how can we use them.</p>
+<h2 id="Drone-and-Quadcopter"><a href="#Drone-and-Quadcopter" class="headerlink" title="Drone and Quadcopter"></a>Drone and Quadcopter</h2><p>These two terms are both used to describe the <strong>unmanned aerial vehicle (UAV)</strong>. Especially, Quadcopters refer to those drones which use four motors.</p>
+<center>
+
+<p>![quadcopter](<a target="_blank" rel="noopener external nofollow noreferrer" href="https://i.imgur.com/trvMvns.jpg">https://i.imgur.com/trvMvns.jpg</a> =360x)</p>
+</center>
+
+<h2 id="Tello-EDU"><a href="#Tello-EDU" class="headerlink" title="Tello EDU"></a>Tello EDU</h2><p><strong><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.ryzerobotics.com/tello-edu">Tello EDU</a></strong> is an impressive and programmable drone perfect for education. We can easily control it using different programming language such as <strong>Python, Scratch, Swift</strong>. With an <strong>upgraded SDK 2.0</strong>, Tello EDU comes with more advanced commands and increased data interfaces compared to Tello.</p>
+<p>Herein, we’re going to learn how to use Python to control it. In fact, we should build the UDP connection with our Tello. However, there are lots of package written by others such as <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/Virodroid/easyTello">EasyTello</a> and <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/Virodroid/easyTello">DJITelloPy</a>. Before we start using the package, I will still introduce how to build the UDP connection my ourselves.</p>
+<center>
+
+<p>![Tello_EDU](<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.pcmarket.com.hk/wp-content/uploads/2018/11/1114-en-banner.jpg">https://www.pcmarket.com.hk/wp-content/uploads/2018/11/1114-en-banner.jpg</a> =500x)</p>
+</center>
+
+<h2 id="Aircraft-diagram"><a href="#Aircraft-diagram" class="headerlink" title="Aircraft diagram"></a>Aircraft diagram</h2><p>In this section, we’re going to dive into the structure of the Tello EDU. The picture I used in this part came from the <strong><a target="_blank" rel="noopener external nofollow noreferrer" href="https://dl-cdn.ryzerobotics.com/downloads/Tello/Tello%20User%20Manual%20v1.4.pdf">User manual</a></strong> provided by <strong>Tello official</strong>. Additionally, I will add the <strong>usage explanation</strong> to each part of instruments.</p>
+<p><img src="https://i.imgur.com/YcgW78q.png"></p>
+<table>
+<thead>
+<tr>
+<th>Number</th>
+<th>Name</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Propellers</td>
+<td>Transform rotational power into linear thrust</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Motors</td>
+<td>Convert the electrcity into the mechanical energy</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Aircraft Status Indicator</td>
+<td>Tell the users which status that the drone in</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Camera</td>
+<td>Get the pictures of surroundings scenes</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Power Button</td>
+<td>Turn on or turn off the Tello</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Antennas</td>
+<td>Used to receive or transmit the signal</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Vision Positioning System</td>
+<td>Used to remain the position</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Flight Battery</td>
+<td>Provide the power for Tello to works</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Micro USB Port</td>
+<td>Charging the battery</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Propeller Guards</td>
+<td>Protect the propellers from damaging</td>
+</tr>
+</tbody></table>
+<h2 id="Mechanics-in-drone"><a href="#Mechanics-in-drone" class="headerlink" title="Mechanics in drone"></a>Mechanics in drone</h2><blockquote>
+<p>Noted, the motors on Tello EDU couldn’t seperately controlled by us.</p>
+</blockquote>
+<p>In this part, we’re going to discuss different operation of drone. Also, we’ll talk about the physics related to these operation.</p>
+<h3 id="Attitude"><a href="#Attitude" class="headerlink" title="Attitude"></a>Attitude</h3><p>When it comes to the orientation of the drone, we’ll use attitude to describe it. Attidtude has three components, <strong>Yaw</strong>, <strong>Roll</strong>, <strong>Pitch</strong>. I have made some animation to show the operation.</p>
+<center>
+
+<p>![yaw](<a target="_blank" rel="noopener external nofollow noreferrer" href="https://i.imgur.com/wKwcHGO.gif">https://i.imgur.com/wKwcHGO.gif</a> =360x)<br>![pitch](<a target="_blank" rel="noopener external nofollow noreferrer" href="https://i.imgur.com/1mjqgWV.gif">https://i.imgur.com/1mjqgWV.gif</a> =360x) ![roll](<a target="_blank" rel="noopener external nofollow noreferrer" href="https://i.imgur.com/8rBGvXy.gif">https://i.imgur.com/8rBGvXy.gif</a> =360x)</p>
+</center>
+
+<h3 id="Yaw"><a href="#Yaw" class="headerlink" title="Yaw"></a>Yaw</h3><p>The yaw terminology refer to the rotation of drone with respect to the <strong>center axis</strong>. There are two direction for yaw which is <strong>counterclockwise and clockwise</strong>. Let’s say we’re going to change the camera perpective, we can use yaw to rotate the drone to get different scenes.</p>
+<h3 id="Pitch"><a href="#Pitch" class="headerlink" title="Pitch"></a>Pitch</h3><p>The pitch terminology represents the movement of <strong>back and forward</strong>. To control the back and forward, we should change the thrust of motors related to front two or back two.</p>
+<h3 id="Roll"><a href="#Roll" class="headerlink" title="Roll"></a>Roll</h3><p>The roll terminology represents the movement of <strong>left and right</strong>. To control the left and right, we should change the thrust of motors related to left two or right two. </p>
+<h2 id="Physics-behind-drones"><a href="#Physics-behind-drones" class="headerlink" title="Physics behind drones"></a>Physics behind drones</h2><p>After knowing the operation of drones, we still have to go further to know the control of each operation. Below, we’re going to introduce how drones can take off. The attitude of drones will be introduced afterwards.</p>
+<h3 id="Taking-off"><a href="#Taking-off" class="headerlink" title="Taking off"></a>Taking off</h3><p><strong>Thrust</strong> is the amount of <strong>upward force</strong> that drone can produce when at the full throttle. Therefore, the bigger thrust a drone can provide, the more things can load.</p>
+<p>Due to the attraction from Earth, we have to resist the gravity. The upward force can be provided by four motors on drones. In order to take off, we have to generate the upward force bigger that the attraction from Earth.</p>
+<center>
+
+<p>![upward_force](<a target="_blank" rel="noopener external nofollow noreferrer" href="https://i.imgur.com/pBPCi2g.png">https://i.imgur.com/pBPCi2g.png</a> =360x)</p>
+</center>
+
+<p>In order to remain the height of drone, we have to control the generated upward force to be same as the gravity. To move upward, we should increase the upward force and drop back to remain new height. On the other hand, we should decrease the force to make drone lane off.</p>
+<blockquote>
+<p>To increase the height, we don’t have to generate increasing upward force. Instead, we only generate the upward force that surpass the gravity. The animation below will halt at the middle point. This was to show the steps for readers. In reality, everything is happen consecutively.</p>
+</blockquote>
+<center>
+
+<p>![take_and_land](<a target="_blank" rel="noopener external nofollow noreferrer" href="https://i.imgur.com/L1P9w7A.gif">https://i.imgur.com/L1P9w7A.gif</a> =600x)</p>
+</center>
+
+<h3 id="Yaw-1"><a href="#Yaw-1" class="headerlink" title="Yaw"></a>Yaw</h3><p>Before talking about yaw, I highly recommend that the readers should finish reading <a target="_blank" rel="noopener external nofollow noreferrer" href="https://openstax.org/books/university-physics-volume-1/pages/11-3-conservation-of-angular-momentum">this articles</a> which talk about the <strong>Converstion of angular momentum</strong>. We’re going to use this law to explain the remain parts.</p>
+<p>Suppose the readers know the law of conversation of angular momentum, the design of the direction of fours motors is shown below:</p>
+<center>
+
+<p>![yaw](<a target="_blank" rel="noopener external nofollow noreferrer" href="https://i.imgur.com/3MRKNNa.gif">https://i.imgur.com/3MRKNNa.gif</a> =360x)</p>
+</center>
+
+<p>The size of the cycle represents the amount of angular momentum. To make the drone rotate <strong>clockwisely</strong>, the <strong>compensated angular should point downward</strong>. Therefore, we should make the total amount angular <strong>generated by the motors point downward</strong></p>
+<center>
+
+<p>![clk_rea](<a target="_blank" rel="noopener external nofollow noreferrer" href="https://i.imgur.com/9GmCUm9.png">https://i.imgur.com/9GmCUm9.png</a> =500x)<br>![clk_res](<a target="_blank" rel="noopener external nofollow noreferrer" href="https://i.imgur.com/r9jdxbg.png">https://i.imgur.com/r9jdxbg.png</a> =320x)</p>
+</center>
+
+<p>By contrast, to rotate the <strong>counterclockwisely</strong>, we should do it oppositely.</p>
+<center>
+
+<p>![counterclk_rea](<a target="_blank" rel="noopener external nofollow noreferrer" href="https://i.imgur.com/jYHmiqb.png">https://i.imgur.com/jYHmiqb.png</a> =500x)<br>![counterclk_res](<a target="_blank" rel="noopener external nofollow noreferrer" href="https://i.imgur.com/u8SPbFv.png">https://i.imgur.com/u8SPbFv.png</a> =390x)</p>
+</center>
+
+
+<h2 id="Roll-1"><a href="#Roll-1" class="headerlink" title="Roll"></a>Roll</h2><p>In roll operation, we should make our drone move right or left but still remain in the same height. Therefore, the total upward force couldn’t change in total. However, what we should change is the left total force and right total force.</p>
+<p>Suppose we want to make the drone <strong>move right</strong>, we should change the motors at the left bigger than the right. However, this is not enough, we still need to make the <strong>total force equal to the gravity</strong>. That is, we should shrink the <strong>right force</strong>.</p>
+<p>$$<br>\sum F = Gravity, \ F_{left} \gt F_{right}<br>$$</p>
+<center>
+
+<p>![roll_right_rea](<a target="_blank" rel="noopener external nofollow noreferrer" href="https://i.imgur.com/SHftp3L.png">https://i.imgur.com/SHftp3L.png</a> =600x)</p>
+</center>
+
+<p>Due to torque, the drone will <strong>rotate slightly</strong>. Afterwards, the total force will <strong>point right</strong> and make the drone move right.</p>
+<center>
+
+<p>![roll_right_res](<a target="_blank" rel="noopener external nofollow noreferrer" href="https://i.imgur.com/o5yshL2.png">https://i.imgur.com/o5yshL2.png</a> =560x)</p>
+</center>
+
+<blockquote>
+<p>Some readers may wonder why the drone won’t rotate continuously. This is because after the drone rotates slightly, we will tune back the force and left torque equal to 0</p>
+</blockquote>
+<p>To move left, everything will do oppositely.</p>
+<p>$$<br>\sum F = Gravity, \ F_{right} \gt F_{left}<br>$$</p>
+<center>
+
+<p>![roll_left_rea](<a target="_blank" rel="noopener external nofollow noreferrer" href="https://i.imgur.com/x2Ki3hH.png">https://i.imgur.com/x2Ki3hH.png</a> =600x)<br>![roll_left_res](<a target="_blank" rel="noopener external nofollow noreferrer" href="https://i.imgur.com/LAsFMTQ.png">https://i.imgur.com/LAsFMTQ.png</a> =560x)</p>
+</center>
+
+<h3 id="Pitch-1"><a href="#Pitch-1" class="headerlink" title="Pitch"></a>Pitch</h3><p>This operation can be seen as roll with front and back.</p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>In this article, we learn what is quadcopter and what is Tello EDU. Furthermore, we learn the attitude of the drone and the physics concept behind it. In our next article, we’re going to program our drone and make it fly.</p>
+<!-- flag of hidden posts -->
+    </div>
+     
+    <div class="post-footer__meta"><p>updated at 2021-01-16</p></div> 
+    <div class="post-meta__cats"></div> 
+</article>
+
+
+
+
+    <div class="post__comments content-card" id="comment">
+        
+    <h4>Comments</h4>
+    
+    <div id="disqus_thread">Unable to load Disqus, please make sure your network can access.</div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    </div>
+
+
+
+</main>
+
+            <footer class="footer">
+    
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/viz.js/1.7.1/viz.js'></script>
+        <script>
+          String.prototype.replaceAll = function(search, replacement) {
+            var target = this;
+            return target.split(search).join(replacement);
+          };
+      
+          let vizObjects = document.querySelectorAll('.graphviz')
+      
+          for (let item of vizObjects) {
+            let svg = undefined
+            try {
+              svg = Viz(item.textContent.replaceAll('–', '--'), 'svg')
+            } catch(e) {
+              svg = `<pre class="error">${e}</pre>`
+            }
+            item.outerHTML = svg
+          }
+        </script>
+    
+    
+
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright © 2020&nbsp;-&nbsp;2021 <a href="/">Justin&#39;s sharing place</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" rel="external nofollow noreferrer" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" rel="external nofollow noreferrer" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+         
+
+ 
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4FZNQ241GW"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-4FZNQ241GW');
+    </script>
+ 
+
+ 
+
+  
+
+
+
+ 
+
+
+    
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+    
+    <script>
+        function loadComment() {
+            window.disqus_config = function () {
+                this.page.url = 'https://justin900429.github.io/posts/5b0c28f0/';
+                this.page.identifier = 'posts/5b0c28f0/';
+            };
+            (function(){
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + 'https-justin900429-github-io' + '.disqus.com/embed.js';
+                (document.head || document.body).appendChild(dsq);
+            })();
+        }
+    
+        var runningOnBrowser = typeof window !== "undefined";
+        var isBot = runningOnBrowser && !("onscroll" in window) || typeof navigator !== "undefined" && /(gle|ing|ro|msn)bot|crawl|spider|yand|duckgo/i.test(navigator.userAgent);
+        var supportsIntersectionObserver = runningOnBrowser && "IntersectionObserver" in window;
+    
+        setTimeout(function () {
+            if (!isBot && supportsIntersectionObserver) {
+                var comment_observer = new IntersectionObserver(function(entries) {
+                    if (entries[0].isIntersecting) {
+                        loadComment();
+                        comment_observer.disconnect();
+                    }
+                }, { threshold: [0] });
+                comment_observer.observe(document.getElementById('comment'));
+            } else {
+                loadComment();
+            }
+        }, 1);
+    </script>
+
+
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+
+
+
+    </body>
+</html>
