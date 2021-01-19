@@ -50,7 +50,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://i.imgur.com/YcgW78q.png">
 <meta property="article:published_time" content="2021-01-16T02:43:50.000Z">
-<meta property="article:modified_time" content="2021-01-16T02:59:04.808Z">
+<meta property="article:modified_time" content="2021-01-19T07:53:01.328Z">
 <meta property="article:author" content="Justin Ruan">
 <meta property="article:tag" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
 <meta name="twitter:card" content="summary_large_image">
@@ -182,7 +182,7 @@ window.onscroll = () => {
 
     <aside class="post-side">
         <div class="post-side__toc">
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Drone-and-Quadcopter"><span class="toc-number">2.</span> <span class="toc-text">Drone and Quadcopter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tello-EDU"><span class="toc-number">3.</span> <span class="toc-text">Tello EDU</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Aircraft-diagram"><span class="toc-number">4.</span> <span class="toc-text">Aircraft diagram</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mechanics-in-drone"><span class="toc-number">5.</span> <span class="toc-text">Mechanics in drone</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Attitude"><span class="toc-number">5.1.</span> <span class="toc-text">Attitude</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Yaw"><span class="toc-number">5.2.</span> <span class="toc-text">Yaw</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pitch"><span class="toc-number">5.3.</span> <span class="toc-text">Pitch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Roll"><span class="toc-number">5.4.</span> <span class="toc-text">Roll</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Physics-behind-drones"><span class="toc-number">6.</span> <span class="toc-text">Physics behind drones</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Taking-off"><span class="toc-number">6.1.</span> <span class="toc-text">Taking off</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Yaw-1"><span class="toc-number">6.2.</span> <span class="toc-text">Yaw</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Roll-1"><span class="toc-number">7.</span> <span class="toc-text">Roll</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Pitch-1"><span class="toc-number">7.1.</span> <span class="toc-text">Pitch</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-number">8.</span> <span class="toc-text">Summary</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Drone-and-Quadcopter"><span class="toc-number">2.</span> <span class="toc-text">Drone and Quadcopter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tello-EDU"><span class="toc-number">3.</span> <span class="toc-text">Tello EDU</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Aircraft-diagram"><span class="toc-number">4.</span> <span class="toc-text">Aircraft diagram</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mechanics-in-drone"><span class="toc-number">5.</span> <span class="toc-text">Mechanics in drone</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Attitude"><span class="toc-number">5.1.</span> <span class="toc-text">Attitude</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Yaw"><span class="toc-number">5.2.</span> <span class="toc-text">Yaw</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pitch"><span class="toc-number">5.3.</span> <span class="toc-text">Pitch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Roll"><span class="toc-number">5.4.</span> <span class="toc-text">Roll</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Physics-behind-drones"><span class="toc-number">6.</span> <span class="toc-text">Physics behind drones</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Taking-off"><span class="toc-number">6.1.</span> <span class="toc-text">Taking off</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Yaw-1"><span class="toc-number">6.2.</span> <span class="toc-text">Yaw</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Roll-1"><span class="toc-number">6.3.</span> <span class="toc-text">Roll</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pitch-1"><span class="toc-number">6.4.</span> <span class="toc-text">Pitch</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-number">7.</span> <span class="toc-text">Summary</span></a></li></ol>
         </div>
     </aside>
     <a class="btn-toc button" id="btn-toc" tabindex="0">
@@ -192,7 +192,7 @@ window.onscroll = () => {
     </a>
     <div class="toc-menus" id="toc-menus">
         <div class="toc-title">Article Directory</div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Drone-and-Quadcopter"><span class="toc-number">2.</span> <span class="toc-text">Drone and Quadcopter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tello-EDU"><span class="toc-number">3.</span> <span class="toc-text">Tello EDU</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Aircraft-diagram"><span class="toc-number">4.</span> <span class="toc-text">Aircraft diagram</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mechanics-in-drone"><span class="toc-number">5.</span> <span class="toc-text">Mechanics in drone</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Attitude"><span class="toc-number">5.1.</span> <span class="toc-text">Attitude</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Yaw"><span class="toc-number">5.2.</span> <span class="toc-text">Yaw</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pitch"><span class="toc-number">5.3.</span> <span class="toc-text">Pitch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Roll"><span class="toc-number">5.4.</span> <span class="toc-text">Roll</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Physics-behind-drones"><span class="toc-number">6.</span> <span class="toc-text">Physics behind drones</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Taking-off"><span class="toc-number">6.1.</span> <span class="toc-text">Taking off</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Yaw-1"><span class="toc-number">6.2.</span> <span class="toc-text">Yaw</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Roll-1"><span class="toc-number">7.</span> <span class="toc-text">Roll</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Pitch-1"><span class="toc-number">7.1.</span> <span class="toc-text">Pitch</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-number">8.</span> <span class="toc-text">Summary</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Drone-and-Quadcopter"><span class="toc-number">2.</span> <span class="toc-text">Drone and Quadcopter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tello-EDU"><span class="toc-number">3.</span> <span class="toc-text">Tello EDU</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Aircraft-diagram"><span class="toc-number">4.</span> <span class="toc-text">Aircraft diagram</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mechanics-in-drone"><span class="toc-number">5.</span> <span class="toc-text">Mechanics in drone</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Attitude"><span class="toc-number">5.1.</span> <span class="toc-text">Attitude</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Yaw"><span class="toc-number">5.2.</span> <span class="toc-text">Yaw</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pitch"><span class="toc-number">5.3.</span> <span class="toc-text">Pitch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Roll"><span class="toc-number">5.4.</span> <span class="toc-text">Roll</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Physics-behind-drones"><span class="toc-number">6.</span> <span class="toc-text">Physics behind drones</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Taking-off"><span class="toc-number">6.1.</span> <span class="toc-text">Taking off</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Yaw-1"><span class="toc-number">6.2.</span> <span class="toc-text">Yaw</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Roll-1"><span class="toc-number">6.3.</span> <span class="toc-text">Roll</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pitch-1"><span class="toc-number">6.4.</span> <span class="toc-text">Pitch</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-number">7.</span> <span class="toc-text">Summary</span></a></li></ol>
     </div>
 
 
@@ -329,7 +329,7 @@ window.onscroll = () => {
 </center>
 
 
-<h2 id="Roll-1"><a href="#Roll-1" class="headerlink" title="Roll"></a>Roll</h2><p>In roll operation, we should make our drone move right or left but still remain in the same height. Therefore, the total upward force couldn’t change in total. However, what we should change is the left total force and right total force.</p>
+<h3 id="Roll-1"><a href="#Roll-1" class="headerlink" title="Roll"></a>Roll</h3><p>In roll operation, we should make our drone move right or left but still remain in the same height. Therefore, the total upward force couldn’t change in total. However, what we should change is the left total force and right total force.</p>
 <p>Suppose we want to make the drone <strong>move right</strong>, we should change the motors at the left bigger than the right. However, this is not enough, we still need to make the <strong>total force equal to the gravity</strong>. That is, we should shrink the <strong>right force</strong>.</p>
 <p>$$<br>\sum F = Gravity, \ F_{left} \gt F_{right}<br>$$</p>
 <center>
@@ -356,7 +356,7 @@ window.onscroll = () => {
 <!-- flag of hidden posts -->
     </div>
      
-    <div class="post-footer__meta"><p>updated at 2021-01-16</p></div> 
+    <div class="post-footer__meta"><p>updated at 2021-01-19</p></div> 
     <div class="post-meta__cats"></div> 
 </article>
 
@@ -455,6 +455,55 @@ window.onscroll = () => {
 
  
 
+
+    <script>
+        if (typeof MathJax === 'undefined') {
+            window.MathJax = {
+                loader: {
+                    source: {
+                        '[tex]/amsCd': '[tex]/amscd',
+                        '[tex]/AMScd': '[tex]/amscd'
+                    }
+                },
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                },
+                options: {
+                    renderActions: {
+                        findScript: [10, doc => {
+                            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                                const display = !!node.type.match(/; *mode=display/);
+                                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                                const text = document.createTextNode('');
+                                node.parentNode.replaceChild(text, node);
+                                math.start = {node: text, delim: '', n: 0};
+                                math.end = {node: text, delim: '', n: 0};
+                                doc.math.push(math);
+                            });
+                        }, '', false],
+                        insertedScript: [200, () => {
+                            document.querySelectorAll('mjx-container').forEach(node => {
+                                let target = node.parentNode;
+                                if (target.nodeName.toLowerCase() === 'li') {
+                                    target.parentNode.classList.add('has-jax');
+                                }
+                            });
+                        }, '', false]
+                    }
+                }
+            };
+            (function () {
+                var script = document.createElement('script');
+                script.src = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js";
+                script.defer = true;
+                document.head.appendChild(script);
+            })();
+        } else {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+        }
+    </script>
  
 
  
