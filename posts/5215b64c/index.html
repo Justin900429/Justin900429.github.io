@@ -44,7 +44,7 @@
     <meta name="description" content="ContentSee moreBack to series page  OpenCV with Python – 1 OpenCV with Python – 2 OpenCV with Python – 3 OpenCV with Python – 4 OpenCV with Python – 5    IntroductionWe often come across the problem t">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OpenCV with Python - 5">
-<meta property="og:url" content="justin900429.github.io/posts/5215b64c/index.html">
+<meta property="og:url" content="https://justin900429.github.io/posts/5215b64c/index.html">
 <meta property="og:site_name" content="Justin&#39;s sharing place">
 <meta property="og:description" content="ContentSee moreBack to series page  OpenCV with Python – 1 OpenCV with Python – 2 OpenCV with Python – 3 OpenCV with Python – 4 OpenCV with Python – 5    IntroductionWe often come across the problem t">
 <meta property="og:locale" content="en_US">
@@ -79,7 +79,7 @@
 
     <!-- custom head -->
 
-<meta name="generator" content="Hexo 5.1.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
     <body>
         <div id="app">
@@ -221,8 +221,6 @@ window.onscroll = () => {
 <li>flags: Flags of the window. See the <a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.opencv.org/2.4/modules/highgui/doc/user_interface.html?highlight=namedwindow#namedwindow">documentation</a> for more detail.</li>
 </ul>
 </li>
-</ul>
-<ul>
 <li><code>cv2.resizeWindow(name, width, height)</code>  <ul>
 <li>name: The name of the window to be resized. </li>
 <li>width: Width after resize.  </li>
@@ -246,8 +244,6 @@ cv2.resizeWindow(<span class="hljs-string">&quot;TrackBars&quot;</span>, <span c
 <li>callback: Function to be called when the value of trackbar has changed.  </li>
 </ul>
 </li>
-</ul>
-<ul>
 <li><code>cv2.getTrackbarPos(trackbar_name, window_name)</code><br>  Get the result of the trackbar<ul>
 <li>trackbar_name: The target trackbar’s name.  </li>
 <li>window_name: Name of the window where the trackbar exists.  </li>
@@ -397,12 +393,12 @@ img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     img_stack = stackImages(<span class="hljs-number">0.5</span>, [[img, img_hsv], [mask, img_result]])
     cv2.imshow(<span class="hljs-string">&quot;Image&quot;</span>, img_stack)
     
-    <span class="hljs-keyword">if</span> cv2.waitKey(<span class="hljs-number">1</span>) &amp; <span class="hljs-number">0xFF</span> == ord(<span class="hljs-string">&#x27;q&#x27;</span>): 
+    <span class="hljs-keyword">if</span> cv2.waitKey(<span class="hljs-number">1</span>) &amp; <span class="hljs-number">0xFF</span> == <span class="hljs-built_in">ord</span>(<span class="hljs-string">&#x27;q&#x27;</span>): 
         <span class="hljs-keyword">break</span>;
         
 <span class="hljs-comment"># Print out the wanted range</span>
-print(h_lower, s_lower, v_lower)
-print(h_upper, s_upper, v_upper)
+<span class="hljs-built_in">print</span>(h_lower, s_lower, v_lower)
+<span class="hljs-built_in">print</span>(h_upper, s_upper, v_upper)
 
 cv2.destroyAllWindows()
 cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
@@ -564,7 +560,7 @@ cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'https://justin900429.github.io/posts/5215b64c/';
+                this.page.url = 'https://https://justin900429.github.io/posts/5215b64c/';
                 this.page.identifier = 'posts/5215b64c/';
             };
             (function(){

@@ -44,7 +44,7 @@
     <meta name="description" content="[Series - 12] Regression - 1See moreBack to the series page   前言接下來三篇我都會分享有關 Linear Regression 的知識，這篇為基本的介紹，後兩篇為數學方面與實作的分享。 NotebookNotebook Regression假設我們現在有一些不連續的資料點，當我們把資料點透過圖的方式呈現出來後，可以看到很多不連續的點散落">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Series - 12] Regression - 1">
-<meta property="og:url" content="justin900429.github.io/posts/75d5101b/index.html">
+<meta property="og:url" content="https://justin900429.github.io/posts/75d5101b/index.html">
 <meta property="og:site_name" content="Justin&#39;s sharing place">
 <meta property="og:description" content="[Series - 12] Regression - 1See moreBack to the series page   前言接下來三篇我都會分享有關 Linear Regression 的知識，這篇為基本的介紹，後兩篇為數學方面與實作的分享。 NotebookNotebook Regression假設我們現在有一些不連續的資料點，當我們把資料點透過圖的方式呈現出來後，可以看到很多不連續的點散落">
 <meta property="og:locale" content="en_US">
@@ -81,7 +81,7 @@
 
     <!-- custom head -->
 
-<meta name="generator" content="Hexo 5.1.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
     <body>
         <div id="app">
@@ -243,7 +243,7 @@ y = <span class="hljs-number">2</span> * x + <span class="hljs-number">10</span>
 <span class="hljs-comment"># Data of x should be in 2d, so we should add new axis to x</span>
 reg = LinearRegression().fit(x[:, np.newaxis], y)
 
-print(<span class="hljs-string">f&quot;The regression line is y = <span class="hljs-subst">&#123;reg.coef_[<span class="hljs-number">0</span>]&#125;</span>x + <span class="hljs-subst">&#123;reg.intercept_&#125;</span>&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;The regression line is y = <span class="hljs-subst">&#123;reg.coef_[<span class="hljs-number">0</span>]&#125;</span>x + <span class="hljs-subst">&#123;reg.intercept_&#125;</span>&quot;</span>)
 
 plt.figure(figsize=(<span class="hljs-number">10</span>, <span class="hljs-number">8</span>))
 
@@ -286,7 +286,7 @@ model = LinearRegression().fit(x, data.target[:<span class="hljs-number">100</sp
 fig = plt.figure()
 ax = plt.axes(projection=<span class="hljs-string">&#x27;3d&#x27;</span>)
 ax.scatter3D(x[:, <span class="hljs-number">0</span>], x[:, <span class="hljs-number">1</span>], data.target[:<span class="hljs-number">100</span>])
-xx, yy = np.meshgrid(np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">2.5</span>, <span class="hljs-number">10</span>), np.linspace(<span class="hljs-number">-0.2</span>, <span class="hljs-number">-1.5</span>, <span class="hljs-number">10</span>))
+xx, yy = np.meshgrid(np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">2.5</span>, <span class="hljs-number">10</span>), np.linspace(-<span class="hljs-number">0.2</span>, -<span class="hljs-number">1.5</span>, <span class="hljs-number">10</span>))
 ax.plot_surface(xx, yy,
                 xx * model.coef_[<span class="hljs-number">0</span>] + yy * model.coef_[<span class="hljs-number">1</span>] + model.intercept_, 
                 color=<span class="hljs-string">&quot;red&quot;</span>,
@@ -308,7 +308,7 @@ plt.scatter(X, y + <span class="hljs-number">2</span> * np.random.randn(X.size),
 <p>這時，我們就可以試驗不同次方來擬合這些資料點，並分析哪一個會比較好。另外，<strong>Polynomial Regression</strong> 跟 <strong>Multinomial Regression</strong> 其實本質上來說是一樣的，只要做個對應：</p>
 <p>$$<br>x^{n} \rightarrow x_{n},<br> \ x^{n - 1} \rightarrow x_{n - 1}, \<br>…<br>$$</p>
 <p>就變成 Multinomial 了！因此順序是</p>
-<pre><code class="hljs plain">poly -&gt; multi -&gt;(using linear regression to predict)</code></pre>
+<pre><code class="hljs plaintext">poly -&gt; multi -&gt;(using linear regression to predict)</code></pre>
 
 <p>而 <strong>Sklearn</strong> 已經有寫好的函數可以幫我們算出多項式的各種組合！看下方的 <code>PolynomialFeatures</code>，建議大家可以把下方的 <code>print(x)</code>解開，看看經過這個變換後會出現什麼！</p>
 <pre><code class="hljs python"><span class="hljs-keyword">from</span> sklearn.preprocessing <span class="hljs-keyword">import</span> PolynomialFeatures
@@ -332,7 +332,7 @@ count = <span class="hljs-number">1</span>
     model = LinearRegression().fit(x, y)
     
     plt.subplot(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, count)
-    plt.title(<span class="hljs-string">&quot;Degree&#123;&#125;&quot;</span>.format(degree))
+    plt.title(<span class="hljs-string">&quot;Degree&#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(degree))
     <span class="hljs-comment"># Origin points</span>
     plt.scatter(X, y)
     <span class="hljs-comment"># Predict points</span>
@@ -509,7 +509,7 @@ count = <span class="hljs-number">1</span>
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'https://justin900429.github.io/posts/75d5101b/';
+                this.page.url = 'https://https://justin900429.github.io/posts/75d5101b/';
                 this.page.identifier = 'posts/75d5101b/';
             };
             (function(){

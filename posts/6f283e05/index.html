@@ -44,7 +44,7 @@
     <meta name="description" content="[Series - 1] NumPy基礎介紹Acknowledge This article was written by Joyce.    See moreBack to the series page   前言今天主要會跟大家分享如何使用NumPy 來做矩陣的應用，這在後面進行資料分析或是機器學習都有很大的幫助 實作連結 colab連結  環境準備如果想用自己的電腦來跑的話需要安裝 Pack">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Series - 1] NumPy基礎介紹">
-<meta property="og:url" content="justin900429.github.io/posts/6f283e05/index.html">
+<meta property="og:url" content="https://justin900429.github.io/posts/6f283e05/index.html">
 <meta property="og:site_name" content="Justin&#39;s sharing place">
 <meta property="og:description" content="[Series - 1] NumPy基礎介紹Acknowledge This article was written by Joyce.    See moreBack to the series page   前言今天主要會跟大家分享如何使用NumPy 來做矩陣的應用，這在後面進行資料分析或是機器學習都有很大的幫助 實作連結 colab連結  環境準備如果想用自己的電腦來跑的話需要安裝 Pack">
 <meta property="og:locale" content="en_US">
@@ -77,7 +77,7 @@
 
     <!-- custom head -->
 
-<meta name="generator" content="Hexo 5.1.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
     <body>
         <div id="app">
@@ -215,7 +215,7 @@ window.onscroll = () => {
 <h3 id="環境準備"><a href="#環境準備" class="headerlink" title="環境準備"></a>環境準備</h3><p>如果想用自己的電腦來跑的話需要安裝 Package</p>
 <pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> For anoconda (recommend)</span>
 <span class="hljs-meta">$</span><span class="bash"> conda install numpy</span>
-
+<span class="hljs-meta"></span>
 <span class="hljs-meta">#</span><span class="bash"> For pip</span>
 <span class="hljs-meta">$</span><span class="bash"> pip install numpy</span></code></pre>
 
@@ -240,7 +240,7 @@ window.onscroll = () => {
 <pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np</code></pre>
 <hr>
 <h2 id="創造陣列"><a href="#創造陣列" class="headerlink" title="創造陣列"></a>創造陣列</h2><h3 id="1-numpy-array"><a href="#1-numpy-array" class="headerlink" title="1. numpy.array"></a>1. numpy.array</h3><p>最基本用來創造array的方法，常用於初始化陣列</p>
-<pre><code class="hljs python">np.array(object, 
+<pre><code class="hljs python">np.array(<span class="hljs-built_in">object</span>, 
          dtype = <span class="hljs-literal">None</span>,
          copy = <span class="hljs-literal">True</span>, 
          order = <span class="hljs-literal">None</span>, 
@@ -349,7 +349,7 @@ a = np.array([[ <span class="hljs-number">0</span>, <span class="hljs-number">0<
              [<span class="hljs-number">30</span>,<span class="hljs-number">30</span>,<span class="hljs-number">30</span>]])             
 b = np.array([<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>])
 
-print(<span class="hljs-string">f&quot;New result is <span class="hljs-subst">&#123;a+b&#125;</span>\nShape of the new result is <span class="hljs-subst">&#123;(a+b).shape&#125;</span>&quot;</span>)</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;New result is <span class="hljs-subst">&#123;a+b&#125;</span>\nShape of the new result is <span class="hljs-subst">&#123;(a+b).shape&#125;</span>&quot;</span>)</code></pre>
 
 <p><img src="https://i.imgur.com/Y1S1bVy.gif"></p>
 <hr>
@@ -360,42 +360,42 @@ print(<span class="hljs-string">f&quot;New result is <span class="hljs-subst">&#
 <h3 id="實作-4"><a href="#實作-4" class="headerlink" title="實作"></a>實作</h3><pre><code class="hljs python">a = np.array([<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>])
 b = np.array([<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>])
 
-print(a == b) <span class="hljs-comment"># 按元素判斷 </span>
-print(np.array_equal(a, b)) <span class="hljs-comment"># 按陣列判斷</span></code></pre>
+<span class="hljs-built_in">print</span>(a == b) <span class="hljs-comment"># 按元素判斷 </span>
+<span class="hljs-built_in">print</span>(np.array_equal(a, b)) <span class="hljs-comment"># 按陣列判斷</span></code></pre>
 
 <pre><code class="hljs python">x = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>])
-print(x &gt; <span class="hljs-number">3</span>) <span class="hljs-comment"># 按元素判斷 [False False False  True  True  True]</span>
+<span class="hljs-built_in">print</span>(x &gt; <span class="hljs-number">3</span>) <span class="hljs-comment"># 按元素判斷 [False False False  True  True  True]</span>
 
 y = x[x &gt; <span class="hljs-number">3</span>] <span class="hljs-comment"># 將符合條件的元素取出</span>
-print(y) <span class="hljs-comment"># [4 5 6]</span>
+<span class="hljs-built_in">print</span>(y) <span class="hljs-comment"># [4 5 6]</span>
 
 x[x &lt; <span class="hljs-number">3</span>] = <span class="hljs-number">3</span> <span class="hljs-comment"># 將符合條件的元素改成某值</span>
-print(x) <span class="hljs-comment"># [3, 3, 3, 4, 5, 6]</span></code></pre>
+<span class="hljs-built_in">print</span>(x) <span class="hljs-comment"># [3, 3, 3, 4, 5, 6]</span></code></pre>
 <hr>
 <h2 id="改變類型"><a href="#改變類型" class="headerlink" title="改變類型"></a>改變類型</h2><p>可以利用astype的方式，將原本的type改成自己想要的type</p>
 <h3 id="實作-5"><a href="#實作-5" class="headerlink" title="實作"></a>實作</h3><pre><code class="hljs python">a = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]])
-print(a.dtype) <span class="hljs-comment"># 查看a的type int64</span>
+<span class="hljs-built_in">print</span>(a.dtype) <span class="hljs-comment"># 查看a的type int64</span>
 
 b = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]], dtype = np.float64)
-print(b.dtype) <span class="hljs-comment"># 查看b的type float64</span>
+<span class="hljs-built_in">print</span>(b.dtype) <span class="hljs-comment"># 查看b的type float64</span>
 
 c = a.astype(np.float64) <span class="hljs-comment"># 將a的type改成float64，並指派給c</span>
-print(c.dtype) <span class="hljs-comment"># 查看c的type float64</span>
+<span class="hljs-built_in">print</span>(c.dtype) <span class="hljs-comment"># 查看c的type float64</span>
 
 d = a.astype(b.dtype) <span class="hljs-comment"># 將a的type改成跟b的type一樣，並指派給d</span>
-print(data4.dtype) <span class="hljs-comment"># 查看d的type float64</span></code></pre>
+<span class="hljs-built_in">print</span>(data4.dtype) <span class="hljs-comment"># 查看d的type float64</span></code></pre>
 <hr>
 <h2 id="聚合函數"><a href="#聚合函數" class="headerlink" title="聚合函數"></a>聚合函數</h2><p>聚合函數常常用於統計的用途，像是常見的<strong>平均值</strong>、<strong>標準差</strong>，都包含在裏頭</p>
 <h3 id="實作-6"><a href="#實作-6" class="headerlink" title="實作"></a>實作</h3><pre><code class="hljs python">a = np.array([(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>), (<span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>)])
 
-b = a.sum() <span class="hljs-comment"># a元素的總和</span>
-c = a.sum(axis=<span class="hljs-number">0</span>) <span class="hljs-comment"># 以列為主，往下加</span>
-d = a.sum(axis=<span class="hljs-number">1</span>) <span class="hljs-comment"># 以行為主，往右加</span>
+b = a.<span class="hljs-built_in">sum</span>() <span class="hljs-comment"># a元素的總和</span>
+c = a.<span class="hljs-built_in">sum</span>(axis=<span class="hljs-number">0</span>) <span class="hljs-comment"># 以列為主，往下加</span>
+d = a.<span class="hljs-built_in">sum</span>(axis=<span class="hljs-number">1</span>) <span class="hljs-comment"># 以行為主，往右加</span>
 e = a.cumsum(axis=<span class="hljs-number">0</span>) <span class="hljs-comment"># 以列為主，往下累加</span>
 f = a.cumsum(axis=<span class="hljs-number">1</span>) <span class="hljs-comment"># 以行為主，往右累加</span>
 
-g = a.max() <span class="hljs-comment"># a元素的最大值</span>
-h = a.min() <span class="hljs-comment"># a元素的最小值</span>
+g = a.<span class="hljs-built_in">max</span>() <span class="hljs-comment"># a元素的最大值</span>
+h = a.<span class="hljs-built_in">min</span>() <span class="hljs-comment"># a元素的最小值</span>
 
 i = np.median(a) <span class="hljs-comment"># a元素的中位數</span>
 j = np.mean(a) <span class="hljs-comment"># a元素的平均值</span>
@@ -407,19 +407,19 @@ l = np.var(a) <span class="hljs-comment"># a元素的變異數</span></code></pr
 <h2 id="索引及切片"><a href="#索引及切片" class="headerlink" title="索引及切片"></a>索引及切片</h2><p>索引及切片常用來查看或改變元素。索引是利用座標的概念，找出元素，而切片，是利用slice(start, stop, step)，對原陣列進行切割</p>
 <h3 id="實作-7"><a href="#實作-7" class="headerlink" title="實作"></a>實作</h3><pre><code class="hljs python">a = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>], [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>]])
 
-print(a[<span class="hljs-number">0</span>][<span class="hljs-number">2</span>]) <span class="hljs-comment"># 查看row0 查看row0 col2的元素 (3)</span>
-print(a[<span class="hljs-number">0</span>,<span class="hljs-number">2</span>]) <span class="hljs-comment"># 查看row0 查看row0 col2的元素 (3)</span>
+<span class="hljs-built_in">print</span>(a[<span class="hljs-number">0</span>][<span class="hljs-number">2</span>]) <span class="hljs-comment"># 查看row0 查看row0 col2的元素 (3)</span>
+<span class="hljs-built_in">print</span>(a[<span class="hljs-number">0</span>,<span class="hljs-number">2</span>]) <span class="hljs-comment"># 查看row0 查看row0 col2的元素 (3)</span>
 
-print(a[<span class="hljs-number">1</span>]) <span class="hljs-comment"># [4 5 6] # 查看row1的所有元素</span>
+<span class="hljs-built_in">print</span>(a[<span class="hljs-number">1</span>]) <span class="hljs-comment"># [4 5 6] # 查看row1的所有元素</span>
 
 a[<span class="hljs-number">1</span>] = <span class="hljs-number">5</span> <span class="hljs-comment"># 將row1全部改成5</span>
-print(a[<span class="hljs-number">1</span>]) <span class="hljs-comment"># [5 5 5]</span></code></pre>
+<span class="hljs-built_in">print</span>(a[<span class="hljs-number">1</span>]) <span class="hljs-comment"># [5 5 5]</span></code></pre>
 <pre><code class="hljs python">a = np.arange(<span class="hljs-number">10</span>)
-b = slice(<span class="hljs-number">2</span>,<span class="hljs-number">7</span>,<span class="hljs-number">2</span>) <span class="hljs-comment"># 切出2到7(不包含)，間隔維2的元素</span>
+b = <span class="hljs-built_in">slice</span>(<span class="hljs-number">2</span>,<span class="hljs-number">7</span>,<span class="hljs-number">2</span>) <span class="hljs-comment"># 切出2到7(不包含)，間隔維2的元素</span>
 c = a[<span class="hljs-number">2</span>:<span class="hljs-number">7</span>:<span class="hljs-number">2</span>] <span class="hljs-comment"># 切出a中，2到7(不包含)，間隔維2的元素</span>
 
-print(a[b]) <span class="hljs-comment"># [2 4 6]</span>
-print(c) <span class="hljs-comment"># [2 4 6]</span></code></pre>
+<span class="hljs-built_in">print</span>(a[b]) <span class="hljs-comment"># [2 4 6]</span>
+<span class="hljs-built_in">print</span>(c) <span class="hljs-comment"># [2 4 6]</span></code></pre>
 <pre><code class="hljs python">a = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>], 
               [<span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>], 
               [<span class="hljs-number">11</span>, <span class="hljs-number">12</span>, <span class="hljs-number">13</span>, <span class="hljs-number">14</span>, <span class="hljs-number">15</span>], 
@@ -446,10 +446,10 @@ z = x.reshape([<span class="hljs-number">3</span>, <span class="hljs-number">2</
 a = a.reshape(<span class="hljs-number">3</span>,<span class="hljs-number">4</span>) <span class="hljs-comment"># 將這12個元素改成3*4的矩陣</span>
 
 <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> np.nditer(a, order =  <span class="hljs-string">&#x27;C&#x27;</span>): <span class="hljs-comment"># 用迭代的方式讀取a裡的元素，並且以列的順序讀取</span>
-    <span class="hljs-keyword">print</span> (x, end=<span class="hljs-string">&quot; &quot;</span> )
+    <span class="hljs-built_in">print</span> (x, end=<span class="hljs-string">&quot; &quot;</span> )
 
 <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> np.nditer(a, order =  <span class="hljs-string">&#x27;F&#x27;</span>): <span class="hljs-comment"># 用迭代的方式讀取a裡的元素，並且以行的順序讀取</span>
-    <span class="hljs-keyword">print</span> (x, end=<span class="hljs-string">&quot; &quot;</span> )</code></pre>
+    <span class="hljs-built_in">print</span> (x, end=<span class="hljs-string">&quot; &quot;</span> )</code></pre>
 <hr>
 <h2 id="矩陣運算"><a href="#矩陣運算" class="headerlink" title="矩陣運算"></a>矩陣運算</h2><p>基本的矩陣運算，NumPy皆有包含，像是<strong>轉置</strong>、<strong>內積</strong></p>
 <h3 id="實作-10"><a href="#實作-10" class="headerlink" title="實作"></a>實作</h3><pre><code class="hljs python">a = np.arange(<span class="hljs-number">12</span>).reshape(<span class="hljs-number">3</span>,<span class="hljs-number">4</span>) <span class="hljs-comment"># 產生元素為0~12(不包含)，3*4的矩陣</span>
@@ -482,8 +482,7 @@ c = a.sort(reverse=<span class="hljs-literal">True</span>) <span class="hljs-com
 <p>reverse預設為Flase</p>
 </blockquote>
 <pre><code class="hljs python">a = np.array([<span class="hljs-number">7</span>, <span class="hljs-number">2</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">2</span>, <span class="hljs-number">6</span>])
-b = np.unique(a1) <span class="hljs-comment"># 將a的不重複的元素取出，並指派給b</span></code></pre>
-</li>
+b = np.unique(a1) <span class="hljs-comment"># 將a的不重複的元素取出，並指派給b</span></code></pre></li>
 </ol>
 <hr>
 <h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>上面介紹了很多用法，看似零散，但在處理資料上，都是十分便利的工具。當然，這只是NumPy的基本知識，它還有更深更廣的用途，有興趣的話，可以去專研看看。</p>
@@ -614,7 +613,7 @@ b = np.unique(a1) <span class="hljs-comment"># 將a的不重複的元素取出�
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'https://justin900429.github.io/posts/6f283e05/';
+                this.page.url = 'https://https://justin900429.github.io/posts/6f283e05/';
                 this.page.identifier = 'posts/6f283e05/';
             };
             (function(){

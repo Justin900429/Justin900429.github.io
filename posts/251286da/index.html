@@ -44,7 +44,7 @@
     <meta name="description" content="ContentSee moreBack to series page  OpenCV with Python – 1 OpenCV with Python – 2 OpenCV with Python – 3 OpenCV with Python – 4 OpenCV with Python – 5    IntroductionSo far, we have mentioned lots of">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OpenCV with Python - 4">
-<meta property="og:url" content="justin900429.github.io/posts/251286da/index.html">
+<meta property="og:url" content="https://justin900429.github.io/posts/251286da/index.html">
 <meta property="og:site_name" content="Justin&#39;s sharing place">
 <meta property="og:description" content="ContentSee moreBack to series page  OpenCV with Python – 1 OpenCV with Python – 2 OpenCV with Python – 3 OpenCV with Python – 4 OpenCV with Python – 5    IntroductionSo far, we have mentioned lots of">
 <meta property="og:locale" content="en_US">
@@ -76,7 +76,7 @@
 
     <!-- custom head -->
 
-<meta name="generator" content="Hexo 5.1.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
     <body>
         <div id="app">
@@ -232,7 +232,7 @@ img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 img_blur = cv2.GaussianBlur(img_gray, (<span class="hljs-number">7</span>, <span class="hljs-number">7</span>), <span class="hljs-number">0</span>)
 
 <span class="hljs-comment"># Convert to 0, 1 (Here just for demostration)</span>
-img_thresh = cv2.threshold(img_blur, <span class="hljs-number">200</span>, <span class="hljs-number">1</span>, cv2.THRESH_BINARY_INV)[<span class="hljs-number">1</span>].astype(np.float)
+img_thresh = cv2.threshold(img_blur, <span class="hljs-number">200</span>, <span class="hljs-number">1</span>, cv2.THRESH_BINARY_INV)[<span class="hljs-number">1</span>].astype(np.<span class="hljs-built_in">float</span>)
 
 <span class="hljs-comment"># Define the kernel (The size of the neighboorhood)</span>
 kernel = np.ones((<span class="hljs-number">69</span>, <span class="hljs-number">69</span>), np.uint8)
@@ -258,9 +258,7 @@ cv2.imshow(<span class="hljs-string">&quot;Result&quot;</span>, result)
 
 cv2.waitKey(<span class="hljs-number">0</span>)
 cv2.destroyAllWindows()
-cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
-
-</li>
+cv2.waitKey(<span class="hljs-number">1</span>)</code></pre></li>
 </ul>
 <p><img src="https://i.imgur.com/d3c79Tp.jpg"></p>
 <p>We removed hexagon but also affect other shapes in the image.</p>
@@ -277,13 +275,10 @@ cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
 <li><p><strong>Blur the image</strong><br> Remove noise.</p>
  <pre><code class="hljs python"><span class="hljs-comment"># Change the image to gray scale and blur the image</span>
 img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-img_blur = cv2.GaussianBlur(img_gray, (<span class="hljs-number">3</span>, <span class="hljs-number">3</span>), <span class="hljs-number">1</span>)</code></pre>
-</li>
+img_blur = cv2.GaussianBlur(img_gray, (<span class="hljs-number">3</span>, <span class="hljs-number">3</span>), <span class="hljs-number">1</span>)</code></pre></li>
 <li><p><strong>Convert to binary format</strong><br> Using <strong>Canny</strong> or <strong>Threshold</strong>.</p>
  <pre><code class="hljs python"><span class="hljs-comment"># Edge detection</span>
-img_canny = cv2.Canny(img_blur, <span class="hljs-number">50</span>, <span class="hljs-number">50</span>)</code></pre>
-
-</li>
+img_canny = cv2.Canny(img_blur, <span class="hljs-number">50</span>, <span class="hljs-number">50</span>)</code></pre></li>
 </ol>
 <p>So far, we have finish the preprocessing. We combine them togetherand start to implement a function called <code>get_countours</code>. (Function starts at ==line 78==, we will walk throught it step by step).</p>
 <pre><code class="hljs python"><span class="hljs-string">&#x27;&#x27;&#x27;1. Read image&#x27;&#x27;&#x27;</span>
@@ -314,7 +309,9 @@ get_contours(img_canny)</code></pre>
 <li>mode: Contour retrieval mode. See the detail in documentation.  </li>
 <li>Method: Contour approximation method. See the detail in documentation.  </li>
 </ul>
-<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getContours</span>(<span class="hljs-params">img</span>):</span>
+</li>
+</ul>
+ <pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getContours</span>(<span class="hljs-params">img</span>):</span>
     <span class="hljs-string">&#x27;&#x27;&#x27;</span>
 <span class="hljs-string">    4. Find contours</span>
 <span class="hljs-string">    In this session, we ignore the use of hierarchy</span>
@@ -328,13 +325,11 @@ get_contours(img_canny)</code></pre>
 <span class="hljs-string">    Each elements represent one contours you find. </span>
 <span class="hljs-string">    Each contours include all the points on it.</span>
 <span class="hljs-string">    &#x27;&#x27;&#x27;</span>
-    print(contours)
-    print(contours.shape)</code></pre>
+    <span class="hljs-built_in">print</span>(contours)
+    <span class="hljs-built_in">print</span>(contours.shape)</code></pre>
 <blockquote>
 <p>If mode is cv2.CHAIN_APPROX_SIMPLE, it will only return the points. Otherwise, cv2.CHAIN_APPROX_NONE will return the line. You can try it by yourself!</p>
 </blockquote>
-</li>
-</ul>
 </li>
 <li><p><strong>Drop the noise</strong><br> Here, we use the size of the area to drop the noise. We use <mark>threshold to drop the noise</mark>. </br></p>
 <ul>
@@ -354,12 +349,11 @@ get_contours(img_canny)</code></pre>
 <span class="hljs-string">        We can calculate the area for the bounding shapes.</span>
 <span class="hljs-string">        And drop the smaller area.</span>
 <span class="hljs-string">        &#x27;&#x27;&#x27;</span>
-        print(area)
+        <span class="hljs-built_in">print</span>(area)
 
         <span class="hljs-comment"># Clean noise by setting the threshold of area</span>
         <span class="hljs-keyword">if</span> area &lt; <span class="hljs-number">800</span>:
-            <span class="hljs-keyword">continue</span></code></pre>
-</li>
+            <span class="hljs-keyword">continue</span></code></pre></li>
 </ul>
 </li>
 </ul>
@@ -372,7 +366,9 @@ get_contours(img_canny)</code></pre>
 <li>contour: Point vectors (Same as above).  </li>
 <li>contourIdx: Index for which contour to draw. If negative, draw all the contours.  </li>
 </ul>
-<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_contours</span>(<span class="hljs-params">img</span>):</span>
+</li>
+</ul>
+ <pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_contours</span>(<span class="hljs-params">img</span>):</span>
     <span class="hljs-string">&#x27;&#x27;&#x27;4. Find contours&#x27;&#x27;&#x27;</span>
     <span class="hljs-comment"># Retreive the outer contours</span>
     contours, hierarchy = cv2.findContours(img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
@@ -382,7 +378,7 @@ get_contours(img_canny)</code></pre>
         <span class="hljs-comment"># Get the area of the closed contour</span>
         area = cv2.contourArea(cnt)
 
-        print(area)
+        <span class="hljs-built_in">print</span>(area)
 
         <span class="hljs-comment"># Clean noise by setting the threshold of area</span>
         <span class="hljs-keyword">if</span> area &lt; <span class="hljs-number">800</span>:
@@ -393,29 +389,23 @@ get_contours(img_canny)</code></pre>
 <span class="hljs-string">        img_contour is the copy of origin image in line 74.</span>
 <span class="hljs-string">        You should add cv2.imshow by yourself to see the result.</span>
 <span class="hljs-string">        &#x27;&#x27;&#x27;</span>
-        cv2.drawContours(img_contour, cnt, <span class="hljs-number">-1</span>, (<span class="hljs-number">255</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>), <span class="hljs-number">3</span>)</code></pre>
-</li>
-</ul>
-</li>
+        cv2.drawContours(img_contour, cnt, -<span class="hljs-number">1</span>, (<span class="hljs-number">255</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>), <span class="hljs-number">3</span>)</code></pre></li>
 <li><p><strong>Recognize the shapes</strong><br> Draw the ==bounding box== and put the text to specify each shapes.</p>
 <ul>
-<li><p><code>cv2.arcLength(contour, closed)</code> <a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html#arclength">Documentation</a></p>
-<ul>
+<li><code>cv2.arcLength(contour, closed)</code> <a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html#arclength">Documentation</a><ul>
 <li>closed: Flag indicating whether the curve is closed or not.</li>
 </ul>
 </li>
-<li><p><code>cv2.approxPolyDP(contour, epsilon, closed)</code> <a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html#approxpolydp">Documentation</a>  </p>
-<ul>
+<li><code>cv2.approxPolyDP(contour, epsilon, closed)</code> <a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html#approxpolydp">Documentation</a>  <ul>
 <li>epsilon: Specifying the approximation accuracy.  </li>
 </ul>
 </li>
-<li><p><code>cv2.boundingRect(points)</code> <a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html#boundingrect">Documentation</a>  </p>
-<ul>
-<li>points: Point vectors.</br>
-
+<li><code>cv2.boundingRect(points)</code> <a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html#boundingrect">Documentation</a>  <ul>
+<li>points: Point vectors.</br></li>
+</ul>
 </li>
 </ul>
-<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_contours</span>(<span class="hljs-params">img</span>):</span>
+ <pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_contours</span>(<span class="hljs-params">img</span>):</span>
     <span class="hljs-string">&#x27;&#x27;&#x27;4. Find contours&#x27;&#x27;&#x27;</span>
     <span class="hljs-comment"># Retreive the outer contours</span>
     contours, hierarchy = cv2.findContours(img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
@@ -430,7 +420,7 @@ get_contours(img_canny)</code></pre>
             <span class="hljs-keyword">continue</span>
 
         <span class="hljs-string">&#x27;&#x27;&#x27;6.1 Draw the contours&#x27;&#x27;&#x27;</span>
-        cv2.drawContours(img_contour, cnt, <span class="hljs-number">-1</span>, (<span class="hljs-number">255</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>), <span class="hljs-number">3</span>)
+        cv2.drawContours(img_contour, cnt, -<span class="hljs-number">1</span>, (<span class="hljs-number">255</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>), <span class="hljs-number">3</span>)
 
         <span class="hljs-comment"># Connt the peripheral </span>
         peri = cv2.arcLength(cnt, <span class="hljs-literal">True</span>)
@@ -440,7 +430,7 @@ get_contours(img_canny)</code></pre>
         approx = cv2.approxPolyDP(cnt, <span class="hljs-number">0.02</span> * peri, <span class="hljs-literal">True</span>)
 
         <span class="hljs-comment"># Count the number of the sides</span>
-        obj_cor = len(approx)
+        obj_cor = <span class="hljs-built_in">len</span>(approx)
 
         <span class="hljs-comment"># Get the bounding box of the shape</span>
         x, y, w, h = cv2.boundingRect(approx)
@@ -448,15 +438,11 @@ get_contours(img_canny)</code></pre>
         <span class="hljs-string">&#x27;&#x27;&#x27;</span>
 <span class="hljs-string">        Print out the new info</span>
 <span class="hljs-string">        &#x27;&#x27;&#x27;</span>
-        print(<span class="hljs-string">&quot;The peripheral is&quot;</span>, peri)
-        print(<span class="hljs-string">&quot;The vertex are:&quot;</span>, approx)
-        print(<span class="hljs-string">&quot;Therefore, there are &#123;&#125; sides.&quot;</span>.format(obj_cor))
-        print(<span class="hljs-string">&quot;The boundind box is&quot;</span>, (x, y, w, h))
-        print(<span class="hljs-string">&quot;-&quot;</span>*<span class="hljs-number">100</span>)</code></pre>
-
-
-</li>
-</ul>
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;The peripheral is&quot;</span>, peri)
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;The vertex are:&quot;</span>, approx)
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Therefore, there are &#123;&#125; sides.&quot;</span>.<span class="hljs-built_in">format</span>(obj_cor))
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;The boundind box is&quot;</span>, (x, y, w, h))
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;-&quot;</span>*<span class="hljs-number">100</span>)</code></pre>
 </li>
 </ol>
 </br>
@@ -482,7 +468,7 @@ get_contours(img_canny)</code></pre>
             <span class="hljs-keyword">continue</span>
          
         <span class="hljs-string">&#x27;&#x27;&#x27;6.1 Draw the contours&#x27;&#x27;&#x27;</span>
-        cv2.drawContours(img_contour, cnt, <span class="hljs-number">-1</span>, (<span class="hljs-number">255</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>), <span class="hljs-number">3</span>)
+        cv2.drawContours(img_contour, cnt, -<span class="hljs-number">1</span>, (<span class="hljs-number">255</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>), <span class="hljs-number">3</span>)
         
         <span class="hljs-string">&#x27;&#x27;&#x27;6.2 Regconize the shape&#x27;&#x27;&#x27;</span>
         <span class="hljs-comment"># Count the peripheral </span>
@@ -492,7 +478,7 @@ get_contours(img_canny)</code></pre>
         approx = cv2.approxPolyDP(cnt, <span class="hljs-number">0.02</span> * peri, <span class="hljs-literal">True</span>)
         
         <span class="hljs-comment"># Count the number of the sides</span>
-        obj_cor = len(approx)
+        obj_cor = <span class="hljs-built_in">len</span>(approx)
         
         <span class="hljs-comment"># Get the bounding box of the shape</span>
         x, y, w, h = cv2.boundingRect(approx)
@@ -672,7 +658,7 @@ cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'https://justin900429.github.io/posts/251286da/';
+                this.page.url = 'https://https://justin900429.github.io/posts/251286da/';
                 this.page.identifier = 'posts/251286da/';
             };
             (function(){

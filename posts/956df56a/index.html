@@ -44,7 +44,7 @@
     <meta name="description" content="[Series - 2] Pandas基礎介紹Acknowledge This article was written by Joyce.    See moreBack to the series page   前言今天是講解如何使用 pandas，pandas 是非常重要讀取、處理資料的工具！  實作連結 colab連結   Pandas 能夠有效率的對資料進行篩選及分析 Pandas主要分成">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Series - 2] Pandas基礎介紹">
-<meta property="og:url" content="justin900429.github.io/posts/956df56a/index.html">
+<meta property="og:url" content="https://justin900429.github.io/posts/956df56a/index.html">
 <meta property="og:site_name" content="Justin&#39;s sharing place">
 <meta property="og:description" content="[Series - 2] Pandas基礎介紹Acknowledge This article was written by Joyce.    See moreBack to the series page   前言今天是講解如何使用 pandas，pandas 是非常重要讀取、處理資料的工具！  實作連結 colab連結   Pandas 能夠有效率的對資料進行篩選及分析 Pandas主要分成">
 <meta property="og:locale" content="en_US">
@@ -74,7 +74,7 @@
 
     <!-- custom head -->
 
-<meta name="generator" content="Hexo 5.1.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
     <body>
         <div id="app">
@@ -230,7 +230,7 @@ window.onscroll = () => {
 <h3 id="環境準備"><a href="#環境準備" class="headerlink" title="環境準備"></a>環境準備</h3><p>如果想用自己的電腦來跑的話需要安裝 Package</p>
 <pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> For anoconda (recommend)</span>
 <span class="hljs-meta">$</span><span class="bash"> conda install pandas</span>
-
+<span class="hljs-meta"></span>
 <span class="hljs-meta">#</span><span class="bash"> For pip</span>
 <span class="hljs-meta">$</span><span class="bash"> pip install pandas</span></code></pre>
 <h2 id="引入Pandas"><a href="#引入Pandas" class="headerlink" title="引入Pandas"></a>引入Pandas</h2><p>要使用Pandas的話，需要引入這個library，習慣上會用 <strong>pd</strong> 作為縮寫。</p>
@@ -248,27 +248,27 @@ data1 = pd.Series([<span class="hljs-number">1</span>, <span class="hljs-number"
 <h3 id="查看資料屬性"><a href="#查看資料屬性" class="headerlink" title="查看資料屬性"></a>查看資料屬性</h3><p>在分析資料上，查看屬性常常是第一步，有時我們以為是int的資料，其實是String，這時怎麼分析都不對，因此建議在對資料進行分析時，事先都先了解每個資料型態，當然，其他屬性也有一定的重要性。</p>
 <h4 id="實作-2"><a href="#實作-2" class="headerlink" title="實作"></a>實作</h4><pre><code class="hljs python">data = pd.Series([<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>, <span class="hljs-number">8</span>, <span class="hljs-number">10</span>], index = [<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>, <span class="hljs-string">&quot;d&quot;</span>, <span class="hljs-string">&quot;e&quot;</span>]) <span class="hljs-comment"># 原始資料</span>
 
-print(data.dtype) <span class="hljs-comment"># 查看資料型態</span>
-print(data.size) <span class="hljs-comment"># 查看資料筆數</span>
-print(data.index) <span class="hljs-comment"># 查看資料索引</span></code></pre>
+<span class="hljs-built_in">print</span>(data.dtype) <span class="hljs-comment"># 查看資料型態</span>
+<span class="hljs-built_in">print</span>(data.size) <span class="hljs-comment"># 查看資料筆數</span>
+<span class="hljs-built_in">print</span>(data.index) <span class="hljs-comment"># 查看資料索引</span></code></pre>
 <hr>
 <h3 id="查看資料"><a href="#查看資料" class="headerlink" title="查看資料"></a>查看資料</h3><p>想查看特定的筆數時，有兩種方法可以查看，第一種是利用預設的順序查看，由0開始，往下遞增，如果有自己定義索引，則可以用新的索引查看資料。</p>
 <h4 id="實作-3"><a href="#實作-3" class="headerlink" title="實作"></a>實作</h4><pre><code class="hljs python">data = pd.Series([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>], index = [<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>, <span class="hljs-string">&quot;d&quot;</span>, <span class="hljs-string">&quot;e&quot;</span>]) <span class="hljs-comment"># 自訂索引</span>
-print(data[<span class="hljs-number">0</span>]) <span class="hljs-comment"># 查看第一筆資料，按照順序</span>
-print(data[<span class="hljs-string">&quot;a&quot;</span>])<span class="hljs-comment"># 查看第一筆資料，按照索引</span></code></pre>
+<span class="hljs-built_in">print</span>(data[<span class="hljs-number">0</span>]) <span class="hljs-comment"># 查看第一筆資料，按照順序</span>
+<span class="hljs-built_in">print</span>(data[<span class="hljs-string">&quot;a&quot;</span>])<span class="hljs-comment"># 查看第一筆資料，按照索引</span></code></pre>
 <hr>
 <h3 id="數值統計分析"><a href="#數值統計分析" class="headerlink" title="數值統計分析"></a>數值統計分析</h3><p>在上一篇我們介紹過Numpy有統計分析的功能，Pandas也不例外，基本的統計函數皆有包含。</p>
 <h4 id="實作-4"><a href="#實作-4" class="headerlink" title="實作"></a>實作</h4><pre><code class="hljs python">data = pd.Series([<span class="hljs-number">10</span>, <span class="hljs-number">22</span>, <span class="hljs-number">27</span>, <span class="hljs-number">13</span>, <span class="hljs-number">24</span>], index = [<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>, <span class="hljs-string">&quot;d&quot;</span>, <span class="hljs-string">&quot;e&quot;</span>]) <span class="hljs-comment"># 原始資料</span>
 
-print(data.sum()) <span class="hljs-comment"># 列印出所有資料的和</span>
-print(data.mean()) <span class="hljs-comment"># 列印出資料的中位數</span>
-print(data.std()) <span class="hljs-comment"># 列印出資料的標準差</span>
-print(data.var()) <span class="hljs-comment"># 列印出資料的變異數</span>
-print(data.prod()) <span class="hljs-comment"># 列印出所有資料的乘積</span>
-print(data.max()) <span class="hljs-comment"># 列印出資料的最大值</span>
-print(data.min()) <span class="hljs-comment"># 列印出資料的最小值</span>
-print(data.nlargest(<span class="hljs-number">2</span>)) <span class="hljs-comment"># 列印出資料前兩大的值</span>
-print(data.nsmallest(<span class="hljs-number">2</span>)) <span class="hljs-comment"># 列印出資料前兩小的值</span></code></pre>
+<span class="hljs-built_in">print</span>(data.<span class="hljs-built_in">sum</span>()) <span class="hljs-comment"># 列印出所有資料的和</span>
+<span class="hljs-built_in">print</span>(data.mean()) <span class="hljs-comment"># 列印出資料的中位數</span>
+<span class="hljs-built_in">print</span>(data.std()) <span class="hljs-comment"># 列印出資料的標準差</span>
+<span class="hljs-built_in">print</span>(data.var()) <span class="hljs-comment"># 列印出資料的變異數</span>
+<span class="hljs-built_in">print</span>(data.prod()) <span class="hljs-comment"># 列印出所有資料的乘積</span>
+<span class="hljs-built_in">print</span>(data.<span class="hljs-built_in">max</span>()) <span class="hljs-comment"># 列印出資料的最大值</span>
+<span class="hljs-built_in">print</span>(data.<span class="hljs-built_in">min</span>()) <span class="hljs-comment"># 列印出資料的最小值</span>
+<span class="hljs-built_in">print</span>(data.nlargest(<span class="hljs-number">2</span>)) <span class="hljs-comment"># 列印出資料前兩大的值</span>
+<span class="hljs-built_in">print</span>(data.nsmallest(<span class="hljs-number">2</span>)) <span class="hljs-comment"># 列印出資料前兩小的值</span></code></pre>
 <hr>
 <h3 id="字串分析"><a href="#字串分析" class="headerlink" title="字串分析"></a>字串分析</h3><p>當原始資料的字母大小寫不一時，在分析上會變得很困難，因此可以利用lower()，upper()，將字串改成統一的大小寫。或者，有時想將資料中字串進行轉換，例如把所有的”嗨”，改成”Hi”，使用Pandas都可以完成</p>
 <blockquote>
@@ -276,12 +276,12 @@ print(data.nsmallest(<span class="hljs-number">2</span>)) <span class="hljs-comm
 </blockquote>
 <h4 id="實作-5"><a href="#實作-5" class="headerlink" title="實作"></a>實作</h4><pre><code class="hljs python">data = pd.Series([<span class="hljs-string">&quot;Apple&quot;</span>, <span class="hljs-string">&quot;Banana&quot;</span>, <span class="hljs-string">&quot;Cherry&quot;</span>])
 
-print(data.str.lower()) <span class="hljs-comment"># 將所有字串的字母變成小寫列印出來</span>
-print(data.str.upper()) <span class="hljs-comment"># 將所有字串的字母變成大寫列印出來</span>
-print(data.str.cat(sep = <span class="hljs-string">&quot;,&quot;</span>)) <span class="hljs-comment"># 將所有字串串接，並用逗號隔開，列印出來</span>
-print(data.str.contains(<span class="hljs-string">&quot;a&quot;</span>)) <span class="hljs-comment"># 判斷各個字串是否包含&quot;A&quot;，列印初布林值</span>
-print(data.str.replace(<span class="hljs-string">&quot;a&quot;</span>,<span class="hljs-string">&quot;A&quot;</span>)) <span class="hljs-comment"># 把各個字串中的&quot;a&quot;取代成&quot;A&quot;列印出來</span>
-print(data.str.len()) <span class="hljs-comment"># 列印出每個字串的長度</span></code></pre>
+<span class="hljs-built_in">print</span>(data.<span class="hljs-built_in">str</span>.lower()) <span class="hljs-comment"># 將所有字串的字母變成小寫列印出來</span>
+<span class="hljs-built_in">print</span>(data.<span class="hljs-built_in">str</span>.upper()) <span class="hljs-comment"># 將所有字串的字母變成大寫列印出來</span>
+<span class="hljs-built_in">print</span>(data.<span class="hljs-built_in">str</span>.cat(sep = <span class="hljs-string">&quot;,&quot;</span>)) <span class="hljs-comment"># 將所有字串串接，並用逗號隔開，列印出來</span>
+<span class="hljs-built_in">print</span>(data.<span class="hljs-built_in">str</span>.contains(<span class="hljs-string">&quot;a&quot;</span>)) <span class="hljs-comment"># 判斷各個字串是否包含&quot;A&quot;，列印初布林值</span>
+<span class="hljs-built_in">print</span>(data.<span class="hljs-built_in">str</span>.replace(<span class="hljs-string">&quot;a&quot;</span>,<span class="hljs-string">&quot;A&quot;</span>)) <span class="hljs-comment"># 把各個字串中的&quot;a&quot;取代成&quot;A&quot;列印出來</span>
+<span class="hljs-built_in">print</span>(data.<span class="hljs-built_in">str</span>.<span class="hljs-built_in">len</span>()) <span class="hljs-comment"># 列印出每個字串的長度</span></code></pre>
 <hr>
 <h2 id="二維-DataFrame"><a href="#二維-DataFrame" class="headerlink" title="二維(DataFrame)"></a>二維(DataFrame)</h2><p>二維的資料，就像<strong>表格</strong>，DataFrame是由很多個Series組裝出來的，因此Series和DataFrame可互相轉換。因為是由Series組成，因此很多的寫法跟Series相似。</p>
 <hr>
@@ -298,19 +298,19 @@ print(data.str.len()) <span class="hljs-comment"># 列印出每個字串的長�
     <span class="hljs-string">&quot;price&quot;</span> : [<span class="hljs-number">10</span>, <span class="hljs-number">5</span>, <span class="hljs-number">30</span>]
 &#125;, index = [<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>])
 
-print(data[<span class="hljs-string">&quot;fruit&quot;</span>]) <span class="hljs-comment"># 查看&quot;fruit&quot;的資料，一整行</span>
-print(data.iloc[<span class="hljs-number">0</span>]) <span class="hljs-comment"># 按照預設索引，查看第一列的資料</span>
-print(data.loc[<span class="hljs-string">&quot;b&quot;</span>]) <span class="hljs-comment"># 按照自定義索引，查看&quot;b&quot;一整列的資料</span></code></pre>
+<span class="hljs-built_in">print</span>(data[<span class="hljs-string">&quot;fruit&quot;</span>]) <span class="hljs-comment"># 查看&quot;fruit&quot;的資料，一整行</span>
+<span class="hljs-built_in">print</span>(data.iloc[<span class="hljs-number">0</span>]) <span class="hljs-comment"># 按照預設索引，查看第一列的資料</span>
+<span class="hljs-built_in">print</span>(data.loc[<span class="hljs-string">&quot;b&quot;</span>]) <span class="hljs-comment"># 按照自定義索引，查看&quot;b&quot;一整列的資料</span></code></pre>
 <pre><code class="hljs python">data = pd.DataFrame(&#123;
     <span class="hljs-string">&quot;fruit&quot;</span> : [<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>, <span class="hljs-string">&quot;peach&quot;</span>, <span class="hljs-string">&quot;cherry&quot;</span>, <span class="hljs-string">&quot;coconut&quot;</span>, <span class="hljs-string">&quot;grape&quot;</span>, <span class="hljs-string">&quot;guava&quot;</span>],
     <span class="hljs-string">&quot;price&quot;</span> : [<span class="hljs-number">10</span>, <span class="hljs-number">5</span>, <span class="hljs-number">30</span>, <span class="hljs-number">20</span>, <span class="hljs-number">50</span>, <span class="hljs-number">25</span>, <span class="hljs-number">15</span>]
 &#125;)
 
 
-print(data.head()) <span class="hljs-comment"># 如果沒有輸入數字，預設是5，即查看前五筆資料</span>
-print(data.tail()) <span class="hljs-comment"># 如果沒有輸入數字，預設是5，即查看最後五筆資料</span>
-print(data.head(<span class="hljs-number">3</span>)) <span class="hljs-comment"># 查看前三筆資料</span>
-print(data.tail(<span class="hljs-number">3</span>)) <span class="hljs-comment"># 查看後三筆資料</span></code></pre>
+<span class="hljs-built_in">print</span>(data.head()) <span class="hljs-comment"># 如果沒有輸入數字，預設是5，即查看前五筆資料</span>
+<span class="hljs-built_in">print</span>(data.tail()) <span class="hljs-comment"># 如果沒有輸入數字，預設是5，即查看最後五筆資料</span>
+<span class="hljs-built_in">print</span>(data.head(<span class="hljs-number">3</span>)) <span class="hljs-comment"># 查看前三筆資料</span>
+<span class="hljs-built_in">print</span>(data.tail(<span class="hljs-number">3</span>)) <span class="hljs-comment"># 查看後三筆資料</span></code></pre>
 <hr>
 <h3 id="查看資料屬性-1"><a href="#查看資料屬性-1" class="headerlink" title="查看資料屬性"></a>查看資料屬性</h3><p>與Series一樣，在分析前先查看資料的屬性是很重要的一環，可利用<strong>size</strong>、<strong>shape</strong>等查看，或者**info()查看所有的資料的屬性。</p>
 <h4 id="實作-8"><a href="#實作-8" class="headerlink" title="實作"></a>實作</h4><pre><code class="hljs python">data = pd.DataFrame(&#123;
@@ -318,10 +318,10 @@ print(data.tail(<span class="hljs-number">3</span>)) <span class="hljs-comment">
     <span class="hljs-string">&quot;price&quot;</span> : [<span class="hljs-number">10</span>, <span class="hljs-number">5</span>, <span class="hljs-number">30</span>, <span class="hljs-number">20</span>, <span class="hljs-number">50</span>, <span class="hljs-number">25</span>, <span class="hljs-number">15</span>]
 &#125;)
 
-print(data.size) <span class="hljs-comment"># 查看資料的總資料數 </span>
-print(data.shape) <span class="hljs-comment"># 查看資料的大小(即幾乘幾)</span>
-print(data.columns) <span class="hljs-comment"># 查看所有的標題(key)</span>
-print(data.info()) <span class="hljs-comment"># 查看所有資料的屬性，以每個Series顯示</span></code></pre>
+<span class="hljs-built_in">print</span>(data.size) <span class="hljs-comment"># 查看資料的總資料數 </span>
+<span class="hljs-built_in">print</span>(data.shape) <span class="hljs-comment"># 查看資料的大小(即幾乘幾)</span>
+<span class="hljs-built_in">print</span>(data.columns) <span class="hljs-comment"># 查看所有的標題(key)</span>
+<span class="hljs-built_in">print</span>(data.info()) <span class="hljs-comment"># 查看所有資料的屬性，以每個Series顯示</span></code></pre>
 <hr>
 <h3 id="更改資料"><a href="#更改資料" class="headerlink" title="更改資料"></a>更改資料</h3><p>當DataFrame已經建立好時，偶爾會需要要修改標題(key)，或是資料的內容，Pandas也有提關相關的函數。</p>
 <h4 id="實作-9"><a href="#實作-9" class="headerlink" title="實作"></a>實作</h4><pre><code class="hljs python">data = pd.DataFrame(&#123;
@@ -541,7 +541,7 @@ data.fillna(value = <span class="hljs-string">&quot;NULL&quot;</span>, inplace =
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'https://justin900429.github.io/posts/956df56a/';
+                this.page.url = 'https://https://justin900429.github.io/posts/956df56a/';
                 this.page.identifier = 'posts/956df56a/';
             };
             (function(){

@@ -44,7 +44,7 @@
     <meta name="description" content="ContentSee moreBack to series page  OpenCV with Python – 1 OpenCV with Python – 2 OpenCV with Python – 3 OpenCV with Python – 4 OpenCV with Python – 5    IntroductionThe last article talked about some">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OpenCV with Python - 2">
-<meta property="og:url" content="justin900429.github.io/posts/cc7123ef/index.html">
+<meta property="og:url" content="https://justin900429.github.io/posts/cc7123ef/index.html">
 <meta property="og:site_name" content="Justin&#39;s sharing place">
 <meta property="og:description" content="ContentSee moreBack to series page  OpenCV with Python – 1 OpenCV with Python – 2 OpenCV with Python – 3 OpenCV with Python – 4 OpenCV with Python – 5    IntroductionThe last article talked about some">
 <meta property="og:locale" content="en_US">
@@ -80,7 +80,7 @@
 
     <!-- custom head -->
 
-<meta name="generator" content="Hexo 5.1.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
     <body>
         <div id="app">
@@ -236,7 +236,7 @@ img = cv2.imread(<span class="hljs-string">&quot;food.jpg&quot;</span>)
 kernel = np.ones((<span class="hljs-number">3</span>, <span class="hljs-number">3</span>)) / <span class="hljs-number">9</span>
 
 <span class="hljs-comment"># Filter the image</span>
-result = cv2.filter2D(img, <span class="hljs-number">-1</span>, kernel=kernel)
+result = cv2.filter2D(img, -<span class="hljs-number">1</span>, kernel=kernel)
 
 <span class="hljs-comment"># Origin image</span>
 cv2.imshow(<span class="hljs-string">&quot;Origig image&quot;</span>, img)
@@ -276,8 +276,8 @@ cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
     result = np.ones((img.shape[<span class="hljs-number">0</span>], img.shape[<span class="hljs-number">1</span>], <span class="hljs-number">3</span>))
     
     <span class="hljs-comment"># Start convolution</span>
-    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> range(start_x, end_x + <span class="hljs-number">1</span>):
-        <span class="hljs-keyword">for</span> y <span class="hljs-keyword">in</span> range(start_y, end_y + <span class="hljs-number">1</span>):
+    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(start_x, end_x + <span class="hljs-number">1</span>):
+        <span class="hljs-keyword">for</span> y <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(start_y, end_y + <span class="hljs-number">1</span>):
             <span class="hljs-string">&#x27;&#x27;&#x27;</span>
 <span class="hljs-string">            Suppose kernel size is 5:</span>
 <span class="hljs-string">            </span>
@@ -289,9 +289,9 @@ cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
 <span class="hljs-string">            &#x27;&#x27;&#x27;</span>
             <span class="hljs-comment"># Sum the new result with its first and second axis (remain the channel axis)</span>
             result[x - pad_size, y - pad_size] = np.multiply(padding_img[x - pad_size: x + pad_size + <span class="hljs-number">1</span>, y - pad_size: y + pad_size + <span class="hljs-number">1</span>],
-                                                             kernel).sum(axis=(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>))
+                                                             kernel).<span class="hljs-built_in">sum</span>(axis=(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>))
     
-    print(<span class="hljs-string">&quot;Origin shape: &#123;&#125;\nNew shape: &#123;&#125;&quot;</span>.format(img.shape, result.shape))
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Origin shape: &#123;&#125;\nNew shape: &#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(img.shape, result.shape))
     
     <span class="hljs-comment"># Ensure that the result is in type uint8</span>
     <span class="hljs-keyword">return</span> result.astype(np.uint8)
@@ -334,8 +334,7 @@ cv2.waitKey(<span class="hljs-number">0</span>)
 cv2.destroyAllWindows()
 cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
 <center><img src=https://i.imgur.com/m1V00Gr.jpg width=600></center>
-<center><p>Output</p></center>
-</li>
+<center><p>Output</p></center></li>
 <li><p><strong>Hands by hands</strong> (Just for reference)</p>
 <pre><code class="hljs python"><span class="hljs-comment"># Assistive function</span>
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">convert_channels</span>(<span class="hljs-params">channels</span>):</span>
@@ -343,8 +342,8 @@ cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
     channels = channels / <span class="hljs-number">255</span>
     
     <span class="hljs-comment"># Find extreme value</span>
-    max_value = np.max(channels)
-    min_value = np.min(channels)
+    max_value = np.<span class="hljs-built_in">max</span>(channels)
+    min_value = np.<span class="hljs-built_in">min</span>(channels)
     
     <span class="hljs-comment">### Calculate V</span>
     V = max_value
@@ -367,7 +366,7 @@ cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
         H += <span class="hljs-number">360</span>
     
     <span class="hljs-comment"># Stack the result and return</span>
-    result = np.hstack([np.round(H / <span class="hljs-number">2</span>), np.round(S * <span class="hljs-number">255</span>), np.round(V * <span class="hljs-number">255</span>)])
+    result = np.hstack([np.<span class="hljs-built_in">round</span>(H / <span class="hljs-number">2</span>), np.<span class="hljs-built_in">round</span>(S * <span class="hljs-number">255</span>), np.<span class="hljs-built_in">round</span>(V * <span class="hljs-number">255</span>)])
     <span class="hljs-keyword">return</span> result.astype(np.uint8)
 
 
@@ -376,23 +375,19 @@ cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
     result = img.copy()
     
     <span class="hljs-comment"># Go through each pixel</span>
-    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(img.shape[<span class="hljs-number">0</span>]):
-        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(img.shape[<span class="hljs-number">1</span>]):
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(img.shape[<span class="hljs-number">0</span>]):
+        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(img.shape[<span class="hljs-number">1</span>]):
             result[i, j] = convert_channels(result[i, j])
             
-    <span class="hljs-keyword">return</span> result</code></pre>
-
-</li>
+    <span class="hljs-keyword">return</span> result</code></pre></li>
 </ul>
 <p>You may wonder why we have to convert image to <strong>HSV</strong>. The output looks wierd! However, we will see its amazing power in color filtering in no soon!</p>
 <h2 id="Basic-function"><a href="#Basic-function" class="headerlink" title="Basic function"></a>Basic function</h2><h3 id="Blurring"><a href="#Blurring" class="headerlink" title="Blurring"></a>Blurring</h3><p>In order to recognize the shapes or the lines in image processing, we hope to retain import items and drop the noise. Therefore, blurring the image cany help us to smooth the color and made the image processing more easier. There are lots of method to blur the image. However, I’ll only introduce three ways. <strong>Average blurring</strong>, <strong>Median blurring</strong> and <strong>Gaussian blurring</strong>.</p>
 <ul>
-<li><strong>Average filter</strong><br>  Average blurring use a indentity matrix and devided by its size. The intuitive idea is to share the information with its neighbor and send the important information to others.<br>  $$<br>  \text{3 x 3 Average blur}<br>  \begin{bmatrix}<br>  \frac{1}{9} &amp; \frac{1}{9} &amp; \frac{1}{9}  \\<br>  \frac{1}{9} &amp; \frac{1}{9} &amp; \frac{1}{9} \\<br>  \frac{1}{9} &amp; \frac{1}{9} &amp; \frac{1}{9}<br>  \end{bmatrix}<br>  $$</li>
-</ul>
-<ul>
-<li><strong>Median filter</strong><br>  By calculating the median value of the matrix and get the result. The matrix can be all 1 because we don’t focus on the matrix but the image itself.</li>
-</ul>
-<ul>
+<li><p><strong>Average filter</strong><br>  Average blurring use a indentity matrix and devided by its size. The intuitive idea is to share the information with its neighbor and send the important information to others.<br>  $$<br>  \text{3 x 3 Average blur}<br>  \begin{bmatrix}<br>  \frac{1}{9} &amp; \frac{1}{9} &amp; \frac{1}{9}  \\<br>  \frac{1}{9} &amp; \frac{1}{9} &amp; \frac{1}{9} \\<br>  \frac{1}{9} &amp; \frac{1}{9} &amp; \frac{1}{9}<br>  \end{bmatrix}<br>  $$</p>
+</li>
+<li><p><strong>Median filter</strong><br>  By calculating the median value of the matrix and get the result. The matrix can be all 1 because we don’t focus on the matrix but the image itself.</p>
+</li>
 <li><p><strong>Gaussian filter</strong><br>  Gaussian blur offer different weight for each entries which control by the sigma of <strong>Gaussian function</strong>. The advantage of using <strong>Gaussian filter</strong> is that the edge information was remained and make the photo looked true to life. </p>
 <p>  In normal event, the weight in the middle of the matrix is the most heighest one. Therefore, the result will be closer to the original one.<br>  $$<br>  \text{3 x 3 Gaussian blur with} \ \sigma_{x} = \sigma_{y} = 0  \ \ \ \ \frac{1}{16}<br>  \begin{bmatrix}<br>  1 &amp; 2 &amp; 1 \\<br>  2 &amp; 4 &amp; 2 \\<br>  1 &amp; 2 &amp; 1<br>  \end{bmatrix}<br>  $$</p>
 </li>
@@ -468,7 +463,7 @@ img_canny = cv2.Canny(img_blur, <span class="hljs-number">100</span>, <span clas
 <span class="hljs-string">&#x27;&#x27;&#x27;</span>
 <span class="hljs-string">Using cv2.CV_16s to prevent overflow</span>
 <span class="hljs-string">&#x27;&#x27;&#x27;</span>
-img_log = cv2.Laplacian(img_gray, <span class="hljs-number">-1</span>, cv2.CV_16S)
+img_log = cv2.Laplacian(img_gray, -<span class="hljs-number">1</span>, cv2.CV_16S)
 
 <span class="hljs-comment"># Stack the image</span>
 result = stackImages(<span class="hljs-number">0.5</span>, [img, img_canny, img_log])
@@ -653,7 +648,7 @@ cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'https://justin900429.github.io/posts/cc7123ef/';
+                this.page.url = 'https://https://justin900429.github.io/posts/cc7123ef/';
                 this.page.identifier = 'posts/cc7123ef/';
             };
             (function(){

@@ -44,7 +44,7 @@
     <meta name="description" content="[Series - 14] Regression - 3See moreBack to the series page   前言今天會延續上篇的部分，繼續做一些推導，並且引進 Maximun likelihood 的概念。 NotebookNotebook Normal Equation使用 Matrix calculus上篇我們提到利用 Gradient descent 迭代多次求得最佳解（仍可">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Series - 14] Regression - 3">
-<meta property="og:url" content="justin900429.github.io/posts/3cefc63f/index.html">
+<meta property="og:url" content="https://justin900429.github.io/posts/3cefc63f/index.html">
 <meta property="og:site_name" content="Justin&#39;s sharing place">
 <meta property="og:description" content="[Series - 14] Regression - 3See moreBack to the series page   前言今天會延續上篇的部分，繼續做一些推導，並且引進 Maximun likelihood 的概念。 NotebookNotebook Normal Equation使用 Matrix calculus上篇我們提到利用 Gradient descent 迭代多次求得最佳解（仍可">
 <meta property="og:locale" content="en_US">
@@ -78,7 +78,7 @@
 
     <!-- custom head -->
 
-<meta name="generator" content="Hexo 5.1.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
     <body>
         <div id="app">
@@ -255,7 +255,7 @@ window.onscroll = () => {
 <p>$$<br>L(\theta) = \prod_{i=1}^{m}\frac{1}{\sqrt{2\pi}\sigma}exp(-\frac{(y^{(i)} - \theta^Tx^{(i)})^2}{2\sigma^2})<br>$$</p>
 <p>但因爲乘積實在很難做處理，因此我們都會取 $log$ 變成 <strong>Log likelihood</strong>：</p>
 <p>$$<br>l(\theta) = log(L(\theta)) = \sum_{i=1}^{m}log\frac{1}{\sqrt{2\pi}\sigma}exp(-\frac{(y^{(i)} - \theta^Tx^{(i)})^2}{2\sigma^2})<br>$$</p>
-<p>所以當我們利用微分找 $l(\theta)$ 的最大值就是<strong>在找最佳解</strong>！但這邊我就不在多敘述了，有興趣的可以自己試試看，最後會發現就是在<strong>極小化 $J(\theta)$**。因此我在上上篇使用 **Gaussian</strong> 當雜訊就是因為這原因！</p>
+<p>所以當我們利用微分找 $l(\theta)$ 的最大值就是<strong>在找最佳解</strong>！但這邊我就不在多敘述了，有興趣的可以自己試試看，最後會發現就是在**極小化 $J(\theta)$**。因此我在上上篇使用 <strong>Gaussian</strong> 當雜訊就是因為這原因！</p>
 <h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><p>今天我們講完了Regression有關的部分，如果有任何問題歡迎留言！下篇見！</p>
 <br/>
 <br/>
@@ -421,7 +421,7 @@ window.onscroll = () => {
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'https://justin900429.github.io/posts/3cefc63f/';
+                this.page.url = 'https://https://justin900429.github.io/posts/3cefc63f/';
                 this.page.identifier = 'posts/3cefc63f/';
             };
             (function(){

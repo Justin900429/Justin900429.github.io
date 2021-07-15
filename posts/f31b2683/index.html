@@ -44,7 +44,7 @@
     <meta name="description" content="Android Toast and Alert DialogSee moreBack to the series page   前言今天我們說明如何自訂 Toast 跟 Alert Dialog。 這篇看完後會了解到： 如何使用 Toast。 自訂 Toast。 Alert Dialog 的用法。 自訂 Alert Dialog。    Toast重溫之前我們有提過 Toast 的使用方法會在底下">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android Toast and Alert Dialog">
-<meta property="og:url" content="justin900429.github.io/posts/f31b2683/index.html">
+<meta property="og:url" content="https://justin900429.github.io/posts/f31b2683/index.html">
 <meta property="og:site_name" content="Justin&#39;s sharing place">
 <meta property="og:description" content="Android Toast and Alert DialogSee moreBack to the series page   前言今天我們說明如何自訂 Toast 跟 Alert Dialog。 這篇看完後會了解到： 如何使用 Toast。 自訂 Toast。 Alert Dialog 的用法。 自訂 Alert Dialog。    Toast重溫之前我們有提過 Toast 的使用方法會在底下">
 <meta property="og:locale" content="en_US">
@@ -79,7 +79,7 @@
 
     <!-- custom head -->
 
-<meta name="generator" content="Hexo 5.1.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
     <body>
         <div id="app">
@@ -231,12 +231,9 @@ toast.show()</code></pre>
 
 <p>我們來看一下我們在這邊設定的 <strong>properties</strong>：</p>
 <ul>
-<li><p><code>toast.setGravity</code><br>  <strong>第一個</strong>參數設定我們的位置 Gravity.TOP （上）、Gravity.RIGHT（右）<br>、Gravity.LEFT （左）、Gravity.BOTTOM （下）、Gravity.CENTER （中間）。<br>  <strong>第二跟第三</strong>設定我們 <strong>x</strong> 跟 <strong>y</strong> 的偏移值。</p>
-</li>
-<li><p><code>toast.durate</code><br>  設定持續時間。有 <code>Toast.LENGTH_LONG</code> 跟 <code>Toast.LENGTH_SHORT</code>，分別是 2 秒跟 3.5 秒。</p>
-</li>
-<li><p><code>toast.view</code><br>  <strong>toast.view</strong> 可以設定使用者要求的 <strong>layout</strong>。使用方式跟我們之前說過的 <strong>inflate</strong> 的方式。後面 <strong>layout</strong> 的名字則是使用 **R.layout.<layout_name>**。</p>
-</li>
+<li><code>toast.setGravity</code><br>  <strong>第一個</strong>參數設定我們的位置 Gravity.TOP （上）、Gravity.RIGHT（右）<br>、Gravity.LEFT （左）、Gravity.BOTTOM （下）、Gravity.CENTER （中間）。<br>  <strong>第二跟第三</strong>設定我們 <strong>x</strong> 跟 <strong>y</strong> 的偏移值。</li>
+<li><code>toast.durate</code><br>  設定持續時間。有 <code>Toast.LENGTH_LONG</code> 跟 <code>Toast.LENGTH_SHORT</code>，分別是 2 秒跟 3.5 秒。</li>
+<li><code>toast.view</code><br>  <strong>toast.view</strong> 可以設定使用者要求的 <strong>layout</strong>。使用方式跟我們之前說過的 <strong>inflate</strong> 的方式。後面 <strong>layout</strong> 的名字則是使用 **R.layout.<layout_name>**。</li>
 </ul>
 <p>此外，在 <code>toast.setGravity</code> 可以透過 <strong>or</strong> 來組合顯示。例如說要在上方中央的話就是：</p>
 <pre><code class="hljs kotlin">toast.setGravity(Gravity.TOP or Gravity.CENTER, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>)</code></pre>
@@ -300,8 +297,7 @@ dialog.setNegativeButton(<span class="hljs-string">&quot;No&quot;</span>) &#123;
 
 <p>前者方式會是屬於按下後就是最後選擇，後者則是可以讓使用者按 <strong>DONE</strong> 之後退出。</p>
 <ul>
-<li><p><strong>setItems()</strong><br>  在參數方面我們需要傳入一個 <strong>string array</strong>。此物件為 <strong>java</strong> 中的 <strong>array</strong>，因此我們 <strong>不能使用 listOf</strong>，要使用 <strong>array&lt;string&gt;</strong> 。 <br></p>
-  <pre><code class="hljs kotlin"><span class="hljs-keyword">val</span> items = arrayOf&lt;String&gt;(<span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-string">&quot;2&quot;</span>, <span class="hljs-string">&quot;3&quot;</span>, <span class="hljs-string">&quot;4&quot;</span>, <span class="hljs-string">&quot;5&quot;</span>)
+<li><strong>setItems()</strong><br>  在參數方面我們需要傳入一個 <strong>string array</strong>。此物件為 <strong>java</strong> 中的 <strong>array</strong>，因此我們 <strong>不能使用 listOf</strong>，要使用 <strong>array&lt;string&gt;</strong> 。 <br>  <pre><code class="hljs kotlin"><span class="hljs-keyword">val</span> items = arrayOf&lt;String&gt;(<span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-string">&quot;2&quot;</span>, <span class="hljs-string">&quot;3&quot;</span>, <span class="hljs-string">&quot;4&quot;</span>, <span class="hljs-string">&quot;5&quot;</span>)
 
 dialog.setItems(items) &#123;dialogInterface, i -&gt;
 Toast.makeText(
@@ -310,8 +306,7 @@ Toast.makeText(
     Toast.LENGTH_SHORT).show()
 &#125;</code></pre>
 </li>
-<li><p><strong>setSingleChoiceItems()</strong><br>  在參數方面，我們除了要傳入 <strong>array</strong>，我們也需要給定預設值，例如 0 就是預設第一個物件被選擇。令外我們也可以設定一個變數 <code>position</code> 來記錄使用者選擇哪個物件。因此當使用者按下 <strong>DONE</strong> 之後，我們可以設定某個 <strong>TextView</strong> 為使用者選的結果。 <br></p>
-  <pre><code class="hljs kotlin"><span class="hljs-keyword">val</span> items = arrayOf&lt;String&gt;(<span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-string">&quot;2&quot;</span>, <span class="hljs-string">&quot;3&quot;</span>, <span class="hljs-string">&quot;4&quot;</span>, <span class="hljs-string">&quot;5&quot;</span>)
+<li><strong>setSingleChoiceItems()</strong><br>  在參數方面，我們除了要傳入 <strong>array</strong>，我們也需要給定預設值，例如 0 就是預設第一個物件被選擇。令外我們也可以設定一個變數 <code>position</code> 來記錄使用者選擇哪個物件。因此當使用者按下 <strong>DONE</strong> 之後，我們可以設定某個 <strong>TextView</strong> 為使用者選的結果。 <br>  <pre><code class="hljs kotlin"><span class="hljs-keyword">val</span> items = arrayOf&lt;String&gt;(<span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-string">&quot;2&quot;</span>, <span class="hljs-string">&quot;3&quot;</span>, <span class="hljs-string">&quot;4&quot;</span>, <span class="hljs-string">&quot;5&quot;</span>)
 <span class="hljs-keyword">val</span> position = <span class="hljs-number">0</span>;
 
 dialog.setSingleChoiceItems(items, <span class="hljs-number">0</span>) &#123;dialogInterface, i -&gt;
@@ -323,9 +318,7 @@ dialog.setPositiveButton(<span class="hljs-string">&quot;Done&quot;</span>) &#12
         <span class="hljs-string">&quot;You choose <span class="hljs-subst">$&#123;position&#125;</span>!&quot;</span>, 
         Toast.LENGTH_SHORT).show()
     txt_num.text = position.toString()
-&#125;</code></pre>
-
-</li>
+&#125;</code></pre></li>
 </ul>
 <p>當然上述的方式也可以用 <strong>Anoymous</strong> 的方式來建立。</p>
 <h2 id="展示區"><a href="#展示區" class="headerlink" title="展示區"></a>展示區</h2><p>這次我們要做的就是融合上述所介紹的元件，我們會建立四個 <strong>Button</strong> 來展示不同功能。</p>
@@ -746,7 +739,7 @@ dialog.setPositiveButton(<span class="hljs-string">&quot;Done&quot;</span>) &#12
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'https://justin900429.github.io/posts/f31b2683/';
+                this.page.url = 'https://https://justin900429.github.io/posts/f31b2683/';
                 this.page.identifier = 'posts/f31b2683/';
             };
             (function(){

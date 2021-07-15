@@ -44,7 +44,7 @@
     <meta name="description" content="ContentSee moreBack to series page  OpenCV with Python – 1 OpenCV with Python – 2 OpenCV with Python – 3 OpenCV with Python – 4 OpenCV with Python – 5    Backgronud knowledgeOpenCV is an open-source B">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OpenCV with python - 1">
-<meta property="og:url" content="justin900429.github.io/posts/55787255/index.html">
+<meta property="og:url" content="https://justin900429.github.io/posts/55787255/index.html">
 <meta property="og:site_name" content="Justin&#39;s sharing place">
 <meta property="og:description" content="ContentSee moreBack to series page  OpenCV with Python – 1 OpenCV with Python – 2 OpenCV with Python – 3 OpenCV with Python – 4 OpenCV with Python – 5    Backgronud knowledgeOpenCV is an open-source B">
 <meta property="og:locale" content="en_US">
@@ -82,7 +82,7 @@
 
     <!-- custom head -->
 
-<meta name="generator" content="Hexo 5.1.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
     <body>
         <div id="app">
@@ -256,9 +256,7 @@ cv2.imshow(<span class="hljs-string">&quot;Gray scale&quot;</span>, image)
 cv2.waitKey(<span class="hljs-number">0</span>)
 cv2.destroyAllWindows()
 cv2.waitKey(<span class="hljs-number">1</span>)
-</code></pre>
-
-</li>
+</code></pre></li>
 </ol>
 <p><img src="https://i.imgur.com/2GErp8Z.jpg"></p>
 <center>Output gray scale photo</center> <br/>
@@ -283,12 +281,11 @@ cap = cv2.VideoCapture(<span class="hljs-string">&quot;test.mp4&quot;</span>)
     cv2.imshow(<span class="hljs-string">&quot;Video&quot;</span>, img)
     
     <span class="hljs-comment"># Press q to quit</span>
-    <span class="hljs-keyword">if</span> cv2.waitKey(<span class="hljs-number">1</span>) &amp; <span class="hljs-number">0xFF</span> == ord(<span class="hljs-string">&#x27;q&#x27;</span>):
+    <span class="hljs-keyword">if</span> cv2.waitKey(<span class="hljs-number">1</span>) &amp; <span class="hljs-number">0xFF</span> == <span class="hljs-built_in">ord</span>(<span class="hljs-string">&#x27;q&#x27;</span>):
         <span class="hljs-keyword">break</span>;
         
 cv2.destroyAllWindows()
-cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
-</li>
+cv2.waitKey(<span class="hljs-number">1</span>)</code></pre></li>
 </ol>
 <ul>
 <li><strong>Default webcame</strong><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/env python3</span>
@@ -304,9 +301,9 @@ cap = cv2.VideoCapture(<span class="hljs-number">0</span>)
 <span class="hljs-string">4 -&gt; height: set to 640</span>
 <span class="hljs-string">10 -&gt; brightness: set to 100</span>
 <span class="hljs-string">&#x27;&#x27;&#x27;</span>
-cap.set(<span class="hljs-number">3</span>, <span class="hljs-number">640</span>)
-cap.set(<span class="hljs-number">4</span>, <span class="hljs-number">480</span>)
-cap.set(<span class="hljs-number">10</span>, <span class="hljs-number">100</span>)
+cap.<span class="hljs-built_in">set</span>(<span class="hljs-number">3</span>, <span class="hljs-number">640</span>)
+cap.<span class="hljs-built_in">set</span>(<span class="hljs-number">4</span>, <span class="hljs-number">480</span>)
+cap.<span class="hljs-built_in">set</span>(<span class="hljs-number">10</span>, <span class="hljs-number">100</span>)
 
 <span class="hljs-string">&#x27;&#x27;&#x27;</span>
 <span class="hljs-string">Video is the sequence of images.</span>
@@ -321,15 +318,13 @@ cap.set(<span class="hljs-number">10</span>, <span class="hljs-number">100</span
         
     cv2.imshow(<span class="hljs-string">&quot;Video&quot;</span>, img)
     
-    <span class="hljs-keyword">if</span> cv2.waitKey(<span class="hljs-number">1</span>) &amp; <span class="hljs-number">0xFF</span> == ord(<span class="hljs-string">&#x27;q&#x27;</span>):
+    <span class="hljs-keyword">if</span> cv2.waitKey(<span class="hljs-number">1</span>) &amp; <span class="hljs-number">0xFF</span> == <span class="hljs-built_in">ord</span>(<span class="hljs-string">&#x27;q&#x27;</span>):
         <span class="hljs-keyword">break</span>;
 
 <span class="hljs-comment"># Close the webcame</span>
 cap.release()
 cv2.destroyAllWindows()
-cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
-
-</li>
+cv2.waitKey(<span class="hljs-number">1</span>)</code></pre></li>
 </ul>
 <h2 id="The-inner-vision-of-pictures"><a href="#The-inner-vision-of-pictures" class="headerlink" title="The inner vision of pictures"></a>The inner vision of pictures</h2><p>Pictures are made of lots of pixel. Each pixels is a number in <strong>[0, 255]</strong>. On the other hand, color pictures have another dimenstion for storing additional information. Especially, the number for stroing the color information equals 3 which relates to <font color="red">red</font>, <font color="green">green</font> and <font color="blue">blue</font>.<br>$$<br>A=<br>\begin{pmatrix}<br>  123 &amp; 201 &amp; \cdots &amp; 33 \\<br>  198 &amp; 130 &amp; \cdots &amp; 57 \\<br>  \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\<br>  0 &amp; 67 &amp; \cdots &amp; 98<br>\end{pmatrix}<br>$$</p>
 <hr>
@@ -344,7 +339,7 @@ cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
 image = cv2.imread(<span class="hljs-string">&#x27;scene.jpg&#x27;</span>)
 
 <span class="hljs-comment"># Print out the number of image</span>
-print(image.shape)
+<span class="hljs-built_in">print</span>(image.shape)
 
 <span class="hljs-comment"># Uncomment next line to observe the matrix of the image</span>
 <span class="hljs-comment"># print(image)</span>
@@ -367,7 +362,7 @@ image = cv2.imread(<span class="hljs-string">&#x27;scene.jpg&#x27;</span>)
 image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) 
 
 <span class="hljs-comment"># Print out the number of image</span>
-print(image.shape)
+<span class="hljs-built_in">print</span>(image.shape)
 
 <span class="hljs-comment"># Uncomment next line to observe the matrix of the image</span>
 <span class="hljs-comment"># print(image)</span>
@@ -393,7 +388,7 @@ print(image.shape)
 <span class="hljs-comment"># Devided by 3 to get the average</span>
 <span class="hljs-comment"># Change type to int in [0, 255] or float in [0, 1]</span>
 image = cv2.imread(<span class="hljs-string">&#x27;scene.jpg&#x27;</span>)
-image = (np.sum(image, axis=<span class="hljs-number">-1</span>) / <span class="hljs-number">3</span>).astype(<span class="hljs-string">&quot;uint8&quot;</span>)
+image = (np.<span class="hljs-built_in">sum</span>(image, axis=-<span class="hljs-number">1</span>) / <span class="hljs-number">3</span>).astype(<span class="hljs-string">&quot;uint8&quot;</span>)
 
 cv2.imshow(<span class="hljs-string">&quot;Gray scale&quot;</span>, image)
 
@@ -402,9 +397,7 @@ cv2.destroyAllWindows()
 cv2.waitKey(<span class="hljs-number">1</span>)
 
 exit(<span class="hljs-number">0</span>)
-</code></pre>
-
-</li>
+</code></pre></li>
 </ul>
 <hr>
 <ol start="4">
@@ -418,7 +411,7 @@ image = cv2.imread(<span class="hljs-string">&#x27;scene.jpg&#x27;</span>)
 b, g, r = cv2.split(image)
 
 <span class="hljs-comment"># Print the matrix out</span>
-print(<span class="hljs-string">f&#x27;Red: <span class="hljs-subst">&#123;r&#125;</span>\nGreen: <span class="hljs-subst">&#123;g&#125;</span>\nBlue: <span class="hljs-subst">&#123;b&#125;</span>&#x27;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;Red: <span class="hljs-subst">&#123;r&#125;</span>\nGreen: <span class="hljs-subst">&#123;g&#125;</span>\nBlue: <span class="hljs-subst">&#123;b&#125;</span>&#x27;</span>)
 
 <span class="hljs-comment"># Save all images</span>
 cv2.imwrite(<span class="hljs-string">&quot;red_gray.jpg&quot;</span>, r)
@@ -447,9 +440,7 @@ Blue: [[ <span class="hljs-number">58</span>  <span class="hljs-number">61</span
  ...
  [  <span class="hljs-number">3</span>   <span class="hljs-number">3</span>   <span class="hljs-number">4</span> ...   <span class="hljs-number">0</span>   <span class="hljs-number">0</span>   <span class="hljs-number">0</span>]
  [  <span class="hljs-number">6</span>   <span class="hljs-number">3</span>   <span class="hljs-number">4</span> ...   <span class="hljs-number">0</span>   <span class="hljs-number">0</span>   <span class="hljs-number">0</span>]
- [  <span class="hljs-number">2</span>   <span class="hljs-number">0</span>   <span class="hljs-number">2</span> ...   <span class="hljs-number">0</span>   <span class="hljs-number">0</span>   <span class="hljs-number">0</span>]]</code></pre>
-
-</li>
+ [  <span class="hljs-number">2</span>   <span class="hljs-number">0</span>   <span class="hljs-number">2</span> ...   <span class="hljs-number">0</span>   <span class="hljs-number">0</span>   <span class="hljs-number">0</span>]]</code></pre></li>
 </ol>
 <center><img src='https://i.imgur.com/zmjjUKV.jpg' height='300'></center>
 <center>Output blue gray scale photo</center> <br/>
@@ -491,9 +482,7 @@ cv2.mixChannels([b, g, r], [red_image], [<span class="hljs-number">2</span>,<spa
 <span class="hljs-comment"># Write out the images</span>
 cv2.imwrite(<span class="hljs-string">&quot;blue.jpg&quot;</span>, blue_image)
 cv2.imwrite(<span class="hljs-string">&quot;green.jpg&quot;</span>, green_image)
-cv2.imwrite(<span class="hljs-string">&quot;red.jpg&quot;</span>, red_image)</code></pre>
-
-</li>
+cv2.imwrite(<span class="hljs-string">&quot;red.jpg&quot;</span>, red_image)</code></pre></li>
 </ol>
 <center><img src='https://i.imgur.com/ojZ2fcp.jpg' height='300'></center>
 <center>Output blue photo</center> <br/>
@@ -676,7 +665,7 @@ cv2.imwrite(<span class="hljs-string">&quot;red.jpg&quot;</span>, red_image)</co
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'https://justin900429.github.io/posts/55787255/';
+                this.page.url = 'https://https://justin900429.github.io/posts/55787255/';
                 this.page.identifier = 'posts/55787255/';
             };
             (function(){

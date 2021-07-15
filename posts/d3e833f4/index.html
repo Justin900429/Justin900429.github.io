@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    
+    
+    
+        <link rel="icon" type="image/png" sizes="32x32" href="/icon.png">
+    
+    
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple_icon_128.png">
+    
+    
+        <link rel="mask-icon" href="/apple_icon_128.png">
+    
+
+
+    <!-- meta -->
+
+
+<title>Powerful tools for tensor operation - Einops | Justin&#39;s sharing place</title>
+
+
+    <meta name="keywords" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="See moreBack to the series page    Introduction to eniopsEinops is really a powerful tools for the tensor operation include reduce, rearange, repeat and so on. The most impressive functionality is tha">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Powerful tools for tensor operation - Einops">
+<meta property="og:url" content="https://justin900429.github.io/posts/d3e833f4/index.html">
+<meta property="og:site_name" content="Justin&#39;s sharing place">
+<meta property="og:description" content="See moreBack to the series page    Introduction to eniopsEinops is really a powerful tools for the tensor operation include reduce, rearange, repeat and so on. The most impressive functionality is tha">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://colab.research.google.com/assets/colab-badge.svg">
+<meta property="og:image" content="https://i.imgur.com/bOo6IK0.jpg">
+<meta property="og:image" content="https://i.imgur.com/7kVIwkt.png">
+<meta property="og:image" content="https://i.imgur.com/L5emdwl.png">
+<meta property="og:image" content="https://i.imgur.com/Qm54CBn.png">
+<meta property="og:image" content="https://i.imgur.com/jIKYQsP.png">
+<meta property="og:image" content="https://i.imgur.com/cnGjHPZ.png">
+<meta property="og:image" content="https://i.imgur.com/gsYj7e3.png">
+<meta property="og:image" content="https://i.imgur.com/JXlpJgj.png">
+<meta property="article:published_time" content="2021-07-15T07:50:37.000Z">
+<meta property="article:modified_time" content="2021-07-15T07:54:17.390Z">
+<meta property="article:author" content="Justin Ruan">
+<meta property="article:tag" content="OpenCV,MachineLearning, Android, AI, Algorithm, DataStructure">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://colab.research.google.com/assets/colab-badge.svg">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+
+
+    
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/atom-one-light.min.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')===-1)this.media='all'">
+        
+    
+
+    
+
+     
+
+    <!-- custom head -->
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+    <body>
+        <div id="app">
+            <script>
+window.onscroll = () => {
+    const nav = document.querySelector('.header');
+    let threshold = 90.0
+    if(this.scrollY <= 10) {
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0)";
+    }
+    else if (this.scrollY <= threshold) {
+        let color = ((this.scrollY - 10.0) / (threshold - 10.0)) * 0.9;
+        nav.style.backgroundColor = `rgba(255, 255, 255, ${color})`;
+    } 
+    else {
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0.9)";
+    }
+};
+</script>
+
+<header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">Justin&#39;s blog</span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/about/" class="navbar-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="navbar-menu button">CV</a>
+                
+                    <a href="/" class="navbar-menu button">Articles</a>
+                
+                    <a href="/tags/" class="navbar-menu button">Tags</a>
+                
+                    <a href="/archives/" class="navbar-menu button">Archives</a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+
+         
+    <a href="#" class="button" id="b2t" aria-label="Back to Top" title="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="32" height="32">
+            <path d="M233.376 722.752L278.624 768 512 534.624 745.376 768l45.248-45.248L512 444.128zM192 352h640V288H192z" fill="currentColor"></path>
+        </svg>
+    </a>
+
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                
+                    <a href="/about/" class="dropdown-menu button">Home</a>
+                
+                    <a href="/about/resume.pdf" class="dropdown-menu button">CV</a>
+                
+                    <a href="/" class="dropdown-menu button">Articles</a>
+                
+                    <a href="/tags/" class="dropdown-menu button">Tags</a>
+                
+                    <a href="/archives/" class="dropdown-menu button">Archives</a>
+                
+            </div>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+
+<div class="post-title">
+    <h1 class="post-title__text">
+        Powerful tools for tensor operation - Einops
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2021/07/" class="post-meta__date button">2021-07-15</a>
+        
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <aside class="post-side">
+        <div class="post-side__toc">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction-to-eniops"><span class="toc-number">1.</span> <span class="toc-text">Introduction to eniops</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Install"><span class="toc-number">2.</span> <span class="toc-text">Install</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rearrange"><span class="toc-number">3.</span> <span class="toc-text">Rearrange</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Basic-operation"><span class="toc-number">3.1.</span> <span class="toc-text">1. Basic operation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Composition-of-axes"><span class="toc-number">3.2.</span> <span class="toc-text">2. Composition of axes</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Decomposition-of-axes"><span class="toc-number">3.3.</span> <span class="toc-text">3. Decomposition of axes</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reduce"><span class="toc-number">4.</span> <span class="toc-text">Reduce</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Mean-averaging"><span class="toc-number">4.1.</span> <span class="toc-text">1. Mean averaging</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Max-pooling"><span class="toc-number">4.2.</span> <span class="toc-text">2. Max pooling</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Repeat"><span class="toc-number">5.</span> <span class="toc-text">Repeat</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Used-in-the-PyTorch-layers"><span class="toc-number">6.</span> <span class="toc-text">Used in the PyTorch layers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-number">7.</span> <span class="toc-text">References</span></a></li></ol>
+        </div>
+    </aside>
+    <a class="btn-toc button" id="btn-toc" tabindex="0">
+        <svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path>
+        </svg>
+    </a>
+    <div class="toc-menus" id="toc-menus">
+        <div class="toc-title">Article Directory</div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction-to-eniops"><span class="toc-number">1.</span> <span class="toc-text">Introduction to eniops</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Install"><span class="toc-number">2.</span> <span class="toc-text">Install</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rearrange"><span class="toc-number">3.</span> <span class="toc-text">Rearrange</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Basic-operation"><span class="toc-number">3.1.</span> <span class="toc-text">1. Basic operation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Composition-of-axes"><span class="toc-number">3.2.</span> <span class="toc-text">2. Composition of axes</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Decomposition-of-axes"><span class="toc-number">3.3.</span> <span class="toc-text">3. Decomposition of axes</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reduce"><span class="toc-number">4.</span> <span class="toc-text">Reduce</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Mean-averaging"><span class="toc-number">4.1.</span> <span class="toc-text">1. Mean averaging</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Max-pooling"><span class="toc-number">4.2.</span> <span class="toc-text">2. Max pooling</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Repeat"><span class="toc-number">5.</span> <span class="toc-text">Repeat</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Used-in-the-PyTorch-layers"><span class="toc-number">6.</span> <span class="toc-text">Used in the PyTorch layers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-number">7.</span> <span class="toc-text">References</span></a></li></ol>
+    </div>
+
+
+<article class="post content-card">
+    <div class="post__header"></div>
+    <div class="post__content">
+        <blockquote class="blockquote-note blockquote-note__tip"><div class="blockquote-note__header"><div class="blockquote-note__icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></div>See more</div><div class="blockquote-note__content"><p><a href="/posts/c060b6bd/">Back to the series page</a></p>
+</div></blockquote>
+
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://colab.research.google.com/drive/1thAa8Ft9pR3swejfauruD0yK6UbVVLyC?usp=sharing"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></p>
+<h2 id="Introduction-to-eniops"><a href="#Introduction-to-eniops" class="headerlink" title="Introduction to eniops"></a>Introduction to eniops</h2><p><strong>Einops</strong> is really a powerful tools for the tensor operation include <strong>reduce</strong>, <strong>rearange</strong>, <strong>repeat</strong> and so on. The most impressive functionality is that it can help the code become more readable and reliable. Furthermore, it support the <strong>layers</strong> which are compatible with <strong>PyTorch</strong>.</p>
+<blockquote>
+<p>Check out the <a target="_blank" rel="noopener external nofollow noreferrer" href="https://einops.rocks/">documentation</a> for more details. I really like how they teach the things!</p>
+</blockquote>
+<p>We’re going to use the minst dataset for demonstation</p>
+<p><img src="https://i.imgur.com/bOo6IK0.jpg"></p>
+<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><p>Use our old friend <code>pip</code> will be a good choice.</p>
+<pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> pip install einops</span></code></pre>
+
+<h2 id="Rearrange"><a href="#Rearrange" class="headerlink" title="Rearrange"></a>Rearrange</h2><h3 id="1-Basic-operation"><a href="#1-Basic-operation" class="headerlink" title="1. Basic operation"></a>1. Basic operation</h3><p>Rearrange, literally, is to rearrage the shpae of the object or specifically, tensor. For example, let’t transpose the image. The normal way to write it is:</p>
+<pre><code class="hljs python"><span class="hljs-comment"># Change the order of the first and second dim</span>
+data = data.transpose(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>)</code></pre>
+
+<p>Let’s say the shape of data is $(w, h)$, after transpose, the shape of data is $(h, w)$. To use <code>rearrange</code>, we should specify the shape before and after. For example, we take out the first five from above image. To get the same result, we do the following:</p>
+<pre><code class="hljs python">trans_five = rearrange(image_five, <span class="hljs-string">&quot;h w -&gt; w h&quot;</span>)</code></pre>
+<p><img src="https://i.imgur.com/7kVIwkt.png"></p>
+<p>The second argument is to decide the shape. The shape before and after is separated by <code>-&gt;</code>.</p>
+<h3 id="2-Composition-of-axes"><a href="#2-Composition-of-axes" class="headerlink" title="2. Composition of axes"></a>2. Composition of axes</h3><p>Also, we can use <strong>bracket</strong> to declare that the selected dimension should be combined. The original dataset is of shape:</p>
+<pre><code class="hljs plaintext">(batch_size, width, height)</code></pre>
+
+<p>It couldn’t be shown in image, however, we can stack the first and second dimension and get:</p>
+<pre><code class="hljs python"><span class="hljs-comment"># The original shape is (batch_size, width, height)</span>
+<span class="hljs-comment"># New shape is (batch_size * width, height)</span>
+stack_data = rearrange(data, <span class="hljs-string">&quot;b h w-&gt; (b h) w&quot;</span>)</code></pre>
+<p><img src="https://i.imgur.com/L5emdwl.png"></p>
+<p>Also, in different dimenstion</p>
+<pre><code class="hljs python">stack_data = rearrange(data, <span class="hljs-string">&quot;b h w-&gt; h (b w)&quot;</span>)</code></pre>
+
+<p><img src="https://i.imgur.com/Qm54CBn.png"></p>
+<h3 id="3-Decomposition-of-axes"><a href="#3-Decomposition-of-axes" class="headerlink" title="3. Decomposition of axes"></a>3. Decomposition of axes</h3><p>Instead of combined the axis, we can decompose the axis. For example, we can do the followings:</p>
+<pre><code class="hljs python">decompose_data = rearrange(data, <span class="hljs-string">&quot;(b1 b2) h w -&gt; (b1 h) (b2 w)&quot;</span>, b1=<span class="hljs-number">2</span>)</code></pre>
+
+<p><img src="https://i.imgur.com/jIKYQsP.png"></p>
+<p>The second argument implies that the <strong>batch size = 4</strong> is separted into <strong>b1</strong> and <strong>b2</strong> where <strong>b1 = 2</strong>. Knowing that <strong>b1 = 2</strong>, <strong>einops</strong> will help us compute the remained parameters and get <strong>b2 = 2</strong>.</p>
+<h2 id="Reduce"><a href="#Reduce" class="headerlink" title="Reduce"></a>Reduce</h2><p>Reduce provides provides the dimenstion reduction or reordering for the tensor. Below, I’ll use two examples to show the usage.</p>
+<p>The original shape of the data is:</p>
+<pre><code class="hljs plaintext">(batch_size, height * h1, width * w1)</code></pre>
+
+<p>After reduction, we will get</p>
+<pre><code class="hljs plaintext">(batch_size, height, width)</code></pre>
+
+<h3 id="1-Mean-averaging"><a href="#1-Mean-averaging" class="headerlink" title="1. Mean averaging"></a>1. Mean averaging</h3><pre><code class="hljs python"><span class="hljs-comment"># Mean averaging</span>
+reduce_img = reduce(data, <span class="hljs-string">&quot;b (h h1) (w w1) -&gt; h (b w)&quot;</span>, <span class="hljs-string">&quot;mean&quot;</span>, h1=<span class="hljs-number">2</span>, w1=<span class="hljs-number">2</span>)
+
+<span class="hljs-comment"># Check the shape</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Before reduce: <span class="hljs-subst">&#123;data.shape&#125;</span>&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;After: <span class="hljs-subst">&#123;reduce_img.shape&#125;</span>&quot;</span>)</code></pre>
+
+<pre><code class="hljs plaintext">Output:
+Before reduce: torch.Size([4, 28, 28])
+After: torch.Size([14, 56])</code></pre>
+
+<p><img src="https://i.imgur.com/cnGjHPZ.png"></p>
+<h3 id="2-Max-pooling"><a href="#2-Max-pooling" class="headerlink" title="2. Max pooling"></a>2. Max pooling</h3><pre><code class="hljs python"><span class="hljs-comment"># Max pooling</span>
+reduce_img = reduce(data, <span class="hljs-string">&quot;b (h h1) (w w1) -&gt; h (b w)&quot;</span>, <span class="hljs-string">&quot;max&quot;</span>, h1=<span class="hljs-number">2</span>, w1=<span class="hljs-number">2</span>)
+
+<span class="hljs-comment"># Check the shape</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Before reduce: <span class="hljs-subst">&#123;data.shape&#125;</span>&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;After: <span class="hljs-subst">&#123;reduce_img.shape&#125;</span>&quot;</span>)</code></pre>
+
+<pre><code class="hljs plaintext">Output:
+Before reduce: torch.Size([4, 28, 28])
+After: torch.Size([14, 56])</code></pre>
+
+<p><img src="https://i.imgur.com/gsYj7e3.png"></p>
+<h2 id="Repeat"><a href="#Repeat" class="headerlink" title="Repeat"></a>Repeat</h2><p>The final operation is repeat. Unlike reduction, repeat will increase the dimension.</p>
+<pre><code class="hljs python"><span class="hljs-comment"># Increase the final dimension</span>
+repeat_data =repeat(data, <span class="hljs-string">&quot;b h w -&gt; b h w c&quot;</span>, c=<span class="hljs-number">3</span>)
+
+<span class="hljs-built_in">print</span>(repeat_data.shape)</code></pre>
+
+<pre><code class="hljs plaintext">Output:
+torch.Size([4, 28, 28, 3])</code></pre>
+
+<pre><code class="hljs python"><span class="hljs-comment"># Duplicate the data</span>
+repeat_data =repeat(data, <span class="hljs-string">&quot;b h w -&gt; (b h) (w1 w)&quot;</span>, w1=<span class="hljs-number">3</span>)</code></pre>
+
+<p><img src="https://i.imgur.com/JXlpJgj.png"></p>
+<h2 id="Used-in-the-PyTorch-layers"><a href="#Used-in-the-PyTorch-layers" class="headerlink" title="Used in the PyTorch layers"></a>Used in the PyTorch layers</h2><p>The function above can also be combined in the <strong>layers</strong>. However, the <code>repeat</code> function is not yet supported. To use it in the layers, users should import:</p>
+<pre><code class="hljs python"><span class="hljs-keyword">from</span> einops.layers.torch <span class="hljs-keyword">import</span> Rearrange, Reduce</code></pre>
+
+<p>For example, we can use it in our sequential models:</p>
+<pre><code class="hljs python">model = nn.Sequential(
+    nn.Conv2d(...),
+    nn.Conv2d(...),
+    ...
+    Rearrange(<span class="hljs-string">&quot;b c h w -&gt; b (c h w)&quot;</span>)
+    ...
+)</code></pre>
+
+<p>For more usage, please visit <a target="_blank" rel="noopener external nofollow noreferrer" href="https://einops.rocks/pytorch-examples.html">here</a></p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://einops.rocks/">Documentation of einops</a></li>
+</ol>
+<!-- flag of hidden posts -->
+    </div>
+     
+    <div class="post-footer__meta"><p>updated at 2021-07-15</p></div> 
+    <div class="post-meta__cats"></div> 
+</article>
+
+
+
+
+    <div class="post__comments content-card" id="comment">
+        
+    <h4>Comments</h4>
+    
+    <div id="disqus_thread">Unable to load Disqus, please make sure your network can access.</div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    </div>
+
+
+
+</main>
+
+            <footer class="footer">
+    
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/viz.js/1.7.1/viz.js'></script>
+        <script>
+          String.prototype.replaceAll = function(search, replacement) {
+            var target = this;
+            return target.split(search).join(replacement);
+          };
+      
+          let vizObjects = document.querySelectorAll('.graphviz')
+      
+          for (let item of vizObjects) {
+            let svg = undefined
+            try {
+              svg = Viz(item.textContent.replaceAll('–', '--'), 'svg')
+            } catch(e) {
+              svg = `<pre class="error">${e}</pre>`
+            }
+            item.outerHTML = svg
+          }
+        </script>
+    
+    
+
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright © 2020&nbsp;-&nbsp;2021 <a href="/">Justin&#39;s sharing place</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" rel="external nofollow noreferrer" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" rel="external nofollow noreferrer" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+         
+
+ 
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4FZNQ241GW"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-4FZNQ241GW');
+    </script>
+ 
+
+ 
+
+  
+
+
+
+ 
+
+
+    
+ 
+
+ 
+
+
+    <script>
+        if (typeof MathJax === 'undefined') {
+            window.MathJax = {
+                loader: {
+                    source: {
+                        '[tex]/amsCd': '[tex]/amscd',
+                        '[tex]/AMScd': '[tex]/amscd'
+                    }
+                },
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                },
+                options: {
+                    renderActions: {
+                        findScript: [10, doc => {
+                            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                                const display = !!node.type.match(/; *mode=display/);
+                                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                                const text = document.createTextNode('');
+                                node.parentNode.replaceChild(text, node);
+                                math.start = {node: text, delim: '', n: 0};
+                                math.end = {node: text, delim: '', n: 0};
+                                doc.math.push(math);
+                            });
+                        }, '', false],
+                        insertedScript: [200, () => {
+                            document.querySelectorAll('mjx-container').forEach(node => {
+                                let target = node.parentNode;
+                                if (target.nodeName.toLowerCase() === 'li') {
+                                    target.parentNode.classList.add('has-jax');
+                                }
+                            });
+                        }, '', false]
+                    }
+                }
+            };
+            (function () {
+                var script = document.createElement('script');
+                script.src = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js";
+                script.defer = true;
+                document.head.appendChild(script);
+            })();
+        } else {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+        }
+    </script>
+ 
+
+ 
+
+ 
+
+
+    
+    <script>
+        function loadComment() {
+            window.disqus_config = function () {
+                this.page.url = 'https://https://justin900429.github.io/posts/d3e833f4/';
+                this.page.identifier = 'posts/d3e833f4/';
+            };
+            (function(){
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + 'https-justin900429-github-io' + '.disqus.com/embed.js';
+                (document.head || document.body).appendChild(dsq);
+            })();
+        }
+    
+        var runningOnBrowser = typeof window !== "undefined";
+        var isBot = runningOnBrowser && !("onscroll" in window) || typeof navigator !== "undefined" && /(gle|ing|ro|msn)bot|crawl|spider|yand|duckgo/i.test(navigator.userAgent);
+        var supportsIntersectionObserver = runningOnBrowser && "IntersectionObserver" in window;
+    
+        setTimeout(function () {
+            if (!isBot && supportsIntersectionObserver) {
+                var comment_observer = new IntersectionObserver(function(entries) {
+                    if (entries[0].isIntersecting) {
+                        loadComment();
+                        comment_observer.disconnect();
+                    }
+                }, { threshold: [0] });
+                comment_observer.observe(document.getElementById('comment'));
+            } else {
+                loadComment();
+            }
+        }, 1);
+    </script>
+
+
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+
+
+
+    </body>
+</html>

@@ -44,7 +44,7 @@
     <meta name="description" content="[Series - 3] MatplotlibAcknowledge This article was written by Joyce.    See moreBack to the series page   前言這篇跟下篇都會介紹繪圖工具。這篇會介紹 Matplotlib。 實作連結 colab - Matplotlib  Matplotlib Matplotlib是NumPy可視覺化的操作">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Series - 3] Matplotlib">
-<meta property="og:url" content="justin900429.github.io/posts/32514a01/index.html">
+<meta property="og:url" content="https://justin900429.github.io/posts/32514a01/index.html">
 <meta property="og:site_name" content="Justin&#39;s sharing place">
 <meta property="og:description" content="[Series - 3] MatplotlibAcknowledge This article was written by Joyce.    See moreBack to the series page   前言這篇跟下篇都會介紹繪圖工具。這篇會介紹 Matplotlib。 實作連結 colab - Matplotlib  Matplotlib Matplotlib是NumPy可視覺化的操作">
 <meta property="og:locale" content="en_US">
@@ -91,7 +91,7 @@
 
     <!-- custom head -->
 
-<meta name="generator" content="Hexo 5.1.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
     <body>
         <div id="app">
@@ -234,7 +234,7 @@ window.onscroll = () => {
 <h3 id="環境準備"><a href="#環境準備" class="headerlink" title="環境準備"></a>環境準備</h3><p>如果想用自己的電腦來跑的話需要安裝 Package</p>
 <pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> For anoconda (recommend)</span>
 <span class="hljs-meta">$</span><span class="bash"> conda install matplotlib</span>
-
+<span class="hljs-meta"></span>
 <span class="hljs-meta">#</span><span class="bash"> For pip</span>
 <span class="hljs-meta">$</span><span class="bash"> pip install matplotlib</span></code></pre>
 
@@ -386,7 +386,7 @@ height='300'></p>
 
 x = np.arange(<span class="hljs-number">20</span>) <span class="hljs-comment"># x軸的值</span>
 y1 = <span class="hljs-number">3</span> * x + <span class="hljs-number">1</span>  <span class="hljs-comment"># y軸的值</span>
-y2 = <span class="hljs-number">-3</span> * x + <span class="hljs-number">20</span>  <span class="hljs-comment"># y軸的值</span>
+y2 = -<span class="hljs-number">3</span> * x + <span class="hljs-number">20</span>  <span class="hljs-comment"># y軸的值</span>
 
 plt.title(<span class="hljs-string">&quot;add legend&quot;</span>) <span class="hljs-comment"># 圖的標題</span>
 plt.xlabel(<span class="hljs-string">&quot;x axis&quot;</span>) <span class="hljs-comment"># x軸的名稱</span>
@@ -400,7 +400,7 @@ plt.show() <span class="hljs-comment"># 顯現圖形</span></code></pre>
 <h4 id="實作-5"><a href="#實作-5" class="headerlink" title="實作"></a>實作</h4><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np <span class="hljs-comment"># 引入NumPy</span>
 <span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt <span class="hljs-comment"># 引入matplotlib的函數</span>
 
-x = np.arange(<span class="hljs-number">-180</span>, <span class="hljs-number">180</span>)
+x = np.arange(-<span class="hljs-number">180</span>, <span class="hljs-number">180</span>)
 y = np.sin(x * np.pi / <span class="hljs-number">180.0</span>)
 
 plt.title(<span class="hljs-string">&quot;change color&quot;</span>) <span class="hljs-comment"># 圖的標題</span>
@@ -637,7 +637,7 @@ plt.show() <span class="hljs-comment"># 顯現圖形</span></code></pre>
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'https://justin900429.github.io/posts/32514a01/';
+                this.page.url = 'https://https://justin900429.github.io/posts/32514a01/';
                 this.page.identifier = 'posts/32514a01/';
             };
             (function(){

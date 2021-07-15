@@ -44,7 +44,7 @@
     <meta name="description" content="[Series - 7] 特徵工程介紹Acknowledge This article was written by Joyce.    See moreBack to the series page   前言今天的內容是要敘述特徵工程的目的以及為什麼需要特徵工程。  實作連結colab - Feature Engineering  特徵工程特徵工程就是篩選特徵的工程，對原始的數據進行一系列的分析">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Series - 7] 特徵工程介紹">
-<meta property="og:url" content="justin900429.github.io/posts/35352abb/index.html">
+<meta property="og:url" content="https://justin900429.github.io/posts/35352abb/index.html">
 <meta property="og:site_name" content="Justin&#39;s sharing place">
 <meta property="og:description" content="[Series - 7] 特徵工程介紹Acknowledge This article was written by Joyce.    See moreBack to the series page   前言今天的內容是要敘述特徵工程的目的以及為什麼需要特徵工程。  實作連結colab - Feature Engineering  特徵工程特徵工程就是篩選特徵的工程，對原始的數據進行一系列的分析">
 <meta property="og:locale" content="en_US">
@@ -74,7 +74,7 @@
 
     <!-- custom head -->
 
-<meta name="generator" content="Hexo 5.1.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
     <body>
         <div id="app">
@@ -245,10 +245,10 @@ df[<span class="hljs-string">&quot;gender&quot;</span>].replace(<span class="hlj
     <span class="hljs-string">&quot;weight&quot;</span> : [<span class="hljs-number">80</span>, <span class="hljs-number">45</span>, <span class="hljs-number">60</span>, <span class="hljs-number">70</span>],
     <span class="hljs-string">&quot;height&quot;</span> : [<span class="hljs-number">180</span>, <span class="hljs-number">160</span>, <span class="hljs-number">165</span>, <span class="hljs-number">170</span>]
 &#125;) <span class="hljs-comment"># 建立資料</span></code></pre>
-<pre><code class="hljs python">max_weight = df[<span class="hljs-string">&quot;weight&quot;</span>].max() <span class="hljs-comment"># 體重的最大值</span>
-max_height = df[<span class="hljs-string">&quot;height&quot;</span>].max() <span class="hljs-comment"># 身高的最大值</span>
-min_weight = df[<span class="hljs-string">&quot;weight&quot;</span>].min() <span class="hljs-comment"># 體重的最小值</span>
-min_height = df[<span class="hljs-string">&quot;height&quot;</span>].min() <span class="hljs-comment"># 身高的最小值</span>
+<pre><code class="hljs python">max_weight = df[<span class="hljs-string">&quot;weight&quot;</span>].<span class="hljs-built_in">max</span>() <span class="hljs-comment"># 體重的最大值</span>
+max_height = df[<span class="hljs-string">&quot;height&quot;</span>].<span class="hljs-built_in">max</span>() <span class="hljs-comment"># 身高的最大值</span>
+min_weight = df[<span class="hljs-string">&quot;weight&quot;</span>].<span class="hljs-built_in">min</span>() <span class="hljs-comment"># 體重的最小值</span>
+min_height = df[<span class="hljs-string">&quot;height&quot;</span>].<span class="hljs-built_in">min</span>() <span class="hljs-comment"># 身高的最小值</span>
 
 df[<span class="hljs-string">&quot;min-max_weight&quot;</span>] = (df[<span class="hljs-string">&quot;weight&quot;</span>] - min_weight) / (max_weight-min_weight) <span class="hljs-comment"># 體重的min-max</span>
 df[<span class="hljs-string">&quot;min-max_height&quot;</span>] = (df[<span class="hljs-string">&quot;height&quot;</span>] - min_height) / (max_height-min_height) <span class="hljs-comment"># 身高的min-max</span></code></pre>
@@ -273,9 +273,7 @@ df[<span class="hljs-string">&quot;z_score_height&quot;</span>] = (df[<span clas
 labelencoder = LabelEncoder()
 
 df[<span class="hljs-string">&quot;gender&quot;</span>] = labelencoder.fit_transform(df[<span class="hljs-string">&quot;gender&quot;</span>]) <span class="hljs-comment"># 將&quot;gender&quot;裡的字串自動轉換成數值</span></code></pre>
-<h3 id="One-hot-encoding"><a href="#One-hot-encoding" class="headerlink" title="One hot encoding"></a>One hot encoding</h3>One hot encoding通常會跟Label encoding一起比較，不同的點在於One hot encoding會增加新的欄位，一種資料就增加一欄，用1表示屬於該欄，0表示不屬於，因此當資料種類很多的時候就會新增很多欄，儲存的空間便很大，那麼也許你會想問那我幹嘛使用他，用Label encoding的方式就好啊，那是因為Label encoding的數值會有0、1、2、3…，如果分析不當，錯認它有排序關係的話，那麼結果就會大錯特錯。<br>
-
-</li>
+<h3 id="One-hot-encoding"><a href="#One-hot-encoding" class="headerlink" title="One hot encoding"></a>One hot encoding</h3>One hot encoding通常會跟Label encoding一起比較，不同的點在於One hot encoding會增加新的欄位，一種資料就增加一欄，用1表示屬於該欄，0表示不屬於，因此當資料種類很多的時候就會新增很多欄，儲存的空間便很大，那麼也許你會想問那我幹嘛使用他，用Label encoding的方式就好啊，那是因為Label encoding的數值會有0、1、2、3…，如果分析不當，錯認它有排序關係的話，那麼結果就會大錯特錯。<br></li>
 </ol>
 <blockquote>
 <p>注意一點，One hot encoding 是無法直接對字串進行處理的，因此常見的方式是先做Label encoding，再把其結果，換成One hot encoding，在sklearn裡，出來的結過會是array。</p>
@@ -322,13 +320,13 @@ display(pd.concat([df, onehot_df], axis=<span class="hljs-number">1</span>))</co
 
 kf_data = np.array([[<span class="hljs-number">60</span>,<span class="hljs-number">40</span>], [<span class="hljs-number">50</span>,<span class="hljs-number">50</span>]])
 kf = chi2_contingency(kf_data)
-print(kf)</code></pre>
-<h5 id="output"><a href="#output" class="headerlink" title="output"></a>output</h5><pre><code class="hljs plain">(1.6363636363636362, 0.20082512269514174, 1, 
+<span class="hljs-built_in">print</span>(kf)</code></pre>
+<h5 id="output"><a href="#output" class="headerlink" title="output"></a>output</h5><pre><code class="hljs plaintext">(1.6363636363636362, 0.20082512269514174, 1, 
  array([[55., 45.],
         [55., 45.]]))</code></pre>
 <p>第一個值是卡方值，第二個值為p值，第三個值是自由度，第四個值為原始資料的理論值。<br>因為p值大於0.05，因此無法拒絕，接受$H_0$的假設，即互相獨立。</p>
 <h3 id="嵌入法"><a href="#嵌入法" class="headerlink" title="嵌入法"></a>嵌入法</h3><p>它的想法是跟演算法同時進行，在過程中選取特徵，因為跟演算法相關，所以十分依賴模型的選擇。因為在過程中要使用模型及要考慮所有特徵，所以花費的時間會比過濾法快，但獲得的結果會更有效。最常被拿來使用的模型是SelectFromModel，且在sklearn的函數庫有包含，要使用的化引入即可。</p>
-<h4 id="SelectFromModel"><a href="#SelectFromModel" class="headerlink" title="SelectFromModel"></a>SelectFromModel</h4><p>這個模型是一種通用的轉換器，只要带有<strong>conef_</strong>或者<strong>feature_importances</strong>的屬性，即可使用，如果<strong>conef_</strong>或<strong>feature_importances</strong>低於閾值，表示此特徵不重要。</p>
+<h4 id="SelectFromModel"><a href="#SelectFromModel" class="headerlink" title="SelectFromModel"></a>SelectFromModel</h4><p>這個模型是一種通用的轉換器，只要带有<strong>conef_<strong>或者</strong>feature_importances</strong>的屬性，即可使用，如果<strong>conef_<strong>或</strong>feature_importances</strong>低於閾值，表示此特徵不重要。</p>
 <h3 id="包裝法"><a href="#包裝法" class="headerlink" title="包裝法"></a>包裝法</h3><p>包裝的意思就是根據目標函數，每次選擇幾個特徵，或者排除幾個特徵，作為不同的組合用模型進行特徵的挑選。良好的模型有決策樹、SVM、KNN等。常見的方式有：前向搜索、後向搜索。</p>
 <h4 id="前向搜索"><a href="#前向搜索" class="headerlink" title="前向搜索"></a>前向搜索</h4><p>前向搜索的意思是，剛開始的集合是空的，在每輪的選取都在加入一個還沒有選取過的特徵做分析，直到限制的數量停止，最後在從所有的可能中選取錯誤率最小的。</p>
 <h4 id="後向搜索"><a href="#後向搜索" class="headerlink" title="後向搜索"></a>後向搜索</h4><p>後向搜索的意思則跟前向搜索的意思相反，在一開始的集合包含所有的元素，在新的一輪選取一個特徵去除，後來就跟前向搜索一樣，直到限制的數量停止，最後在從所有的可能中選取錯誤率最小的。</p>
@@ -514,7 +512,7 @@ print(kf)</code></pre>
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'https://justin900429.github.io/posts/35352abb/';
+                this.page.url = 'https://https://justin900429.github.io/posts/35352abb/';
                 this.page.identifier = 'posts/35352abb/';
             };
             (function(){

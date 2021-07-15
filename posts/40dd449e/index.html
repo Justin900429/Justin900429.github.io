@@ -44,7 +44,7 @@
     <meta name="description" content="Graph – Shortest path algorithmSee moreBack to the series page  Relative articles  Graph – Basic concept Graph – Shortest path algorithm (You’re reading now!) Graph – Spanning Tree     After reading,">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Graph -- Shortest path algorithm">
-<meta property="og:url" content="justin900429.github.io/posts/40dd449e/index.html">
+<meta property="og:url" content="https://justin900429.github.io/posts/40dd449e/index.html">
 <meta property="og:site_name" content="Justin&#39;s sharing place">
 <meta property="og:description" content="Graph – Shortest path algorithmSee moreBack to the series page  Relative articles  Graph – Basic concept Graph – Shortest path algorithm (You’re reading now!) Graph – Spanning Tree     After reading,">
 <meta property="og:locale" content="en_US">
@@ -74,7 +74,7 @@
 
     <!-- custom head -->
 
-<meta name="generator" content="Hexo 5.1.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
     <body>
         <div id="app">
@@ -228,7 +228,7 @@ window.onscroll = () => {
     // title
     labelloc="t";
     label = "Path\n\n";
-
+    
 <pre><code>rankdir=LR;
 A -- B [label = &quot;2&quot;]
 B -- C [label = &quot;5&quot;]
@@ -236,7 +236,8 @@ A -- C [label = &quot;3&quot;]
 C -- D [label = &quot;9&quot;]
 B -- D [label = &quot;1&quot;]
 B -- E [label = &quot;10&quot;]
-D -- E [label = &quot;3&quot;]</code></pre>
+D -- E [label = &quot;3&quot;]
+</code></pre>
 <p>}</div></div></p>
 </center>
 
@@ -246,11 +247,12 @@ D -- E [label = &quot;3&quot;]</code></pre>
     // title
     labelloc="t";
     label = "Illustration\n\n";
-
+    
 <pre><code>rankdir=LR;
 A -- &quot;...&quot;
 &quot;...&quot; -- &quot;D&quot;
-&quot;...&quot; -- &quot;B&quot;</code></pre>
+&quot;...&quot; -- &quot;B&quot;
+</code></pre>
 <p>}</div></div></p>
 </center>
 
@@ -260,21 +262,22 @@ A -- &quot;...&quot;
     // title
     labelloc="t";
     label = "Illustration\n\n";
-
+    
 <pre><code>rankdir=LR;
 A -- &quot;...&quot;
 &quot;...&quot; -- D
 &quot;...&quot; -- B
 D -- E [label = &quot;3&quot;, color = &quot;red&quot;]
-B -- E [label = &quot;10&quot;, color = &quot;blue&quot;]</code></pre>
+B -- E [label = &quot;10&quot;, color = &quot;blue&quot;]
+</code></pre>
 <p>}</div></div></p>
 </center>
 
 <p>The smallest one will be the shortest path to E. Using the same way, we can find $min(A, B)$ and $min(A, C)$ to get $min(A, D)$. Below is the pseudocode for shortest path.</p>
-<pre><code class="hljs plain">&#x2F;&#x2F; Init the distance from A to all the other vertexs
+<pre><code class="hljs plaintext">// Init the distance from A to all the other vertexs
 distance[|V|] &lt;- INF_MAX 
 
-&#x2F;&#x2F; Function for finding the shortest path
+// Function for finding the shortest path
 fun findMinDistance(start, sum)
     distance[start] &lt;- sum
     
@@ -285,7 +288,7 @@ fun findMinDistance(start, sum)
     end for
 end fun
 
-&#x2F;&#x2F; Call the function
+// Call the function
 findMinDistance(A, 0);</code></pre>
 
 <h2 id="Algorithm-for-findind-the-shortest-path"><a href="#Algorithm-for-findind-the-shortest-path" class="headerlink" title="Algorithm for findind the shortest path"></a>Algorithm for findind the shortest path</h2><ul>
@@ -305,7 +308,7 @@ Edge edges[number_of_edges];
 <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">find_shortest</span><span class="hljs-params">(<span class="hljs-keyword">int</span> target)</span> </span>&#123;
 
     <span class="hljs-comment">// Init the distance to INF</span>
-    fill(d, d + number_of_vertex, INF_MAX);
+    <span class="hljs-built_in">fill</span>(d, d + number_of_vertex, INF_MAX);
 
     <span class="hljs-comment">// Set the distance to start_node to 0</span>
     d[target] = <span class="hljs-number">0</span>
@@ -330,20 +333,16 @@ Edge edges[number_of_edges];
             <span class="hljs-keyword">break</span>;
         &#125;
     &#125;
-&#125;</code></pre>
-
-</li>
+&#125;</code></pre></li>
 </ul>
 <hr>
 <ul>
 <li><p><strong>Dijkstra</strong><br>  In fact, we can make progress in <strong>Bellman Ford</strong> algorithm.</p>
 <ol>
-<li><p>Update the nodes that are adjacent to the finished node.</p>
-</li>
-<li><p>No repeated uses of the finished node in point 1.</p>
-<p>For example, $min(A, B)$ will be decided when we find the weight from A to B. However, in <strong>Bellman Ford</strong> algorithm, we will explore the path from A to B many times.</p>
-</li>
+<li>Update the nodes that are adjacent to the finished node.</li>
+<li>No repeated uses of the finished node in point 1.</li>
 </ol>
+<p>  For example, $min(A, B)$ will be decided when we find the weight from A to B. However, in <strong>Bellman Ford</strong> algorithm, we will explore the path from A to B many times.</p>
 </center>
   <div><div class="graphviz">    graph test {
       // title
@@ -357,11 +356,12 @@ Edge edges[number_of_edges];
   C -- D [label = &quot;9&quot;]
   B -- D [label = &quot;1&quot;]
   B -- E [label = &quot;10&quot;]
-  D -- E [label = &quot;3&quot;]</code></pre>
+  D -- E [label = &quot;3&quot;]
+</code></pre>
 <p>  }</div></div></p>
   </center>
   In normal event, if we start from A, we can decide the shortest path from A to its adjacent nodes. Afterwards, we can decide other shortest paths as well. However, we have to ensure that ==there are no negative weights in graph.== Otherwise, the weights can be updated again and again.</br></br>
-
+  
   <pre><code class="hljs cpp"><span class="hljs-comment">// Weight for each edge</span>
 <span class="hljs-keyword">int</span> cost[number_of_vertex][number_of_vertex];
 
@@ -374,8 +374,8 @@ Edge edges[number_of_edges];
 <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">find_shortest</span><span class="hljs-params">(<span class="hljs-keyword">int</span> target)</span> </span>&#123;
 
     <span class="hljs-comment">// Init the structure</span>
-    fill(d, d + number_of_vertex, INF);
-    fill(used, used + number_of_vertex, <span class="hljs-literal">false</span>);
+    <span class="hljs-built_in">fill</span>(d, d + number_of_vertex, INF);
+    <span class="hljs-built_in">fill</span>(used, used + number_of_vertex, <span class="hljs-literal">false</span>);
     d[target] = <span class="hljs-number">0</span>;
 
     <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123;
@@ -401,13 +401,12 @@ Edge edges[number_of_edges];
         <span class="hljs-comment">// Update the distance from start to its adjacent vertexs</span>
         <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> v = <span class="hljs-number">0</span>; v &lt; number_of_vertex; ++v) &#123;
             <span class="hljs-keyword">if</span> (!used[v]) &#123;
-                d[v] = min(d[u], d[start] + cost[start][v]);
+                d[v] = <span class="hljs-built_in">min</span>(d[u], d[start] + cost[start][v]);
             &#125;
         &#125;
 
     &#125;
 &#125;</code></pre>
-
 <p>  Here, we have to spend $O(|V|^{2})$ time to find all the nodes and edges. In fact, we can use heap to find the min edges in $O(log|E|)$. Below, we use priority queue to find the shortest path in $O(|V|log|E|)$.</p>
   <pre><code class="hljs cpp"><span class="hljs-comment">// Edge for DAG</span>
 <span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">edge</span> &#123;</span>
@@ -415,29 +414,29 @@ Edge edges[number_of_edges];
 &#125; Edge;
 
 <span class="hljs-comment">// First is the min distance, second is the node&#x27;s number</span>
-<span class="hljs-keyword">typedef</span> <span class="hljs-built_in">pair</span>&lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt; P;
+<span class="hljs-keyword">typedef</span> pair&lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt; P;
 
 <span class="hljs-comment">// Edges</span>
-<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;Edge&gt; &gt; edges[number_of_nodes];
-edges.resize(number_of_edges, <span class="hljs-number">0</span>);
+std::vector&lt;std::vector&lt;Edge&gt; &gt; edges[number_of_nodes];
+edges.<span class="hljs-built_in">resize</span>(number_of_edges, <span class="hljs-number">0</span>);
 
 <span class="hljs-comment">// Min distance from specific node to others (include itself)</span>
 <span class="hljs-keyword">int</span> d[number_of_vertex];
 
 <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dijkstra</span><span class="hljs-params">(<span class="hljs-keyword">int</span> target)</span> </span>&#123;
     <span class="hljs-comment">// Heap structure for edges</span>
-    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">priority_queue</span>&lt;P, <span class="hljs-built_in">vector</span>&lt;P&gt;, greater&lt;P&gt; &gt; que;
+    std::priority_queue&lt;P, vector&lt;P&gt;, greater&lt;P&gt; &gt; que;
     
     <span class="hljs-comment">// Init the structure</span>
-    <span class="hljs-built_in">std</span>::fill(d, d + number_of_nodes, INF_MAX);
+    std::<span class="hljs-built_in">fill</span>(d, d + number_of_nodes, INF_MAX);
     d[target] = <span class="hljs-number">0</span>;
     
     <span class="hljs-comment">// Push the first node into the queue</span>
-    que.push(P(<span class="hljs-number">0</span>, target));
+    que.<span class="hljs-built_in">push</span>(<span class="hljs-built_in">P</span>(<span class="hljs-number">0</span>, target));
     
-    <span class="hljs-keyword">while</span> (!que.empty()) &#123;
+    <span class="hljs-keyword">while</span> (!que.<span class="hljs-built_in">empty</span>()) &#123;
         <span class="hljs-comment">// Pop out min edges</span>
-        P p = que.top(); que.pop();
+        P p = que.<span class="hljs-built_in">top</span>(); que.<span class="hljs-built_in">pop</span>();
         <span class="hljs-keyword">int</span> v = p.second;
         
         <span class="hljs-comment">// If the node already updated, then continue</span>
@@ -446,53 +445,49 @@ edges.resize(number_of_edges, <span class="hljs-number">0</span>);
         &#125;
         
         <span class="hljs-comment">// Go through all the edges</span>
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; edges[v].size(); ++i) &#123;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; edges[v].<span class="hljs-built_in">size</span>(); ++i) &#123;
             Edge e = edges[v][i];
             
             <span class="hljs-keyword">if</span> (d[e.to] &gt; d[v] + e.cost) &#123;
                 <span class="hljs-comment">// Update the edge and push it into the queue</span>
                 d[e.to] = d[v] + e.cost;
-                que.push(P(d[e.to], e.to));
+                que.<span class="hljs-built_in">push</span>(<span class="hljs-built_in">P</span>(d[e.to], e.to));
             &#125;
         &#125;
     &#125;
 &#125;</code></pre>
-
 </li>
 </ul>
 <hr>
 <ul>
-<li><strong>Traces</strong><br>  In the above session, we only find the number of distances. Now, we want to find how can we reach the shortest path. To achieve this, we only have to use a vector to record the path and update it in the for loop.  <pre><code class="hljs cpp">fill(prev, prev + number_of_vertex, <span class="hljs-number">-1</span>);
+<li><strong>Traces</strong><br>  In the above session, we only find the number of distances. Now, we want to find how can we reach the shortest path. To achieve this, we only have to use a vector to record the path and update it in the for loop.  <pre><code class="hljs cpp"><span class="hljs-built_in">fill</span>(prev, prev + number_of_vertex, <span class="hljs-number">-1</span>);
 ...
 
 <span class="hljs-comment">// Go through all the edges</span>
-<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; edges[v].size(); ++i) &#123;
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; edges[v].<span class="hljs-built_in">size</span>(); ++i) &#123;
     Edge e = edges[v][i];
 
     <span class="hljs-keyword">if</span> (d[e.to] &gt; d[v] + e.cost) &#123;
         <span class="hljs-comment">// Update the edge and push it into the queue</span>
         d[e.to] = d[v] + e.cost;
-        que.push(P(d[e.to], e.to));
+        que.<span class="hljs-built_in">push</span>(<span class="hljs-built_in">P</span>(d[e.to], e.to));
         prev[e.to] = v;
     &#125;
 &#125;
 ...
-<span class="hljs-function"><span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">get_path</span><span class="hljs-params">(<span class="hljs-keyword">int</span> target)</span> </span>&#123;
-    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; path;
+<span class="hljs-function">std::vector&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">get_path</span><span class="hljs-params">(<span class="hljs-keyword">int</span> target)</span> </span>&#123;
+    std::vector&lt;<span class="hljs-keyword">int</span>&gt; path;
     
     <span class="hljs-comment">// Go through the path</span>
     <span class="hljs-keyword">for</span> (; target != <span class="hljs-number">-1</span>; target = prev[target]) &#123;
-        path.push_back(target);
+        path.<span class="hljs-built_in">push_back</span>(target);
     &#125;
     
     <span class="hljs-comment">// Reverse the path</span>
-    <span class="hljs-built_in">std</span>::reverse(path.end(), path.begin());
+    std::<span class="hljs-built_in">reverse</span>(path.<span class="hljs-built_in">end</span>(), path.<span class="hljs-built_in">begin</span>());
     <span class="hljs-keyword">return</span> path;
 &#125;
-...</code></pre>
-
-
-</li>
+...</code></pre></li>
 </ul>
 <h2 id="Negetive-loop"><a href="#Negetive-loop" class="headerlink" title="Negetive loop"></a>Negetive loop</h2><p>If the graph has negative loop, we will fail to find the shortest path in finite time.</p>
 <center>
@@ -500,18 +495,19 @@ edges.resize(number_of_edges, <span class="hljs-number">0</span>);
     // title
     labelloc="t";
     label = "Path\n\n";
-
+    
 <pre><code>rankdir=LR;
 A -- B [label = &quot;2&quot;]
 B -- C [label = &quot;5&quot;]
-A -- C [label = &quot;-8&quot;]</code></pre>
+A -- C [label = &quot;-8&quot;]
+</code></pre>
 <p>}</div></div></p>
 </center>
 
 <p>We couldn’t find the shortest path in this graph, because <strong>A</strong>, <strong>B</strong> and <strong>C</strong> form a negative loop $(2 + 5 + -8 = -1)$. Therefore, we need a way to detect the negative loop.</p>
 <p>To determine the shortest path, we only have to update the distance $(|V| - 1)th$ times. Therefore, we can detect that if $|V|th$ times is still updating, then there exist at least a negative loop in the graph.</p>
 <pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">find_negative_loop</span><span class="hljs-params">()</span> </span>&#123;
-    fill(d, d + number_of_vertex, <span class="hljs-number">0</span>);
+    <span class="hljs-built_in">fill</span>(d, d + number_of_vertex, <span class="hljs-number">0</span>);
     
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; number_of_vertex; ++i) &#123;
         <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; number_of_edges; ++j) &#123;
@@ -698,7 +694,7 @@ A -- C [label = &quot;-8&quot;]</code></pre>
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'https://justin900429.github.io/posts/40dd449e/';
+                this.page.url = 'https://https://justin900429.github.io/posts/40dd449e/';
                 this.page.identifier = 'posts/40dd449e/';
             };
             (function(){

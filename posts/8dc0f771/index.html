@@ -44,7 +44,7 @@
     <meta name="description" content="[Series - 22] Random ForestSee moreBack to the series page   前言上篇介紹 Decision tree，而這篇要分享的 Random forest 就是建構在 Decision tree 上的演算法。 NotebookNotebook Random Forest當我們看到 Forest 的時候，肯定會想到有很多 Tree，而這正是 Ran">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Series - 22] Random Forest">
-<meta property="og:url" content="justin900429.github.io/posts/8dc0f771/index.html">
+<meta property="og:url" content="https://justin900429.github.io/posts/8dc0f771/index.html">
 <meta property="og:site_name" content="Justin&#39;s sharing place">
 <meta property="og:description" content="[Series - 22] Random ForestSee moreBack to the series page   前言上篇介紹 Decision tree，而這篇要分享的 Random forest 就是建構在 Decision tree 上的演算法。 NotebookNotebook Random Forest當我們看到 Forest 的時候，肯定會想到有很多 Tree，而這正是 Ran">
 <meta property="og:locale" content="en_US">
@@ -79,7 +79,7 @@
 
     <!-- custom head -->
 
-<meta name="generator" content="Hexo 5.1.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
     <body>
         <div id="app">
@@ -212,12 +212,9 @@ window.onscroll = () => {
 <p>這張圖很清楚的說明，當我們把眾多資料丟進去 <strong>Random Forest</strong> 做預測的時候，事實上就是利用眾多的樹做投票，並決定最終的種類。</p>
 <h2 id="Ensemble-Bagging"><a href="#Ensemble-Bagging" class="headerlink" title="Ensemble - Bagging"></a>Ensemble - Bagging</h2><p>一般利用很多樹集合成一個演算法的方式我們會叫 <strong>Ensemble</strong>，而又因不同的方式有不同的類別，而 <strong>Random Forest</strong> 所使用的方式叫做 <strong>Bagging</strong> 也就是 <strong>Bootstrap aggregation</strong>。<strong>Boostrap</strong> 指的是我們在建立每一顆樹的取樣方式，因為我們的樹是透過資料點來建立的。<strong>Aggregation</strong> 指的是我們將每一顆樹建立成森林做預測。</p>
 <ul>
-<li><p><strong>Boostrap</strong><br>  這裡我們有一個假設，就是我們的訓練資料集合 $S$，跟我們真實產出的資料的集合 $P$ 是一樣的。（當我們資料量非常大的時候才會接近）。接著對 $S$ 做取樣，得到集合 $Z$，這邊的取樣是有放回去的，因此我們可能會重複選取，而取樣的數目可以根源資料一樣多，也可以比較少。做多次取樣，我們可以得到 $Z_1, Z_2, …, Z_m$，並將這些取樣的集合拿去產生 $m$ 個樹。如下圖：</p>
-  <center><img src="https://i.imgur.com/LwTMYrR.jpg" width=450/></center>
-</li>
-<li><p><strong>Aggregation</strong><br>  <strong>Aggregation</strong> 就是將我們學習完後的樹<strong>聚合</strong>在一起，形成更強力的分類模型。假設我們每個取樣 $Z_m$ 可以產生一個 <strong>model</strong> $G_m$，則我們的最終分類器：</p>
-<p>  $$<br>  G(X) = \sum_{m}\frac{G_m(x)}{M}<br>  $$</p>
-</li>
+<li><strong>Boostrap</strong><br>  這裡我們有一個假設，就是我們的訓練資料集合 $S$，跟我們真實產出的資料的集合 $P$ 是一樣的。（當我們資料量非常大的時候才會接近）。接著對 $S$ 做取樣，得到集合 $Z$，這邊的取樣是有放回去的，因此我們可能會重複選取，而取樣的數目可以根源資料一樣多，也可以比較少。做多次取樣，我們可以得到 $Z_1, Z_2, …, Z_m$，並將這些取樣的集合拿去產生 $m$ 個樹。如下圖：  <center><img src="https://i.imgur.com/LwTMYrR.jpg" width=450/></center>
+  </li>
+<li><strong>Aggregation</strong><br>  <strong>Aggregation</strong> 就是將我們學習完後的樹<strong>聚合</strong>在一起，形成更強力的分類模型。假設我們每個取樣 $Z_m$ 可以產生一個 <strong>model</strong> $G_m$，則我們的最終分類器：  $$<br>  G(X) = \sum_{m}\frac{G_m(x)}{M}<br>  $$</li>
 </ul>
 <p>其實大家稍微觀察一下，可能會發現，有些資料點在某些 <strong>sample</strong> 可能沒有被選取到。如果我們換個想法，將同樣沒選取到這筆資料的樹集合在一起，並將這筆資料當作驗證資料，我們就可以達到自我驗證的功效！而那些沒被選到的資料點就稱為 **out-of-bag samples（oob)**，等等我們會介紹怎麼觀察這個分數。</p>
 <h2 id="Feature-selection"><a href="#Feature-selection" class="headerlink" title="Feature selection"></a>Feature selection</h2><p>我們來說明一下 <strong>Random forest</strong> 在取樣的時候會做的一些改變。首先，我們來想像一個問題，如果今天有某個 <strong>feature</strong> 的分類能力特別強，利用這個 <strong>feature</strong> 可以將我們百分之 <strong>85</strong> 的資料做到很好的分類。因此我們每顆樹都會傾向用這個 <strong>feature</strong> 做當作分類的條件。</p>
@@ -400,7 +397,7 @@ window.onscroll = () => {
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'https://justin900429.github.io/posts/8dc0f771/';
+                this.page.url = 'https://https://justin900429.github.io/posts/8dc0f771/';
                 this.page.identifier = 'posts/8dc0f771/';
             };
             (function(){

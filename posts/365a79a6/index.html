@@ -44,7 +44,7 @@
     <meta name="description" content="Android Fragment and bottom navigation barSee moreBack to the series page   前言今天我們會說明如何在 App 裡建立 navigation bar 並且在同一個 Activity 轉換 Fragement 這篇看完後會了解到： 利用 vector asset 新增 icon 建立 bottom navigation bar">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android Fragment and bottom navigation bar">
-<meta property="og:url" content="justin900429.github.io/posts/365a79a6/index.html">
+<meta property="og:url" content="https://justin900429.github.io/posts/365a79a6/index.html">
 <meta property="og:site_name" content="Justin&#39;s sharing place">
 <meta property="og:description" content="Android Fragment and bottom navigation barSee moreBack to the series page   前言今天我們會說明如何在 App 裡建立 navigation bar 並且在同一個 Activity 轉換 Fragement 這篇看完後會了解到： 利用 vector asset 新增 icon 建立 bottom navigation bar">
 <meta property="og:locale" content="en_US">
@@ -82,7 +82,7 @@
 
     <!-- custom head -->
 
-<meta name="generator" content="Hexo 5.1.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
     <body>
         <div id="app">
@@ -259,9 +259,7 @@ window.onscroll = () => {
 <span class="hljs-tag">        <span class="hljs-attr">android:id</span>=<span class="hljs-string">&quot;@+id/change&quot;</span></span>
 <span class="hljs-tag">        <span class="hljs-attr">android:icon</span>=<span class="hljs-string">&quot;@drawable/back_for_fragment&quot;</span></span>
 <span class="hljs-tag">        <span class="hljs-attr">android:title</span>=<span class="hljs-string">&quot;change&quot;</span> /&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span></code></pre>
-
-</li>
+<span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span></code></pre></li>
 </ul>
 <p>其中我們每個 <strong>item</strong> 沒有加上 <strong>showAsAction</strong>，預設為 <strong>ifRoom</strong>。</p>
 <blockquote>
@@ -332,8 +330,7 @@ bottom_navigation.setOnNavigationItemSelectedListener &#123;
 <span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintStart_toStartOf</span>=<span class="hljs-string">&quot;parent&quot;</span></span>
 <span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintTop_toTopOf</span>=<span class="hljs-string">&quot;parent&quot;</span> /&gt;</span>
 
-<span class="hljs-tag">&lt;/<span class="hljs-name">androidx.constraintlayout.widget.ConstraintLayout</span>&gt;</span></code></pre>
-</li>
+<span class="hljs-tag">&lt;/<span class="hljs-name">androidx.constraintlayout.widget.ConstraintLayout</span>&gt;</span></code></pre></li>
 <li><p><strong>fragment_two.xml</strong></p>
 <pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">androidx.constraintlayout.widget.ConstraintLayout</span> <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span>
@@ -351,31 +348,27 @@ bottom_navigation.setOnNavigationItemSelectedListener &#123;
 <span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintStart_toStartOf</span>=<span class="hljs-string">&quot;parent&quot;</span></span>
 <span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintTop_toTopOf</span>=<span class="hljs-string">&quot;parent&quot;</span> /&gt;</span>
 
-<span class="hljs-tag">&lt;/<span class="hljs-name">androidx.constraintlayout.widget.ConstraintLayout</span>&gt;</span></code></pre>
-</li>
+<span class="hljs-tag">&lt;/<span class="hljs-name">androidx.constraintlayout.widget.ConstraintLayout</span>&gt;</span></code></pre></li>
 <li><p><strong>FragmentOne</strong></p>
 <pre><code class="hljs kotlin"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FragmentOne</span> : <span class="hljs-type">Fragment</span></span>() &#123;
     <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onCreateView</span><span class="hljs-params">(</span></span>
-<span class="hljs-function"><span class="hljs-params">        inflater: <span class="hljs-type">LayoutInflater</span>,</span></span>
-<span class="hljs-function"><span class="hljs-params">        container: <span class="hljs-type">ViewGroup</span>?,</span></span>
-<span class="hljs-function"><span class="hljs-params">        savedInstanceState: <span class="hljs-type">Bundle</span>?</span></span>
-<span class="hljs-function"><span class="hljs-params">    )</span></span>: View? &#123;
+<span class="hljs-params"><span class="hljs-function">        inflater: <span class="hljs-type">LayoutInflater</span>,</span></span>
+<span class="hljs-params"><span class="hljs-function">        container: <span class="hljs-type">ViewGroup</span>?,</span></span>
+<span class="hljs-params"><span class="hljs-function">        savedInstanceState: <span class="hljs-type">Bundle</span>?</span></span>
+<span class="hljs-params"><span class="hljs-function">    )</span></span>: View? &#123;
         <span class="hljs-keyword">return</span> inflater.inflate(R.layout.fragment_one, container, <span class="hljs-literal">false</span>)
     &#125;
-&#125;</code></pre>
-</li>
+&#125;</code></pre></li>
 <li><p><strong>FragmentTwo</strong></p>
 <pre><code class="hljs kotlin"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FragmentTwo</span>: <span class="hljs-type">Fragment</span></span>() &#123;
     <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onCreateView</span><span class="hljs-params">(</span></span>
-<span class="hljs-function"><span class="hljs-params">        inflater: <span class="hljs-type">LayoutInflater</span>,</span></span>
-<span class="hljs-function"><span class="hljs-params">        container: <span class="hljs-type">ViewGroup</span>?,</span></span>
-<span class="hljs-function"><span class="hljs-params">        savedInstanceState: <span class="hljs-type">Bundle</span>?</span></span>
-<span class="hljs-function"><span class="hljs-params">    )</span></span>: View? &#123;
+<span class="hljs-params"><span class="hljs-function">        inflater: <span class="hljs-type">LayoutInflater</span>,</span></span>
+<span class="hljs-params"><span class="hljs-function">        container: <span class="hljs-type">ViewGroup</span>?,</span></span>
+<span class="hljs-params"><span class="hljs-function">        savedInstanceState: <span class="hljs-type">Bundle</span>?</span></span>
+<span class="hljs-params"><span class="hljs-function">    )</span></span>: View? &#123;
         <span class="hljs-keyword">return</span> inflater.inflate(R.layout.fragment_two, container, <span class="hljs-literal">false</span>)
     &#125;
-&#125;</code></pre>
-
-</li>
+&#125;</code></pre></li>
 </ul>
 <p>這邊我們 <strong>Fragment</strong> 只要改寫 <strong>onCreateView</strong> 是因為我們只需要 <strong>inflate</strong> 我們的 <strong>layout</strong>。</p>
 <h3 id="FrameLayout"><a href="#FrameLayout" class="headerlink" title="FrameLayout"></a>FrameLayout</h3><p><strong>FrameLayout</strong> 為 <strong>layout</strong> 的其中一種佈局樣式。當我們使用 <strong>FrameLayout</strong>，程式會為我們做留白，讓我們可以自由加入我們想要的內容。這裡就是為了放入我們的 <strong>Fragment</strong>，我們可以自由切換 <strong>FrameLayout</strong> 裡的 <strong>layout</strong> 是 <strong>FragmentOne</strong> 還是 <strong>FragmentTwo</strong>。</p>
@@ -477,8 +470,7 @@ transaction.commit()</code></pre>
 <span class="hljs-tag">        <span class="hljs-attr">app:layout_constraintStart_toStartOf</span>=<span class="hljs-string">&quot;parent&quot;</span></span>
 <span class="hljs-tag">        <span class="hljs-attr">app:menu</span>=<span class="hljs-string">&quot;@menu/nav_bar&quot;</span> /&gt;</span>
 
-<span class="hljs-tag">&lt;/<span class="hljs-name">androidx.constraintlayout.widget.ConstraintLayout</span>&gt;</span></code></pre>
-</li>
+<span class="hljs-tag">&lt;/<span class="hljs-name">androidx.constraintlayout.widget.ConstraintLayout</span>&gt;</span></code></pre></li>
 <li><p><strong>MainActivity.kt</strong></p>
 </li>
 </ul>
@@ -670,7 +662,7 @@ transaction.commit()</code></pre>
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'https://justin900429.github.io/posts/365a79a6/';
+                this.page.url = 'https://https://justin900429.github.io/posts/365a79a6/';
                 this.page.identifier = 'posts/365a79a6/';
             };
             (function(){

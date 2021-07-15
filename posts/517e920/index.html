@@ -44,7 +44,7 @@
     <meta name="description" content="[Series - 15] Classification - Logistic Regression - 1See moreBack to the series page   前言前幾篇都在介紹 Regression，接下來幾天換介紹 classification 中的 Logistic Regression 啦！同樣會分成應用跟理論篇，應用會在今天講解，剩下部分會留到下幾篇。 NotebookN">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Series - 15] Classification - Logistic Regression - 1">
-<meta property="og:url" content="justin900429.github.io/posts/517e920/index.html">
+<meta property="og:url" content="https://justin900429.github.io/posts/517e920/index.html">
 <meta property="og:site_name" content="Justin&#39;s sharing place">
 <meta property="og:description" content="[Series - 15] Classification - Logistic Regression - 1See moreBack to the series page   前言前幾篇都在介紹 Regression，接下來幾天換介紹 classification 中的 Logistic Regression 啦！同樣會分成應用跟理論篇，應用會在今天講解，剩下部分會留到下幾篇。 NotebookN">
 <meta property="og:locale" content="en_US">
@@ -78,7 +78,7 @@
 
     <!-- custom head -->
 
-<meta name="generator" content="Hexo 5.1.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
     <body>
         <div id="app">
@@ -246,12 +246,12 @@ breast_cancer_std = StandardScaler().fit_transform(breast_cancer)
 <span class="hljs-comment"># Fit the data</span>
 model = LogisticRegression().fit(breast_cancer_std, data.target)
 <span class="hljs-comment"># Accuracy of the model</span>
-print(<span class="hljs-string">f&quot;The accuracy of the model is <span class="hljs-subst">&#123;model.score(breast_cancer_std, data.target)&#125;</span>&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;The accuracy of the model is <span class="hljs-subst">&#123;model.score(breast_cancer_std, data.target)&#125;</span>&quot;</span>)
 
 <span class="hljs-comment"># Plot the result</span>
 plt.figure(figsize=(<span class="hljs-number">12</span>, <span class="hljs-number">10</span>))
-plt.xlim(<span class="hljs-number">-2.5</span>, <span class="hljs-number">4</span>)
-plt.ylim(<span class="hljs-number">-2</span>, <span class="hljs-number">4</span>)
+plt.xlim(-<span class="hljs-number">2.5</span>, <span class="hljs-number">4</span>)
+plt.ylim(-<span class="hljs-number">2</span>, <span class="hljs-number">4</span>)
 
 <span class="hljs-comment"># Plot the data point</span>
 plt.scatter(breast_cancer_std[data.target == <span class="hljs-number">1</span>, <span class="hljs-number">0</span>], 
@@ -263,7 +263,7 @@ plt.scatter(breast_cancer_std[data.target == <span class="hljs-number">0</span>,
             c=<span class="hljs-string">&quot;blue&quot;</span>, label=<span class="hljs-string">&quot;negative&quot;</span>)
 
 <span class="hljs-comment"># Plot the seperate plane</span>
-x = np.arange(<span class="hljs-number">-2</span>, <span class="hljs-number">5</span>)
+x = np.arange(-<span class="hljs-number">2</span>, <span class="hljs-number">5</span>)
 plt.plot(x, x * model.coef_[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] + model.coef_[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>], 
          label=<span class="hljs-string">&quot;seperation line&quot;</span>)
 
@@ -273,23 +273,23 @@ plt.legend(prop=&#123;<span class="hljs-string">&quot;size&quot;</span>: <span c
 <p><img src="https://i.imgur.com/3lXgDOP.jpg"></p>
 <p><code>model</code> 裡還有很多<strong>attribute</strong> 可以用，我上面所使用的 <strong>model._coef</strong> 就是 $\theta$ 的參數。</p>
 <p>我們也可以看看機率跟 <strong>label</strong> 的關係，這邊我們就挑第20到第24筆來看吧：</p>
-<pre><code class="hljs python">result = zip(model.predict(breast_cancer_std[<span class="hljs-number">20</span>:<span class="hljs-number">25</span>]),
+<pre><code class="hljs python">result = <span class="hljs-built_in">zip</span>(model.predict(breast_cancer_std[<span class="hljs-number">20</span>:<span class="hljs-number">25</span>]),
           model.predict_proba(breast_cancer_std[<span class="hljs-number">20</span>:<span class="hljs-number">25</span>])[:, <span class="hljs-number">1</span>])
 
-<span class="hljs-keyword">for</span> count, (class_, prob) <span class="hljs-keyword">in</span> enumerate(result):
-    print(<span class="hljs-string">f&quot;The correponding probability for label <span class="hljs-subst">&#123;class_&#125;</span> of <span class="hljs-subst">&#123;count&#125;</span>th object is <span class="hljs-subst">&#123;prob&#125;</span>.\n&quot;</span>)</code></pre>
+<span class="hljs-keyword">for</span> count, (class_, prob) <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(result):
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;The correponding probability for label <span class="hljs-subst">&#123;class_&#125;</span> of <span class="hljs-subst">&#123;count&#125;</span>th object is <span class="hljs-subst">&#123;prob&#125;</span>.\n&quot;</span>)</code></pre>
 
 <pre><code class="hljs python"><span class="hljs-comment"># output</span>
 
-The correponding probability <span class="hljs-keyword">for</span> label <span class="hljs-number">1</span> of <span class="hljs-number">0</span>th object <span class="hljs-keyword">is</span> <span class="hljs-number">0.7246190930101648</span>.
+The correponding probability <span class="hljs-keyword">for</span> label <span class="hljs-number">1</span> of 0th <span class="hljs-built_in">object</span> <span class="hljs-keyword">is</span> <span class="hljs-number">0.7246190930101648</span>.
 
-The correponding probability <span class="hljs-keyword">for</span> label <span class="hljs-number">1</span> of <span class="hljs-number">1</span>th object <span class="hljs-keyword">is</span> <span class="hljs-number">0.9974729565670527</span>.
+The correponding probability <span class="hljs-keyword">for</span> label <span class="hljs-number">1</span> of 1th <span class="hljs-built_in">object</span> <span class="hljs-keyword">is</span> <span class="hljs-number">0.9974729565670527</span>.
 
-The correponding probability <span class="hljs-keyword">for</span> label <span class="hljs-number">0</span> of <span class="hljs-number">2</span>th object <span class="hljs-keyword">is</span> <span class="hljs-number">0.026303453790521614</span>.
+The correponding probability <span class="hljs-keyword">for</span> label <span class="hljs-number">0</span> of 2th <span class="hljs-built_in">object</span> <span class="hljs-keyword">is</span> <span class="hljs-number">0.026303453790521614</span>.
 
-The correponding probability <span class="hljs-keyword">for</span> label <span class="hljs-number">0</span> of <span class="hljs-number">3</span>th object <span class="hljs-keyword">is</span> <span class="hljs-number">0.004397432135645482</span>.
+The correponding probability <span class="hljs-keyword">for</span> label <span class="hljs-number">0</span> of 3th <span class="hljs-built_in">object</span> <span class="hljs-keyword">is</span> <span class="hljs-number">0.004397432135645482</span>.
 
-The correponding probability <span class="hljs-keyword">for</span> label <span class="hljs-number">0</span> of <span class="hljs-number">4</span>th object <span class="hljs-keyword">is</span> <span class="hljs-number">0.0605503698769022</span>.</code></pre>
+The correponding probability <span class="hljs-keyword">for</span> label <span class="hljs-number">0</span> of 4th <span class="hljs-built_in">object</span> <span class="hljs-keyword">is</span> <span class="hljs-number">0.0605503698769022</span>.</code></pre>
 
 <p>透過上面的觀察，$\gt 0.5$ 都被分配到 $1$，$\lt 0.5$ 都被分配到 0。</p>
 <h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><p>今天我們介紹完 <strong>Classification</strong> 的概念，也講完 <strong>Logistic Regression</strong> 的應用，下篇一樣會開始討論背後的數學！</p>
@@ -457,7 +457,7 @@ The correponding probability <span class="hljs-keyword">for</span> label <span c
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'https://justin900429.github.io/posts/517e920/';
+                this.page.url = 'https://https://justin900429.github.io/posts/517e920/';
                 this.page.identifier = 'posts/517e920/';
             };
             (function(){

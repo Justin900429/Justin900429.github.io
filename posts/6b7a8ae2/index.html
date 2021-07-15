@@ -44,7 +44,7 @@
     <meta name="description" content="[Series - 13] Regression - 2See moreBack to the series page   前言上篇已經介紹完 Regression 的應用。今天我們就來實際看看其背後的數學邏輯！ NotebookNotebook 符號說明今天所有推導都會直接利用高維，也就是說會利用 Multinomial Regression. 昨天說到 Multinomial Regressi">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Series - 13] Regression - 2">
-<meta property="og:url" content="justin900429.github.io/posts/6b7a8ae2/index.html">
+<meta property="og:url" content="https://justin900429.github.io/posts/6b7a8ae2/index.html">
 <meta property="og:site_name" content="Justin&#39;s sharing place">
 <meta property="og:description" content="[Series - 13] Regression - 2See moreBack to the series page   前言上篇已經介紹完 Regression 的應用。今天我們就來實際看看其背後的數學邏輯！ NotebookNotebook 符號說明今天所有推導都會直接利用高維，也就是說會利用 Multinomial Regression. 昨天說到 Multinomial Regressi">
 <meta property="og:locale" content="en_US">
@@ -79,7 +79,7 @@
 
     <!-- custom head -->
 
-<meta name="generator" content="Hexo 5.1.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
     <body>
         <div id="app">
@@ -255,7 +255,7 @@ window.onscroll = () => {
     J_history = np.zeros(num_iters)
     
     <span class="hljs-comment"># Start gradient descent</span>
-    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>, num_iters):
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, num_iters):
         grad = np.dot(X, theta.T) - y
         grad = np.multiply(X.T, grad).T
         grad = np.mean(grad, axis=<span class="hljs-number">0</span>)
@@ -459,7 +459,7 @@ X = np.c_[np.ones(y.shape[<span class="hljs-number">0</span>]), x]</code></pre>
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'https://justin900429.github.io/posts/6b7a8ae2/';
+                this.page.url = 'https://https://justin900429.github.io/posts/6b7a8ae2/';
                 this.page.identifier = 'posts/6b7a8ae2/';
             };
             (function(){

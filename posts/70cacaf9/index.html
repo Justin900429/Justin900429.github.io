@@ -44,7 +44,7 @@
     <meta name="description" content="[Series - 17] Classification - Naive BayesSee moreBack to the series page   前言今天的部分會比較輕鬆，雖然也可以講一些數學，但我認為這部分用理解的更能理解其背後的意義，因此這篇章只會花一篇的時間！ NotebookNotebook Bayes’s Theorem在講今天的主題之前，我們先來介紹在機率裡面非常有名的定理 -">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Series - 17] Classification - Naive Bayes">
-<meta property="og:url" content="justin900429.github.io/posts/70cacaf9/index.html">
+<meta property="og:url" content="https://justin900429.github.io/posts/70cacaf9/index.html">
 <meta property="og:site_name" content="Justin&#39;s sharing place">
 <meta property="og:description" content="[Series - 17] Classification - Naive BayesSee moreBack to the series page   前言今天的部分會比較輕鬆，雖然也可以講一些數學，但我認為這部分用理解的更能理解其背後的意義，因此這篇章只會花一篇的時間！ NotebookNotebook Bayes’s Theorem在講今天的主題之前，我們先來介紹在機率裡面非常有名的定理 -">
 <meta property="og:locale" content="en_US">
@@ -76,7 +76,7 @@
 
     <!-- custom head -->
 
-<meta name="generator" content="Hexo 5.1.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
     <body>
         <div id="app">
@@ -261,7 +261,7 @@ X, y = make_multilabel_classification(n_samples=<span class="hljs-number">500</s
 
 <span class="hljs-comment"># Original y is the categorical matrix</span>
 <span class="hljs-comment"># Change it to the label matrix</span>
-y_label = np.sum(y, axis=<span class="hljs-number">-1</span>)
+y_label = np.<span class="hljs-built_in">sum</span>(y, axis=-<span class="hljs-number">1</span>)
 
 <span class="hljs-comment"># Split it into train and test dataset</span>
 train_data = X[:<span class="hljs-number">400</span>]
@@ -273,12 +273,12 @@ test_target = y_label[<span class="hljs-number">400</span>:<span class="hljs-num
 <span class="hljs-comment"># Shape(400, 30)</span>
 <span class="hljs-comment"># 30 is the feature</span>
 <span class="hljs-comment"># 400 is the data</span>
-print(train_data)
+<span class="hljs-built_in">print</span>(train_data)
 
 model = MultinomialNB().fit(train_data, train_target)
 
 <span class="hljs-comment"># Test our model</span>
-print(model.score(test_data, test_target))
+<span class="hljs-built_in">print</span>(model.score(test_data, test_target))
 
 <span class="hljs-comment"># Plot the heatmap</span>
 plt.figure(figsize=(<span class="hljs-number">6</span>, <span class="hljs-number">6</span>))
@@ -456,7 +456,7 @@ sns.heatmap(mat.T, square=<span class="hljs-literal">True</span>, annot=<span cl
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'https://justin900429.github.io/posts/70cacaf9/';
+                this.page.url = 'https://https://justin900429.github.io/posts/70cacaf9/';
                 this.page.identifier = 'posts/70cacaf9/';
             };
             (function(){

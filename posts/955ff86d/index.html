@@ -44,7 +44,7 @@
     <meta name="description" content="[Series - 23] Boosting - 1 - AdaboostSee moreBack to the series page   前言今天要介紹另一個 ensembling 的方法，那就是 boosting。 NotebookNotebook Boosting我們先來想像一個例子，當我們今天想要辨識不同類別的物體的時候，我們會先專注在他的大方向，在看他跟我們分類錯誤的物體有什麼不一樣，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Series - 23] Boosting - 1 - Adaboost">
-<meta property="og:url" content="justin900429.github.io/posts/955ff86d/index.html">
+<meta property="og:url" content="https://justin900429.github.io/posts/955ff86d/index.html">
 <meta property="og:site_name" content="Justin&#39;s sharing place">
 <meta property="og:description" content="[Series - 23] Boosting - 1 - AdaboostSee moreBack to the series page   前言今天要介紹另一個 ensembling 的方法，那就是 boosting。 NotebookNotebook Boosting我們先來想像一個例子，當我們今天想要辨識不同類別的物體的時候，我們會先專注在他的大方向，在看他跟我們分類錯誤的物體有什麼不一樣，">
 <meta property="og:locale" content="en_US">
@@ -79,7 +79,7 @@
 
     <!-- custom head -->
 
-<meta name="generator" content="Hexo 5.1.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
     <body>
         <div id="app">
@@ -218,10 +218,8 @@ window.onscroll = () => {
 <p>另外，我們也要有改變權重的方式，因此我們定義一個 <strong>scaling factor</strong> 用作改變權重的乘數，對 <strong>scaling factor</strong> 的推導可以看<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.youtube.com/playlist?list=PLXVfgk9fNX2IQOYPmqjqWsNUFl2kpk1U2">參考資料[2]</a>。</p>
 <p>$$<br>\text{Scaling factor} = f_t = \sqrt{\frac{1- \epsilon_t}{\epsilon_t}}<br>$$</p>
 <ul>
-<li><p>當我們<strong>model</strong>將某筆資料 $n$ 分類正確，則其權重 $u_n^{t}$ 就會變成:<br>  $$<br>  u_n^{t+1} = \frac{u_n^t}{f_t}<br>  $$</p>
-</li>
-<li><p>當我們 <strong>model</strong> 將某筆資料 $n$ 分類錯誤，則其權重 $u_n^{t}$ 就會變成:<br>  $$<br>  u_n^{t+1} = u_n^t * f_t<br>  $$</p>
-</li>
+<li>當我們<strong>model</strong>將某筆資料 $n$ 分類正確，則其權重 $u_n^{t}$ 就會變成:<br>  $$<br>  u_n^{t+1} = \frac{u_n^t}{f_t}<br>  $$</li>
+<li>當我們 <strong>model</strong> 將某筆資料 $n$ 分類錯誤，則其權重 $u_n^{t}$ 就會變成:<br>  $$<br>  u_n^{t+1} = u_n^t * f_t<br>  $$</li>
 </ul>
 <p>這邊我們用 $t$ 與 $t+1$ 表示，是為了更清楚表的我們每個<strong>小樹</strong>都是透過序列（一個接一個）訓練的。另外每個序列模型我們都希望可以多樣化一些，因此權重也可以扮演這樣的角色，幫助我們模型更加強大可以做更好的分類。多樣化的意思指的是 <strong>tree</strong> $g^{t}$ 用到 $u^{t+1}$ 的權重時，會有很差的結果，而對 <strong>tree</strong> $g^{t+1}$ 卻有很好的分類能力，這也意味著每個模型有自己強大的地方。</p>
 <h3 id="Weak-classifier"><a href="#Weak-classifier" class="headerlink" title="Weak classifier"></a>Weak classifier</h3><p>其實我們上面一直有個觀念沒有說得很清楚，那就是我們每一棵小樹 $g(t)$ 事實上都是一種 <strong>weak classifier</strong>，也就是只能分類一次的決策樹。假如我們可以讓樹一直長，那我們就可以直接將資料點分完了，根本不需要去訓練我們每個分類模型的重要行。因此我們對於每一個模型都只能切一刀，並且這一刀要將資料分得誤差最小。但是只切一刀終歸無法將資料分乾淨（要是可以，那就是線性可分了），因此才會叫 <strong>weak classifier</strong>。</p>
@@ -406,7 +404,7 @@ window.onscroll = () => {
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'https://justin900429.github.io/posts/955ff86d/';
+                this.page.url = 'https://https://justin900429.github.io/posts/955ff86d/';
                 this.page.identifier = 'posts/955ff86d/';
             };
             (function(){

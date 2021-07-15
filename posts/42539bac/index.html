@@ -44,7 +44,7 @@
     <meta name="description" content="Graph – Basic conceptSee moreBack to the series page  Relative articles  Graph – Basic concept (You’re reading now!) Graph – Shortest path algorithm Graph – Spanning Tree     After reading, you&#39;ll lea">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Graph -- Basic concept">
-<meta property="og:url" content="justin900429.github.io/posts/42539bac/index.html">
+<meta property="og:url" content="https://justin900429.github.io/posts/42539bac/index.html">
 <meta property="og:site_name" content="Justin&#39;s sharing place">
 <meta property="og:description" content="Graph – Basic conceptSee moreBack to the series page  Relative articles  Graph – Basic concept (You’re reading now!) Graph – Shortest path algorithm Graph – Spanning Tree     After reading, you&#39;ll lea">
 <meta property="og:locale" content="en_US">
@@ -74,7 +74,7 @@
 
     <!-- custom head -->
 
-<meta name="generator" content="Hexo 5.1.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
     <body>
         <div id="app">
@@ -222,14 +222,15 @@ window.onscroll = () => {
     // title
     labelloc="t";
     label = "Facebook Social Network\n\n";
-
+    
 <pre><code>rankdir=LR;
 Justin -- Katie;
 Justin -- Joyce;
 Justin -- Alex;
 Joyce -- Katie
 Joyce -- Alex;
-Katie -- Alex;</code></pre>
+Katie -- Alex;
+</code></pre>
 <p>}</div></div></p>
 </center>
 
@@ -259,10 +260,9 @@ Katie -- Alex;</code></pre>
   // title
   labelloc="t";
   label = "Undirected graph\n\n";
-
+  
 <p>  rankdir=LR;<br>  a – b;<br>  b – c;<br>  b – d;<br>  d – a;<br>  e – a;<br>  e – d;<br>}</div></div></p>
-</center>
-</li>
+</center></li>
 <li><p>Directed graph (digraph)</p>
 <blockquote>
 <p>Each edges has specific direction</p>
@@ -272,10 +272,9 @@ Katie -- Alex;</code></pre>
   // title
   labelloc="t";
   label = "Directed graph";
-
+  
 <p>  rankdir=LR;<br>  a -&gt; b;<br>  b -&gt; c;<br>  b -&gt; d;<br>  d -&gt; a;<br>  a -&gt; e;<br>  e -&gt; d;<br>}</div></div></p>
-</center>
-</li>
+</center></li>
 <li><p>Weighted graph</p>
 <blockquote>
 <p>Each edge has its own weight </p>
@@ -287,14 +286,15 @@ Katie -- Alex;</code></pre>
     // title
     labelloc="t";
     label = "Weighted graph\n\n";
-
+    
 <pre><code>rankdir=LR;
 a -- b [ label = &quot;2&quot; ]
 b -- c [ label = &quot;5&quot; ]
 b -- d [ label = &quot;1&quot; ]
 d -- a [ label = &quot;3&quot; ]
 e -- a [ label = &quot;6&quot; ]
-e -- d [ label = &quot;4&quot; ]</code></pre>
+e -- d [ label = &quot;4&quot; ]
+</code></pre>
 <p>}</div></div></p>
 </center>
 
@@ -309,11 +309,12 @@ e -- d [ label = &quot;4&quot; ]</code></pre>
     // title
     labelloc="t";
     label = "Directed cyclic graph\n\n";
-
+    
 <pre><code>rankdir=LR;
 a -&gt; b;
 b -&gt; c;
-c -&gt; a</code></pre>
+c -&gt; a
+</code></pre>
 <p>}</div></div></p>
 </center>
 
@@ -323,27 +324,24 @@ c -&gt; a</code></pre>
     // title
     labelloc="t";
     label = "Undirected cyclic graph\n\n";
-
+    
 <pre><code>rankdir=LR;
 a -- b;
 b -- c;
-c -- a</code></pre>
+c -- a
+</code></pre>
 <p>}</div></div></p>
 </center>
 
 <p><strong><center>Both a-b-c or c-b-a form cycles.</center></strong></p>
 <ul>
-<li><p>DAG (Directed Acyclic graph)</p>
-<center>
+<li>DAG (Directed Acyclic graph)<center>
 <div><div class="graphviz">digraph test { 
   // title
   labelloc="t";
   label = "DAG\n\n";
-
-<p>  rankdir=LR;<br>  a -&gt; b;<br>  a -&gt; d;<br>  a -&gt; c;<br>  b -&gt; c;<br>  b -&gt; d;<br>  c -&gt; d;<br>}</div></div></p>
-</center>
-
-</li>
+  
+  rankdir=LR;<br>  a -&gt; b;<br>  a -&gt; d;<br>  a -&gt; c;<br>  b -&gt; c;<br>  b -&gt; d;<br>  c -&gt; d;<br>}</div></div></center></li>
 </ul>
 <h2 id="Approaches-to-represent-the-graph"><a href="#Approaches-to-represent-the-graph" class="headerlink" title="Approaches to represent the graph"></a>Approaches to represent the graph</h2><ol>
 <li><strong>Adjancency matrix</strong><br>Using 2 dimension matrix to show the graph. If two vertex are connected, the value in matrix is 1, otherwise, 0.</li>
@@ -357,20 +355,14 @@ c -- a</code></pre>
   d -- a;
   d -- c;
 }</div></div>
-<center>
-
-</li>
+<center></li>
 </ul>
 <p>$$Matrix=<br>\begin{pmatrix}<br>   0 &amp; 0 &amp; 1 &amp; 1 \\<br>   0 &amp; 0 &amp; 1 &amp; 0 \\<br>   1 &amp; 1 &amp; 0 &amp; 1 \\<br>   1 &amp; 0 &amp; 1 &amp; 0 \\<br>\end{pmatrix}<br>$$</p>
 <ul>
-<li><p>Digraph</p>
-<center>
+<li>Digraph<center>
 <div><div class="graphviz">digraph test { 
-
-<p>  rankdir=LR;<br>  b -&gt; c;<br>  c -&gt;  a;<br>  d -&gt; a;<br>  d -&gt;  c;<br>}</div></div></p>
-</center>
-
-</li>
+ 
+  rankdir=LR;<br>  b -&gt; c;<br>  c -&gt;  a;<br>  d -&gt; a;<br>  d -&gt;  c;<br>}</div></div></center></li>
 </ul>
 <p>$$Matrix=<br>\begin{pmatrix}<br>   0 &amp; 0 &amp; 0 &amp; 0 \\<br>   0 &amp; 0 &amp; 1 &amp; 0 \\<br>   1 &amp; 0 &amp; 0 &amp; 0 \\<br>   1 &amp; 0 &amp; 1 &amp; 0 \\<br>\end{pmatrix}<br>$$</p>
 <hr>
@@ -403,7 +395,8 @@ noded [label= &quot;&#123;a | c&#125;&quot;];
 list:a-&gt;nodea;
 list:b-&gt;nodeb;
 list:c-&gt;nodec;
-list:d-&gt;noded;</code></pre>
+list:d-&gt;noded;
+</code></pre>
 <p>}</div></div></p>
 </center>
 
@@ -432,7 +425,8 @@ noded [label = &quot;&#123;a | c&#125;&quot;]
 
 list:b -&gt; nodeb
 list:c -&gt; nodec
-list:d -&gt; noded</code></pre>
+list:d -&gt; noded
+</code></pre>
 <p>}</div></div></p>
 </center>
 
@@ -455,8 +449,8 @@ list:d -&gt; noded</code></pre>
 
 <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
   <span class="hljs-comment">// Container to store both edges and vertex</span>
-  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;edge&lt;T&gt; &gt; edges;
-  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; vertexs;
+  std::vector&lt;edge&lt;T&gt; &gt; edges;
+  std::vector&lt;<span class="hljs-keyword">int</span>&gt; vertexs;
   ...
 &#125;
 </code></pre>
@@ -466,15 +460,17 @@ list:d -&gt; noded</code></pre>
     node[shape=record, fontsize=20];
     label = "\nContainer for vertexs"
 
-
-<pre><code>list_vertexs [label = &quot;vertex1 | vertex2 | vertex3 | ...&quot;]</code></pre>
+    
+<pre><code>list_vertexs [label = &quot;vertex1 | vertex2 | vertex3 | ...&quot;]
+</code></pre>
 <p>}</div></div></p>
 <div><div class="graphviz">digraph g {
     node[shape=record, fontsize=20];
     label = "\nContainer for edges"
 
-
-<pre><code>list_edges [label = &quot;edges1 | edges2 | edges3 | ...&quot;];</code></pre>
+    
+<pre><code>list_edges [label = &quot;edges1 | edges2 | edges3 | ...&quot;];
+</code></pre>
 <p>}</div></div></p>
 </center>
 
@@ -482,12 +478,13 @@ list:d -&gt; noded</code></pre>
 <div><div class="graphviz">graph test { 
     labelloc = "t"
     label = "Example graph\n\n"
-
+    
 <pre><code>rankdir=LR;
 b -- c;
 c -- a;
 d -- a;
-d -- c;</code></pre>
+d -- c;
+</code></pre>
 <p>}</div></div></p>
 </center>
 
@@ -508,9 +505,10 @@ d -- c;</code></pre>
 <div><div class="graphviz">graph test { 
     labelloc = "t"
     label = "First step\n\n"
-
+    
 <pre><code>rankdir=LR;
-a [ color=&quot;red&quot; ]</code></pre>
+a [ color=&quot;red&quot; ]
+</code></pre>
 <p>}</div></div></p>
 </center>
 
@@ -519,10 +517,11 @@ a [ color=&quot;red&quot; ]</code></pre>
 <div><div class="graphviz">graph test { 
     labelloc = "t"
     label = "Second step\n\n"
-
+    
 <pre><code>rankdir=LR;
 c [ color=&quot;red&quot; ]
-a -- c;</code></pre>
+a -- c;
+</code></pre>
 <p>}</div></div></p>
 </center>
 
@@ -531,11 +530,12 @@ a -- c;</code></pre>
 <div><div class="graphviz">graph test { 
     labelloc = "t"
     label = "Third step\n\n"
-
+    
 <pre><code>rankdir=LR;
 b [ color=&quot;red&quot; ]
 a -- c;
-c -- b;</code></pre>
+c -- b;
+</code></pre>
 <p>}</div></div></p>
 </center>
 
@@ -544,11 +544,12 @@ c -- b;</code></pre>
 <div><div class="graphviz">graph test { 
     labelloc = "t"
     label = "Fourth step\n\n"
-
+    
 <pre><code>rankdir=LR;
 c [ color=&quot;red&quot; ]
 a -- c;
-c -- b;</code></pre>
+c -- b;
+</code></pre>
 <p>}</div></div></p>
 </center>
 
@@ -557,12 +558,13 @@ c -- b;</code></pre>
 <div><div class="graphviz">graph test { 
     labelloc = "t"
     label = "Fifth step\n\n"
-
+    
 <pre><code>rankdir=LR;
 d [ color=&quot;red&quot; ]
 a -- c;
 c -- b;
-c -- d;</code></pre>
+c -- d;
+</code></pre>
 <p>}</div></div></p>
 </center>
 
@@ -571,12 +573,13 @@ c -- d;</code></pre>
 <div><div class="graphviz">graph test { 
     labelloc = "t"
     label = "Sixth step\n\n"
-
+    
 <pre><code>rankdir=LR;
 c [ color=&quot;red&quot; ]
 a -- c;
 c -- b;
-c -- d;</code></pre>
+c -- d;
+</code></pre>
 <p>}</div></div></p>
 </center>
 
@@ -585,12 +588,13 @@ c -- d;</code></pre>
 <div><div class="graphviz">graph test { 
     labelloc = "t"
     label = "Seventh step\n\n"
-
+    
 <pre><code>rankdir=LR;
 a [ color=&quot;red&quot; ]
 a -- c;
 c -- b;
-c -- d;</code></pre>
+c -- d;
+</code></pre>
 <p>}</div></div></p>
 </center>
 
@@ -605,14 +609,14 @@ c -- d;</code></pre>
   
   <span class="hljs-comment">// Set visited and print out</span>
   visited[start] = <span class="hljs-number">1</span>;
-  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; start &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;
+  std::cout &lt;&lt; start &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;
   
   <span class="hljs-comment">// Check for connected edges</span>
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">4</span>; ++i) &#123;
   
     <span class="hljs-comment">// if not visited and has the connection then move to that node</span>
     <span class="hljs-keyword">if</span> (graph[start][i] == <span class="hljs-number">1</span> &amp;&amp; !visited[i]) &#123;
-      DFS(graph, graph[start][i]);
+      <span class="hljs-built_in">DFS</span>(graph, graph[start][i]);
     &#125;
     
   &#125;
@@ -629,9 +633,10 @@ For example, we start from node <strong>a</strong>.</li>
 <div><div class="graphviz">graph test { 
     labelloc = "t";
     label = "First step\n\n";
-
+    
 <pre><code>rankdir=LR;
-a [ color=&quot;red&quot; ]</code></pre>
+a [ color=&quot;red&quot; ]
+</code></pre>
 <p>}</div></div></p>
 </center>
 
@@ -641,16 +646,18 @@ a [ color=&quot;red&quot; ]</code></pre>
     node[shape=record, fontsize=20];
     labelloc = "t";
     label = "Queue for saving visited node\n";
-
-<pre><code>list_vertexs [label = &quot;c&quot;];</code></pre>
+    
+<pre><code>list_vertexs [label = &quot;c&quot;];
+</code></pre>
 <p>}</div></div></p>
 <div><div class="graphviz">graph test { 
     labelloc = "t";
     label = "Second step\n\n";
-
+    
 <pre><code>rankdir=LR;
 a [ color=&quot;red&quot; ]
-a -- c</code></pre>
+a -- c
+</code></pre>
 <p>}</div></div></p>
 </center>
 
@@ -661,17 +668,19 @@ a -- c</code></pre>
     labelloc = "t";
     label = "Queue for saving visited node\n\n";
 
-
-<pre><code>list_vertexs [label = &quot;c | d&quot;]</code></pre>
+    
+<pre><code>list_vertexs [label = &quot;c | d&quot;]
+</code></pre>
 <p>}</div></div></p>
 <div><div class="graphviz">graph test { 
     labelloc = "t";
     label = "Third step\n\n";
-
+    
 <pre><code>rankdir=LR;
 a [ color=&quot;red&quot; ]
 a -- c
-a -- d</code></pre>
+a -- d
+</code></pre>
 <p>}</div></div></p>
 </center>
 
@@ -682,17 +691,19 @@ a -- d</code></pre>
     labelloc = "t";
     label = "Queue for saving visited node\n\n";
 
-
-<pre><code>list_vertexs [label = &quot;d&quot;]</code></pre>
+    
+<pre><code>list_vertexs [label = &quot;d&quot;]
+</code></pre>
 <p>}</div></div></p>
 <div><div class="graphviz">graph test { 
     labelloc = "t";
     label = "Fourth step\n\n";
-
+    
 <pre><code>rankdir=LR;
 c [ color=&quot;red&quot; ]
 a -- c
-a -- d</code></pre>
+a -- d
+</code></pre>
 <p>}</div></div></p>
 </center>
 
@@ -703,18 +714,20 @@ a -- d</code></pre>
     labelloc = "t";
     label = "Queue for saving visited node\n\n";
 
-
-<pre><code>list_vertexs [label = &quot;d | b&quot;]</code></pre>
+    
+<pre><code>list_vertexs [label = &quot;d | b&quot;]
+</code></pre>
 <p>}</div></div></p>
 <div><div class="graphviz">graph test { 
     labelloc = "t";
     label = "Fifth step\n\n";
-
+    
 <pre><code>rankdir=LR;
 c [ color=&quot;red&quot; ]
 a -- c;
 a -- d;
-c -- b;</code></pre>
+c -- b;
+</code></pre>
 <p>}</div></div></p>
 </center>
 
@@ -725,19 +738,21 @@ c -- b;</code></pre>
     labelloc = "t";
     label = "Queue for saving visited node\n\n";
 
-
-<pre><code>list_vertexs [label = &quot;b&quot;]</code></pre>
+    
+<pre><code>list_vertexs [label = &quot;b&quot;]
+</code></pre>
 <p>}</div></div></p>
 <div><div class="graphviz">graph test { 
     labelloc = "t";
     label = "Sixth step\n\n";
-
+    
 <pre><code>rankdir=LR;
 
 a -- c;
 a -- d;
 d [ color=&quot;red&quot; ]
-c -- b;</code></pre>
+c -- b;
+</code></pre>
 <p>}</div></div></p>
 </center>
 
@@ -748,18 +763,20 @@ c -- b;</code></pre>
     labelloc = "t";
     label = "Queue for saving visited node\n\n"
 
-
-<pre><code>list_vertexs [label = &quot;&quot;]</code></pre>
+    
+<pre><code>list_vertexs [label = &quot;&quot;]
+</code></pre>
 <p>}</div></div></p>
 <div><div class="graphviz">graph test { 
     labelloc = "t";
     label = "Seventh step\n\n";
-
+    
 <pre><code>rankdir=LR;
 a -- c;
 a -- d;
 c -- b;
-b [ color=&quot;red&quot; ]</code></pre>
+b [ color=&quot;red&quot; ]
+</code></pre>
 <p>}</div></div></p>
 </center>
 
@@ -769,36 +786,36 @@ b [ color=&quot;red&quot; ]</code></pre>
 <p>Code:</p>
 <pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">BFS</span><span class="hljs-params">(<span class="hljs-keyword">int</span> graph[][<span class="hljs-number">4</span>], <span class="hljs-keyword">int</span> start)</span> </span>&#123;
   <span class="hljs-comment">// queue for saving the visited node </span>
-  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">queue</span>&lt;<span class="hljs-keyword">int</span>&gt; node;
+  std::queue&lt;<span class="hljs-keyword">int</span>&gt; node;
   
   <span class="hljs-comment">// Array for checking visited</span>
   <span class="hljs-keyword">int</span> visited[<span class="hljs-number">4</span>] = &#123;<span class="hljs-number">0</span>&#125;;
   
   <span class="hljs-comment">// Push the start node into queue</span>
-  node.push(start);
+  node.<span class="hljs-built_in">push</span>(start);
   
   <span class="hljs-comment">// Start passing through the graph</span>
-  <span class="hljs-keyword">while</span> (!node.empty()) &#123;
+  <span class="hljs-keyword">while</span> (!node.<span class="hljs-built_in">empty</span>()) &#123;
   
     <span class="hljs-comment">// Get the node from queue</span>
-    <span class="hljs-keyword">int</span> current_node = node.front(); node.pop();
+    <span class="hljs-keyword">int</span> current_node = node.<span class="hljs-built_in">front</span>(); node.<span class="hljs-built_in">pop</span>();
     
     <span class="hljs-comment">// Print out the node</span>
-    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; current_node &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;
+    std::cout &lt;&lt; current_node &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;
     
     <span class="hljs-comment">// Check the connected edges</span>
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">4</span>; ++i) &#123;
     
       <span class="hljs-comment">// if not visited and has the connection then push to queue</span>
       <span class="hljs-keyword">if</span> (graph[current_node][i] == <span class="hljs-number">1</span> &amp;&amp; !visited[i]) &#123;
-        node.push(graph[current_node][i]);
+        node.<span class="hljs-built_in">push</span>(graph[current_node][i]);
       &#125;
       
     &#125;
     
   &#125;
   
-  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;
+  std::cout &lt;&lt; std::endl;
 &#125;</code></pre>
 <h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>So far, we have introduced the basic concept of graph. We introduced the types of graph, how can we express the graph using different structures and how to pass through the graph. In next article, we’re going to discuss how can we find the shortest path.</p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
@@ -966,7 +983,7 @@ b [ color=&quot;red&quot; ]</code></pre>
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'https://justin900429.github.io/posts/42539bac/';
+                this.page.url = 'https://https://justin900429.github.io/posts/42539bac/';
                 this.page.identifier = 'posts/42539bac/';
             };
             (function(){

@@ -44,7 +44,7 @@
     <meta name="description" content="[Series - 6] EDA介紹Acknowledge This article was written by Joyce.    See moreBack to the series page   前言今天的內容是做資料處理前一個很好的工具，它可以幫助我們認識資料的內容以及走向。  EDA(Exploratory data analysis)EDA翻譯成中文是探索式資料分析，是在對資料進行前">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Series - 6] EDA介紹">
-<meta property="og:url" content="justin900429.github.io/posts/3aa21bbe/index.html">
+<meta property="og:url" content="https://justin900429.github.io/posts/3aa21bbe/index.html">
 <meta property="og:site_name" content="Justin&#39;s sharing place">
 <meta property="og:description" content="[Series - 6] EDA介紹Acknowledge This article was written by Joyce.    See moreBack to the series page   前言今天的內容是做資料處理前一個很好的工具，它可以幫助我們認識資料的內容以及走向。  EDA(Exploratory data analysis)EDA翻譯成中文是探索式資料分析，是在對資料進行前">
 <meta property="og:locale" content="en_US">
@@ -85,7 +85,7 @@
 
     <!-- custom head -->
 
-<meta name="generator" content="Hexo 5.1.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
     <body>
         <div id="app">
@@ -292,13 +292,13 @@ data = pd.read_csv(<span class="hljs-string">&quot;weboggle_immc_selected.csv&qu
 <li>實驗組有 5000 人，將經歷未設承諾機制時期到設承諾機制時期(故有些人 treat_dummy 從 0 到 1 都有，有些人 treat_dummy 則始終為 1)。<h3 id="EDA分析"><a href="#EDA分析" class="headerlink" title="EDA分析"></a>EDA分析</h3><h4 id="基本設定檢查"><a href="#基本設定檢查" class="headerlink" title="基本設定檢查"></a>基本設定檢查</h4></li>
 </ul>
 </li>
-<li>ID : 題目提及人數為10000人，因此我們先檢查是否真的為10000人。由輸出結果可知是10000人沒錯。<pre><code class="hljs python">len(data[<span class="hljs-string">&quot;num_id&quot;</span>].unique())</code></pre>
-output<pre><code class="hljs plain">10000</code></pre>
+<li>ID : 題目提及人數為10000人，因此我們先檢查是否真的為10000人。由輸出結果可知是10000人沒錯。<pre><code class="hljs python"><span class="hljs-built_in">len</span>(data[<span class="hljs-string">&quot;num_id&quot;</span>].unique())</code></pre>
+output<pre><code class="hljs plaintext">10000</code></pre>
 <h4 id="異常值"><a href="#異常值" class="headerlink" title="異常值"></a>異常值</h4></li>
 <li>commit_type : 依照數據解釋，commit_type只會有<strong>沒有值</strong>、<strong>1</strong>、<strong>1.5</strong>、<strong>2</strong>，四種可能值。使用unique()的函數檢查所有可能值，由輸出結果可知commit_type的值可知不合理數字共有 <strong>1.3333…</strong>及 <strong>1.6666…</strong>兩種，可以考慮刪除這些資料。<pre><code class="hljs python">data[<span class="hljs-string">&quot;commit_type&quot;</span>].unique() <span class="hljs-comment"># 查看不重複的元素</span></code></pre>
-output<pre><code class="hljs plain">array([ nan, 1., 2., 1.5, 1.3333334, 1.6666666])</code></pre></li>
+output<pre><code class="hljs plaintext">array([ nan, 1., 2., 1.5, 1.3333334, 1.6666666])</code></pre></li>
 <li>commit_limit : limit是場數限制的意思，亦即輸入的值要可以真的發揮到限制的功用才行。由輸出結果可以看出有極少數玩家輸入的 commit_limit 數值顯然無參考價值，，實際上根本不可能玩這麼多場數，可以考慮以沒有輸入來取代這些值。<pre><code class="hljs python">data[<span class="hljs-string">&quot;commit_limit&quot;</span>].unique()</code></pre>
-output<pre><code class="hljs plain">array([1.000000e+00, 2.000000e+00, 3.000000e+00, 4.000000e+00,
+output<pre><code class="hljs plaintext">array([1.000000e+00, 2.000000e+00, 3.000000e+00, 4.000000e+00,
        5.000000e+00, 6.000000e+00, 7.000000e+00, 8.000000e+00,
        9.000000e+00, 1.000000e+01, 1.100000e+01, 1.200000e+01,
        1.300000e+01, 1.400000e+01, 1.500000e+01, 1.600000e+01,
@@ -346,15 +346,15 @@ plt.ylabel(<span class="hljs-string">&quot;numbers of people&quot;</span>)
 plt.hist(result_session[<span class="hljs-string">&quot;session&quot;</span>])<span class="hljs-comment"># 繪製直方圖</span>
 plt.show() <span class="hljs-comment"># 顯現圖形 </span></code></pre>
 <img src="https://i.imgur.com/06PSPTr.png"><br>因此我們把局數縮小到只考慮20局以內。考慮20局以內的玩家，可以由下圖看出玩家的分布大概呈指數下降。<pre><code class="hljs python">list_20 = []
-<span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>,<span class="hljs-number">21</span>):
+<span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>,<span class="hljs-number">21</span>):
     list_20.append(<span class="hljs-number">0</span>)
 
 result_session = pd.read_csv(<span class="hljs-string">&quot;count.csv&quot;</span>)
 
 <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> result_session[<span class="hljs-string">&quot;session&quot;</span>]:
   <span class="hljs-keyword">if</span>(i &lt;= <span class="hljs-number">20</span>):
-      list_20[i<span class="hljs-number">-1</span>] += <span class="hljs-number">1</span>
-count = list(range(<span class="hljs-number">1</span>,<span class="hljs-number">21</span>))
+      list_20[i-<span class="hljs-number">1</span>] += <span class="hljs-number">1</span>
+count = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>,<span class="hljs-number">21</span>))
 plt.title(<span class="hljs-string">&quot;Distribution (1 ≦ Si ≦ 20)&quot;</span>)
 plt.xlabel(<span class="hljs-string">&quot;Si : sessions&quot;</span>)     
 plt.ylabel(<span class="hljs-string">&quot;numbers of people&quot;</span>)
@@ -371,7 +371,7 @@ time_data = &#123;<span class="hljs-string">&quot;num_id&quot;</span>: [], <span
 
 <span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> num_id:
     id_temp = data[data[<span class="hljs-string">&quot;num_id&quot;</span>] == num]
-    length = len(id_temp)
+    length = <span class="hljs-built_in">len</span>(id_temp)
     
     <span class="hljs-comment"># get each ID first play time and last play time</span>
     time_first = id_temp.iloc[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]
@@ -386,8 +386,8 @@ time_data = &#123;<span class="hljs-string">&quot;num_id&quot;</span>: [], <span
     timeArray_last = time.strptime(time_last, <span class="hljs-string">&quot;%d %b %Y %H:%M:%S&quot;</span>)
     
     <span class="hljs-comment"># chage the standard format to seconds</span>
-    first_second = int(time.mktime(timeArray_first))
-    last_second = int(time.mktime(timeArray_last))
+    first_second = <span class="hljs-built_in">int</span>(time.mktime(timeArray_first))
+    last_second = <span class="hljs-built_in">int</span>(time.mktime(timeArray_last))
     
     <span class="hljs-comment"># calculate the difference and convert to year</span>
     <span class="hljs-comment"># 31536000 seconds = 1 year</span>
@@ -585,7 +585,7 @@ plt.show() <span class="hljs-comment"># 顯現圖形 </span></code></pre>
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'https://justin900429.github.io/posts/3aa21bbe/';
+                this.page.url = 'https://https://justin900429.github.io/posts/3aa21bbe/';
                 this.page.identifier = 'posts/3aa21bbe/';
             };
             (function(){

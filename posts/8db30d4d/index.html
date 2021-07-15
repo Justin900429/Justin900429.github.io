@@ -44,7 +44,7 @@
     <meta name="description" content="String pattern matching - KMPSee moreBack to the series page   IntroductionIn this article, we’re going to talk about one of the string mattern algorithm - Knuth-Morris-Pratt algorithm。 Also, we’ll co">
 <meta property="og:type" content="article">
 <meta property="og:title" content="String pattern matching - KMP">
-<meta property="og:url" content="justin900429.github.io/posts/8db30d4d/index.html">
+<meta property="og:url" content="https://justin900429.github.io/posts/8db30d4d/index.html">
 <meta property="og:site_name" content="Justin&#39;s sharing place">
 <meta property="og:description" content="String pattern matching - KMPSee moreBack to the series page   IntroductionIn this article, we’re going to talk about one of the string mattern algorithm - Knuth-Morris-Pratt algorithm。 Also, we’ll co">
 <meta property="og:locale" content="en_US">
@@ -81,7 +81,7 @@
 
     <!-- custom head -->
 
-<meta name="generator" content="Hexo 5.1.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
     <body>
         <div id="app">
@@ -216,14 +216,14 @@ window.onscroll = () => {
 </div></blockquote>
 
 <h2 id="String-pattern-matching"><a href="#String-pattern-matching" class="headerlink" title="String pattern matching"></a>String pattern matching</h2><p>Before we start today journey, let’s recall what is string pattern mathcing. Suppose there is a <strong>string “abcaccaacc”</strong> and <strong>pattern “aac”</strong>. We want to find out whether the pattern <mark> had appear in the string</mark>. This is so-called string pattern matching.</p>
-<pre><code class="hljs plain">string: abcaccaacc
+<pre><code class="hljs plaintext">string: abcaccaacc
 pattern: aac</code></pre>
 
 <center><img src="https://i.imgur.com/YDX3rGw.jpg" width=400/></center>
 <br>
 
 <h2 id="Brute-force"><a href="#Brute-force" class="headerlink" title="Brute force"></a>Brute force</h2><p>The most common approach we will apply is to search the whole pattern <strong>one by one</strong>. If there are any character in string fail to match the character in pattern, move all the pattern to the next place. Until all the pattern was found or the string reach the end, the algorithm will then stop.</p>
-<pre><code class="hljs plain">Until reach the end or match
+<pre><code class="hljs plaintext">Until reach the end or match
     For each character in pattern
         if (match)
             Continue
@@ -237,16 +237,16 @@ end</code></pre>
 <h3 id="Code-for-brute-force"><a href="#Code-for-brute-force" class="headerlink" title="Code for brute force"></a>Code for brute force</h3><pre><code class="hljs cpp"><span class="hljs-comment">/*</span>
 <span class="hljs-comment">Brute force for string pattern matching</span>
 <span class="hljs-comment">*/</span>
-<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">brute_search_patter</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&amp; String, </span></span>
-<span class="hljs-function"><span class="hljs-params">                         <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&amp; pattern)</span> </span>&#123;
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">brute_search_patter</span><span class="hljs-params">(<span class="hljs-keyword">const</span> std::string&amp; String, </span></span>
+<span class="hljs-params"><span class="hljs-function">                         <span class="hljs-keyword">const</span> std::string&amp; pattern)</span> </span>&#123;
     <span class="hljs-comment">// Seach all the character in String</span>
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; String.size(); ++i) &#123;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; String.<span class="hljs-built_in">size</span>(); ++i) &#123;
         <span class="hljs-comment">// Flag to check all the pattern matched</span>
         <span class="hljs-keyword">bool</span> correct = <span class="hljs-literal">true</span>;
         
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; pattern.size(); ++j) &#123;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; pattern.<span class="hljs-built_in">size</span>(); ++j) &#123;
             <span class="hljs-comment">// If our of range, return false</span>
-            <span class="hljs-keyword">if</span> (i + j &gt;= String.size()) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+            <span class="hljs-keyword">if</span> (i + j &gt;= String.<span class="hljs-built_in">size</span>()) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
             
             <span class="hljs-comment">// Check if pattern is match or not</span>
             <span class="hljs-keyword">if</span> (String[i + j] != pattern[i]) &#123;
@@ -270,7 +270,7 @@ end</code></pre>
 <center><img src="https://i.imgur.com/YNzX8qP.jpg" width=550/></center>
 <br>
 
-<h3 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h3><pre><code class="hljs plain">cur_of_string &lt;- 0
+<h3 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h3><pre><code class="hljs plaintext">cur_of_string &lt;- 0
 cur_of_pattern &lt;- 0
 
 Until read the end or found pattern
@@ -280,7 +280,7 @@ Until read the end or found pattern
             cur_of_pattern++
         else
             i &lt;- next[cur_of_pattern]
-            if (i &#x3D;&#x3D; -1)
+            if (i == -1)
                 cur_of_string++
                 cur_of_pattern++
                 break
@@ -298,7 +298,7 @@ end</code></pre>
 <p>and <strong>suffix</strong> with length k in:</p>
 <p>$$<br>S[n - k:n] = S_{n-k}S_{n-k+1}…S_{n-1}<br>$$</p>
 <h3 id="Next-table"><a href="#Next-table" class="headerlink" title="Next table"></a>Next table</h3><p>So how can we build the next table? We’ll use the substring of the string to build the next table. We use the string <strong>“ABCAB”</strong> to be our example. First, we should take all the sunstring except only the first character into account. Therefore, we should consider:</p>
-<pre><code class="hljs plain">AB     -- substring 2
+<pre><code class="hljs plaintext">AB     -- substring 2
 ABC    -- substring 3
 ABCA   -- substring 4
 ABCAB  -- substring 5</code></pre>
@@ -307,23 +307,23 @@ ABCAB  -- substring 5</code></pre>
 <p>The number of the substring is equal to the length of the pattern.</p>
 </blockquote>
 <p>Then for each substring, we find the maximum length that make prefix and suffix of substring the same. For example</p>
-<pre><code class="hljs plain"># For substring 2
-maximum length &#x3D; 0 -&gt; AB : AB
+<pre><code class="hljs plaintext"># For substring 2
+maximum length = 0 -&gt; AB : AB
 
 ---------------------------
 
 # For substring 3
-maximum length &#x3D; 0 -&gt; unable to find
+maximum length = 0 -&gt; unable to find
 
 ---------------------------
 
 # For substring 4
-maximum length &#x3D; 1 -&gt; A : A
+maximum length = 1 -&gt; A : A
 
 ---------------------------
 
 # For substring 5
-maximum length &#x3D; 2 -&gt; AB : AB</code></pre>
+maximum length = 2 -&gt; AB : AB</code></pre>
 
 <p>Also, we make the first index to be 0. Therefore, our next table should be:</p>
 <p>$$<br>next=<br>\begin{pmatrix}<br>0, \ 0, \ 0, \ 1, \ 2<br>\end{pmatrix}<br>$$</p>
@@ -336,12 +336,12 @@ maximum length &#x3D; 2 -&gt; AB : AB</code></pre>
 <br>
 
 <h3 id="Program"><a href="#Program" class="headerlink" title="Program"></a>Program</h3><p>To find the next table, we use dynamic programming to build the table.</p>
-<pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">find_next</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&amp; pattern)</span> </span>&#123;
+<pre><code class="hljs cpp"><span class="hljs-function">std::vector&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">find_next</span><span class="hljs-params">(<span class="hljs-keyword">const</span> std::string&amp; pattern)</span> </span>&#123;
     <span class="hljs-comment">// Create the nex table</span>
-    <span class="hljs-function"><span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">next</span><span class="hljs-params">(pattern.size(), <span class="hljs-number">0</span>)</span></span>;
+    <span class="hljs-function">std::vector&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">next</span><span class="hljs-params">(pattern.size(), <span class="hljs-number">0</span>)</span></span>;
     
     <span class="hljs-comment">// Find the next table for each character</span>
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; pattern.size(); ++i) &#123;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; pattern.<span class="hljs-built_in">size</span>(); ++i) &#123;
         <span class="hljs-comment">// Used dynamic programming</span>
         <span class="hljs-keyword">if</span> (pattern[next[i - <span class="hljs-number">1</span>]] == pattern[i]) &#123;
             next[i] = next[i - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>;
@@ -352,7 +352,7 @@ maximum length &#x3D; 2 -&gt; AB : AB</code></pre>
     &#125;
     
     <span class="hljs-comment">// Move right one place and set next[0] to -1</span>
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = pattern.size() - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">1</span>; --i) &#123;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = pattern.<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">1</span>; --i) &#123;
         next[i] = next[i - <span class="hljs-number">1</span>];
     &#125;
     next[<span class="hljs-number">0</span>] = <span class="hljs-number">-1</span>;
@@ -361,20 +361,20 @@ maximum length &#x3D; 2 -&gt; AB : AB</code></pre>
 &#125;</code></pre>
 
 <h3 id="KMP-search"><a href="#KMP-search" class="headerlink" title="KMP search"></a>KMP search</h3><p>Using the suedocode above, we can build our KMP search. The only thing that we didn’t mention is the multiple search. If we finish our first search, we can directly <strong>behave like a mismatching</strong> and continue searching for the next matched pattern.</p>
-<pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">KMP_search</span><span class="hljs-params">(<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&amp; String, <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&amp; pattern)</span> </span>&#123;
+<pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">KMP_search</span><span class="hljs-params">(std::string&amp; String, std::string&amp; pattern)</span> </span>&#123;
     <span class="hljs-comment">// Get the next table</span>
-    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; next_table = find_next(pattern);
+    std::vector&lt;<span class="hljs-keyword">int</span>&gt; next_table = <span class="hljs-built_in">find_next</span>(pattern);
     
     <span class="hljs-keyword">int</span> cur_str = <span class="hljs-number">0</span>;
     <span class="hljs-keyword">int</span> cur_pat = <span class="hljs-number">0</span>;
     
-    <span class="hljs-keyword">while</span> (cur_str &lt; String.size()) &#123;
+    <span class="hljs-keyword">while</span> (cur_str &lt; String.<span class="hljs-built_in">size</span>()) &#123;
         <span class="hljs-comment">// If already found all the pattern,</span>
         <span class="hljs-comment">// behave like mismatch to continue</span>
-        <span class="hljs-keyword">if</span> (cur_pat == pattern.size() - <span class="hljs-number">1</span> &amp;&amp; 
+        <span class="hljs-keyword">if</span> (cur_pat == pattern.<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span> &amp;&amp; 
                 String[cur_str] == pattern[cur_pat]) &#123;
-            <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Found pattern at index &quot;</span> &lt;&lt; \
-                cur_str - cur_pat &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;
+            std::cout &lt;&lt; <span class="hljs-string">&quot;Found pattern at index &quot;</span> &lt;&lt; \
+                cur_str - cur_pat &lt;&lt; std::endl;
                 
             <span class="hljs-keyword">int</span> move_to = next_table[cur_pat]; <span class="hljs-comment">// Move next</span>
             
@@ -572,7 +572,7 @@ maximum length &#x3D; 2 -&gt; AB : AB</code></pre>
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'https://justin900429.github.io/posts/8db30d4d/';
+                this.page.url = 'https://https://justin900429.github.io/posts/8db30d4d/';
                 this.page.identifier = 'posts/8db30d4d/';
             };
             (function(){

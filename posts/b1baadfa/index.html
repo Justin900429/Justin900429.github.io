@@ -44,7 +44,7 @@
     <meta name="description" content="[Series - 9] 實戰演練Acknowledge This article was written by Joyce.    See moreBack to the series page   前言接下來，我們將帶各位實際分析一筆數據，並從中獲得資訊。  波士頓房價評估使用sklearn提供的數據，來做分析，如此一來就不用再引入csv檔，而我們用來舉例的是**load_boston()**">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Series - 9] 實戰演練">
-<meta property="og:url" content="justin900429.github.io/posts/b1baadfa/index.html">
+<meta property="og:url" content="https://justin900429.github.io/posts/b1baadfa/index.html">
 <meta property="og:site_name" content="Justin&#39;s sharing place">
 <meta property="og:description" content="[Series - 9] 實戰演練Acknowledge This article was written by Joyce.    See moreBack to the series page   前言接下來，我們將帶各位實際分析一筆數據，並從中獲得資訊。  波士頓房價評估使用sklearn提供的數據，來做分析，如此一來就不用再引入csv檔，而我們用來舉例的是**load_boston()**">
 <meta property="og:locale" content="en_US">
@@ -82,7 +82,7 @@
 
     <!-- custom head -->
 
-<meta name="generator" content="Hexo 5.1.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
     <body>
         <div id="app">
@@ -229,7 +229,7 @@ df_data = pd.DataFrame(data.data, columns=data.feature_names) <span class="hljs-
 <h2 id="資料內容"><a href="#資料內容" class="headerlink" title="資料內容"></a>資料內容</h2><p>在分析資料前，一定要先了解有多少筆資料，每個特徵的意義，因此我們先將資料列印出來討論。</p>
 <pre><code class="hljs python">df_data <span class="hljs-comment">#　查看資料</span></code></pre>
 <p>output</p>
-<pre><code class="hljs plain">
+<pre><code class="hljs plaintext">
         CRIM	ZN	INDUS	CHAS	NOX	RM	AGE	DIS	RAD	TAX	PTRATIO	B	LSTAT
 0	0.00632	18.0	2.31	0.0	0.538	6.575	65.2	4.0900	1.0	296.0	15.3	396.90	4.98
 1	0.02731	0.0	7.07	0.0	0.469	6.421	78.9	4.9671	2.0	242.0	17.8	396.90	9.14
@@ -260,7 +260,7 @@ df_data = pd.DataFrame(data.data, columns=data.feature_names) <span class="hljs-
 <li>PTRATIO : 每個城鎮的師生比例(pupil-teacher ratio by town)</li>
 <li>B : 黑人比例(值為$1000\times(Bk-0.63)^2$)(1000(Bk - 0.63)^2 where Bk is the proportion of blacks by town)</li>
 <li>LSTAT : 中下階級的比率(% lower status of the population)<pre><code class="hljs python">data.target <span class="hljs-comment"># 查看正確的房價</span></code></pre>
-output<pre><code class="hljs plain">array([24. , 21.6, 34.7, 33.4, 36.2, 28.7, 22.9, 27.1, 16.5, 18.9, 15. ,
+output<pre><code class="hljs plaintext">array([24. , 21.6, 34.7, 33.4, 36.2, 28.7, 22.9, 27.1, 16.5, 18.9, 15. ,
        18.9, 21.7, 20.4, 18.2, 19.9, 23.1, 17.5, 20.2, 18.2, 13.6, 19.6,
        15.2, 14.5, 15.6, 13.9, 16.6, 14.8, 18.4, 21. , 12.7, 14.5, 13.2,
        13.1, 13.5, 18.9, 20. , 21. , 24.7, 30.8, 34.9, 26.6, 25.3, 24.7,......])</code></pre>
@@ -271,9 +271,9 @@ output<pre><code class="hljs plain">array([24. , 21.6, 34.7, 33.4, 36.2, 28.7, 2
 </ul>
 <hr>
 <h2 id="檢查資料"><a href="#檢查資料" class="headerlink" title="檢查資料"></a>檢查資料</h2><h3 id="缺失值檢查"><a href="#缺失值檢查" class="headerlink" title="缺失值檢查"></a>缺失值檢查</h3><p>我們先查看每一行是否具有缺失值，有的話再來決定如何處理它。由下面的輸出資訊，我們可以知道所有的資料都是完整的。</p>
-<pre><code class="hljs python">df_data.isnull().any() <span class="hljs-comment"># 檢查是否有缺失值</span></code></pre>
+<pre><code class="hljs python">df_data.isnull().<span class="hljs-built_in">any</span>() <span class="hljs-comment"># 檢查是否有缺失值</span></code></pre>
 <p>output</p>
-<pre><code class="hljs plain">CRIM       False
+<pre><code class="hljs plaintext">CRIM       False
 ZN         False
 INDUS      False
 CHAS       False
@@ -293,15 +293,15 @@ dtype: bool</code></pre>
   <span class="hljs-keyword">if</span>(i &lt; <span class="hljs-number">0</span> <span class="hljs-keyword">or</span> i &gt; <span class="hljs-number">100</span>): 
     flag = <span class="hljs-literal">True</span>
     <span class="hljs-keyword">break</span>
-print(flag)</code></pre>
+<span class="hljs-built_in">print</span>(flag)</code></pre>
 <p>output</p>
-<pre><code class="hljs plain">False</code></pre>
+<pre><code class="hljs plaintext">False</code></pre>
 <blockquote>
 <p>其餘特徵的檢查，把CRIM這個特徵改掉就好，而執行完你會發現全部的結果都是False。</p>
 </blockquote>
 <pre><code class="hljs python">df_data[<span class="hljs-string">&quot;CHAS&quot;</span>].unique()</code></pre>
 <p>output</p>
-<pre><code class="hljs plain">array([0., 1.])</code></pre>
+<pre><code class="hljs plaintext">array([0., 1.])</code></pre>
 <hr>
 <h2 id="確認目標"><a href="#確認目標" class="headerlink" title="確認目標"></a>確認目標</h2><p>這份資料提供了波士頓各個城鎮的資料，像是<strong>犯罪率</strong>、<strong>師生比</strong>、<strong>平均房間數</strong>，每一個特徵都有可能會影響房價，而我們的目標就是使用這些特徵來<strong>預測出房價</strong>。</p>
 <hr>
@@ -332,8 +332,8 @@ plt.xlabel(<span class="hljs-string">&quot;house price&quot;</span>) <span class
 plt.ylabel(<span class="hljs-string">&quot;number of rooms&quot;</span>) <span class="hljs-comment"># y軸的標題</span>
 plt.scatter(x, y) <span class="hljs-comment"># 繪製散點圖</span>
 plt.show() <span class="hljs-comment"># 顯示圖形</span></code></pre>
-<img src="https://i.imgur.com/L0QfyDa.png"><h3 id="黑人的比率"><a href="#黑人的比率" class="headerlink" title="黑人的比率"></a>黑人的比率</h3>在初步分析的時候，我們推測黑人比率越高房價會越低，顯然對波士頓的房價不適用。<pre><code class="hljs pytho">x &#x3D; data.target # 房價數據
-y &#x3D; df_data[&quot;B&quot;] # 黑人比率數據
+<img src="https://i.imgur.com/L0QfyDa.png"><h3 id="黑人的比率"><a href="#黑人的比率" class="headerlink" title="黑人的比率"></a>黑人的比率</h3>在初步分析的時候，我們推測黑人比率越高房價會越低，顯然對波士頓的房價不適用。<pre><code class="hljs pytho">x = data.target # 房價數據
+y = df_data[&quot;B&quot;] # 黑人比率數據
 
 plt.xlabel(&quot;house price&quot;) # x軸的標題
 plt.ylabel(&quot;proportion of blacks&quot;) # y軸的標題
@@ -343,9 +343,9 @@ plt.show() # 顯示圖形</code></pre>
 </ol>
 <hr>
 <h2 id="各特徵間的相關性"><a href="#各特徵間的相關性" class="headerlink" title="各特徵間的相關性"></a>各特徵間的相關性</h2><p>由下表可知每個特徵各自的相關性，通常我們會定義大於0.7為高度相關，像是TAX與RAD之間的相關係數高達0.91，我們可以去思考其背後的意義，將數據變的更有價值。</p>
-<pre><code class="hljs pthon">df_data.corr(method&#x3D;&quot;pearson&quot;)</code></pre>
+<pre><code class="hljs pthon">df_data.corr(method=&quot;pearson&quot;)</code></pre>
 <p>output</p>
-<pre><code class="hljs plain">
+<pre><code class="hljs plaintext">
         CRIM	       ZN	       INDUS	       CHAS	       NOX	       RM	       AGE	       DIS	       RAD	       TAX	       PTRATIO	       B	       LSTAT
 CRIM	1.000000	-0.200469	0.406583	-0.055892	0.420972	-0.219247	0.352734	-0.379670	0.625505	0.582764	0.289946	-0.385064	0.455621
 ZN	-0.200469	1.000000	-0.533828	-0.042697	-0.516604	0.311991	-0.569537	0.664408	-0.311948	-0.314563	-0.391679	0.175520	-0.412995
@@ -391,7 +391,7 @@ plt.show() <span class="hljs-comment"># 察看結果</span></code></pre>
 <p>output<br><img src="https://i.imgur.com/7SU1pta.png"></p>
 <pre><code class="hljs python">lnregr.score(x_train, y_train) <span class="hljs-comment"># 訓練模型的正確率</span></code></pre>
 <p>output</p>
-<pre><code class="hljs plain">0.7103879080674731</code></pre>
+<pre><code class="hljs plaintext">0.7103879080674731</code></pre>
 <p>思考 : 為甚麼正確率這麼低呢？因為線性迴歸的的方程式為一條直線，當特徵與房價不成線性關係的話，那麼再怎麼分析，正確率都不會高。<br>解決：</p>
 <ol>
 <li>只討論呈線性關係的特徵</li>
@@ -446,7 +446,7 @@ plt.show() <span class="hljs-comment"># 察看結果</span></code></pre>
 <p>output<br><img src="https://i.imgur.com/elmuU1l.png"></p>
 <pre><code class="hljs python">lnregr.score(x_train, y_train) <span class="hljs-comment"># 訓練模型的正確率</span></code></pre>
 <p>output</p>
-<pre><code class="hljs plain">0.7723543146059919</code></pre>
+<pre><code class="hljs plaintext">0.7723543146059919</code></pre>
 <p>0.7609335561698132</p>
 <hr>
 <h2 id="PCA降維"><a href="#PCA降維" class="headerlink" title="PCA降維"></a>PCA降維</h2><p>因為數據只有506筆，基本上當數據量越少，所需的維度就要少，因此我們使用PCA降維的方式，它是屬於線性的降維。</p>
@@ -489,7 +489,7 @@ plt.show() <span class="hljs-comment"># 察看結果</span></code></pre>
 
 <pre><code class="hljs python">lnregr.score(x_train, y_train) <span class="hljs-comment"># 訓練模型的正確率</span></code></pre>
 <p>output</p>
-<pre><code class="hljs plain">0.7723543146059919</code></pre>
+<pre><code class="hljs plaintext">0.7723543146059919</code></pre>
 
 <hr>
 <h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>我們在這篇文章僅做了一些初步的分析，尚未找到最好的模型，可以考慮SVM或決策樹，但是它的分析步驟，就類似這樣模式，在分析的過程中延伸問題，改變問題，尋找更好的方向，得到更加有用的結果。</p>
@@ -614,7 +614,7 @@ plt.show() <span class="hljs-comment"># 察看結果</span></code></pre>
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'https://justin900429.github.io/posts/b1baadfa/';
+                this.page.url = 'https://https://justin900429.github.io/posts/b1baadfa/';
                 this.page.identifier = 'posts/b1baadfa/';
             };
             (function(){

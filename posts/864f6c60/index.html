@@ -44,7 +44,7 @@
     <meta name="description" content="[Series - 4] SeabornAcknowledge This article was written by Joyce.    See moreBack to the series page   前言今天延續上一篇說明繪圖的工具，其中 Seaborn 有很多很強大的功能，也同時有更多的美化效果。 實作連結 colab - Seaborn  Seaborn Seaborn也是Python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Series - 4] Seaborn">
-<meta property="og:url" content="justin900429.github.io/posts/864f6c60/index.html">
+<meta property="og:url" content="https://justin900429.github.io/posts/864f6c60/index.html">
 <meta property="og:site_name" content="Justin&#39;s sharing place">
 <meta property="og:description" content="[Series - 4] SeabornAcknowledge This article was written by Joyce.    See moreBack to the series page   前言今天延續上一篇說明繪圖的工具，其中 Seaborn 有很多很強大的功能，也同時有更多的美化效果。 實作連結 colab - Seaborn  Seaborn Seaborn也是Python">
 <meta property="og:locale" content="en_US">
@@ -96,7 +96,7 @@
 
     <!-- custom head -->
 
-<meta name="generator" content="Hexo 5.1.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
     <body>
         <div id="app">
@@ -245,7 +245,7 @@ window.onscroll = () => {
 <h2 id="環境準備"><a href="#環境準備" class="headerlink" title="環境準備"></a>環境準備</h2><p>如果想用自己的電腦來跑的話需要安裝 Package</p>
 <pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> For anoconda (recommend)</span>
 <span class="hljs-meta">$</span><span class="bash"> conda install seaborn</span>
-
+<span class="hljs-meta"></span>
 <span class="hljs-meta">#</span><span class="bash"> For pip</span>
 <span class="hljs-meta">$</span><span class="bash"> pip install seaborn</span></code></pre>
 
@@ -269,7 +269,7 @@ y = [<span class="hljs-number">3</span>,<span class="hljs-number">1</span>,<span
 plt.title(<span class="hljs-string">&quot;change background&quot;</span>) <span class="hljs-comment"># 圖的標題</span>
 plt.xlabel(<span class="hljs-string">&quot;x axis&quot;</span>) <span class="hljs-comment"># x軸的名稱</span>
 plt.ylabel(<span class="hljs-string">&quot;y axis&quot;</span>) <span class="hljs-comment"># y軸的名稱</span>
-sns.set(style = <span class="hljs-string">&quot;whitegrid&quot;</span>) <span class="hljs-comment"># 白色網格背景</span>
+sns.<span class="hljs-built_in">set</span>(style = <span class="hljs-string">&quot;whitegrid&quot;</span>) <span class="hljs-comment"># 白色網格背景</span>
 plt.bar(x, y) <span class="hljs-comment"># 繪製長條圖</span>
 plt.show() <span class="hljs-comment"># 顯現圖形 </span></code></pre>
 <p><img src="https://i.imgur.com/5uk98ah.png"></p>
@@ -289,7 +289,7 @@ plt.title(<span class="hljs-string">&quot;despine practice&quot;</span>) <span c
 plt.xlabel(<span class="hljs-string">&quot;x axis&quot;</span>) <span class="hljs-comment"># x軸的名稱</span>
 plt.ylabel(<span class="hljs-string">&quot;y axis&quot;</span>) <span class="hljs-comment"># y軸的名稱</span>
 
-sns.set(style = <span class="hljs-string">&quot;white&quot;</span>) <span class="hljs-comment"># 白色網格背景</span>
+sns.<span class="hljs-built_in">set</span>(style = <span class="hljs-string">&quot;white&quot;</span>) <span class="hljs-comment"># 白色網格背景</span>
 sns.despine(top = <span class="hljs-literal">True</span>, right = <span class="hljs-literal">True</span>) <span class="hljs-comment"># 移除上方跟右方的框線 </span>
 plt.bar(x, y) <span class="hljs-comment"># 繪製長條圖</span>
 plt.show() <span class="hljs-comment"># 顯現圖形 </span></code></pre>
@@ -304,13 +304,13 @@ plt.show() <span class="hljs-comment"># 顯現圖形 </span></code></pre>
 <span class="hljs-keyword">import</span> seaborn <span class="hljs-keyword">as</span> sns <span class="hljs-comment"># 引入Seaborn</span>
 <span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt <span class="hljs-comment"># 引入matplotlib的函數</span>
 
-x = np.arange(<span class="hljs-number">-180</span>, <span class="hljs-number">180</span>)
+x = np.arange(-<span class="hljs-number">180</span>, <span class="hljs-number">180</span>)
 y = np.sin(x * np.pi / <span class="hljs-number">180.0</span>)
 
 plt.title(<span class="hljs-string">&quot;context practice&quot;</span>) <span class="hljs-comment"># 圖的標題</span>
 plt.xlabel(<span class="hljs-string">&quot;x axis&quot;</span>) <span class="hljs-comment"># x軸的名稱</span>
 plt.ylabel(<span class="hljs-string">&quot;y axis&quot;</span>) <span class="hljs-comment"># y軸的名稱</span>
-sns.set(context = <span class="hljs-string">&quot;talk&quot;</span>) <span class="hljs-comment"># 改變線條的粗細</span>
+sns.<span class="hljs-built_in">set</span>(context = <span class="hljs-string">&quot;talk&quot;</span>) <span class="hljs-comment"># 改變線條的粗細</span>
 plt.plot(x, y) <span class="hljs-comment"># 繪製x,y軸的圖</span>
 plt.show() <span class="hljs-comment"># 顯現圖形</span></code></pre>
 <img src="https://i.imgur.com/wkJIehs.png"></li>
@@ -586,7 +586,7 @@ plt.show() <span class="hljs-comment"># 顯現圖形 </span></code></pre>
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'https://justin900429.github.io/posts/864f6c60/';
+                this.page.url = 'https://https://justin900429.github.io/posts/864f6c60/';
                 this.page.identifier = 'posts/864f6c60/';
             };
             (function(){

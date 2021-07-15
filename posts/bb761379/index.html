@@ -44,7 +44,7 @@
     <meta name="description" content="ContentSee moreBack to series page  OpenCV with Python – 1 OpenCV with Python – 2 OpenCV with Python – 3 OpenCV with Python – 4 OpenCV with Python – 5    IntroductionIn today’s tutorial, we’re going t">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OpenCV with Python - 3">
-<meta property="og:url" content="justin900429.github.io/posts/bb761379/index.html">
+<meta property="og:url" content="https://justin900429.github.io/posts/bb761379/index.html">
 <meta property="og:site_name" content="Justin&#39;s sharing place">
 <meta property="og:description" content="ContentSee moreBack to series page  OpenCV with Python – 1 OpenCV with Python – 2 OpenCV with Python – 3 OpenCV with Python – 4 OpenCV with Python – 5    IntroductionIn today’s tutorial, we’re going t">
 <meta property="og:locale" content="en_US">
@@ -76,7 +76,7 @@
 
     <!-- custom head -->
 
-<meta name="generator" content="Hexo 5.1.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
     <body>
         <div id="app">
@@ -236,9 +236,7 @@ cv2.waitKey(<span class="hljs-number">0</span>)
 cv2.destroyAllWindows()
 cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
 <center><img src=https://i.imgur.com/7nJCIm4.jpg width=450/></center>
-<center><b>Origin image</b></center></br>
-
-</li>
+<center><b>Origin image</b></center></br></li>
 </ul>
 <center><img src=https://i.imgur.com/4XChJqz.jpg width=250/></center>
 <center><b>Cropped image</b></center>
@@ -247,8 +245,7 @@ cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
 <ul>
 <li><p><strong>Circle</strong></p>
 <ul>
-<li><p><code>cv2.circle(img, origin, radius, color, thickness)</code></p>
-<ul>
+<li><code>cv2.circle(img, origin, radius, color, thickness)</code><ul>
 <li>img: Image to draw</li>
 <li>origin: Pixel to be the origin.</li>
 <li>radius: Radius of the circle.</li>
@@ -263,8 +260,7 @@ cv2.circle(img_cir, (<span class="hljs-number">250</span>, <span class="hljs-num
 </li>
 <li><p><strong>Rectangle</strong></p>
 <ul>
-<li><p><code>cv2.rectangle(img, upper_left, lower_right, color, thickness)</code></p>
-<ul>
+<li><code>cv2.rectangle(img, upper_left, lower_right, color, thickness)</code><ul>
 <li>img: Image to add rectangle.</li>
 <li>upper_left: Top-left corner of the rectangle. ==(Place of the matrix)==</li>
 <li>lower_right: Down-right corner of the rectangle. ==(Place of the matrix)==</li>
@@ -272,8 +268,7 @@ cv2.circle(img_cir, (<span class="hljs-number">250</span>, <span class="hljs-num
 <li>thickness: Thickness of rectangle. To fill the circle put <code>cv2.FILLED</code>.</br>
 <pre><code class="hljs python"><span class="hljs-comment"># Example</span>
 cv2.rectangle(img_rec, (<span class="hljs-number">0</span>, <span class="hljs-number">0</span>), (<span class="hljs-number">250</span>, <span class="hljs-number">350</span>), (<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">255</span>), <span class="hljs-number">3</span>)
-cv2.rectangle(img_rec, (<span class="hljs-number">250</span>, <span class="hljs-number">350</span>), (<span class="hljs-number">250</span>, <span class="hljs-number">350</span>), (<span class="hljs-number">255</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>), cv2.FILLED)</code></pre>
-</li>
+cv2.rectangle(img_rec, (<span class="hljs-number">250</span>, <span class="hljs-number">350</span>), (<span class="hljs-number">250</span>, <span class="hljs-number">350</span>), (<span class="hljs-number">255</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>), cv2.FILLED)</code></pre></li>
 </ul>
 </li>
 </ul>
@@ -287,30 +282,27 @@ cv2.rectangle(img_rec, (<span class="hljs-number">250</span>, <span class="hljs-
 <li>end_point: Position to end line. ==(Place of the matrix)==</li>
 <li>color: Color of line.</li>
 <li>thickness: Thickness of line.</br>
-<pre><code class="hljs python">cv2.line(img_line, (<span class="hljs-number">0</span>, <span class="hljs-number">0</span>), (img.shape[<span class="hljs-number">1</span>], img.shape[<span class="hljs-number">0</span>]), (<span class="hljs-number">0</span>, <span class="hljs-number">255</span>, <span class="hljs-number">0</span>), <span class="hljs-number">3</span>)</code></pre>
-</li>
+<pre><code class="hljs python">cv2.line(img_line, (<span class="hljs-number">0</span>, <span class="hljs-number">0</span>), (img.shape[<span class="hljs-number">1</span>], img.shape[<span class="hljs-number">0</span>]), (<span class="hljs-number">0</span>, <span class="hljs-number">255</span>, <span class="hljs-number">0</span>), <span class="hljs-number">3</span>)</code></pre></li>
 </ul>
 </li>
 </ul>
 </li>
 <li><p><strong>Text</strong></p>
 <ul>
-<li><p><code>cv2.putText(img, text, start_place, font type, scale, color, thickness)</code></p>
-<ul>
+<li><code>cv2.putText(img, text, start_place, font type, scale, color, thickness)</code><ul>
 <li>text: Text to be put on.</li>
 <li>start_point: buttom-left corner of the text. ==(Place of the matrix)==</li>
 <li>font type: The type of the text.</li>
 <li>scale: Scale of the text.</br>
 <pre><code class="hljs python">cv2.putText(img_text, <span class="hljs-string">&quot;OpenCV&quot;</span>, (<span class="hljs-number">300</span>, <span class="hljs-number">100</span>), 
-            cv2.FONT_HERSHEY_COMPLEX, <span class="hljs-number">1</span>, (<span class="hljs-number">0</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>), <span class="hljs-number">3</span>)</code></pre>
-
-</li>
+            cv2.FONT_HERSHEY_COMPLEX, <span class="hljs-number">1</span>, (<span class="hljs-number">0</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>), <span class="hljs-number">3</span>)</code></pre></li>
 </ul>
 </li>
 </ul>
 </li>
+<li><p><em>Demostration</em>*</p>
+</li>
 </ul>
-<p><strong>Demostration</strong></p>
 <pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
 <span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
@@ -430,7 +422,7 @@ cv2.waitKey(<span class="hljs-number">0</span>)
 cv2.destroyAllWindows()
 cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
   <center><img src=https://i.imgur.com/Kw85NL3.jpg width=500/></center>
-</li>
+  </li>
 <li><p><code>np.vstack()</code></p>
 <p>  Same as <code>np.hstack()</code>, but with the vertical result.</p>
   <pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2
@@ -447,8 +439,7 @@ cv2.imshow(<span class="hljs-string">&quot;Vertical image&quot;</span>, img_ver)
 cv2.waitKey(<span class="hljs-number">0</span>)
 cv2.destroyAllWindows()
 cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
-  <center><img src=https://i.imgur.com/294x66t.jpg height=450/></center>
-</li>
+  <center><img src=https://i.imgur.com/294x66t.jpg height=450/></center></li>
 <li><p><strong>Self-define function</strong></p>
 <p>  To first scale the image and stack the images with multilayers, we can write our own function. ==The code below is came from <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.murtazahassan.com/learn-opencv-in-3-hours-chapter-6/">MURTAZA’S WORKSHOP</a>.==</p>
   <pre><code class="hljs python"><span class="hljs-string">&#x27;&#x27;&#x27;</span>
@@ -461,24 +452,24 @@ cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
 <span class="hljs-string">imgArray: Images to stack.</span>
 <span class="hljs-string">&#x27;&#x27;&#x27;</span>
 
-rows = len(imgArray)
-cols = len(imgArray[<span class="hljs-number">0</span>])
+rows = <span class="hljs-built_in">len</span>(imgArray)
+cols = <span class="hljs-built_in">len</span>(imgArray[<span class="hljs-number">0</span>])
 
 <span class="hljs-comment"># Check whether we have multilayers</span>
-rowsAvailable = isinstance(imgArray[<span class="hljs-number">0</span>], list)
+rowsAvailable = <span class="hljs-built_in">isinstance</span>(imgArray[<span class="hljs-number">0</span>], <span class="hljs-built_in">list</span>)
 
 width = imgArray[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>].shape[<span class="hljs-number">1</span>]
 height = imgArray[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>].shape[<span class="hljs-number">0</span>]
 
 <span class="hljs-keyword">if</span> rowsAvailable:
-    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> range (<span class="hljs-number">0</span>, rows):
-        <span class="hljs-keyword">for</span> y <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>, cols):
+    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span> (<span class="hljs-number">0</span>, rows):
+        <span class="hljs-keyword">for</span> y <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, cols):
             <span class="hljs-keyword">if</span> imgArray[x][y].shape[:<span class="hljs-number">2</span>] == imgArray[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>].shape[:<span class="hljs-number">2</span>]:
                 imgArray[x][y] = cv2.resize(imgArray[x][y], (<span class="hljs-number">0</span>, <span class="hljs-number">0</span>), <span class="hljs-literal">None</span>, scale, scale)
             <span class="hljs-keyword">else</span>:
                 imgArray[x][y] = cv2.resize(imgArray[x][y], (imgArray[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>].shape[<span class="hljs-number">1</span>], imgArray[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>].shape[<span class="hljs-number">0</span>]), <span class="hljs-literal">None</span>, scale, scale)
                 
-            <span class="hljs-keyword">if</span> len(imgArray[x][y].shape) == <span class="hljs-number">2</span>: 
+            <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(imgArray[x][y].shape) == <span class="hljs-number">2</span>: 
                 imgArray[x][y]= cv2.cvtColor(imgArray[x][y], cv2.COLOR_GRAY2BGR)
                 
     imageBlank = np.zeros((height, width, <span class="hljs-number">3</span>), np.uint8)
@@ -486,19 +477,19 @@ height = imgArray[<span class="hljs-number">0</span>][<span class="hljs-number">
     hor = [imageBlank] * rows
     
     <span class="hljs-comment"># First put each horizontal image to its horizontal place</span>
-    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>, rows):
+    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, rows):
         hor[x] = np.hstack(imgArray[x])
     
     <span class="hljs-comment"># Stack each array to the vertical format</span>
     ver = np.vstack(hor)
 <span class="hljs-keyword">else</span>:
-    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>, rows):
+    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, rows):
         <span class="hljs-keyword">if</span> imgArray[x].shape[:<span class="hljs-number">2</span>] == imgArray[<span class="hljs-number">0</span>].shape[:<span class="hljs-number">2</span>]:
             imgArray[x] = cv2.resize(imgArray[x], (<span class="hljs-number">0</span>, <span class="hljs-number">0</span>), <span class="hljs-literal">None</span>, scale, scale)
         <span class="hljs-keyword">else</span>:
             imgArray[x] = cv2.resize(imgArray[x], (imgArray[<span class="hljs-number">0</span>].shape[<span class="hljs-number">1</span>], imgArray[<span class="hljs-number">0</span>].shape[<span class="hljs-number">0</span>]), <span class="hljs-literal">None</span>,scale, scale)
             
-        <span class="hljs-keyword">if</span> len(imgArray[x].shape) == <span class="hljs-number">2</span>: 
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(imgArray[x].shape) == <span class="hljs-number">2</span>: 
             imgArray[x] = cv2.cvtColor(imgArray[x], cv2.COLOR_GRAY2BGR)
             
     hor = np.hstack(imgArray)
@@ -520,9 +511,7 @@ cv2.imshow(<span class="hljs-string">&quot;ImageStack&quot;</span>,img_stack)
 cv2.waitKey(<span class="hljs-number">0</span>)
 cv2.destroyAllWindows()
 cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
-  <center><img src=https://i.imgur.com/OG3q7DP.jpg width=500/></center>
-
-</li>
+  <center><img src=https://i.imgur.com/OG3q7DP.jpg width=500/></center></li>
 </ul>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
 <li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.murtazahassan.com/learn-opencv-in-3-hours-chapter-6/">MURTAZA’S WORKSHOP</a></li>
@@ -641,7 +630,7 @@ cv2.waitKey(<span class="hljs-number">1</span>)</code></pre>
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'https://justin900429.github.io/posts/bb761379/';
+                this.page.url = 'https://https://justin900429.github.io/posts/bb761379/';
                 this.page.identifier = 'posts/bb761379/';
             };
             (function(){

@@ -44,7 +44,7 @@
     <meta name="description" content="[Series - 25] K-meansSee moreBack to the series page   NotebookNotebook 前言今天要介紹的演算法屬於 Unsupervised。這個演算法個概念非常簡單，今天我們也會自己實作這個演算法！ K-meansK-means 的直覺概念就是誰離我近你就是我們的類別！因此在整個演算法最初的概念就是先找幾個資料點當作我們的標準點，每個標準點">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Series - 25] K-means">
-<meta property="og:url" content="justin900429.github.io/posts/4b193f43/index.html">
+<meta property="og:url" content="https://justin900429.github.io/posts/4b193f43/index.html">
 <meta property="og:site_name" content="Justin&#39;s sharing place">
 <meta property="og:description" content="[Series - 25] K-meansSee moreBack to the series page   NotebookNotebook 前言今天要介紹的演算法屬於 Unsupervised。這個演算法個概念非常簡單，今天我們也會自己實作這個演算法！ K-meansK-means 的直覺概念就是誰離我近你就是我們的類別！因此在整個演算法最初的概念就是先找幾個資料點當作我們的標準點，每個標準點">
 <meta property="og:locale" content="en_US">
@@ -78,7 +78,7 @@
 
     <!-- custom head -->
 
-<meta name="generator" content="Hexo 5.1.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
     <body>
         <div id="app">
@@ -232,10 +232,10 @@ window.onscroll = () => {
         
         <span class="hljs-comment"># Find new centers from means of points</span>
         new_centers = np.array([X[labels == i].mean(axis=<span class="hljs-number">0</span>)
-                                <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(n_clusters)])
+                                <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n_clusters)])
         
         <span class="hljs-comment"># Check for convergence</span>
-        <span class="hljs-keyword">if</span> np.all(centers == new_centers):
+        <span class="hljs-keyword">if</span> np.<span class="hljs-built_in">all</span>(centers == new_centers):
             <span class="hljs-keyword">break</span>
         centers = new_centers
     
@@ -409,7 +409,7 @@ window.onscroll = () => {
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'https://justin900429.github.io/posts/4b193f43/';
+                this.page.url = 'https://https://justin900429.github.io/posts/4b193f43/';
                 this.page.identifier = 'posts/4b193f43/';
             };
             (function(){

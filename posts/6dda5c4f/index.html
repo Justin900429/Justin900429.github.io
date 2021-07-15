@@ -44,7 +44,7 @@
     <meta name="description" content="Android MenuSee moreBack to the series page   前言今天我們會說明如何在 App 裡創建 Menu 這篇看完後會了解到： 新增 Menu 以及顯示方式。 新增 Menu 的 Action。    Menu一般我們在使用 App 時，右上方通常會出現選單來使用。一般我們可以將選單的內容放出來，也可以收納起來。    製作 Menu在製作 Menu 之前，我">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android Menu">
-<meta property="og:url" content="justin900429.github.io/posts/6dda5c4f/index.html">
+<meta property="og:url" content="https://justin900429.github.io/posts/6dda5c4f/index.html">
 <meta property="og:site_name" content="Justin&#39;s sharing place">
 <meta property="og:description" content="Android MenuSee moreBack to the series page   前言今天我們會說明如何在 App 裡創建 Menu 這篇看完後會了解到： 新增 Menu 以及顯示方式。 新增 Menu 的 Action。    Menu一般我們在使用 App 時，右上方通常會出現選單來使用。一般我們可以將選單的內容放出來，也可以收納起來。    製作 Menu在製作 Menu 之前，我">
 <meta property="og:locale" content="en_US">
@@ -82,7 +82,7 @@
 
     <!-- custom head -->
 
-<meta name="generator" content="Hexo 5.1.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
     <body>
         <div id="app">
@@ -278,9 +278,7 @@ window.onscroll = () => {
 <li><p><code>collapseActionView</code><br>  可以將 <strong>ActionBar</strong> 的其他 <strong>icon</strong> 折疊起來。可以參考<a target="_blank" rel="noopener external nofollow noreferrer" href="https://developer.android.com/training/appbar/action-views">官方文檔</a>。</p>
   <br>
   <center><img src="https://i.imgur.com/NeL6rd7.png" width=300/></center>
-  <br>
-
-</li>
+  <br></li>
 </ul>
 <h2 id="Infate-menu"><a href="#Infate-menu" class="headerlink" title="Infate menu"></a>Infate menu</h2><p>雖然我們已經設計好介面，我們還是需要在 <strong>Activity</strong> 裡面利用 <strong>onCreateOptionsMenu</strong> 來製作我們的 <strong>menu</strong>。</p>
 <pre><code class="hljs kotlin"><span class="hljs-comment">/*</span>
@@ -338,8 +336,7 @@ window.onscroll = () => {
 <span class="hljs-tag">        <span class="hljs-attr">android:title</span>=<span class="hljs-string">&quot;You found me!&quot;</span></span>
 <span class="hljs-tag">        <span class="hljs-attr">app:showAsAction</span>=<span class="hljs-string">&quot;never&quot;</span>/&gt;</span>
 
-<span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span></code></pre>
-</li>
+<span class="hljs-tag">&lt;/<span class="hljs-name">menu</span>&gt;</span></code></pre></li>
 <li><p>MainActivity</p>
 <pre><code class="hljs kotlin"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MainActivity</span> : <span class="hljs-type">AppCompatActivity</span></span>() &#123;
     <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onCreate</span><span class="hljs-params">(savedInstanceState: <span class="hljs-type">Bundle</span>?)</span></span> &#123;
@@ -384,9 +381,7 @@ window.onscroll = () => {
 
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.onOptionsItemSelected(item)
     &#125;
-&#125;</code></pre>
-
-</li>
+&#125;</code></pre></li>
 </ul>
 <h2 id="展示區"><a href="#展示區" class="headerlink" title="展示區"></a>展示區</h2><br>
 <center><img src="https://i.imgur.com/fvAIOkF.gif" width=300/></center>
@@ -512,7 +507,7 @@ window.onscroll = () => {
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'https://justin900429.github.io/posts/6dda5c4f/';
+                this.page.url = 'https://https://justin900429.github.io/posts/6dda5c4f/';
                 this.page.identifier = 'posts/6dda5c4f/';
             };
             (function(){

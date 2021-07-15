@@ -44,7 +44,7 @@
     <meta name="description" content="Binary exponentonentiationSee moreBack to the series page   IntroductionIn this article, we’ll going to find out what is binary exponentiation and the advantage of using binary exponentiation. After r">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Binary exponentonentiation">
-<meta property="og:url" content="justin900429.github.io/posts/1c91b2bc/index.html">
+<meta property="og:url" content="https://justin900429.github.io/posts/1c91b2bc/index.html">
 <meta property="og:site_name" content="Justin&#39;s sharing place">
 <meta property="og:description" content="Binary exponentonentiationSee moreBack to the series page   IntroductionIn this article, we’ll going to find out what is binary exponentiation and the advantage of using binary exponentiation. After r">
 <meta property="og:locale" content="en_US">
@@ -74,7 +74,7 @@
 
     <!-- custom head -->
 
-<meta name="generator" content="Hexo 5.1.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
     <body>
         <div id="app">
@@ -236,7 +236,7 @@ window.onscroll = () => {
     <span class="hljs-keyword">if</span> (exponent == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
     
     <span class="hljs-comment">// Return base * base^(exponent - 1)</span>
-    <span class="hljs-keyword">return</span> pow_rec(base, exponent - <span class="hljs-number">1</span>) * base;
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">pow_rec</span>(base, exponent - <span class="hljs-number">1</span>) * base;
 &#125;</code></pre>
 
 <h2 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h2><p>The codes above use the same time complexity. However, both of them reach the complexity $O(n)$. That means, if we want to compute $n^{10000}$, we have to multiply it for $10000$ times. </p>
@@ -265,7 +265,7 @@ window.onscroll = () => {
     <span class="hljs-keyword">if</span> (exponent == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
     
     <span class="hljs-comment">// count the base^(exponent/2)</span>
-    <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> <span class="hljs-keyword">int</span> res = binpow(base, exponent / <span class="hljs-number">2</span>);
+    <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> <span class="hljs-keyword">int</span> res = <span class="hljs-built_in">binpow</span>(base, exponent / <span class="hljs-number">2</span>);
     
     <span class="hljs-comment">// If even, square it</span>
     <span class="hljs-keyword">if</span> (exponent % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>) &#123;
@@ -305,7 +305,7 @@ exponent &gt;&gt;= <span class="hljs-number">1</span>
 
 <pre><code class="hljs cpp">...
 <span class="hljs-comment">// count the base^(exp/2)</span>
-<span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> <span class="hljs-keyword">int</span> res = binpow(base, exponent / <span class="hljs-number">2</span>);
+<span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> <span class="hljs-keyword">int</span> res = <span class="hljs-built_in">binpow</span>(base, exponent / <span class="hljs-number">2</span>);
 ...</code></pre>
 
 <h2 id="Fast-computing-the-modulo-of-large-exponent"><a href="#Fast-computing-the-modulo-of-large-exponent" class="headerlink" title="Fast computing the modulo of large exponent"></a>Fast computing the modulo of large exponent</h2><p>One thing we may encounter in programming (such as Miller Robin primality tests) is to compute:</p>
@@ -314,8 +314,8 @@ exponent &gt;&gt;= <span class="hljs-number">1</span>
 <p>$$<br>a * b \equiv (a \ mod \ k) * (b \ mod \ k)  \  \ \ \ \ (mod \ k)<br>$$</p>
 <p>Therefore, to compute  $a^p \ mod \ k$, we don’t have to wait for finishing compute $a^p$, instead, we can compute it by modulo every number after we multiply.</p>
 <pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> <span class="hljs-keyword">int</span> <span class="hljs-title">bin_pow_mod</span><span class="hljs-params">(<span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> <span class="hljs-keyword">int</span> base,</span></span>
-<span class="hljs-function"><span class="hljs-params">                          <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> exponent,</span></span>
-<span class="hljs-function"><span class="hljs-params">                          <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> <span class="hljs-keyword">int</span> mod)</span> </span>&#123;
+<span class="hljs-params"><span class="hljs-function">                          <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> exponent,</span></span>
+<span class="hljs-params"><span class="hljs-function">                          <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> <span class="hljs-keyword">int</span> mod)</span> </span>&#123;
     <span class="hljs-comment">// Initialize the result</span>
     <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> <span class="hljs-keyword">int</span> res = <span class="hljs-number">1</span>;
     
@@ -506,7 +506,7 @@ exponent &gt;&gt;= <span class="hljs-number">1</span>
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'https://justin900429.github.io/posts/1c91b2bc/';
+                this.page.url = 'https://https://justin900429.github.io/posts/1c91b2bc/';
                 this.page.identifier = 'posts/1c91b2bc/';
             };
             (function(){

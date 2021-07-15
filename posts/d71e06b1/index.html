@@ -44,7 +44,7 @@
     <meta name="description" content="[Series - 18] Classification - SVM - 1See moreBack to the series page   前言今天要講的主題是 SVM，曾經是 kaggle演算法上的霸主。在複習這主題的時候發現實在有一大堆可以說，但是牽扯到很多數學，大概可以寫個 5 篇來講清楚。但為了讓大家認識到 SVM 的概念，我會省略掉很多數學的內容，讓大家可以專注在這個演算法的內容。如">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Series - 18] Classification - SVM - 1">
-<meta property="og:url" content="justin900429.github.io/posts/d71e06b1/index.html">
+<meta property="og:url" content="https://justin900429.github.io/posts/d71e06b1/index.html">
 <meta property="og:site_name" content="Justin&#39;s sharing place">
 <meta property="og:description" content="[Series - 18] Classification - SVM - 1See moreBack to the series page   前言今天要講的主題是 SVM，曾經是 kaggle演算法上的霸主。在複習這主題的時候發現實在有一大堆可以說，但是牽扯到很多數學，大概可以寫個 5 篇來講清楚。但為了讓大家認識到 SVM 的概念，我會省略掉很多數學的內容，讓大家可以專注在這個演算法的內容。如">
 <meta property="og:locale" content="en_US">
@@ -80,7 +80,7 @@
 
     <!-- custom head -->
 
-<meta name="generator" content="Hexo 5.1.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
     <body>
         <div id="app">
@@ -271,7 +271,7 @@ sns.scatterplot(X[:, <span class="hljs-number">0</span>], X[:, <span class="hljs
 w = model.coef_[<span class="hljs-number">0</span>]
 a = -w[<span class="hljs-number">0</span>] / w[<span class="hljs-number">1</span>]
 
-xx = np.linspace(<span class="hljs-number">-2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">120</span>)
+xx = np.linspace(-<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">120</span>)
 yy = a * xx - model.intercept_[<span class="hljs-number">0</span>] / w[<span class="hljs-number">1</span>]
 
 <span class="hljs-comment"># Plot the support vector</span>
@@ -458,7 +458,7 @@ plt.plot(xx, yy)</code></pre>
     <script>
         function loadComment() {
             window.disqus_config = function () {
-                this.page.url = 'https://justin900429.github.io/posts/d71e06b1/';
+                this.page.url = 'https://https://justin900429.github.io/posts/d71e06b1/';
                 this.page.identifier = 'posts/d71e06b1/';
             };
             (function(){
