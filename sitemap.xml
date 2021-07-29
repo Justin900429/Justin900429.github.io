@@ -522,35 +522,14 @@
   </url>
   
   <url>
-    <loc>https://https://justin900429.github.io/tags/OpenCV/</loc>
+    <loc>https://https://justin900429.github.io/tags/drone/</loc>
     <lastmod>2021-07-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://https://justin900429.github.io/tags/Python/</loc>
-    <lastmod>2021-07-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://https://justin900429.github.io/tags/Computer-Vision/</loc>
-    <lastmod>2021-07-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://https://justin900429.github.io/tags/Pytorch/</loc>
-    <lastmod>2021-07-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://https://justin900429.github.io/tags/Deep-Learning/</loc>
+    <loc>https://https://justin900429.github.io/tags/Tello-EDU/</loc>
     <lastmod>2021-07-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -571,14 +550,35 @@
   </url>
   
   <url>
-    <loc>https://https://justin900429.github.io/tags/drone/</loc>
+    <loc>https://https://justin900429.github.io/tags/Python/</loc>
     <lastmod>2021-07-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://https://justin900429.github.io/tags/Tello-EDU/</loc>
+    <loc>https://https://justin900429.github.io/tags/Pytorch/</loc>
+    <lastmod>2021-07-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://https://justin900429.github.io/tags/Deep-Learning/</loc>
+    <lastmod>2021-07-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://https://justin900429.github.io/tags/OpenCV/</loc>
+    <lastmod>2021-07-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://https://justin900429.github.io/tags/Computer-Vision/</loc>
     <lastmod>2021-07-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

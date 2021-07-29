@@ -140,11 +140,11 @@
     
     <category term="algorithm" scheme="https://justin900429.github.io/tags/algorithm/"/>
     
-    <category term="Python" scheme="https://justin900429.github.io/tags/Python/"/>
-    
     <category term="AI" scheme="https://justin900429.github.io/tags/AI/"/>
     
     <category term="ML" scheme="https://justin900429.github.io/tags/ML/"/>
+    
+    <category term="Python" scheme="https://justin900429.github.io/tags/Python/"/>
     
   </entry>
   
@@ -163,9 +163,9 @@
     
     
     
-    <category term="OpenCV" scheme="https://justin900429.github.io/tags/OpenCV/"/>
-    
     <category term="Python" scheme="https://justin900429.github.io/tags/Python/"/>
+    
+    <category term="OpenCV" scheme="https://justin900429.github.io/tags/OpenCV/"/>
     
     <category term="Computer-Vision" scheme="https://justin900429.github.io/tags/Computer-Vision/"/>
     
