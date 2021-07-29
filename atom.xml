@@ -31,9 +31,9 @@
     
     
     
-    <category term="Pytorch" scheme="https://justin900429.github.io/tags/Pytorch/"/>
-    
     <category term="Python" scheme="https://justin900429.github.io/tags/Python/"/>
+    
+    <category term="Pytorch" scheme="https://justin900429.github.io/tags/Pytorch/"/>
     
     <category term="Deep-Learning" scheme="https://justin900429.github.io/tags/Deep-Learning/"/>
     
@@ -140,11 +140,11 @@
     
     <category term="algorithm" scheme="https://justin900429.github.io/tags/algorithm/"/>
     
-    <category term="Python" scheme="https://justin900429.github.io/tags/Python/"/>
-    
     <category term="AI" scheme="https://justin900429.github.io/tags/AI/"/>
     
     <category term="ML" scheme="https://justin900429.github.io/tags/ML/"/>
+    
+    <category term="Python" scheme="https://justin900429.github.io/tags/Python/"/>
     
   </entry>
   
