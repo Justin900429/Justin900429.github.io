@@ -2,16 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://https://justin900429.github.io/posts/c060b6bd/</loc>
+    <loc>https://https://justin900429.github.io/about/index.html</loc>
     
-    <lastmod>2021-09-08</lastmod>
+    <lastmod>2022-05-23</lastmod>
     
   </url>
   
   <url>
-    <loc>https://https://justin900429.github.io/about/index.html</loc>
+    <loc>https://https://justin900429.github.io/posts/c060b6bd/</loc>
     
-    <lastmod>2021-07-29</lastmod>
+    <lastmod>2021-09-08</lastmod>
     
   </url>
   
@@ -536,14 +536,7 @@
   </url>
   
   <url>
-    <loc>https://https://justin900429.github.io/tags/AI/</loc>
-    <lastmod>2022-05-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://https://justin900429.github.io/tags/ML/</loc>
+    <loc>https://https://justin900429.github.io/tags/OpenCV/</loc>
     <lastmod>2022-05-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -557,14 +550,21 @@
   </url>
   
   <url>
-    <loc>https://https://justin900429.github.io/tags/OpenCV/</loc>
+    <loc>https://https://justin900429.github.io/tags/Computer-Vision/</loc>
     <lastmod>2022-05-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://https://justin900429.github.io/tags/Computer-Vision/</loc>
+    <loc>https://https://justin900429.github.io/tags/AI/</loc>
+    <lastmod>2022-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://https://justin900429.github.io/tags/ML/</loc>
     <lastmod>2022-05-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
