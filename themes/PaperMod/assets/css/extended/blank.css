@@ -1,0 +1,70 @@
+/*
+This is just a placeholder blank stylesheet so as to support adding custom styles budled with theme's default styles
+
+Read https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#bundling-custom-css-with-themes-assets for more info
+*/
+
+/* =============================================================================
+/* Hugo-Cite.css
+/* ----------------------------------------------------------------------------- */
+
+section.hugo-cite-bibliography dt {
+    width: 100%;
+    padding-inline-start: 0;
+}
+
+section.hugo-cite-bibliography dd {
+    width: 100%;
+    padding-inline-start: 0;
+}
+
+section.hugo-cite-bibliography li::marker {
+    content: "[" counter(list-item) "] ";
+}
+
+.hugo-cite-group {
+    display: inline-block;
+    vertical-align: baseline; /*compensate for lower height */
+    position: relative;
+    font-size: .85em; /* reduce to avoid some breaks */
+  }
+  .hugo-cite-group
+    .hugo-cite-citation {
+      visibility: hidden;
+      background-color: #ffffff;
+      color: inherit;
+      border: 1px solid currentColor;
+      padding: 1rem;
+      position: absolute;
+      width: 350px;
+      max-width: 100vw;
+      z-index: 1;
+      bottom: 140%;
+      left: 0;
+      margin-left: -50px;
+  
+      z-index: 2;
+      transition:
+        visibility 0s .3s,
+        transform .3s ease 0s,
+        opacity .3s ease 0s;
+      opacity: 0;
+      transform: translateY(-8px);
+  }
+  .hugo-cite-group:hover
+    .hugo-cite-citation {
+      visibility: visible;
+      transition: visibility 0s 0s, transform .3s, opacity .3s;
+      opacity: 1;
+      transform: translateY(0);
+  }
+  
+  /* Visually Hidden utility class */
+  .visually-hidden {
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+  }
+  

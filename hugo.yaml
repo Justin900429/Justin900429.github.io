@@ -1,0 +1,111 @@
+baseURL: https://justin900429.github.io/
+languageCode: en-us
+title: Justin's Site
+theme: 
+ - PaperMod
+ - hugo-cite
+
+minify:
+  disableXML: true
+  minifyOutput: true
+
+enableInlineShortcodes: true
+enableEmoji: true
+enableRobotsTXT: true
+
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+paginate: 10
+outputs:
+    home:
+        - HTML
+        - RSS
+        - JSON
+
+defaultContentLanguage: en
+defaultContentLanguageInSubdir: true
+
+params:
+    ShowBreadCrumbs: true
+    env: production 
+    description: "Justin's blog, paper reading, artifical intellgence, deep-learning, computer-vision"
+    author: Justin
+    defaultTheme: auto 
+    disableThemeToggle: false
+    DateFormat: "January 2, 2006"
+    ShowShareButtons: false
+    ShowReadingTime: true
+    ShowWordCount: true
+    displayFullLangName: true
+    ShowPostNavLinks: true
+    ShowBreadCrumbs: true
+    ShowCodeCopyButtons: true
+    hideFooter: false 
+    VisitCount: true
+    ShowLastMod: true
+    fuseOpts:
+        isCaseSensitive: false
+        shouldSort: true
+        location: 0
+        distance: 1000
+        threshold: 0.4
+        minMatchCharLength: 0
+        limit: 10 # refer: https://www.fusejs.io/api/methods.html#search
+        keys: ["title", "permalink", "summary", "content"]
+    ShowToc: true 
+    TocOpen: false
+    math: true
+
+languages:
+    en:
+        languageName: "English"
+        # contentDir: content/english
+        weight: 1
+        params:
+            profileMode:    
+                enabled: true
+                title: Hi, there!👋🏼
+                subtitle: Welcome to my blog! Interested in technology? Check below!👇🏼
+                buttons:
+                - name: 👨🏻‍💻 coding
+                  url: posts/coding
+                - name: 📖 paper-reading
+                  url: posts/paper_reading
+        menu:
+            main:
+            - identifier: home
+              name: 🏠 home
+              url: /
+              weight: 1
+            - identifier: posts
+              name: 📚 article
+              url: posts
+              weight: 2
+            - identifier: search
+              name: 🔍 search
+              url: /search/
+              weight: 3
+
+markup:
+    goldmark:
+        renderer:
+            unsafe: true
+        extensions:
+          passthrough:
+            delimiters:
+              block:
+              - - \[
+                - \]
+              - - $$
+                - $$
+              inline:
+              - - \(
+                - \)
+              - - $
+                - $
+            enable: true
+    highlight:
+        codeFences: true  
+        guessSyntax: true

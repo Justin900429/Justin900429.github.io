@@ -1,0 +1,172 @@
+[
+    {
+        "id": "peebles2023scalable",
+        "title": "Scalable diffusion models with transformers",
+        "author": [
+            {
+                "given": "William",
+                "family": "Peebles"
+            },
+            {
+                "given": "Saining",
+                "family": "Xie"
+            }
+        ],
+        "type": "article-journal",
+        "container-title": "IEEE/CVF International Conference on Computer Vision (ICCV)",
+        "issued": {
+            "date-parts": [
+                [
+                    2023
+                ]
+            ]
+        }
+    },
+    {
+        "id": "rombach2022high",
+        "title": "High-resolution image synthesis with latent diffusion models",
+        "author": [
+            {
+                "given": "Robin",
+                "family": "Rombach"
+            },
+            {
+                "given": "Andreas",
+                "family": "Blattmann"
+            },
+            {
+                "given": "Dominik",
+                "family": "Lorenz"
+            },
+            {
+                "given": "Patrick",
+                "family": "Esser"
+            },
+            {
+                "given": "Björn",
+                "family": "Ommer"
+            }
+        ],
+        "type": "article-journal",
+        "container-title": "IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)",
+        "page": "10684--10695",
+        "issued": {
+            "date-parts": [
+                [
+                    2022
+                ]
+            ]
+        }
+
+    },
+    {
+        "id": "perez2018film",
+        "title": "Film: Visual reasoning with a general conditioning layer",
+        "author": [
+            {
+                "given": "Ethan",
+                "family": "Perez"
+            },
+            {
+                "given": "Florian",
+                "family": "Strub"
+            },
+            {
+                "given": "Harm",
+                "family": "De Vries"
+            },
+            {
+                "given": "Vincent",
+                "family": "Dumoulin"
+            },
+            {
+                "given": "Aaron",
+                "family": "Courville"
+            }
+        ],
+        "type": "article-journal",
+        "container-title": "AAAI Conference on Artificial Intelligence",
+        "issued": {
+            "date-parts": [
+                [
+                    2018
+                ]
+            ]
+        },
+        "volume": "32"
+    },
+    {
+        "id": "goyal2017accurate",
+        "title": "Accurate, large minibatch SG D: training imagenet in 1 hour",
+        "author": [
+            {
+                "given": "P",
+                "family": "Goyal"
+            }
+        ],
+        "type": "article-journal",
+        "container-title": "arXiv preprint arXiv:1706.02677",
+        "issued": {
+            "date-parts": [
+                [
+                    2017
+                ]
+            ]
+        }
+    },
+    {
+        "id": "chen2024pixartalpha",
+        "title": "PixArt-\\(alpha\\): Fast Training of Diffusion Transformer for Photorealistic Text-to-Image Synthesis",
+        "author": [
+            {
+                "given": "Junsong",
+                "family": "Chen"
+            },
+            {
+                "given": "Jincheng",
+                "family": "YU"
+            },
+            {
+                "given": "Chongjian",
+                "family": "GE"
+            },
+            {
+                "given": "Lewei",
+                "family": "Yao"
+            },
+            {
+                "given": "Enze",
+                "family": "Xie"
+            },
+            {
+                "given": "Zhongdao",
+                "family": "Wang"
+            },
+            {
+                "given": "James",
+                "family": "Kwok"
+            },
+            {
+                "given": "Ping",
+                "family": "Luo"
+            },
+            {
+                "given": "Huchuan",
+                "family": "Lu"
+            },
+            {
+                "given": "Zhenguo",
+                "family": "Li"
+            }
+        ],
+        "type": "article-journal",
+        "container-title": "International Conference on Learning Representations (ICLR)",
+        "issued": {
+            "date-parts": [
+                [
+                    2024
+                ]
+            ]
+        }
+    }
+]
