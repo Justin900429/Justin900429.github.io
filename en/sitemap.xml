@@ -2,15 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://justin900429.github.io/en/posts/coding/</loc>
-  </url><url>
     <loc>https://justin900429.github.io/en/posts/paper_reading/</loc>
+    <lastmod>2024-04-18T18:45:59+08:00</lastmod>
   </url><url>
     <loc>https://justin900429.github.io/en/posts/</loc>
+    <lastmod>2024-04-18T18:45:59+08:00</lastmod>
   </url><url>
-    <loc>https://justin900429.github.io/en/categories/</loc>
+    <loc>https://justin900429.github.io/en/posts/paper_reading/dit-intro/</loc>
+    <lastmod>2024-04-18T18:45:59+08:00</lastmod>
   </url><url>
     <loc>https://justin900429.github.io/en/</loc>
+    <lastmod>2024-04-18T18:45:59+08:00</lastmod>
+  </url><url>
+    <loc>https://justin900429.github.io/en/posts/coding/</loc>
+  </url><url>
+    <loc>https://justin900429.github.io/en/categories/</loc>
   </url><url>
     <loc>https://justin900429.github.io/en/search/</loc>
     <priority>0.1</priority>
