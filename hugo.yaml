@@ -64,15 +64,20 @@ languages:
         # contentDir: content/english
         weight: 1
         params:
-            profileMode:    
-                enabled: true
-                title: Hi, there!👋🏼
-                subtitle: Welcome to my blog! Interested in technology? Check below!👇🏼
+            homeInfoParams:
+                title: Blog for recording my learning journey 🎶
+                Content: Welcome to my blog! Interested in technology? Check below!👇🏼 (Still moving from the old one.)
                 buttons:
                 - name: 👨🏻‍💻 coding
                   url: posts/coding
                 - name: 📖 paper-reading
                   url: posts/paper_reading
+
+            socialIcons:
+              - name: GitHub
+                url: https://github.com/Justin900429
+              - name: googlescholar
+                url: http://scholar.google.com/citations?user=1-BrMaAAAAAJ
         menu:
             main:
             - identifier: home
