@@ -6,6 +6,14 @@
     <description>Recent content in 👨🏻‍💻 coding on Justin&#39;s Site</description>
     <generator>Hugo -- 0.119.0</generator>
     <language>en</language>
+    <lastBuildDate>Thu, 15 Jul 2021 15:50:37 +0800</lastBuildDate>
     <atom:link href="https://justin900429.github.io/en/posts/coding/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Powerful Tools for Tensor Operations - Einops</title>
+      <link>https://justin900429.github.io/en/posts/coding/einops/</link>
+      <pubDate>Thu, 15 Jul 2021 15:50:37 +0800</pubDate>
+      <guid>https://justin900429.github.io/en/posts/coding/einops/</guid>
+      <description>An introduction to Einops, a powerful tool for tensor operations.</description>
+    </item>
   </channel>
 </rss>
