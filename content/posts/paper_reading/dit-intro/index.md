@@ -1,6 +1,6 @@
 ---
 title: 'Diffusion Transformer: A powerful archiecture for image generation'
-date: 2024-04-18T18:45:59+08:00
+date: 2024-09-18T18:45:59+08:00
 bibFile: "content/posts/paper_reading/dit-intro/bib.json"
 summary: "An introduction to the Diffusion Transformer (DiT) architecture with examples of its applications in image generation."
 cover:
