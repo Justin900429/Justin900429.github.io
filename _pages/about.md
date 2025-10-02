@@ -61,8 +61,9 @@ More can be found in [my Google Scholar Page](https://scholar.google.com/citatio
 
 ### Conference Reviewers
 
+- Conference on Computer Vision and Pattern Recognition (CVPR), *2026*
+- International Conference on Learning Representations (ICLR), *2025-2026*
 - Neural Information Processing Systems (NeurIPS), *2025*
-- International Conference on Learning Representations (ICLR), *2024-2025*
 - AAAI Conference on Artificial Intelligence (AAAI), *2025*
 - ACM International Conference on Multimedia (ACM MM), *2023-2025*
 - IEEE International Conference on Multimedia (ICME), *2023-2024*
