@@ -19,6 +19,10 @@ I completed my **Bachelor’s degree in Electrical and Computer Engineering** at
   🪶 **Bo-Kai Ruan**, Zi-Xiang Ni, Bo-Lun Huang, Teng-Fang Hsiao, Hong-Han Shuai \\
   🌐 *Preprint 2025* \\
   [[Paper](https://arxiv.org/abs/2505.20808)]
+- FreeCond: Free Lunch in the Input Conditions of Text-Guided Inpainting \\
+  🪶 Teng-Fang Hsiao, **Bo-Kai Ruan**, Sung-Lin Tsai, Yi-Lun Wu, Hong-Han Shuai \\
+  🌐 In *Winter Conference on Applications of Computer Vision (**WACV**) 2026* \\
+  [[Paper](https://arxiv.org/abs/2412.00427)] [[Code](https://github.com/basiclab/FreeCond)]
 - Ranking-based Preference Optimization for Diffusion Models from Implicit User Feedback \\
   🪶 Yi-Lun Wu, **Bo-Kai Ruan**, Chiang Tseng, Hong-Han Shuai \\
   🌐 In *Neural Information Processing Systems (**NeurIPS**) 2025* \\
@@ -72,6 +76,7 @@ More can be found in [my Google Scholar Page](https://scholar.google.com/citatio
 ### Journal Reviewers
 
 - IEEE Transactions on Multimedia (T-MM)
+- Transactions on Machine Learning Research (TMLR)
 
 ## 🎓 Educations
 
