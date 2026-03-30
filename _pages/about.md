@@ -15,6 +15,18 @@ I completed my **Bachelor’s degree in Electrical and Computer Engineering** at
 
 ## 📝 Publications
 
+- Traffic Scene Generation from Natural Language Description for Autonomous Vehicles with Large Language Model \\
+  🪶 **Bo-Kai Ruan**, Hao-Tang Tsui, Yung-Hui Li, Hong-Han Shuai \\
+  🌐 In *Conference on Computer Vision and Pattern Recognition Workshop (**CVPRW**) 2026* \\
+  [[Paper](https://arxiv.org/abs/2409.09575)] [[Code](https://github.com/basiclab/TTSG)] [[Project Page](https://basiclab.github.io/TTSG/)]
+- HyperRAG: Reasoning N-ary Facts over Hypergraphs for Retrieval Augmented Generation \\
+  🪶 Wen-Sheng Lien, Yu-Kai Chan, Hao-Lung Hsiao, **Bo-Kai Ruan**, Meng-Fen Chiang, Chien-An Chen, Yi-Ren Yeh, Hong-Han Shuai \\
+  🌐 In *ACM Web Conference (**WWW**) 2026* \\
+  [[Paper](https://arxiv.org/abs/2602.14470)] [[Code](https://github.com/Vincent-Lien/HyperRAG)]
+- PromptMoG: Enhancing Diversity in Long-Prompt Image Generation via Prompt Embedding Mixture-of-Gaussian Sampling \\
+  🪶 **Bo-Kai Ruan**, Teng-Fang Hsiao, Ling Lo, Yi-Lun Wu, Hong-Han Shuai \\
+  🌐 *Preprint 2025* \\
+  [[Paper](https://arxiv.org/abs/2511.20251)]
 - Score Replacement with Bounded Deviation for Rare Prompt Generation \\
   🪶 **Bo-Kai Ruan**, Zi-Xiang Ni, Bo-Lun Huang, Teng-Fang Hsiao, Hong-Han Shuai \\
   🌐 *Preprint 2025* \\
@@ -37,7 +49,7 @@ I completed my **Bachelor’s degree in Electrical and Computer Engineering** at
   [[Paper](https://arxiv.org/abs/2503.15283)] [[Code](https://github.com/BlueDyee/TF-TI2I)] [[Project Page](https://bluedyee.github.io/TF-TI2I_page)]
 - MAD: Makeup All-in-One with Cross-Domain Diffusion Model \\
   🪶 **Bo-Kai Ruan**, Hong-Han Shuai \\
-  🌐 In *Conference on Computer Vision and Pattern Recognition Workshop (**CVPRW**) 2025* \\  
+  🌐 In *Conference on Computer Vision and Pattern Recognition Workshop (**CVPRW**) 2025* \\
   [[Paper](https://arxiv.org/abs/2504.02545)] [[Code](https://github.com/basiclab/MAD)] [[Project Page](https://basiclab.github.io/MAD/)]
 - Training-and-Prompt-Free General Painterly Harmonization via Zero-Shot Disentenglement on Style and Content References \\
   🪶 Teng-Fang Hsiao, **Bo-Kai Ruan**, Hong-Han Shuai \\
@@ -66,16 +78,18 @@ More can be found in [my Google Scholar Page](https://scholar.google.com/citatio
 
 ### Conference Reviewers
 
+- European Conference on Computer Vision (ECCV), *2026*
 - Conference on Computer Vision and Pattern Recognition (CVPR), *2026*
 - International Conference on Learning Representations (ICLR), *2025-2026*
-- Neural Information Processing Systems (NeurIPS), *2025*
+- Neural Information Processing Systems (NeurIPS), *2025-2026*
 - AAAI Conference on Artificial Intelligence (AAAI), *2025*
 - ACM International Conference on Multimedia (ACM MM), *2023-2025*
 - IEEE International Conference on Multimedia (ICME), *2023-2024*
 
 ### Journal Reviewers
 
-- IEEE Transactions on Multimedia (T-MM)
+- IEEE Transactions on Image Processing (TIP)
+- IEEE Transactions on Multimedia (TMM)
 - Transactions on Machine Learning Research (TMLR)
 
 ## 🎓 Educations
